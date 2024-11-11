@@ -126,9 +126,10 @@ namespace Scenes._50_Minigames.Gamemode
 
         public (IGameRules, IGenericGameMode) DetermineGamemodeAndGameRulesToUse(int level)
         {
-            ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
+            //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             IGenericGameMode mode = null;
             IGameRules rules = null;
+            /*
             if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
             {
                 mode = new LevelFiveRacing();
@@ -139,6 +140,8 @@ namespace Scenes._50_Minigames.Gamemode
                 mode = new LevelThreeRacing();
                 rules = new DynamicGameRules();
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
             return (rules, mode);
         }
 

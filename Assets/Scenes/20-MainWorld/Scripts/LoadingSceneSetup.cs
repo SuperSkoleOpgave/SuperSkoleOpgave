@@ -16,7 +16,7 @@ public class LoadingSceneSetup : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        
+        /*
         //loads the general level selector and prepares the setup method if the player level is low enough 
         if(GameManager.Instance.DynamicDifficultyAdjustmentManager.playerLanguageLevel < 7)
         {
@@ -67,6 +67,7 @@ public class LoadingSceneSetup : MonoBehaviour
                     break;
             }
         }
+        */
     }
 
     /// <summary>

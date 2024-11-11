@@ -100,8 +100,8 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                 dynamicGameRules.SetCorrectAnswer();
                 
 
-                languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                    .GetNextLanguageUnitsBasedOnLevel(1);
+                //languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager
+                  //  .GetNextLanguageUnitsBasedOnLevel(1);
             }
             StartUI.SetActive(false);
             raceActive = true;
@@ -475,7 +475,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
 
                     if (currentIndex >= targetWord.Length)
                     {
-                        GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, true);
+                        //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, true);
                         if(targetWord.Length > 1)
                         {
                             PlayerEvents.RaiseAddWord(targetWord);
@@ -492,7 +492,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                 }
                 else 
                 {
-                    GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, false);
+                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, false);
                     AudioManager.Instance.PlaySound(incorrectSound, SoundType.SFX);
                 }
                 displayToggle = !displayToggle;

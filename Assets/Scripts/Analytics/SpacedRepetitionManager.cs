@@ -10,6 +10,7 @@ using Words;
 
 namespace Analytics
 {
+    /*
     /// <summary>
     /// Manages spaced repetition functionality including initialization, updating, and recording usage metrics for language learning units.
     /// </summary>
@@ -18,8 +19,8 @@ namespace Analytics
         private readonly IPerformanceWeightManager performanceWeightManager;
         private readonly TimeSpan repetitionInterval = TimeSpan.FromDays(7);
 
-        private ConcurrentDictionary<string, LetterData> letterWeights;
-        private ConcurrentDictionary<string, WordData> wordWeights;
+        //private ConcurrentDictionary<string, LetterData> letterWeights;
+        //private ConcurrentDictionary<string, WordData> wordWeights;
 
         /// <summary>
         /// Ensures that the letter and word weights are initialized from the player's data.
@@ -266,4 +267,5 @@ namespace Analytics
             }
         }
     }
+    */
 }

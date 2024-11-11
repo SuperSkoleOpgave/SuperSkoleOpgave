@@ -70,10 +70,10 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
         /// <returns>Returns a set of answers strings to be used by the towerManager</returns>
         public string[] GenerateAnswers(int count)
         {
-            List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
             List<ILanguageUnit> letters = new List<ILanguageUnit>();
-
+            /*
             LetterData modeLetterType = (LetterData)languageUnits[0];
 
             foreach (var item in languageUnits)
@@ -91,7 +91,8 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     }
                 }
             }
-
+            */
+            Debug.LogError("code removed as it was using old DDA");
             string[] returnedString = new string[count];
 
             
