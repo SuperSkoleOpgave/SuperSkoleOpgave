@@ -21,6 +21,8 @@ namespace CORE
         public PerformanceWeightManager PerformanceWeightManager { get; private set; }
         public SpacedRepetitionManager SpacedRepetitionManager { get; private set; }
         public DynamicDifficultyAdjustmentManager DynamicDifficultyAdjustmentManager { get; private set; }
+
+        public DynamicDifficultyAdjustment DynamicDifficultyAdjustment { get; private set; }
         
         public DataConverter Converter { get; } = new DataConverter();
         public HighScore HighScore;
@@ -170,6 +172,11 @@ namespace CORE
             if (!GetComponent<DynamicDifficultyAdjustmentManager>())
             {
                 DynamicDifficultyAdjustmentManager = gameObject.AddComponent<DynamicDifficultyAdjustmentManager>();
+            }
+
+            if (!GetComponent<DynamicDifficultyAdjustment>())
+            {
+                DynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
             }
         }
 

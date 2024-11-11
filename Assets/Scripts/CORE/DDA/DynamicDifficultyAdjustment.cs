@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class DynamicDifficultyAdjustment : MonoBehaviour
@@ -26,9 +27,31 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         
     }
 
-    public void AdjustWeight(string languageUnit)
+    public void AdjustWeight(string languageUnit, bool correct)
     {
-        
+        if(words.Contains(languageUnit))
+        {
+            AdjustWeightWord(languageUnit, correct);
+        }
+        else if(letters.Contains(languageUnit))
+        {
+            AdjustWeightLetter(languageUnit, correct);
+        }
+        else
+        {
+            Debug.LogError("no list contains the languageunit with identifier: " + languageUnit);
+        }
+        CalculateLanguageLevel();
+    }
+
+    private void AdjustWeightWord(string languageUnit, bool correct)
+    {
+
+    }
+
+    private  void AdjustWeightLetter(string languageUnit, bool correct)
+    {
+
     }
 
     public bool IsLanguageUnitTypeUnlocked(string property)
