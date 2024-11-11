@@ -2,13 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Analytics;
+using Unity.Properties;
 using UnityEngine;
 
 public class DynamicDifficultyAdjustment : MonoBehaviour
 {
-    List<string> words;
-    List<string> letters;
-    List<string> properties;
+    List<LanguageUnit> words;
+    List<LanguageUnit> letters;
+    List<Property> properties;
+
+    List<property> nonWeightedProperties = new List<property>()
+    {
+        property.word
+    };
     int playerLanguageLevel;
 
     public void GetLetter(List<string> properties) {
@@ -27,31 +34,36 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         
     }
 
-    public void AdjustWeight(string languageUnit, bool correct)
+    /// <summary>
+    /// Takes the given languageunit and adjusts the weight of its properties up or down depending on the
+    /// </summary>
+    /// <param name="languageUnit"></param>
+    /// <param name="correct"></param>
+    public void AdjustWeight(LanguageUnit languageUnit, bool correct)
     {
-        if(words.Contains(languageUnit))
+        if(words.Contains(languageUnit) || letters.Contains(languageUnit))
         {
-            AdjustWeightWord(languageUnit, correct);
-        }
-        else if(letters.Contains(languageUnit))
-        {
-            AdjustWeightLetter(languageUnit, correct);
+            //goes through the properties of the languageunit and updates the weight of its weighted properties
+            foreach(Property property in languageUnit.properties)
+            {
+                if(!nonWeightedProperties.Contains(property.property))
+                {
+                    if(correct && property.weight > 1)
+                    {
+                        property.weight -= 1;
+                    }
+                    else if(property.weight < 100)
+                    {
+                        property.weight += 1;
+                    }
+                }
+            }
         }
         else
         {
-            Debug.LogError("no list contains the languageunit with identifier: " + languageUnit);
+            Debug.LogError("no list contains the languageunit with identifier: " + languageUnit.identifier);
         }
         CalculateLanguageLevel();
-    }
-
-    private void AdjustWeightWord(string languageUnit, bool correct)
-    {
-
-    }
-
-    private  void AdjustWeightLetter(string languageUnit, bool correct)
-    {
-
     }
 
     public bool IsLanguageUnitTypeUnlocked(string property)
