@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using Analytics;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.Properties;
 using UnityEngine;
 
@@ -66,14 +67,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
-    public bool IsLanguageUnitTypeUnlocked(string property)
+    public bool IsLanguageUnitTypeUnlocked(Property property)
     {
-        return true;
+        return property.levelLock >= playerLanguageLevel;
     }
 
-    public List<string> GetPlayerPriorityUnlocked()
+    public List<Property> GetPlayerPriority()
     {
-        return new List<string>();
+        return new List<Property>();
     }
 
     private void Load()
