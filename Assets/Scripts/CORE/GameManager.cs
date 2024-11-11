@@ -18,9 +18,9 @@ namespace CORE
         public SaveGameController SaveGameController; 
         public PlayerManager PlayerManager;
 
-        public PerformanceWeightManager PerformanceWeightManager { get; private set; }
-        public SpacedRepetitionManager SpacedRepetitionManager { get; private set; }
-        public DynamicDifficultyAdjustmentManager DynamicDifficultyAdjustmentManager { get; private set; }
+        //public PerformanceWeightManager PerformanceWeightManager { get; private set; }
+        //public SpacedRepetitionManager SpacedRepetitionManager { get; private set; }
+        //public DynamicDifficultyAdjustmentManager DynamicDifficultyAdjustmentManager { get; private set; }
         
         public DataConverter Converter { get; } = new DataConverter();
         public HighScore HighScore;
@@ -157,11 +157,14 @@ namespace CORE
                 PlayerData = gameObject.AddComponent<PlayerData>();
             }
             
+
+            return;
+            /*
+             *             
             if (!GetComponent<SpacedRepetitionManager>())
             {
                 SpacedRepetitionManager = gameObject.AddComponent<SpacedRepetitionManager>();
             }
-            
             if (!GetComponent<PerformanceWeightManager>())
             {
                 PerformanceWeightManager = gameObject.AddComponent<PerformanceWeightManager>();
@@ -171,6 +174,7 @@ namespace CORE
             {
                 DynamicDifficultyAdjustmentManager = gameObject.AddComponent<DynamicDifficultyAdjustmentManager>();
             }
+            */
         }
 
         /// <summary>

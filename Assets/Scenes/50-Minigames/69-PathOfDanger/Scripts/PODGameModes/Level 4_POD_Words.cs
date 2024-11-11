@@ -39,10 +39,10 @@ public class Level4_POD_Words : IPODGameMode
     public void SetWrongAnswer(PathOfDangerManager manager, string correctAnswer)
     {
 
-        List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
         List<ILanguageUnit> words = new List<ILanguageUnit>();
-
+        /*
         foreach (var item in languageUnits)
         {
             if (item.LanguageUnitType == LanguageUnit.Word)
@@ -50,7 +50,8 @@ public class Level4_POD_Words : IPODGameMode
                 words.Add(item);
             }
         }
-
+        */
+        Debug.LogError("code removed as it was using old DDA");
 
         var rndLetterWithKey = words[Random.Range(0,words.Count)].Identifier;
 
@@ -91,10 +92,10 @@ public class Level4_POD_Words : IPODGameMode
     /// <returns>Returns a set of answers strings to be used by the PathOfDangerManager</returns>
     public string[] GenerateAnswers(int count)
     {
-        List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
         List<ILanguageUnit> words = new List<ILanguageUnit>();
-
+        /*
         foreach (var item in languageUnits)
         {
             if (item.LanguageUnitType == LanguageUnit.Word)
@@ -102,7 +103,8 @@ public class Level4_POD_Words : IPODGameMode
                 words.Add(item);
             }
         }
-
+        */
+        Debug.LogError("code removed as it was using old DDA");
 
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)

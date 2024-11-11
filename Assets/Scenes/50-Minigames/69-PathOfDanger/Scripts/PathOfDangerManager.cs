@@ -70,7 +70,8 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
     {
         AudioManager.Instance.PlaySound(backGroundMusic, SoundType.Music, true);
 
-        letterModeType=GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0].LanguageUnitType;
+        //letterModeType=GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0].LanguageUnitType;
+        Debug.LogError("code removed as it was using old DDA");
 
         if (PlayerManager.Instance != null)
         {
@@ -122,6 +123,7 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
     {
         if (correctAnswer)
         {
+            /*
             GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], true);
             if (letterModeType == LanguageUnit.Letter)
             {
@@ -132,7 +134,8 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
             {
                 PlayerEvents.RaiseAddWord(questions[currentQuestionIndex]);
             }
-
+            */
+            Debug.LogError("code removed as it was using old DDA");
             PlayerEvents.RaiseGoldChanged(1);
             PlayerEvents.RaiseXPChanged(1);
 
@@ -144,7 +147,8 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
 
         if(wrongAnswer)
         {
-            GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], false);
+            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], false);
+            Debug.LogError("code removed as it was using old DDA");
             wrongAnswer = false;
         }
         UpdatePlayerHealthUI();

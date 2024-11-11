@@ -246,8 +246,8 @@ namespace Scenes._10_PlayerScene.Scripts
                 1,
                 spawnedPlayer.transform.position,
                 0,
-                new ConcurrentDictionary<string, LetterData>(),
-                new ConcurrentDictionary<string, WordData>(),
+                //new ConcurrentDictionary<string, LetterData>(),
+                //new ConcurrentDictionary<string, WordData>(),
                 new List<string>(),
                 new List<char>(),
                 0,
@@ -309,9 +309,9 @@ namespace Scenes._10_PlayerScene.Scripts
 
             GameManager.Instance.IsNewGame = false;
 
-            GameManager.Instance.PerformanceWeightManager.InitializeLetterWeights();
-            GameManager.Instance.PerformanceWeightManager.InitializeWordWeights();
-            GameManager.Instance.SpacedRepetitionManager.InitializeTimeWeights();
+            //GameManager.Instance.PerformanceWeightManager.InitializeLetterWeights();
+            //GameManager.Instance.PerformanceWeightManager.InitializeWordWeights();
+            //GameManager.Instance.SpacedRepetitionManager.InitializeTimeWeights();
             // GameManager.Instance.PerformanceWeightManager.PrintAllWeights();
             // GameManager.Instance.SpacedRepetitionManager.PrintAllWeights();
         }
@@ -369,8 +369,8 @@ namespace Scenes._10_PlayerScene.Scripts
                 saveData.CurrentLevel,
                 saveData.CurrentPosition,
                 saveData.PlayerLanguageLevel,
-                saveData.LettersWeights,
-                saveData.WordWeights,
+                //saveData.LettersWeights,
+                //saveData.WordWeights,
                 saveData.CollectedWords,
                 saveData.CollectedLetters,
                 saveData.LifetimeTotalWords,
@@ -415,7 +415,7 @@ namespace Scenes._10_PlayerScene.Scripts
             GameManager.Instance.PlayerData = playerData;
             DontDestroyOnLoad(spawnedPlayer);
 
-            GameManager.Instance.SpacedRepetitionManager.UpdateWeightsBasedOnTime();
+            //GameManager.Instance.SpacedRepetitionManager.UpdateWeightsBasedOnTime();
             //GameManager.Instance.PerformanceWeightManager.PrintAllWeights();
         }
 

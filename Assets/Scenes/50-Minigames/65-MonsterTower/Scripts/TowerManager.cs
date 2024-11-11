@@ -140,7 +140,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips
 
 
                 isTutorialOver = true;
-                GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], true);
+                //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], true);
                 currentQuestionIndex++;
                 SetNextQuestion();
                 DestroyLowestTowerLane();
@@ -149,7 +149,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips
 
             if(wrongAnswer)
             {
-                GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], false);
+                //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(questions[currentQuestionIndex], false);
                 wrongAnswer = false;
             }
 

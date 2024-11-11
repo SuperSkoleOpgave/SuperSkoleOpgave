@@ -82,11 +82,11 @@ public class Level4_POD : IPODGameMode
     {
 
 
-        List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
         
 
         List<ILanguageUnit> letters=new List<ILanguageUnit>();
-
+        /*
         LetterData modeLetterType = (LetterData)languageUnits[0];
 
         foreach (var item in languageUnits)
@@ -104,7 +104,8 @@ public class Level4_POD : IPODGameMode
                 }
             }
         }
-
+        */
+        Debug.LogError("code removed as it was using old DDA");
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)
         {

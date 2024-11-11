@@ -99,7 +99,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
                     //Debug.Log("Valid word: " + formedWord);
                     
                     // Report correct guess to DDA system
-                    DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(formedWord.ToLower(), true);
+                    //DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(formedWord.ToLower(), true);
     
                     isTutorialOver = true;
                     scoreManager.AddScore(formedWord.Length);
@@ -153,7 +153,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
                 // Report each letter in the word as incorrect to DDA
                 foreach (char letter in formedWord)
                 {
-                    DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(letter.ToString(), false);  
+                    //DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(letter.ToString(), false);  
                 }
 
                 // Blink each closest tooth red using the event system
