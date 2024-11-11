@@ -67,9 +67,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
+    /// <summary>
+    /// Checks if the levelLock of the property is less than or equal to the playerLanguageLevel
+    /// </summary>
+    /// <param name="property">The property to be checked</param>
+    /// <returns>Whether the player is high enough level to use the property</returns>
     public bool IsLanguageUnitTypeUnlocked(Property property)
     {
-        return property.levelLock >= playerLanguageLevel;
+        return property.levelLock <= playerLanguageLevel;
     }
 
     public List<Property> GetPlayerPriority()
