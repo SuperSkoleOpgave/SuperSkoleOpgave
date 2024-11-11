@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum property
 {
-    word
+    word, testProperty
 }
 
 public class Property

@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
-using Analytics;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.Properties;
+using UnityEditor.Purchasing;
 using UnityEngine;
 
 public class DynamicDifficultyAdjustment : MonoBehaviour
@@ -101,4 +101,47 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     {
 
     }
+
+    #region unitTesting
+    /// <summary>
+    /// Adds languageUnits to the words list. The method is intended for testing purpouses and should not be used in completed code
+    /// </summary>
+    /// <param name="languageUnit">the languageUnit to be added</param>
+    public void AddWord(LanguageUnit languageUnit)
+    {
+        words.Add(languageUnit);
+        foreach(Property property in languageUnit.properties)
+        {
+            properties.Add(property);
+        }
+    }
+
+    /// <summary>
+    /// Adds languageUnits to the words list. The method is intended for testing purpouses and should not be used in completed code
+    /// </summary>
+    /// <param name="languageUnit">the languageUnit to be added</param>
+    public void AddLetter(LanguageUnit languageUnit)
+    {
+        words.Add(languageUnit);
+        foreach(Property property in languageUnit.properties)
+        {
+            properties.Add(property);
+        }
+    }
+
+    public List<LanguageUnit> GetWords()
+    {
+        return words;
+    }
+
+    public List<LanguageUnit> GetLetters()
+    {
+        return letters;
+    }
+
+    public List<Property> GetProperties()
+    {
+        return properties;
+    }
+    #endregion
 }
