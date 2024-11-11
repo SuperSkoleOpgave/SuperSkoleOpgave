@@ -53,7 +53,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                     {
                         property.weight -= 1;
                     }
-                    else if(property.weight < 100)
+                    else if(property.weight < 100 && !correct)
                     {
                         property.weight += 1;
                     }
@@ -109,7 +109,15 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="languageUnit">the languageUnit to be added</param>
     public void AddWord(LanguageUnit languageUnit)
     {
+        if(words == null)
+        {
+            words = new List<LanguageUnit>();
+        }
         words.Add(languageUnit);
+        if(properties == null)
+        {
+            properties = new List<Property>();
+        }
         foreach(Property property in languageUnit.properties)
         {
             properties.Add(property);
@@ -122,7 +130,19 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="languageUnit">the languageUnit to be added</param>
     public void AddLetter(LanguageUnit languageUnit)
     {
-        words.Add(languageUnit);
+        if(letters == null)
+        {
+            letters = new List<LanguageUnit>();
+        }
+        if(words == null)
+        {
+            words = new List<LanguageUnit>();
+        }
+        letters.Add(languageUnit);
+        if(properties == null)
+        {
+            properties = new List<Property>();
+        }
         foreach(Property property in languageUnit.properties)
         {
             properties.Add(property);
