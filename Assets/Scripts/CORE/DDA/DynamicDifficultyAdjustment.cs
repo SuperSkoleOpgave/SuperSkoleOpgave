@@ -1,13 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using Analytics;
+using Unity.IO.LowLevel.Unsafe;
+using Unity.Properties;
 using UnityEngine;
 
 public class DynamicDifficultyAdjustment : MonoBehaviour
 {
-    List<string> words;
-    List<string> letters;
-    List<string> properties;
+    List<LanguageUnit> words;
+    List<LanguageUnit> letters;
+    List<Property> properties;
+
+    List<property> nonWeightedProperties = new List<property>()
+    {
+        property.word
+    };
     int playerLanguageLevel;
 
     public void GetLetter(List<string> properties) {
@@ -26,19 +35,51 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         
     }
 
-    public void AdjustWeight(string languageUnit)
+    /// <summary>
+    /// Takes the given languageunit and adjusts the weight of its properties up or down depending on the
+    /// </summary>
+    /// <param name="languageUnit">The languageUnit to have its weight adjusted</param>
+    /// <param name="correct">Whether the player has answered correctly</param>
+    public void AdjustWeight(LanguageUnit languageUnit, bool correct)
     {
-        
+        if(words.Contains(languageUnit) || letters.Contains(languageUnit))
+        {
+            //goes through the properties of the languageunit and updates the weight of its weighted properties
+            foreach(Property property in languageUnit.properties)
+            {
+                if(!nonWeightedProperties.Contains(property.property))
+                {
+                    if(correct && property.weight > 1)
+                    {
+                        property.weight -= 1;
+                    }
+                    else if(property.weight < 100)
+                    {
+                        property.weight += 1;
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("no list contains the languageunit with identifier: " + languageUnit.identifier);
+        }
+        CalculateLanguageLevel();
     }
 
-    public bool IsLanguageUnitTypeUnlocked(string property)
+    /// <summary>
+    /// Checks if the levelLock of the property is less than or equal to the playerLanguageLevel
+    /// </summary>
+    /// <param name="property">The property to be checked</param>
+    /// <returns>Whether the player is high enough level to use the property</returns>
+    public bool IsLanguageUnitTypeUnlocked(Property property)
     {
-        return true;
+        return property.levelLock <= playerLanguageLevel;
     }
 
-    public List<string> GetPlayerPriorityUnlocked()
+    public List<Property> GetPlayerPriority()
     {
-        return new List<string>();
+        return new List<Property>();
     }
 
     private void Load()
