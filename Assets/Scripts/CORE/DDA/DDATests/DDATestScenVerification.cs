@@ -8,12 +8,18 @@ using UnityEngine.TestTools;
 
 public class DDATestScenVerification
 {
+    /// <summary>
+    /// Loads the test scene
+    /// </summary>
     [SetUp]
     public void Setup()
     {
        EditorSceneManager.OpenScene("Assets/Scripts/CORE/DDA/DDATests/DDATestScene.unity");
     }
     
+    /// <summary>
+    /// Verifies the scene is loaded
+    /// </summary>
     [Test]
     public void VerifyScene()
     {
@@ -21,6 +27,9 @@ public class DDATestScenVerification
         Assert.That(gameObject, Is.Not.Null);
     }
 
+    /// <summary>
+    /// Verify the dda can be found
+    /// </summary>
     [Test]
     public void VerifyComponent()
     {
@@ -28,6 +37,9 @@ public class DDATestScenVerification
         Assert.That(gameObject.GetComponent<DynamicDifficultyAdjustment>(), Is.Not.Null);
     }
 
+    /// <summary>
+    /// Cleans up after the tests are done
+    /// </summary>
     [TearDown]
     public void Teardown()
     {

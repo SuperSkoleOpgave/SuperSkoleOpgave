@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -9,6 +10,9 @@ public class DDATests
 {
     DynamicDifficultyAdjustment dDAUnderTest;
     #region Setup
+    /// <summary>
+    /// Loads the scene and sets up the test DDA
+    /// </summary>
     [SetUp]
     public void Setup()
     {
@@ -18,6 +22,9 @@ public class DDATests
     }
     #endregion
     #region TestMethods
+    /// <summary>
+    /// Ensures the AddWord and GetWords test methods works
+    /// </summary>
     [Test]
     public void CanAddWord()
     {
@@ -37,6 +44,9 @@ public class DDATests
 
     }
 
+    /// <summary>
+    /// Ensures the AddLetter and GetLetters test methods works
+    /// </summary>
     [Test]
     public void CanAddLetter()
     {
@@ -55,8 +65,32 @@ public class DDATests
         Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetLetters());
     }
 
+    /// <summary>
+    /// Ensures that properties are added to the property list from words
+    /// </summary>
     [Test]
-    public void CanAddProperty()
+    public void CanAddPropertyFromWord()
+    {
+        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+        Property propertyUnderTest = new Property();
+        propertyUnderTest.property = property.letter;
+        propertyUnderTest.weight = 50;
+        propertyUnderTest.levelLock = 0;
+        languageUnitUnderTest.identifier = "d";
+        languageUnitUnderTest.properties = new List<Property>
+        {
+            propertyUnderTest
+        };
+        dDAUnderTest.AddWord(languageUnitUnderTest);
+
+        Assert.Contains(propertyUnderTest, dDAUnderTest.GetProperties());
+    }
+
+    /// <summary>
+    /// Ensures that properties are added to the property list from letters
+    /// </summary>
+    [Test]
+    public void CanAddPropertyFromLetter()
     {
         LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
         Property propertyUnderTest = new Property();
@@ -73,6 +107,9 @@ public class DDATests
         Assert.Contains(propertyUnderTest, dDAUnderTest.GetProperties());
     }
 
+    /// <summary>
+    /// Ensures the players level can be manually set
+    /// </summary>
     [Test]
     public void CanChangePlayerLevel()
     {
@@ -82,6 +119,9 @@ public class DDATests
     #endregion
 
     #region AdjustWeight
+    /// <summary>
+    /// Ensures the weight is adjusted upwards when a answer is wrong
+    /// </summary>
     [Test]
     public void CanAdjustWeightofWordUpwards()
     {
@@ -101,6 +141,10 @@ public class DDATests
 
         Assert.AreEqual(50 + 1, propertyUnderTest.weight);
     }
+
+    /// <summary>
+    /// Ensures the weight is adjusted downwards if the answer is correct
+    /// </summary>
     [Test]
     public void CanAdjustWeightofWordDownWards()
     {
@@ -121,6 +165,9 @@ public class DDATests
         Assert.AreEqual(50 - 1, propertyUnderTest.weight);
     }
 
+    /// <summary>
+    /// Ensures the weight cant be adjusted below 1
+    /// </summary>
     [Test]
     public void WeightCantbeAdjustedBelowOne()
     {
@@ -141,6 +188,9 @@ public class DDATests
         Assert.AreEqual(1, propertyUnderTest.weight);
     }
 
+    /// <summary>
+    /// Ensures the weight cant be adjusted above 100
+    /// </summary>
     [Test]
     public void WeightCantbeAdjustedAbove100()
     {
@@ -160,6 +210,10 @@ public class DDATests
 
         Assert.AreEqual(100, propertyUnderTest.weight);
     }
+
+    /// <summary>
+    /// Ensures weight can be adjusted for letters
+    /// </summary>
     [Test]
     public void WeightCanBeAdjustedForLetters()
     {
@@ -179,12 +233,33 @@ public class DDATests
 
         Assert.AreEqual(50 + 1, propertyUnderTest.weight);
     }
+
+    /// <summary>
+    /// Ensures that langugageUnits are on one of the lists
+    /// </summary>
+    [Test]
+    public void LanguageUnitMustBeOnAList()
+    {
+        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+        Property propertyUnderTest = new Property();
+        propertyUnderTest.property = property.testProperty;
+        propertyUnderTest.weight = 50;
+        propertyUnderTest.levelLock = 0;
+        languageUnitUnderTest.identifier = "d";
+        languageUnitUnderTest.properties = new List<Property>
+        {
+            propertyUnderTest
+        };
+        Assert.Throws<Exception>(() => dDAUnderTest.AdjustWeight(languageUnitUnderTest, false));
+    }
     #endregion
     #region IsLanguageUnitUnlocked
+    /// <summary>
+    /// Ensures the player can use properties with a required level lower than their own
+    /// </summary>
     [Test]
     public void UnlockedIfLevelLockIsBelowPlayerLevel()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
         Property propertyUnderTest = new Property();
         propertyUnderTest.property = property.testProperty;
         propertyUnderTest.weight = 50;
@@ -196,10 +271,12 @@ public class DDATests
         Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
     }
 
+    /// <summary>
+    /// Ensures the player can use properties with a required level equal to their own
+    /// </summary>
     [Test]
     public void UnlockedIfLevelLockIsEqualToPlayerLevel()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
         Property propertyUnderTest = new Property();
         propertyUnderTest.property = property.testProperty;
         propertyUnderTest.weight = 50;
@@ -211,10 +288,12 @@ public class DDATests
         Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
     }
 
+    /// <summary>
+    /// Ensures the player cant use properties with a required level higher than their own
+    /// </summary>
     [Test]
     public void LockedIfLevelLockIsAbovePlayerLevel()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
         Property propertyUnderTest = new Property();
         propertyUnderTest.property = property.testProperty;
         propertyUnderTest.weight = 50;
@@ -227,6 +306,9 @@ public class DDATests
     }
     #endregion
 
+    /// <summary>
+    /// Cleans up after tests are done
+    /// </summary>
     [TearDown]
     public void Teardown()
     {
