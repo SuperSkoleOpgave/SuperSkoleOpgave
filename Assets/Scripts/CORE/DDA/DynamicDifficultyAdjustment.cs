@@ -38,8 +38,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <summary>
     /// Takes the given languageunit and adjusts the weight of its properties up or down depending on the
     /// </summary>
-    /// <param name="languageUnit"></param>
-    /// <param name="correct"></param>
+    /// <param name="languageUnit">The languageUnit to have its weight adjusted</param>
+    /// <param name="correct">Whether the player has answered correctly</param>
     public void AdjustWeight(LanguageUnit languageUnit, bool correct)
     {
         if(words.Contains(languageUnit) || letters.Contains(languageUnit))
