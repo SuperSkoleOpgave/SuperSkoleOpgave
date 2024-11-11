@@ -163,5 +163,15 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     {
         return properties;
     }
+
+    public int GetPlayerLevel()
+    {
+        return playerLanguageLevel;
+    }
+
+    public void SetPlayerLevel(int level)
+    {
+        playerLanguageLevel = level;
+    }
     #endregion
 }

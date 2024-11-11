@@ -72,6 +72,13 @@ public class DDATests
 
         Assert.Contains(propertyUnderTest, dDAUnderTest.GetProperties());
     }
+
+    [Test]
+    public void CanChangePlayerLevel()
+    {
+        dDAUnderTest.SetPlayerLevel(4);
+        Assert.AreEqual(4, dDAUnderTest.GetPlayerLevel());
+    }
     #endregion
 
     #region AdjustWeight
@@ -173,22 +180,52 @@ public class DDATests
         Assert.AreEqual(50 + 1, propertyUnderTest.weight);
     }
     #endregion
-    // A Test behaves as an ordinary method
+    #region IsLanguageUnitUnlocked
     [Test]
-    public void DDATestsSimplePasses()
+    public void UnlockedIfLevelLockIsBelowPlayerLevel()
     {
-        Assert.AreEqual(true, true);
+        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+        Property propertyUnderTest = new Property();
+        propertyUnderTest.property = property.testProperty;
+        propertyUnderTest.weight = 50;
+        propertyUnderTest.levelLock = 0;
+        
+
+        dDAUnderTest.SetPlayerLevel(1);
+
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    /*[UnityTest]
-    public IEnumerator DDATestsWithEnumeratorPasses()
+    [Test]
+    public void UnlockedIfLevelLockIsEqualToPlayerLevel()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }*/
+        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+        Property propertyUnderTest = new Property();
+        propertyUnderTest.property = property.testProperty;
+        propertyUnderTest.weight = 50;
+        propertyUnderTest.levelLock = 1;
+        
+
+        dDAUnderTest.SetPlayerLevel(1);
+
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
+    }
+
+    [Test]
+    public void LockedIfLevelLockIsAbovePlayerLevel()
+    {
+        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+        Property propertyUnderTest = new Property();
+        propertyUnderTest.property = property.testProperty;
+        propertyUnderTest.weight = 50;
+        propertyUnderTest.levelLock = 2;
+        
+
+        dDAUnderTest.SetPlayerLevel(1);
+
+        Assert.AreEqual(false, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
+    }
+    #endregion
 
     [TearDown]
     public void Teardown()
