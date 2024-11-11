@@ -68,6 +68,7 @@ public class LoadingSceneSetup : MonoBehaviour
             }
         }
         */
+        Debug.LogError("code removed as it was using old DDA");
     }
 
     /// <summary>
