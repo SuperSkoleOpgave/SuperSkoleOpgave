@@ -243,7 +243,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
             
             // Clear existing lists
             ClearWordAndLetterLists();
-
+            /*
             // Fetch language units from DDA system
             var languageUnits = DynamicDifficultyAdjustmentManager.Instance.GetNextLanguageUnitsBasedOnLevel(20);
             
@@ -289,7 +289,8 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
             {
                 Debug.LogError("No valid word data found to determine gear strategy.");
             }
-
+            */
+            Debug.LogError("code removed as it was using old DDA");
             // Additional setup or error handling
             if (gearStrategy == null)
             {

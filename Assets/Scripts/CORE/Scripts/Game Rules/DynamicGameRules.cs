@@ -36,6 +36,7 @@ namespace CORE.Scripts.Game_Rules
         /// <returns>a correct answer</returns>
         public string GetCorrectAnswer()
         {
+            /*
             //gets a random letter from the languageunits list if it contains more than one element
             if(languageUnits[0].LanguageUnitType == LanguageUnit.Letter)
             {
@@ -44,6 +45,8 @@ namespace CORE.Scripts.Game_Rules
                     return languageUnits[Random.Range(0, languageUnits.Count)].Identifier;
                 }
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
             return  correctAnswer;
         }
 
@@ -54,6 +57,7 @@ namespace CORE.Scripts.Game_Rules
         public string GetDisplayAnswer()
         {
             string displayString = "";
+            /*
             //Sets the display string to the correctanswer if it is a letter and there are no extra letters is in languageUnits. In that case it returns the type of letter 
             if(languageUnits[0].LanguageUnitType == LanguageUnit.Letter)
             {
@@ -75,6 +79,8 @@ namespace CORE.Scripts.Game_Rules
             {
                 return word;
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
             return displayString;
         }
 
@@ -158,8 +164,9 @@ namespace CORE.Scripts.Game_Rules
             remainingLetterIndex = 1;
             if(languageUnitsList.Count == 0)
             {
-                languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                    .GetNextLanguageUnitsBasedOnLevel(80);
+                //languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustmentManager
+                //    .GetNextLanguageUnitsBasedOnLevel(80);
+                Debug.LogError("code removed as it was using old DDA");
             }
             if(languageUnits == null)
             {
@@ -169,6 +176,7 @@ namespace CORE.Scripts.Game_Rules
                 languageUnits.Clear();
             }
             languageUnits.Add(languageUnitsList[Random.Range(0, languageUnitsList.Count)]);
+            /*
             //Checks which mode the gamerules should run in
             switch(languageUnits[0].LanguageUnitType)
             {
@@ -191,6 +199,8 @@ namespace CORE.Scripts.Game_Rules
                     Debug.LogError("Unknown Language Unit");
                     break;
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
         }
 
         /// <summary>
@@ -206,6 +216,7 @@ namespace CORE.Scripts.Game_Rules
                     wrongAnswerList = LetterRepository.GetVowels().ToList();
                     foreach(ILanguageUnit languageUnit in languageUnitsList)
                     {
+                        /*
                         if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
                         {
                             LetterData letterData = (LetterData)languageUnit; 
@@ -214,6 +225,8 @@ namespace CORE.Scripts.Game_Rules
                                 languageUnits.Add(languageUnit);
                             }
                         }
+                        */
+                        Debug.LogError("code removed as it was using old DDA");
                     }
 
                     break;
@@ -221,6 +234,7 @@ namespace CORE.Scripts.Game_Rules
                     wrongAnswerList = LetterRepository.GetConsonants().ToList();
                     foreach(ILanguageUnit languageUnit in languageUnitsList)
                     {
+                        /*
                         if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
                         {
                             LetterData letterData = (LetterData)languageUnit; 
@@ -229,6 +243,8 @@ namespace CORE.Scripts.Game_Rules
                                 languageUnits.Add(languageUnit);
                             }
                         }
+                        */
+                        Debug.LogError("code removed as it was using old DDA");
                     }
                     break;
                 case LetterCategory.All:
@@ -236,10 +252,13 @@ namespace CORE.Scripts.Game_Rules
                     wrongAnswerList.Remove(correctAnswer[0]);
                     foreach(ILanguageUnit languageUnit in languageUnitsList)
                     {
+                        /*
                         if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
                         {
                             languageUnits.Add(languageUnit);
                         }
+                        */
+                        Debug.LogError("code removed as it was using old DDA");
                     }
                     break;
                 default:

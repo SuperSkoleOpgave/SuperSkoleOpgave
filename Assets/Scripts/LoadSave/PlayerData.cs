@@ -33,8 +33,8 @@ namespace LoadSave
         
         // Words and letters
         [SerializeField] private int playerLanguageLevel;
-        [JsonIgnore] public ConcurrentDictionary<string, LetterData> LettersWeights = new ConcurrentDictionary<string, LetterData>();
-        [JsonIgnore] public ConcurrentDictionary<string, WordData> WordWeights = new ConcurrentDictionary<string, WordData>();
+        //[JsonIgnore] public ConcurrentDictionary<string, LetterData> LettersWeights = new ConcurrentDictionary<string, LetterData>();
+        //[JsonIgnore] public ConcurrentDictionary<string, WordData> WordWeights = new ConcurrentDictionary<string, WordData>();
         //[JsonIgnore] public ConcurrentDictionary<string, SentenceData> SentenceWeights = new ConcurrentDictionary<string, SentenceData>();
         [JsonIgnore] public List<string> CollectedWords = new List<string>();
         [JsonIgnore] public List<char> CollectedLetters = new List<char>();
@@ -85,8 +85,8 @@ namespace LoadSave
         
         // Words and letters
         public int PlayerLanguageLevel { get => playerLanguageLevel; set => playerLanguageLevel = value; }
-        public ConcurrentDictionary<string, LetterData> LettersWeightsProperty { get => LettersWeights; set => LettersWeights = value; }
-        public ConcurrentDictionary<string, WordData> WordWeightsProperty { get => WordWeights; set => WordWeights = value; }
+        //public ConcurrentDictionary<string, LetterData> LettersWeightsProperty { get => LettersWeights; set => LettersWeights = value; }
+        //public ConcurrentDictionary<string, WordData> WordWeightsProperty { get => WordWeights; set => WordWeights = value; }
         //public ConcurrentDictionary<string, SentenceData> SentenceWeightsProperty { get => LettersWeights; set => LettersWeights = value; }
         public List<string> CollectedWordsProperty { get => CollectedWords; set => CollectedWords = value; }
         public List<char> CollectedLettersProperty { get => CollectedLetters; set => CollectedLetters = value; }
@@ -150,8 +150,8 @@ namespace LoadSave
             int level,
             Vector3 position,
             int playerLanguageLevel,
-            ConcurrentDictionary<string, LetterData> lettersWeights,
-            ConcurrentDictionary<string, WordData> wordWeights,
+            //ConcurrentDictionary<string, LetterData> lettersWeights,
+            //ConcurrentDictionary<string, WordData> wordWeights,
             // TODO ADD WORDS AND SENTENCES
             List<string> collectedWords,
             List<char> collectedLetters,
@@ -188,6 +188,7 @@ namespace LoadSave
             
             // words and letters
             this.playerLanguageLevel = playerLanguageLevel;
+            /*
             LettersWeights.Clear();
             foreach (var kvp in lettersWeights)
             {
@@ -199,7 +200,7 @@ namespace LoadSave
             {
                 this.WordWeights.TryAdd(kvp.Key, kvp.Value);
             }
-            
+            */
             CollectedWords.Clear();
             CollectedWords.AddRange(collectedWords);
             CollectedLetters.Clear();

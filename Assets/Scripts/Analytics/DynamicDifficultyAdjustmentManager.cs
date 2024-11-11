@@ -10,6 +10,7 @@ using Words;
 
 namespace Analytics
 {
+    /*
     /// <summary>
     /// Provides mapping of player levels to a list of language unit types and associated categories.
     /// </summary>
@@ -109,7 +110,7 @@ namespace Analytics
         
         private Dictionary<string, float> compositeWeights;
         private ConcurrentDictionary<string, LetterData> letterWeights;
-        private ConcurrentDictionary<string, WordData> wordWeights;
+        //private ConcurrentDictionary<string, WordData> wordWeights;
         
         public int playerLanguageLevel;
         //private const float PerformanceFactor = 1.0f; // Currently prioritizing only performance
@@ -243,10 +244,10 @@ namespace Analytics
             {
                 return letterData;
             }
-            if (wordWeights.TryGetValue(identifier, out var wordData))
-            {
-                return wordData;
-            }
+            //if (wordWeights.TryGetValue(identifier, out var wordData))
+            //{
+            //    return wordData;
+            //}
             // TODO sentence
 
             Debug.LogWarning($"Identifier '{identifier}' not found in WeightManager.");
@@ -371,10 +372,10 @@ namespace Analytics
                             .Cast<ILanguageUnit>()
                             .ToList(),
 
-                LanguageUnit.Word when parameter is WordLength wordLength => wordWeights.Values
-                    .Where(word => word.Length == wordLength)
-                    .Cast<ILanguageUnit>()
-                    .ToList(),
+                //LanguageUnit.Word when parameter is WordLength wordLength => wordWeights.Values
+                  //  .Where(word => word.Length == wordLength)
+                    //.Cast<ILanguageUnit>()
+                    //.ToList(),
 
                 _ => new List<ILanguageUnit>()
             };
@@ -583,10 +584,10 @@ namespace Analytics
                 letterWeights = PlayerManager.Instance.PlayerData.LettersWeightsProperty;
             }
             
-            if (wordWeights == null)
-            {
-                wordWeights = PlayerManager.Instance.PlayerData.WordWeightsProperty;
-            }
+            //if (wordWeights == null)
+            //{
+            //    wordWeights = PlayerManager.Instance.PlayerData.WordWeightsProperty;
+            //}
             
             // TODO Sentence weights
             // if (sentenceWeights == null)
@@ -610,4 +611,5 @@ namespace Analytics
             }
         }
     }
+    */
 }

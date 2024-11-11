@@ -286,7 +286,7 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
 
                 if (letter == imageFirstLetter)
                 {
-                    GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(imageName, true);
+                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(imageName, true);
                     isTutorialOver = true;
                     PlayerEvents.RaiseGoldChanged(1);
                     Instantiate(coinEffect);
@@ -303,7 +303,7 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
 
                 else
                 {
-                    GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(imageName, false);
+                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(imageName, false);
                     CheckIfWrong();
                 }
             }
