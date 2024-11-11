@@ -8,7 +8,8 @@ using UnityEngine;
 public enum property
 {
     word,
-    letter
+    letter,
+    testProperty
 }
 [Serializable]
 public class Property
