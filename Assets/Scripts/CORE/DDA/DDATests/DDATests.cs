@@ -584,15 +584,14 @@ public class DDATests
             propertyUnderTest.property = property.testProperty;
             propertyUnderTest.weight = 50;
             propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "d";
+            languageUnitUnderTest.identifier = i.ToString();
             languageUnitUnderTest.properties = new List<Property>
             {
                 propertyUnderTest
             };
             dDAUnderTest.AddLetter(languageUnitUnderTest);
         }
-        
-        List<LanguageUnit> retrievedList = dDAUnderTest.GetLetters(new List<Property>(), 20);
+        List<LanguageUnit> retrievedList = dDAUnderTest.GetLetters(new List<Property>(), amount);
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
@@ -858,7 +857,7 @@ public class DDATests
             propertyUnderTest.property = property.testProperty;
             propertyUnderTest.weight = 50;
             propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "dd";
+            languageUnitUnderTest.identifier = i.ToString();
             languageUnitUnderTest.properties = new List<Property>
             {
                 propertyUnderTest
@@ -866,7 +865,7 @@ public class DDATests
             dDAUnderTest.AddWord(languageUnitUnderTest);
         }
         
-        List<LanguageUnit> retrievedList = dDAUnderTest.GetWords(new List<Property>(), 20);
+        List<LanguageUnit> retrievedList = dDAUnderTest.GetWords(new List<Property>(), amount);
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
