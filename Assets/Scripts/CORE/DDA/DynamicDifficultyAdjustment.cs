@@ -27,6 +27,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public LanguageUnit GetLetter(List<Property> properties)
     {
+        if(letters == null)
+        {
+            letters = new List<LanguageUnit>();
+        }
         float totalweight = 0;
         foreach (LanguageUnit letter in letters)
         {
@@ -43,8 +47,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return letter;
             }
         }
-        Debug.LogError("could not find any letters");
-        return new LanguageUnit();
+        throw new Exception("could not find any letters");
     }
 
     /// <summary>
@@ -70,6 +73,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public LanguageUnit GetWord(List<Property> properties)
     {
+        if(words == null)
+        {
+            words = new List<LanguageUnit>();
+        }
         float totalweight = 0;
         foreach (LanguageUnit word in words)
         {
@@ -86,8 +93,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return word;
             }
         }
-        Debug.LogError("could not find any words");
-        return new LanguageUnit();
+        throw new Exception("could not find any words");
     }
 
     /// <summary>
