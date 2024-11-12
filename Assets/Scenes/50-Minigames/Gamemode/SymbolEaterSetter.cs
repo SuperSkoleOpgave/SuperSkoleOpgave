@@ -7,6 +7,7 @@ using CORE;
 using Analytics;
 using Letters;
 using System;
+using Random = UnityEngine.Random;
 
 namespace Scenes._50_Minigames.Gamemode
 {
@@ -99,62 +100,7 @@ namespace Scenes._50_Minigames.Gamemode
                 default:
                     break;
             }
-
-            /*
-            List<ILanguageUnit> languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                    .GetNextLanguageUnitsBasedOnLevel(80);
-            switch(languageUnit[0].LanguageUnitType)
-            {
-                case LanguageUnit.Letter:
-                    mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
-                    LetterData letterData = (LetterData)languageUnit[0];
-                    if(letterData.Category == LetterCategory.Vowel || letterData.Category == LetterCategory.Consonant)
-                    {
-                        mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
-                    }
-                    List<ILanguageUnit> filteredLetters = new List<ILanguageUnit>();
-                    foreach(ILanguageUnit unit in languageUnit)
-                    {
-                        if(unit.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            if(unit.Identifier.Length > 1)
-                            {
-                                Debug.LogError("word got sorted into wrong category");
-                            }
-                            filteredLetters.Add(unit);
-                        }
-                    }
-                    dynamicGameRules.AddFilteredList(filteredLetters);
-                    break;
-                case LanguageUnit.Word:
-                    mode = wordGamemodes[Random.Range(0, wordGamemodes.Count)];
-                    List<ILanguageUnit>filteredWords = new List<ILanguageUnit>();
-                    for(int i = 0; i < languageUnit.Count; i++)
-                    {
-                        if(languageUnit[i].LanguageUnitType == LanguageUnit.Word && WordsForImagesManager.imageWords.Contains(languageUnit[i].Identifier))
-                        {
-                            filteredWords.Add(languageUnit[i]);
-                        }
-                    }
-                    if(filteredWords.Count > 0)
-                    {
-                        dynamicGameRules.AddFilteredList(filteredWords);
-                    }
-                    else
-                    {
-                        (IGenericGameMode, DynamicGameRules) modeSet = NoValidWordsMode(languageUnit);
-                        dynamicGameRules = modeSet.Item2;
-                        mode = modeSet.Item1;
-                    }
-                    break;
-                case LanguageUnit.Sentence:
-                default:
-                    Debug.LogError("the type of language unit has not been implemented");
-                    mode = new FindSymbols();
-                    break;
-            }
-            */
-            //Debug.LogError("code removed as it was using old DDA");
+            
             if(mode == null)
             {
                 throw new Exception("No Gamemode assigned");
