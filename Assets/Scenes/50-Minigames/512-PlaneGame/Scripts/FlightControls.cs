@@ -1,64 +1,63 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
+
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class FlightControls : MonoBehaviour
 {
 
     [SerializeField]
     private GameObject playerObject;
 
-    private float speed = 5;
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
     private float rotationDuration = 2f;
     private bool isSpinning = false;
-    
 
+    private void Start()
+    {
+        if (playerObject == null)
+        {
+            Debug.LogError($"{nameof(FlightControls)}: Player object reference is required!");
+            enabled = false;
+        }
+    }
 
     void Update()
     {
-        playerFlight();
+        if (playerObject != null)
+        {
+            ProcessFlightControls();
+        }
     }
 
 
     /// <summary>
-    /// diffrent direction the player charector can fly With WASD buttons, aswell as barrel roll via Spacebar.
+    /// Diffrent directions the player charecter can fly With WASD keys, as well as barrel roll via Spacebar.
     /// </summary>
-    private void playerFlight()
+    private void ProcessFlightControls()
     {
-       
-        if (Input.GetKey(KeyCode.W))
-        {
-            playerObject.transform.position += new Vector3(0, speed * Time.deltaTime, 0);
-   
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            playerObject.transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
 
-        }
+        Transform transform = playerObject.transform;
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed * Time.deltaTime;
 
+        Vector3 newPosition = transform.position + movement;
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            playerObject.transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 5f);
 
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            playerObject.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
-
-        }
+        transform.position = newPosition;
 
         if (Input.GetKey(KeyCode.Space) && !isSpinning)
         {
+            isSpinning = true;
             StartCoroutine(SpinPlayer());
         }
 
     }
 
     /// <summary>
-    /// spins the player on the x axis 360 degrees during the courotine like a barrel roll
+    /// Spins the player on the x axis 360 degrees during the courotine like a barrel roll
     /// </summary>
     /// <returns>player spin and then return to inital state.</returns>
     private IEnumerator SpinPlayer()
@@ -69,7 +68,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         while (timeTaken < rotationDuration)
         {
-            
+
             float currentXRotation = Mathf.Lerp(startRotationX, targetRotationX, timeTaken / rotationDuration);
             playerObject.transform.rotation = Quaternion.Euler(currentXRotation, 0, 0);
 
