@@ -9,6 +9,8 @@ public enum property
 {
     word,
     letter,
+    vowel,
+    consonant,
     testProperty
 }
 [Serializable]

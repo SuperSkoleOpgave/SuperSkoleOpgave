@@ -62,6 +62,9 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode mode;
+            List<Property> priorities = GameManager.Instance.DynamicDifficultyAdjustment.GetPlayerPriority();
+            Property usedProperty;
+            
             /*
             List<ILanguageUnit> languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager
                     .GetNextLanguageUnitsBasedOnLevel(80);
