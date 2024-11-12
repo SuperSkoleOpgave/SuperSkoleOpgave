@@ -79,7 +79,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
             string[] returnedString = new string[count];
 
 
-            consonants = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(15);
+            //consonants = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(15);
             for (int i = 0; i < count; i++)
             {
                 returnedString[i] = consonants[Random.Range(0, consonants.Count)].Identifier;

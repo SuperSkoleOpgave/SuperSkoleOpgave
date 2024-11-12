@@ -17,7 +17,9 @@ namespace CORE.Scripts.Game_Rules
         /// <returns>a random letter of the correct type</returns>
         public string GetCorrectAnswer()
         {
-            return GameManager.Instance.PerformanceWeightManager.GetNextLanguageUnitsByTypeAndCategory(LanguageUnit.Letter, LetterCategory.Consonant, 1)[0].Identifier;
+            //return GameManager.Instance.PerformanceWeightManager.GetNextLanguageUnitsByTypeAndCategory(LanguageUnit.Letter, LetterCategory.Consonant, 1)[0].Identifier;
+            Debug.LogError("code removed as it was using old DDA");
+            return null;
         }
 
         /// <summary>

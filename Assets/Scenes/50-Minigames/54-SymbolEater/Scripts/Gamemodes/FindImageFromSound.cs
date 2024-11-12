@@ -107,7 +107,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                 for (int i = 0; i < count; i++)
                 {
                     // creates random words from the word list, then creates images to fit those random words.
-
+                    /*
                     string randoImage = WordRepository.GetAllWords()[Random.Range(0, WordRepository.GetAllWords().Count)].Identifier;
                     while(!WordsForImagesManager.imageWords.Contains(randoImage))
                     {
@@ -119,6 +119,8 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     }
 
                     Texture2D image = texture[randoImage];
+                    */
+                    Debug.LogError("code removed as it was using old DDA");
 
                     LetterCube potentialCube = letterCubes[Random.Range(0, letterCubes.Count)];
 
@@ -130,7 +132,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                         potentialCube = letterCubes[Random.Range(0, letterCubes.Count)];
                     }
                     activeLetterCubes.Add(potentialCube);
-                    activeLetterCubes[i].ActivateImage(image, randoImage);
+                    //activeLetterCubes[i].ActivateImage(image, randoImage);
                 }
                 //creates a random number of correct Images on the board
                 int wrongCubeCount = activeLetterCubes.Count;
@@ -235,14 +237,13 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
             activeLetterCubes.Add(newImage);
             if (correctLetterCount > 0)
             {
-
+                /*
                 // yet again creates random words from the Word list.
                 string randoWords = WordRepository.GetAllWords()[Random.Range(0, WordRepository.GetAllWords().Count)].Identifier;
                 while(!WordsForImagesManager.imageWords.Contains(randoWords) && randoWords == gameRules.GetSecondaryAnswer())
                 {
                     randoWords = WordRepository.GetAllWords()[Random.Range(0, WordRepository.GetAllWords().Count)].Identifier;
                 }
-
                 //then adds the images to the texture dictionary if dosnt already exists.
                 if (!texture.ContainsKey(randoWords))
                 {
@@ -251,6 +252,8 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                 }
 
                 newImage.ActivateImage(texture[randoWords], randoWords);
+                */
+                Debug.LogError("code removed as it was using old DDA");
             }
             else
             {

@@ -61,9 +61,10 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("X", 60);
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
+            IGenericGameMode mode;
+            /*
             List<ILanguageUnit> languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager
                     .GetNextLanguageUnitsBasedOnLevel(80);
-            IGenericGameMode mode;
             switch(languageUnit[0].LanguageUnitType)
             {
                 case LanguageUnit.Letter:
@@ -114,7 +115,9 @@ namespace Scenes._50_Minigames.Gamemode
                     mode = new FindSymbols();
                     break;
             }
-            return (dynamicGameRules, mode);
+            */
+            Debug.LogError("code removed as it was using old DDA");
+            return (dynamicGameRules, null);
         }
 
         private (IGenericGameMode, DynamicGameRules) NoValidWordsMode(List<ILanguageUnit> languageUnits)
@@ -123,7 +126,7 @@ namespace Scenes._50_Minigames.Gamemode
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             List<ILanguageUnit> filteredLetters = new List<ILanguageUnit>();
             bool pickedGamemode = false;
-            
+            /*
             LetterData letter = new LetterData("ds", LetterCategory.Consonant, 1);
             for(int i = 1; i < languageUnits.Count; i++)
             {
@@ -147,7 +150,9 @@ namespace Scenes._50_Minigames.Gamemode
                     }
                 }
             }
-            if(filteredLetters.Count > 0)
+            */
+            Debug.LogError("code removed as it was using old DDA");
+            if (filteredLetters.Count > 0)
             {
                 dynamicGameRules.AddFilteredList(filteredLetters);
                 return (mode, dynamicGameRules);

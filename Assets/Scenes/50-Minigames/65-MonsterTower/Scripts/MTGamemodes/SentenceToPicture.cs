@@ -104,10 +104,10 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
             string sentence;
             string[] answers = new string[count];
 
-            List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
             List<ILanguageUnit> letters = new List<ILanguageUnit>();
-
+            /*
             foreach (var item in languageUnits)
             {
                 if (item.LanguageUnitType == LanguageUnit.Letter)
@@ -115,6 +115,8 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     letters.Add(item);
                 }
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
 
             for (int i = 0; i < count; i++)
             {

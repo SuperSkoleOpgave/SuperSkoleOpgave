@@ -178,14 +178,14 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
+                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
                         }
                     }
                     foreach(char letterSymbol in wrongFoundLetters)
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
+                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
                         }
                     }
                     won = true;
@@ -251,7 +251,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
+                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
                             if(won)
                             {
                                 PlayerEvents.RaiseAddLetter(letterSymbol);
@@ -263,7 +263,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
             {
                 if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                 {
-                    GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
+                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
                 }
             }
         }
