@@ -81,6 +81,8 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
 
         public IRacingGameMode racingGameMode;
 
+        public property usedProperty;
+
         private bool setCorrectAnswerHasBeenRan = false;
 
         public float Timer { get => timer; set => timer = value; }
@@ -98,10 +100,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
             if(rule.GetType() == typeof(DynamicGameRules))
             {
                 dynamicGameRules.SetCorrectAnswer();
-                
-
-                //languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                  //  .GetNextLanguageUnitsBasedOnLevel(1);
+                usedProperty = dynamicGameRules.usedProperty;
             }
             StartUI.SetActive(false);
             raceActive = true;
@@ -476,13 +475,16 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                     if (currentIndex >= targetWord.Length)
                     {
                         //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, true);
+                        
                         if(targetWord.Length > 1)
                         {
                             PlayerEvents.RaiseAddWord(targetWord);
+                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightWord(targetWord, true);
                         }
                         else
                         {
                             PlayerEvents.RaiseAddLetter(targetWord[0]);
+                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, true);
                         }
                         currentIndex = 0; // Reset for the next game or end game
                         spelledWordsList.Add(targetWord); // Add the spelled word to the list
@@ -492,7 +494,14 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                 }
                 else 
                 {
-                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(targetWord, false);
+                    if(targetWord.Length > 1)
+                    {
+                        GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightWord(targetWord, false);
+                    }
+                    else
+                    {
+                        GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, false);
+                    }
                     AudioManager.Instance.PlaySound(incorrectSound, SoundType.SFX);
                 }
                 displayToggle = !displayToggle;

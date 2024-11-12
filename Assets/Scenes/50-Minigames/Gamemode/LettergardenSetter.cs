@@ -40,7 +40,6 @@ namespace Scenes._50_Minigames.Gamemode
                     case property.vowel:
                     case property.consonant:
                     case property.letter:
-                    case property.word:
                         usedProperty = priorities[0];
                         break;
                 }
