@@ -243,42 +243,44 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
             
             // Clear existing lists
             ClearWordAndLetterLists();
-            /*
+            
             // Fetch language units from DDA system
-            var languageUnits = DynamicDifficultyAdjustmentManager.Instance.GetNextLanguageUnitsBasedOnLevel(20);
-            
-            // If not enough units are found, handle fallback logic
-            if (languageUnits.Count < 5)
+            //var languageUnits = DynamicDifficultyAdjustmentManager.Instance.GetNextLanguageUnitsBasedOnLevel(20);
+            var wordlanguageUnits = GameManager.Instance.DynamicDifficultyAdjustment.GetWords(new List<Property>(), 20);
+            List<string> words = new List<string>();
+            foreach(LanguageUnit languageUnit in wordlanguageUnits)
             {
-                Debug.LogWarning("Not enough language units found, fetching additional units.");
-                languageUnits.AddRange(DynamicDifficultyAdjustmentManager.Instance.GetNextLanguageUnitsBasedOnLevel(20));
+                languageUnit.CalculateWeight();
+                words.Add(languageUnit.identifier);
             }
-            
+            var letterLanguageUnits = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(new List<Property>(), 20);
+            List<string> letters = new List<string>();
+            foreach(LanguageUnit languageUnit in letterLanguageUnits)
+            {
+                letters.Add(languageUnit.identifier);
+            }
             // Add words and letters to the lists
-            AddWordsToList(languageUnits.Where(u => u is WordData)
-                .Select(u => u.Identifier.ToUpper()));
+            AddWordsToList(words);
 
-            AddLettersToList(languageUnits.Where(u => u is LetterData)
-                .Select(u => u.Identifier.ToUpper()));
+            AddLettersToList(letters);
 
             // Get the highest-weighted word
-            ILanguageUnit highestWeightedUnit = languageUnits
-                .Where(unit => unit is WordData) // Ensure you're only looking at words
-                .OrderByDescending(unit => unit.CompositeWeight)
+            LanguageUnit highestWeightedUnit = wordlanguageUnits
+                .OrderByDescending(unit => unit.weight)
                 .FirstOrDefault();
 
             if (highestWeightedUnit != null)
             {
-                WordData wordData = highestWeightedUnit as WordData;
+                LanguageUnit wordData = highestWeightedUnit;
 
                 if (wordData != null)
                 {
-                    if (wordData.Length == WordLength.TwoLetters)
+                    if (wordData.identifier.Length == 2)
                     {
                         gearStrategy = new MultiGearStrategy();
                         NumberOfGears = 2;
                     }
-                    else if (wordData.Length == WordLength.ThreeLetters)
+                    else if (wordData.identifier.Length == 3)
                     {
                         gearStrategy = new SingleGearStrategy();
                         NumberOfGears = 1;
@@ -289,8 +291,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
             {
                 Debug.LogError("No valid word data found to determine gear strategy.");
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            
             // Additional setup or error handling
             if (gearStrategy == null)
             {
