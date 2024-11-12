@@ -6,6 +6,7 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.Properties;
 using UnityEditor.Purchasing;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DynamicDifficultyAdjustment : MonoBehaviour
 {
@@ -19,20 +20,98 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     };
     int playerLanguageLevel;
 
-    public void GetLetter(List<string> properties) {
-
+    public LanguageUnit GetLetter(List<string> properties)
+    {
+        float totalweight = 0;
+        foreach (LanguageUnit letter in letters)
+        {
+            letter.GetWeight();
+            totalweight += letter.weight;
+        }
+        float rand = Random.Range(0f, totalweight);
+        float cumulativeWeight = 0;
+        foreach (LanguageUnit letter in letters)
+        {
+            cumulativeWeight += letter.weight;
+            if(rand <= cumulativeWeight)
+            {
+                return letter;
+            }
+        }
+        Debug.Log("could not find any letters, returning blank");
+        return new LanguageUnit();
     }
 
-    public void GetLetters(List<string> properties) {
-        
+    public List<LanguageUnit> GetLetters(List<string> properties, int count)
+    {
+        List<LanguageUnit> returnedLetters = new List<LanguageUnit>();
+        for (int i = 0; i < count; i++)
+        {
+            float totalweight = 0;
+            foreach (LanguageUnit letter in letters)
+            {
+                letter.GetWeight();
+                totalweight += letter.weight;
+            }
+            float rand = Random.Range(0f, totalweight);
+            float cumulativeWeight = 0;
+            foreach (LanguageUnit letter in letters)
+            {
+                cumulativeWeight += letter.weight;
+                if (rand <= cumulativeWeight)
+                {
+                    returnedLetters.Add(letter);
+                }
+            }
+        }
+        return returnedLetters;
     }
 
-    public void GetWord(List<string> properties) {
-
+    public LanguageUnit GetWord(List<string> properties)
+    {
+        float totalweight = 0;
+        foreach (LanguageUnit word in words)
+        {
+            word.GetWeight();
+            totalweight += word.weight;
+        }
+        float rand = Random.Range(0f, totalweight);
+        float cumulativeWeight = 0;
+        foreach (LanguageUnit word in words)
+        {
+            cumulativeWeight += word.weight;
+            if (rand <= cumulativeWeight)
+            {
+                return word;
+            }
+        }
+        Debug.Log("could not find any letters, returning blank");
+        return new LanguageUnit();
     }
 
-    public void GetWords(List<string> properties) {
-        
+    public List<LanguageUnit> GetWords(List<string> properties, int count)
+    {
+        List<LanguageUnit> returnedWords = new List<LanguageUnit>();
+        for (int i = 0; i < count; i++)
+        {
+            float totalweight = 0;
+            foreach (LanguageUnit word in words)
+            {
+                word.GetWeight();
+                totalweight += word.weight;
+            }
+            float rand = Random.Range(0f, totalweight);
+            float cumulativeWeight = 0;
+            foreach (LanguageUnit word in words)
+            {
+                cumulativeWeight += word.weight;
+                if (rand <= cumulativeWeight)
+                {
+                    returnedWords.Add(word);
+                }
+            }
+        }
+        return returnedWords;
     }
 
     /// <summary>

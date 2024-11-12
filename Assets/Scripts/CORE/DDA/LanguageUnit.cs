@@ -8,4 +8,14 @@ public class LanguageUnit : ScriptableObject
 {
     public string identifier;
     public List<Property> properties;
+    public float weight;
+
+    public void GetWeight()
+    {
+        weight = 0;
+        foreach(Property prop in properties)
+        {
+            weight += prop.weight;
+        }
+    }
 }
