@@ -24,6 +24,8 @@ TagManager:
   - Asteroid
   - Shadow
   - Platform
+  - Checkpoint
+  - Ingredient
   layers:
   - Default
   - TransparentFX

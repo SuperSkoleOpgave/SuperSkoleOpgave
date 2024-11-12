@@ -11,55 +11,64 @@ public class IngredientHolderPickup : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    bool clicked = false;
-
-    Button button;
+    public Vector3 startPosition;
 
     Vector3 mousePosition;
+    public bool isDragable = true;
     void Start()
     {
-        button=gameObject.transform.GetComponent<Button>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        
+        //if(gameObject.transform.position==startPosition && isDragable==false)
+        //{
+
+        //    StartCoroutine(MakeDragableAgainAfterCoolDown());
+        //}
       
 
     }
 
-    
-
-
-    void MoveIngredient()
+    IEnumerator MakeDragableAgainAfterCoolDown()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000))
-        {
+        yield return new WaitForSeconds(4);
 
-            gameObject.transform.position = hit.transform.position;
-        }
+        isDragable = true;
 
     }
+
+    
 
     private Vector3 GetMousePos()
     {
         return Camera.main.WorldToScreenPoint(transform.position);
     }
 
+    
+
     private void OnMouseDown()
     {
-        mousePosition = Input.mousePosition - GetMousePos();
+        if (isDragable == true)
+        {
+            mousePosition = Input.mousePosition - GetMousePos();
+        }
     }
 
     private void OnMouseDrag()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
+        if (isDragable == true)
+        {
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        isDragable = true;
     }
 
 
