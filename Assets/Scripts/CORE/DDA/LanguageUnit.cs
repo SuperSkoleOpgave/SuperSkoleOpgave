@@ -10,6 +10,9 @@ public class LanguageUnit : ScriptableObject
     public List<Property> properties;
     public float weight;
 
+    /// <summary>
+    /// sets the weight of the languageunit to the total weight of all properties
+    /// </summary>
     public void GetWeight()
     {
         weight = 0;
