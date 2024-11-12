@@ -19,7 +19,6 @@ public class FlightControls : MonoBehaviour
         if (playerObject == null)
         {
             Debug.LogError($"{nameof(FlightControls)}: Player object reference is required!");
-            enabled = false;
         }
     }
 
@@ -44,7 +43,7 @@ public class FlightControls : MonoBehaviour
         Vector3 newPosition = transform.position + movement;
 
         newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
-        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 5f);
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 7f);
 
         transform.position = newPosition;
 
