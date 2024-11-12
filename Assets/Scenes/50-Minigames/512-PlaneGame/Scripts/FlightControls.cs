@@ -21,7 +21,9 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// diffrent direction the player charector can fly With WASD buttons, aswell as barrel roll via Spacebar.
+    /// </summary>
     private void playerFlight()
     {
        
