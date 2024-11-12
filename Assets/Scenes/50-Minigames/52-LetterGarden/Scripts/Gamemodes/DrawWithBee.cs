@@ -26,14 +26,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
             bool shouldRegenerateAnswer = false;
             if(gameRules.GetType() == typeof(DynamicGameRules))
             {
-                /*
-                LetterData letterData = (LetterData)GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
-                if(letterData.Category == Analytics.LetterCategory.All)
-                {
-                    shouldRegenerateAnswer = true;
-                }
-                */
-                Debug.LogError("code removed as it was using old DDA");
+                shouldRegenerateAnswer = true;
             }
             //Adds a given amount of random letters to the result list based on the given game rules.
             gameRules.SetCorrectAnswer();
