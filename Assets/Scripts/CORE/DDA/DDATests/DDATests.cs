@@ -120,6 +120,9 @@ public class DDATests
     }
     #endregion
     #region LanguageUnit
+    /// <summary>
+    /// Checks that weight is correctly updated with one property
+    /// </summary>
     [Test]
     public void WeightUpdatedOnSingleProperty()
     {
@@ -138,6 +141,9 @@ public class DDATests
         Assert.AreEqual(50, languageUnitUnderTest.weight);
     }
 
+    /// <summary>
+    /// Checks weight is correctly updated on multiple properties
+    /// </summary>
     [Test]
     public void WeightUpdatedOnMultipleProperties()
     {
@@ -346,6 +352,9 @@ public class DDATests
     }
     #endregion
     #region GetLetter
+    /// <summary>
+    /// Checks letters can be retrieved
+    /// </summary>
     [Test]
     public void CanGetLetter()
     {
@@ -364,6 +373,9 @@ public class DDATests
 
         Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetLetter(new List<Property>()));
     }
+    /// <summary>
+    /// Checks that the highest weighted letter is the most likely to be returned
+    /// </summary>
     [Test]
     public void CanGetHighestWeightedLetterInGetLetter()
     {
@@ -379,9 +391,9 @@ public class DDATests
         };
         LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
         Property lowerweightedPropertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 1;
-        propertyUnderTest.levelLock = 0;
+        lowerweightedPropertyUnderTest.property = property.testProperty;
+        lowerweightedPropertyUnderTest.weight = 1;
+        lowerweightedPropertyUnderTest.levelLock = 0;
         LowerWeightedLanguageUnitUnderTest.identifier = "e";
         LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
         {
@@ -405,6 +417,9 @@ public class DDATests
         }
         Assert.Greater(highestWeightedRetrieved, lowestWeigtedRetrieved);
     }
+    /// <summary>
+    /// Checks that a lower weighted letter can be returned
+    /// </summary>
     [Test]
     public void CanGetLowerWeightedLetterInGetLetter()
     {
@@ -442,6 +457,9 @@ public class DDATests
         Assert.Greater(lowestWeigtedRetrieved, 0);
     }
 
+    /// <summary>
+    /// Ensures an error is thrown then the letters list is empty
+    /// </summary>
     [Test]
     public void EmptyLettersListThrowsExceptionInGetLetter()
     {
@@ -449,6 +467,9 @@ public class DDATests
     }
     #endregion
     #region GetLetters
+    /// <summary>
+    /// Ensures you can retrieve all letters on the list 
+    /// </summary>
     [Test]
     public void CanGetAllLetters()
     {
@@ -472,6 +493,9 @@ public class DDATests
 
         Assert.AreEqual(amount, dDAUnderTest.GetLetters(new List<Property>(), amount).Count);
     }
+    /// <summary>
+    /// Ensures you can get some of the letters in the list
+    /// </summary>
     [Test]
     public void CanGetSomeLetters()
     {
@@ -495,6 +519,9 @@ public class DDATests
 
         Assert.AreEqual(requestAmount, dDAUnderTest.GetLetters(new List<Property>(), requestAmount).Count);
     }
+    /// <summary>
+    /// Ensures the  highest weighted letter is the most likely when using getLetters
+    /// </summary>
     [Test]
     public void CanGetHighestWeightedLetterInGetLetters()
     {
@@ -536,6 +563,9 @@ public class DDATests
         }
         Assert.Greater(highestWeightedRetrieved, lowestWeigtedRetrieved);
     }
+    /// <summary>
+    /// Ensures lower weighted letters can be retrieved when using GetLetters
+    /// </summary>
     [Test]
     public void CanGetLowerWeightedLetterInGetLetters()
     {
@@ -573,6 +603,9 @@ public class DDATests
         Assert.Greater(lowestWeigtedRetrieved, 0);
     }
 
+    /// <summary>
+    /// Ensures you dont get duplicate letters when requesting multiple letters
+    /// </summary>
     [Test]
     public void MultipleLettersDontGiveDuplicates()
     {
@@ -595,6 +628,9 @@ public class DDATests
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
+    /// <summary>
+    /// Ensures you cant request more letters than there are on the list
+    /// </summary>
     [Test]
     public void RequestAmountCantBeAboveListSize()
     {
@@ -612,6 +648,9 @@ public class DDATests
         Assert.Throws<Exception>(() => dDAUnderTest.GetLetters(new List<Property>(), 2));
     }
 
+    /// <summary>
+    /// Ensures an empty list throws an exception when using getLetters
+    /// </summary>
     [Test]
     public void EmptyLettersListThrowsExceptionInGetLetters()
     {
@@ -619,6 +658,9 @@ public class DDATests
     }
     #endregion
     #region GetWord
+    /// <summary>
+    /// Ensures you can get a word
+    /// </summary>
     [Test]
     public void CanGetWord()
     {
@@ -637,6 +679,9 @@ public class DDATests
 
         Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetWord(new List<Property>()));
     }
+    /// <summary>
+    /// Ensures you are most likely to get the highest weighted word
+    /// </summary>
     [Test]
     public void CanGetHighestWeightedWordInGetWord()
     {
@@ -678,6 +723,10 @@ public class DDATests
         }
         Assert.Greater(highestWeightedRetrieved, lowestWeigtedRetrieved);
     }
+
+    /// <summary>
+    /// Ensures you can get lower weighted words
+    /// </summary>
     [Test]
     public void CanGetLowerWeightedWordInGetWord()
     {
@@ -715,6 +764,9 @@ public class DDATests
         Assert.Greater(lowestWeigtedRetrieved, 0);
     }
 
+    /// <summary>
+    /// Ensures an empty words list throws an exception
+    /// </summary>
     [Test]
     public void EmptyLettersListThrowsExceptionInGetWord()
     {
@@ -722,8 +774,11 @@ public class DDATests
     }
     #endregion
     #region GetWords
+    /// <summary>
+    /// Ensures you can get all words on the list
+    /// </summary>
     [Test]
-    public void CanGetAllWordss()
+    public void CanGetAllWords()
     {
         int amount = Random.Range(1, 20);
         for(int i = 0; i < amount; i++)
@@ -745,6 +800,9 @@ public class DDATests
 
         Assert.AreEqual(amount, dDAUnderTest.GetWords(new List<Property>(), amount).Count);
     }
+    /// <summary>
+    /// Ensures you can get some of the words on the list
+    /// </summary>
     [Test]
     public void CanGetSomeWords()
     {
@@ -768,6 +826,9 @@ public class DDATests
 
         Assert.AreEqual(requestAmount, dDAUnderTest.GetWords(new List<Property>(), requestAmount).Count);
     }
+    /// <summary>
+    /// Ensures the highest weighted word is the most likely to get
+    /// </summary>
     [Test]
     public void CanGetHighestWeightedWordInGetWords()
     {
@@ -809,6 +870,9 @@ public class DDATests
         }
         Assert.Greater(highestWeightedRetrieved, lowestWeigtedRetrieved);
     }
+    /// <summary>
+    /// Ensures you can get lower weighted words
+    /// </summary>
     [Test]
     public void CanGetLowerWeightedWordInGetWords()
     {
@@ -846,6 +910,9 @@ public class DDATests
         Assert.Greater(lowestWeigtedRetrieved, 0);
     }
 
+    /// <summary>
+    /// Ensures you dont get duplicates when requesting multiple words
+    /// </summary>
     [Test]
     public void MultipleWordsDontGiveDuplicates()
     {
@@ -869,6 +936,9 @@ public class DDATests
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
+    /// <summary>
+    /// Ensures you get an exception when requesting more words than there are on the list
+    /// </summary>
     [Test]
     public void RequestAmountCantBeAboveWordListSize()
     {
@@ -886,6 +956,9 @@ public class DDATests
         Assert.Throws<Exception>(() => dDAUnderTest.GetWords(new List<Property>(), 2));
     }
 
+    /// <summary>
+    /// Ensures an empty word list throws an exception
+    /// </summary>
     [Test]
     public void EmptyWordsListThrowsExceptionInGetLetters()
     {
