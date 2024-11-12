@@ -30,7 +30,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         float totalweight = 0;
         foreach (LanguageUnit letter in letters)
         {
-            letter.GetWeight();
+            letter.CalculateWeight();
             totalweight += letter.weight;
         }
         float rand = Random.Range(0f, totalweight);
@@ -43,7 +43,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return letter;
             }
         }
-        Debug.LogError("could not find any letters, returning blank");
+        Debug.LogError("could not find any letters");
         return new LanguageUnit();
     }
 
@@ -58,22 +58,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         List<LanguageUnit> returnedLetters = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
         {
-            float totalweight = 0;
-            foreach (LanguageUnit letter in letters)
-            {
-                letter.GetWeight();
-                totalweight += letter.weight;
-            }
-            float rand = Random.Range(0f, totalweight);
-            float cumulativeWeight = 0;
-            foreach (LanguageUnit letter in letters)
-            {
-                cumulativeWeight += letter.weight;
-                if (rand <= cumulativeWeight)
-                {
-                    returnedLetters.Add(letter);
-                }
-            }
+            returnedLetters.Add(GetLetter(properties));
         }
         return returnedLetters;
     }
@@ -88,7 +73,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         float totalweight = 0;
         foreach (LanguageUnit word in words)
         {
-            word.GetWeight();
+            word.CalculateWeight();
             totalweight += word.weight;
         }
         float rand = Random.Range(0f, totalweight);
@@ -101,7 +86,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return word;
             }
         }
-        Debug.Log("could not find any letters, returning blank");
+        Debug.LogError("could not find any words");
         return new LanguageUnit();
     }
 
@@ -116,22 +101,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         List<LanguageUnit> returnedWords = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
         {
-            float totalweight = 0;
-            foreach (LanguageUnit word in words)
-            {
-                word.GetWeight();
-                totalweight += word.weight;
-            }
-            float rand = Random.Range(0f, totalweight);
-            float cumulativeWeight = 0;
-            foreach (LanguageUnit word in words)
-            {
-                cumulativeWeight += word.weight;
-                if (rand <= cumulativeWeight)
-                {
-                    returnedWords.Add(word);
-                }
-            }
+            returnedWords.Add(GetWord(properties));
         }
         return returnedWords;
     }

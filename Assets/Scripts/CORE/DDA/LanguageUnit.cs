@@ -13,7 +13,7 @@ public class LanguageUnit : ScriptableObject
     /// <summary>
     /// sets the weight of the languageunit to the total weight of all properties
     /// </summary>
-    public void GetWeight()
+    public void CalculateWeight()
     {
         weight = 0;
         foreach(Property prop in properties)
