@@ -41,6 +41,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
         List<char> letters = new List<char>();
         List<char> correctFoundLetters = new List<char>();
         List<char> wrongFoundLetters = new List<char>();
+
         /// <summary>
         /// Activates the given cube
         /// </summary>
@@ -178,14 +179,14 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
+                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
                         }
                     }
                     foreach(char letterSymbol in wrongFoundLetters)
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
+                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
                         }
                     }
                     won = true;
@@ -251,7 +252,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), true);
+                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
                             if(won)
                             {
                                 PlayerEvents.RaiseAddLetter(letterSymbol);
@@ -263,7 +264,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
             {
                 if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                 {
-                    //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(letterSymbol.ToString(), false);
+                    GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
                 }
             }
         }
