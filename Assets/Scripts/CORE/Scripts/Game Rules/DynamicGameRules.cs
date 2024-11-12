@@ -24,8 +24,8 @@ namespace CORE.Scripts.Game_Rules
         int remainingLetterIndex = 1;
         private List<char> wrongAnswerList;
         private property usedProperty;
-        private List<ILanguageUnit> languageUnits = new List<ILanguageUnit>();
-        private List<ILanguageUnit> languageUnitsList = new List<ILanguageUnit>();
+        private List<LanguageUnit> languageUnits = new List<LanguageUnit>();
+        private List<LanguageUnit> languageUnitsList = new List<LanguageUnit>();
 
         private bool usesSequence = false;
 
@@ -36,17 +36,15 @@ namespace CORE.Scripts.Game_Rules
         /// <returns>a correct answer</returns>
         public string GetCorrectAnswer()
         {
-            /*
+            
             //gets a random letter from the languageunits list if it contains more than one element
-            if(languageUnits[0].LanguageUnitType == LanguageUnit.Letter)
+            if(usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant)
             {
                 if(languageUnits.Count > 1)
                 {
-                    return languageUnits[Random.Range(0, languageUnits.Count)].Identifier;
+                    return languageUnits[Random.Range(0, languageUnits.Count)].identifier;
                 }
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
             return  correctAnswer;
         }
 
@@ -57,29 +55,28 @@ namespace CORE.Scripts.Game_Rules
         public string GetDisplayAnswer()
         {
             string displayString = "";
-            /*
+            
             //Sets the display string to the correctanswer if it is a letter and there are no extra letters is in languageUnits. In that case it returns the type of letter 
-            if(languageUnits[0].LanguageUnitType == LanguageUnit.Letter)
+            if(usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant)
             {
 
                 displayString = "Error";
-                LetterData letterData = (LetterData)languageUnits[0];
                 
-                if(languageUnits.Count > 1 && letterData.Category == LetterCategory.Vowel)
+                if(languageUnits.Count > 1 && usedProperty == property.vowel)
                 {
                     displayString = "vokaler";
                 }
-                else if(languageUnits.Count > 1 && letterData.Category == LetterCategory.Consonant)
+                else if(languageUnits.Count > 1 && usedProperty == property.consonant)
                 {
                     displayString = "konsonanter";
                 }
             }
             //for now returns the word to ensure compatability with existing gamemodes but should be removed once the GetSecondaryAnswer() is properly implemented
-            else if(languageUnits[0].LanguageUnitType == LanguageUnit.Word)
+            else if(usedProperty == property.word)
             {
                 return word;
             }
-            */
+            
             Debug.LogError("code removed as it was using old DDA");
             return displayString;
         }
@@ -162,44 +159,48 @@ namespace CORE.Scripts.Game_Rules
         {
             index = 0;
             remainingLetterIndex = 1;
+            
             if(languageUnitsList.Count == 0)
             {
-                //languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                //    .GetNextLanguageUnitsBasedOnLevel(80);
-                Debug.LogError("code removed as it was using old DDA");
+                List<Property> properties = new List<Property>();
+                Property filterProperty = new Property();
+                filterProperty.property = usedProperty;
+                properties.Add(filterProperty);
+                property errorProperty;
+                switch(usedProperty)
+                {
+                    case property.vowel:
+                        errorProperty = property.consonant;
+                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        break;
+                    case property.consonant:
+                        errorProperty = property.vowel;
+                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        break;
+                    case property.letter:
+                        errorProperty = property.letter;
+                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(new List<Property>(), 5);
+                        break;
+                    case property.word:
+                        errorProperty = property.letter;
+                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetWords(properties, 5);
+                        break;
+                    default:
+                        throw new Exception("the property " + usedProperty + " is not implemented");
+                }
+                DetermineWrongLetterCategory(errorProperty);
             }
             if(languageUnits == null)
             {
-                languageUnits = new List<ILanguageUnit>();
+                languageUnits = new List<LanguageUnit>();
             }
             else {
                 languageUnits.Clear();
             }
             languageUnits.Add(languageUnitsList[Random.Range(0, languageUnitsList.Count)]);
-            /*
-            //Checks which mode the gamerules should run in
-            switch(languageUnits[0].LanguageUnitType)
-            {
-                //if a letter it sets up the correct answer and determines which type of letter to use for wrong letters
-                case LanguageUnit.Letter:
-                    LetterData letterData = (LetterData)languageUnits[0];
-                    correctAnswer = letterData.Identifier;
-                    DetermineWrongLetterCategory(letterData.Category);
-                    break;
-                //If a word it sets up the word and retrieves the first letter of it and sets up the wrong answer list
-                case LanguageUnit.Word:
-                    usesSequence = true;
-                    WordData wordData = (WordData)languageUnits[0];
-                    correctAnswer = wordData.Identifier[0].ToString();
-                    word = wordData.Identifier;
-                    wrongAnswerList = LetterRepository.GetAllLetters().ToList();                
-                    break;
-                case LanguageUnit.Sentence:
-                default:
-                    Debug.LogError("Unknown Language Unit");
-                    break;
-            }
-            */
+            
+            
+            
             Debug.LogError("code removed as it was using old DDA");
         }
 
@@ -207,59 +208,20 @@ namespace CORE.Scripts.Game_Rules
         /// Determines which lettercategory to use for wronganswers
         /// </summary>
         /// <param name="letterCategory">the lettercategory to use for wrong letters</param>
-        private void DetermineWrongLetterCategory(LetterCategory letterCategory)
+        private void DetermineWrongLetterCategory(property letterCategory)
         {
             switch(letterCategory)
             {
                 //for consonants and vowels if the player is low enough level it also sets up so correct answer looks for a random correct letter
-                case LetterCategory.Consonant:
+                case property.consonant:
                     wrongAnswerList = LetterRepository.GetVowels().ToList();
-                    foreach(ILanguageUnit languageUnit in languageUnitsList)
-                    {
-                        /*
-                        if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            LetterData letterData = (LetterData)languageUnit; 
-                            if(letterData.Category == LetterCategory.Consonant)
-                            {
-                                languageUnits.Add(languageUnit);
-                            }
-                        }
-                        */
-                        Debug.LogError("code removed as it was using old DDA");
-                    }
-
                     break;
-                case LetterCategory.Vowel:
+                case property.vowel:
                     wrongAnswerList = LetterRepository.GetConsonants().ToList();
-                    foreach(ILanguageUnit languageUnit in languageUnitsList)
-                    {
-                        /*
-                        if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            LetterData letterData = (LetterData)languageUnit; 
-                            if(letterData.Category == LetterCategory.Vowel)
-                            {
-                                languageUnits.Add(languageUnit);
-                            }
-                        }
-                        */
-                        Debug.LogError("code removed as it was using old DDA");
-                    }
                     break;
-                case LetterCategory.All:
+                case property.letter:
                     wrongAnswerList = LetterRepository.GetAllLetters().ToList();
                     wrongAnswerList.Remove(correctAnswer[0]);
-                    foreach(ILanguageUnit languageUnit in languageUnitsList)
-                    {
-                        /*
-                        if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            languageUnits.Add(languageUnit);
-                        }
-                        */
-                        Debug.LogError("code removed as it was using old DDA");
-                    }
                     break;
                 default:
                     Debug.LogError("unknown letter category");
@@ -272,9 +234,9 @@ namespace CORE.Scripts.Game_Rules
             if(languageUnits.Count > 1)
             {
                 string res = "";
-                foreach(ILanguageUnit languageUnit in languageUnits)
+                foreach(LanguageUnit languageUnit in languageUnits)
                 {
-                    res += languageUnit.Identifier;
+                    res += languageUnit.identifier;
                 }
                 return res;
             }
@@ -284,9 +246,9 @@ namespace CORE.Scripts.Game_Rules
 
         private bool LanguageUnitsContainsIdentifier(string identifier)
         {
-            foreach(ILanguageUnit languageUnit in languageUnits)
+            foreach(LanguageUnit languageUnit in languageUnits)
             {
-                if(languageUnit.Identifier.ToLower() == identifier.ToLower())
+                if(languageUnit.identifier.ToLower() == identifier.ToLower())
                 {
                     return true;
                 }
@@ -294,7 +256,7 @@ namespace CORE.Scripts.Game_Rules
             return false;
         }
 
-        public void AddFilteredList(List<ILanguageUnit> languageUnits)
+        public void AddFilteredList(List<LanguageUnit> languageUnits)
         {
             languageUnitsList = languageUnits;
         }
