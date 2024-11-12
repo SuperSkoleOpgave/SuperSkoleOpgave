@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using CORE;
 using Analytics;
 using Letters;
+using System;
 
 namespace Scenes._50_Minigames.Gamemode
 {
@@ -61,10 +62,44 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("X", 60);
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
-            IGenericGameMode mode;
+            IGenericGameMode mode = null;
             List<Property> priorities = GameManager.Instance.DynamicDifficultyAdjustment.GetPlayerPriority();
-            Property usedProperty;
-            
+            Property usedProperty = null;
+            while(priorities.Count > 0 && usedProperty == null)
+            {
+                switch(priorities[0].property)
+                {
+                    case property.vowel:
+                    case property.consonant:
+                    case property.letter:
+                    case property.word:
+                        usedProperty = priorities[0];
+                        break;
+                }
+                priorities.RemoveAt(0);
+            }
+            if(usedProperty == null)
+            {
+                usedProperty = new Property();
+                usedProperty.property = property.vowel;
+            }
+            dynamicGameRules.SetUsedProperty(usedProperty.property);
+            switch(usedProperty.property)
+            {
+                case property.vowel:
+                case property.consonant:
+                    mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
+                    break;
+                case property.letter:
+                    mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
+                    break;
+                case property.word:
+                    mode = wordGamemodes[Random.Range(0, wordGamemodes.Count)];
+                    break;
+                default:
+                    break;
+            }
+
             /*
             List<ILanguageUnit> languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager
                     .GetNextLanguageUnitsBasedOnLevel(80);
@@ -119,51 +154,12 @@ namespace Scenes._50_Minigames.Gamemode
                     break;
             }
             */
-            Debug.LogError("code removed as it was using old DDA");
-            return (dynamicGameRules, null);
-        }
-
-        private (IGenericGameMode, DynamicGameRules) NoValidWordsMode(List<ILanguageUnit> languageUnits)
-        {
-            IGenericGameMode mode = null;
-            DynamicGameRules dynamicGameRules = new DynamicGameRules();
-            List<ILanguageUnit> filteredLetters = new List<ILanguageUnit>();
-            bool pickedGamemode = false;
-            /*
-            LetterData letter = new LetterData("ds", LetterCategory.Consonant, 1);
-            for(int i = 1; i < languageUnits.Count; i++)
+            //Debug.LogError("code removed as it was using old DDA");
+            if(mode == null)
             {
-                if(languageUnits[i].LanguageUnitType == LanguageUnit.Letter)
-                {
-                    LetterData letterData = (LetterData)languageUnits[i];
-                    if(!pickedGamemode)
-                    {
-                        mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
-                        
-                        if(letterData.Category == LetterCategory.Vowel || letterData.Category == LetterCategory.Consonant)
-                        {
-                            mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
-                        }
-                        pickedGamemode = true;
-                        letter = letterData;
-                    }
-                    if(letter.Identifier.Length == 1 && letterData.Category == letter.Category)
-                    {
-                        filteredLetters.Add(letter);
-                    }
-                }
+                throw new Exception("No Gamemode assigned");
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
-            if (filteredLetters.Count > 0)
-            {
-                dynamicGameRules.AddFilteredList(filteredLetters);
-                return (mode, dynamicGameRules);
-            }
-            else
-            {
-                return (null, null);
-            }
+            return (dynamicGameRules, mode);
         }
 
         /// <summary>

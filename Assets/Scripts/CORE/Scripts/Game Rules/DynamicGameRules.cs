@@ -23,7 +23,7 @@ namespace CORE.Scripts.Game_Rules
         int index;
         int remainingLetterIndex = 1;
         private List<char> wrongAnswerList;
-
+        private property usedProperty;
         private List<ILanguageUnit> languageUnits = new List<ILanguageUnit>();
         private List<ILanguageUnit> languageUnitsList = new List<ILanguageUnit>();
 
@@ -314,6 +314,11 @@ namespace CORE.Scripts.Game_Rules
                     break;
                 }
             }
+        }
+
+        public void SetUsedProperty(property property)
+        {
+            usedProperty = property;
         }
     }
 }
