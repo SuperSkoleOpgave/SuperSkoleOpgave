@@ -25,7 +25,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="properties"></param>
     /// <returns></returns>
-    public LanguageUnit GetLetter(List<string> properties)
+    public LanguageUnit GetLetter(List<Property> properties)
     {
         float totalweight = 0;
         foreach (LanguageUnit letter in letters)
@@ -53,7 +53,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="properties"></param>
     /// <param name="count"></param>
     /// <returns></returns>
-    public List<LanguageUnit> GetLetters(List<string> properties, int count)
+    public List<LanguageUnit> GetLetters(List<Property> properties, int count)
     {
         List<LanguageUnit> returnedLetters = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
@@ -68,7 +68,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="properties"></param>
     /// <returns></returns>
-    public LanguageUnit GetWord(List<string> properties)
+    public LanguageUnit GetWord(List<Property> properties)
     {
         float totalweight = 0;
         foreach (LanguageUnit word in words)
@@ -96,7 +96,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="properties"></param>
     /// <param name="count"></param>
     /// <returns></returns>
-    public List<LanguageUnit> GetWords(List<string> properties, int count)
+    public List<LanguageUnit> GetWords(List<Property> properties, int count)
     {
         List<LanguageUnit> returnedWords = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
