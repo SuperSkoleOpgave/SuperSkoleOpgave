@@ -282,5 +282,10 @@ namespace CORE.Scripts.Game_Rules
         {
             usedProperty = property;
         }
+
+        public List<LanguageUnit> GetLanguageUnits()
+        {
+            return languageUnits;
+        }
     }
 }

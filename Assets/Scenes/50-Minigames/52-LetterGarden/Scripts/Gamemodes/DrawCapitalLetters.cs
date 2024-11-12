@@ -12,6 +12,12 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
     /// </summary>
     public class DrawCapitalLetters : LettergardenGameMode
     {
+
+        public List<LanguageUnit> GetCurrentLanguageUnits()
+        {
+            return new List<LanguageUnit>();
+        }
+
         /// <summary>
         /// creates a list of SplineSymbolDataHolders of a given length
         /// </summary>
