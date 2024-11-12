@@ -768,7 +768,7 @@ public class DDATests
     /// Ensures an empty words list throws an exception
     /// </summary>
     [Test]
-    public void EmptyLettersListThrowsExceptionInGetWord()
+    public void EmptyWordsListThrowsExceptionInGetWord()
     {
         Assert.Throws<Exception>(()=> dDAUnderTest.GetWord(new List<Property>()));
     }
@@ -960,7 +960,7 @@ public class DDATests
     /// Ensures an empty word list throws an exception
     /// </summary>
     [Test]
-    public void EmptyWordsListThrowsExceptionInGetLetters()
+    public void EmptyWordsListThrowsExceptionInGetWords()
     {
         Assert.Throws<Exception>(()=> dDAUnderTest.GetWords(new List<Property>(), 1));
     }
