@@ -20,6 +20,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     };
     int playerLanguageLevel;
 
+    /// <summary>
+    /// returns a letter, using properties given
+    /// </summary>
+    /// <param name="properties"></param>
+    /// <returns></returns>
     public LanguageUnit GetLetter(List<string> properties)
     {
         float totalweight = 0;
@@ -38,10 +43,16 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return letter;
             }
         }
-        Debug.Log("could not find any letters, returning blank");
+        Debug.LogError("could not find any letters, returning blank");
         return new LanguageUnit();
     }
 
+    /// <summary>
+    /// returns a number of letters based on given properties
+    /// </summary>
+    /// <param name="properties"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
     public List<LanguageUnit> GetLetters(List<string> properties, int count)
     {
         List<LanguageUnit> returnedLetters = new List<LanguageUnit>();
@@ -67,6 +78,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         return returnedLetters;
     }
 
+    /// <summary>
+    /// returns a word based on given properties
+    /// </summary>
+    /// <param name="properties"></param>
+    /// <returns></returns>
     public LanguageUnit GetWord(List<string> properties)
     {
         float totalweight = 0;
@@ -89,6 +105,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         return new LanguageUnit();
     }
 
+    /// <summary>
+    /// returns a number of words based on given properties
+    /// </summary>
+    /// <param name="properties"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
     public List<LanguageUnit> GetWords(List<string> properties, int count)
     {
         List<LanguageUnit> returnedWords = new List<LanguageUnit>();
