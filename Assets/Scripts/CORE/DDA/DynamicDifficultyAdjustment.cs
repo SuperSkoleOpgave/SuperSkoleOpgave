@@ -27,6 +27,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public LanguageUnit GetLetter(List<Property> properties)
     {
+        if(letters == null)
+        {
+            throw new Exception("could not find any letters");
+        }
         float totalweight = 0;
         foreach (LanguageUnit letter in letters)
         {
@@ -43,8 +47,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return letter;
             }
         }
-        Debug.LogError("could not find any letters");
-        return new LanguageUnit();
+        throw new Exception("could not find any letters");
     }
 
     /// <summary>
@@ -55,10 +58,23 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public List<LanguageUnit> GetLetters(List<Property> properties, int count)
     {
+        if(letters == null)
+        {
+            throw new Exception("could not find any letters");
+        }
+        if(count > letters.Count)
+        {
+            throw new Exception("Too many requested Letters");
+        }
         List<LanguageUnit> returnedLetters = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
         {
-            returnedLetters.Add(GetLetter(properties));
+            LanguageUnit languageUnit = GetLetter(properties);
+            while(returnedLetters.Contains(languageUnit))
+            {
+                languageUnit = GetLetter(properties);
+            }
+            returnedLetters.Add(languageUnit);
         }
         return returnedLetters;
     }
@@ -70,6 +86,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public LanguageUnit GetWord(List<Property> properties)
     {
+        if(words == null)
+        {
+            throw new Exception("could not find any words");
+        }
         float totalweight = 0;
         foreach (LanguageUnit word in words)
         {
@@ -86,8 +106,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 return word;
             }
         }
-        Debug.LogError("could not find any words");
-        return new LanguageUnit();
+        throw new Exception("could not find any words");
     }
 
     /// <summary>
@@ -98,10 +117,24 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns></returns>
     public List<LanguageUnit> GetWords(List<Property> properties, int count)
     {
+        if(words == null)
+        {
+            throw new Exception("could not find any wordds");
+        }
+        if(count > words.Count)
+        {
+            throw new Exception("Too many requested words");
+        }
         List<LanguageUnit> returnedWords = new List<LanguageUnit>();
         for (int i = 0; i < count; i++)
         {
-            returnedWords.Add(GetWord(properties));
+
+            LanguageUnit languageUnit = GetWord(properties);
+            while(returnedWords.Contains(languageUnit))
+            {
+                languageUnit = GetWord(properties);
+            }
+            returnedWords.Add(languageUnit);
         }
         return returnedWords;
     }
