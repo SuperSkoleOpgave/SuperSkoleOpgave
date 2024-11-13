@@ -39,12 +39,9 @@ namespace CORE.Scripts.Game_Rules
         {
             
             //gets a random letter from the languageunits list if it contains more than one element
-            if(usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant)
+            if(languageUnits.Count > 1 && usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant)
             {
-                if(languageUnits.Count > 1)
-                {
-                    return languageUnits[Random.Range(0, languageUnits.Count)].identifier;
-                }
+                return languageUnits[Random.Range(0, languageUnits.Count)].identifier;
             }
             return  correctAnswer;
         }
