@@ -1,3 +1,4 @@
+using System.Collections;
 using Analytics;
 using CORE.Scripts;
 using LoadSave;
@@ -178,6 +179,11 @@ namespace CORE
                 DynamicDifficultyAdjustmentManager = gameObject.AddComponent<DynamicDifficultyAdjustmentManager>();
             }
             */
+        }  
+
+        private IEnumerator WaitOnBootstrapper()
+        {
+            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
         }
 
         /// <summary>

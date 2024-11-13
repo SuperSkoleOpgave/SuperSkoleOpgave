@@ -229,10 +229,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     }
 
-    private void SetupLanguageUnits()
+    public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
-
+        this.letters = letters;
+        this.words = words;
     }
+
 
     private void CalculateLanguageLevel()
     {
