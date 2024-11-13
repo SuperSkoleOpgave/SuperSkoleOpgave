@@ -14,6 +14,12 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
     /// </summary>
     public class DrawWithOrWithOutBee : LettergardenGameMode
     {
+        List<LanguageUnit> languageUnits = new List<LanguageUnit>();
+        public List<LanguageUnit> GetCurrentLanguageUnits()
+        {
+            return languageUnits;
+        }
+
         /// <summary>
         /// creates a list of SplineSymbolDataHolders of a given length
         /// </summary>
@@ -26,14 +32,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
             bool shouldRegenerateAnswer = true;
             if(gameRules.GetType() == typeof(DynamicGameRules))
             {
-                /*
-                LetterData letterData = (LetterData)GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
-                if(letterData.Category == Analytics.LetterCategory.All)
-                {
-                    shouldRegenerateAnswer = true;
-                }
-                */
-                Debug.LogError("code removed as it was using old DDA");
+                shouldRegenerateAnswer = true;
             }
             gameRules.SetCorrectAnswer();
             //Adds a given amount of random letters to the result list based on the given game rules.
@@ -54,6 +53,18 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
                     letter = gameRules.GetCorrectAnswer();
                 }
                 usedLetters.Add(letter);
+                if(gameRules.GetType() == typeof(DynamicGameRules))
+                {
+                    DynamicGameRules dynamicGameRules = (DynamicGameRules)gameRules;
+                    foreach(LanguageUnit languageUnit in dynamicGameRules.GetLanguageUnits())
+                    {
+                        if(languageUnit.identifier == letter)
+                        {
+                            languageUnits.Add(languageUnit);
+                            break;
+                        }
+                    }
+                }
                 if(Random.Range(0, 2) == 0)
                 {
                     result.Add(new SplineSymbolDataHolder(SymbolManager.capitalLettersObjects[letter.ToUpper()[0]], SymbolManager.capitalLetters[letter.ToUpper()[0]], letter.ToUpper()[0]));

@@ -113,10 +113,6 @@ namespace Scenes._00_Bootstrapper
                     //wordDataList.Add(wordData);
                 }
             }
-
-            // Pass parsed word data to WordRepository
-            //WordRepository.AddWords(setName, wordDataList);
-            Debug.LogError("code removed as it was using old DDA");
         }
         
         private WordLength DetermineWordLength(string word)

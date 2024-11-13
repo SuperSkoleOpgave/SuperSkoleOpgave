@@ -128,20 +128,39 @@ namespace Scenes._50_Minigames.Gamemode
         {
             //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             IGenericGameMode mode = null;
-            IGameRules rules = null;
-            /*
-            if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
+            DynamicGameRules rules = new DynamicGameRules();
+            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            property usedProperty = property.testProperty;
+            while(priorities.Count > 0 && usedProperty == property.testProperty)
             {
-                mode = new LevelFiveRacing();
-                rules = new DynamicGameRules();
+                switch(priorities[0])
+                {
+                    case property.vowel:
+                    case property.consonant:
+                    case property.letter:
+                    case property.word:
+                        usedProperty = priorities[0];
+                        break;
+                }
+                priorities.RemoveAt(0);
             }
-            else if(languageUnit.LanguageUnitType == LanguageUnit.Word)
+            if(usedProperty == property.testProperty)
             {
-                mode = new LevelThreeRacing();
-                rules = new DynamicGameRules();
+                usedProperty = property.vowel;
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            Debug.Log(usedProperty);
+            rules.SetUsedProperty(usedProperty);
+            switch(usedProperty)
+                {
+                    case property.vowel:
+                    case property.consonant:
+                    case property.letter:
+                        mode = new LevelFiveRacing();
+                        break;
+                    case property.word:
+                        mode = new LevelThreeRacing();
+                        break;
+                }
             return (rules, mode);
         }
 

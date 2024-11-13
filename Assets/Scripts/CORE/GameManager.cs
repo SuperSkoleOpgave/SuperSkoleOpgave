@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using Analytics;
 using CORE.Scripts;
 using LoadSave;
 using Scenes;
+using Scenes._00_Bootstrapper;
 using Scenes._10_PlayerScene.Scripts;
 using Scenes._24_HighScoreScene.Scripts;
 using TMPro;
@@ -162,6 +165,7 @@ namespace CORE
             if(!GetComponent<DynamicDifficultyAdjustment>())
             {
                 dynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
+                StartCoroutine(WaitOnBootstrapper());
             }
 
             return;
@@ -181,6 +185,14 @@ namespace CORE
                 DynamicDifficultyAdjustmentManager = gameObject.AddComponent<DynamicDifficultyAdjustmentManager>();
             }
             */
+        }
+
+        IEnumerator WaitOnBootstrapper()
+        {
+            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
+            GameObject bootstrapperObject = GameObject.FindGameObjectWithTag("Bootstrapper");
+            Bootstrapper bootstrapper = bootstrapperObject.GetComponent<Bootstrapper>();
+            dynamicDifficultyAdjustment.SetupLanguageUnits(bootstrapper.letters, new List<LanguageUnit>());
         }
 
         /// <summary>

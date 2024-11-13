@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.Properties;
@@ -18,6 +19,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     {
         property.word
     };
+
+    Dictionary<property, int> levelLocks;
     int playerLanguageLevel;
 
     /// <summary>
@@ -161,23 +164,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             {
                 if(!nonWeightedProperties.Contains(property))
                 {
-                    Property foundProperty = null;
-                    foreach(Property p in properties)
-                    {
-                        if(p.property == property)
-                        {
-                            foundProperty = p;
-                            break;
-                        }
-                    }
-                    if(foundProperty == null)
-                    {
-                        foundProperty = new Property();
-                        foundProperty.property = property;
-                        foundProperty.levelLock = 0;
-                        foundProperty.weight = 50;
-                        properties.Add(foundProperty);
-                    }
+                    Property foundProperty = FindOrCreateProperty(property);
                     
                     if(correct && foundProperty.weight > 1)
                     {
@@ -197,6 +184,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
         CalculateLanguageLevel();
     }
+
 
     /// <summary>
     /// Adjust the weight of a language unit in the letters list based on its identifier
@@ -239,33 +227,22 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>Whether the player is high enough level to use the property</returns>
     public bool IsLanguageUnitTypeUnlocked(property property)
     {
-        Property foundProperty = null;
-        foreach(Property p in properties)
-        {
-            if(property == p.property)
-            {
-                foundProperty = p;
-                break;
-            }
-        }
-        if(foundProperty == null)
-        {
-            foundProperty = new Property();
-            foundProperty.property = property;
-            foundProperty.weight = 50;
-            foundProperty.levelLock = 0;
-            properties.Add(foundProperty);
-        }
-        return foundProperty.levelLock <= playerLanguageLevel;
+        return FindOrCreateProperty(property).levelLock <= playerLanguageLevel;
     }
 
     /// <summary>
-    /// Not implemented yet
+    /// Returns the default player priority
     /// </summary>
-    /// <returns>an empty list</returns>
+    /// <returns>a list of properties</returns>
     public List<property> GetPlayerPriority()
     {
-        return new List<property>();
+        return new List<property>()
+        {
+            property.vowel,
+            property.consonant,
+            property.letter,
+            property.word
+        };
     }
 
     /// <summary>
@@ -275,24 +252,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>The weight of the property</returns>
     public float GetPropertyWeight(property property)
     {
-        Property foundProperty = null;
-        foreach(Property p in properties)
-        {
-            if(property == p.property)
-            {
-                foundProperty = p;
-                break;
-            }
-        }
-        if(foundProperty == null)
-        {
-            foundProperty = new Property();
-            foundProperty.property = property;
-            foundProperty.weight = 50;
-            foundProperty.levelLock = 0;
-            properties.Add(foundProperty);
-        }
-        return foundProperty.weight;
+        return FindOrCreateProperty(property).weight;
     }
 
     private void Load()
@@ -305,17 +265,83 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     }
 
-    private void SetupLanguageUnits()
+    /// <summary>
+    /// Loads in language units from the bootstrapper. For letters it also sets up their properties and replaces the placeholder text for danish letters with the appropiate letter
+    /// </summary>
+    /// <param name="letters">The letters to use in the DDA</param>
+    /// <param name="words">The words to use in the DDA</param>
+    public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
+        Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
+        levelLocks = new Dictionary<property, int>();
+        foreach(LanguageUnit languageUnit in letters)
+        {
+            if(languageUnit.identifier[0] == '(')
+            {
+                switch(languageUnit.identifier)
+                {
+                    case "(AA)":
+                        languageUnit.identifier = "\u00c5";
+                        break;
+                    case "(AE)":
+                        languageUnit.identifier = "\u00c6";
+                        break;
+                    case "(OE)":
+                        languageUnit.identifier = "\u00d8";
+                        break;
+                }
+            }
+            languageUnit.dynamicDifficultyAdjustment = this;
+            foreach (property property in languageUnit.properties)
+            {
+                FindOrCreateProperty(property);
+            }
+        }
+        this.letters = letters;
 
+        this.words = words;
     }
+
 
     private void CalculateLanguageLevel()
     {
 
     }
 
-    
+    /// <summary>
+    /// Tries to find the related object for a given property and if it cant find it creates it.
+    /// </summary>
+    /// <param name="property">The property to get the object for</param>
+    /// <returns>The object for the given property</returns>
+    private Property FindOrCreateProperty(property property)
+    {
+        Property foundProperty = null;
+        if(properties == null)
+        {
+            properties = new List<Property>();
+        }
+        foreach(Property p in properties)
+        {
+            if(property == p.property)
+            {
+                foundProperty = p;
+                break;
+            }
+        }
+        if(foundProperty == null)
+        {
+            foundProperty = new Property();
+            foundProperty.property = property;
+            foundProperty.weight = 50;
+            foundProperty.levelLock = 0;
+            if(levelLocks.Keys.Contains(property))
+            {
+                foundProperty.levelLock = levelLocks[property];
+            }
+            properties.Add(foundProperty);
+        }
+        return foundProperty;
+    }
 
     #region unitTesting
     /// <summary>
