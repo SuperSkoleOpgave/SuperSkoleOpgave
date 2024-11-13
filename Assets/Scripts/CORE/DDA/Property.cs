@@ -25,8 +25,8 @@ public enum property
     testProperty15,
     testProperty16,
     testProperty17,
-    testProperty18,
-    testProperty19,
+    consonant,
+    vowel,
     word,
     letter
 

@@ -126,7 +126,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts
                             break;
                         }
                     }
-                    GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeight(currentLetter, true);
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeight(currentLetter, true);
                     //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(currentSymbol.symbol.ToString(), true);
                     Instantiate(coinObject);
                     //StartCoroutine(TakeScreenShot());

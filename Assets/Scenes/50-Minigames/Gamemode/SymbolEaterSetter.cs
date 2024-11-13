@@ -64,11 +64,11 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode mode = null;
-            List<Property> priorities = GameManager.Instance.DynamicDifficultyAdjustment.GetPlayerPriority();
-            Property usedProperty = null;
-            while(priorities.Count > 0 && usedProperty == null)
+            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            property usedProperty = property.testProperty;
+            while(priorities.Count > 0 && usedProperty == property.testProperty)
             {
-                switch(priorities[0].property)
+                switch(priorities[0])
                 {
                     case property.vowel:
                     case property.consonant:
@@ -79,13 +79,12 @@ namespace Scenes._50_Minigames.Gamemode
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == null)
+            if(usedProperty == property.testProperty)
             {
-                usedProperty = new Property();
-                usedProperty.property = property.vowel;
+                usedProperty = property.vowel;
             }
-            dynamicGameRules.SetUsedProperty(usedProperty.property);
-            switch(usedProperty.property)
+            dynamicGameRules.SetUsedProperty(usedProperty);
+            switch(usedProperty)
             {
                 case property.vowel:
                 case property.consonant:

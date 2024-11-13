@@ -31,11 +31,11 @@ namespace Scenes._50_Minigames.Gamemode
         {
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode gameMode = gamemodes[Random.Range(0, gamemodes.Count)];
-            List<Property> priorities = GameManager.Instance.DynamicDifficultyAdjustment.GetPlayerPriority();
-            Property usedProperty = null;
-            while(priorities.Count > 0 && usedProperty == null)
+            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            property usedProperty = property.testProperty;
+            while(priorities.Count > 0 && usedProperty != property.testProperty)
             {
-                switch(priorities[0].property)
+                switch(priorities[0])
                 {
                     case property.vowel:
                     case property.consonant:
@@ -45,12 +45,11 @@ namespace Scenes._50_Minigames.Gamemode
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == null)
+            if(usedProperty == property.testProperty)
             {
-                usedProperty = new Property();
-                usedProperty.property = property.vowel;
+                usedProperty = property.vowel;
             }
-            dynamicGameRules.SetUsedProperty(usedProperty.property);
+            dynamicGameRules.SetUsedProperty(usedProperty);
             return (dynamicGameRules, gameMode);
         }
 

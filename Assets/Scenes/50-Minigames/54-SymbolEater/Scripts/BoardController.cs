@@ -245,7 +245,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         public void Lost()
         {
             gameOverText.text = "Du tabte. Monsteret smed dig ud af brættet";
-            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(gameRules.GetCorrectAnswer(), false);
+            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(gameRules.GetCorrectAnswer(), false);
             monsterHivemind.OnGameOver();
             player.GameOver();
             gameMode.UpdateLanguageUnitWeight();
@@ -258,7 +258,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         /// <param name="winText">The text to display</param>
         public void Won(string winText, int xpReward, int goldReward)
         {
-            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(gameRules.GetCorrectAnswer(), true);
+            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(gameRules.GetCorrectAnswer(), true);
             gameOverText.text = winText;
             monsterHivemind.OnGameOver();
             //Calls to update the players xp and gold. Temporary values

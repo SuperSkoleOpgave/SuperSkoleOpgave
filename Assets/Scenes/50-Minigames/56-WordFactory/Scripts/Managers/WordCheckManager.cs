@@ -101,7 +101,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
                     
                     // Report correct guess to DDA system
                     //DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(formedWord.ToLower(), true);
-                    GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightWord(formedWord.ToLower(), true);
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(formedWord.ToLower(), true);
     
                     isTutorialOver = true;
                     scoreManager.AddScore(formedWord.Length);
@@ -156,7 +156,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
                 foreach (char letter in formedWord)
                 {
                     //DynamicDifficultyAdjustmentManager.Instance.UpdateLanguageUnitWeight(letter.ToString(), false); 
-                    GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letter.ToString(), false); 
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(letter.ToString(), false); 
                 }
 
                 // Blink each closest tooth red using the event system

@@ -129,11 +129,11 @@ namespace Scenes._50_Minigames.Gamemode
             //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             IGenericGameMode mode = null;
             DynamicGameRules rules = new DynamicGameRules();
-            List<Property> priorities = GameManager.Instance.DynamicDifficultyAdjustment.GetPlayerPriority();
-            Property usedProperty = null;
-            while(priorities.Count > 0 && usedProperty == null)
+            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            property usedProperty = property.testProperty;
+            while(priorities.Count > 0 && usedProperty == property.testProperty)
             {
-                switch(priorities[0].property)
+                switch(priorities[0])
                 {
                     case property.vowel:
                     case property.consonant:
@@ -144,13 +144,12 @@ namespace Scenes._50_Minigames.Gamemode
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == null)
+            if(usedProperty == property.testProperty)
             {
-                usedProperty = new Property();
-                usedProperty.property = property.vowel;
+                usedProperty = property.vowel;
             }
-            rules.SetUsedProperty(usedProperty.property);
-            switch(usedProperty.property)
+            rules.SetUsedProperty(usedProperty);
+            switch(usedProperty)
                 {
                     case property.vowel:
                     case property.consonant:

@@ -17,7 +17,6 @@ namespace CORE.Scripts.Game_Rules
     public class DynamicGameRules : IGameRules
     {
         public static bool usesImages = true;
-        private int maxVowelLevel = 1;
         string correctAnswer;
         string word;
         int index;
@@ -162,28 +161,27 @@ namespace CORE.Scripts.Game_Rules
             
             if(languageUnitsList.Count == 0)
             {
-                List<Property> properties = new List<Property>();
-                Property filterProperty = new Property();
-                filterProperty.property = usedProperty;
+                List<property> properties = new List<property>();
+                property filterProperty = usedProperty;
                 properties.Add(filterProperty);
                 property errorProperty;
                 switch(usedProperty)
                 {
                     case property.vowel:
                         errorProperty = property.consonant;
-                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
                         break;
                     case property.consonant:
                         errorProperty = property.vowel;
-                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
                         break;
                     case property.letter:
                         errorProperty = property.letter;
-                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetLetters(new List<Property>(), 5);
+                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<property>(), 5);
                         break;
                     case property.word:
                         errorProperty = property.letter;
-                        languageUnitsList = GameManager.Instance.DynamicDifficultyAdjustment.GetWords(properties, 5);
+                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(properties, 5);
                         break;
                     default:
                         throw new Exception("the property " + usedProperty + " is not implemented");

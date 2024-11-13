@@ -16,7 +16,7 @@ public class LoadingSceneSetup : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        DynamicDifficultyAdjustment DDA = GameManager.Instance.DynamicDifficultyAdjustment;
+        DynamicDifficultyAdjustment DDA = GameManager.Instance.dynamicDifficultyAdjustment;
         //loads the general level selector and prepares the setup method if the player level is low enough 
         if(DDA.GetPlayerLevel() < 7)
         {
@@ -26,21 +26,17 @@ public class LoadingSceneSetup : MonoBehaviour
         //loads the specific gamemode selector for the given sceneID
         else 
         {
-            Property wordProperty =  new Property();
-            wordProperty.property = property.word;
-            Property letterProperty =  new Property();
-            letterProperty.property = property.letter;
             switch (sceneID)
             {
 
                  
                 case 0:
 
-                    if (DDA.IsLanguageUnitTypeUnlocked(wordProperty))
+                    if (DDA.IsLanguageUnitTypeUnlocked(property.letter))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene();
                     }
-                    if (DDA.IsLanguageUnitTypeUnlocked(letterProperty))
+                    if (DDA.IsLanguageUnitTypeUnlocked(property.word))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene_Words();
                     }
@@ -53,12 +49,12 @@ public class LoadingSceneSetup : MonoBehaviour
                     SwitchScenes.SwitchToLetterGardenLoaderScene();
                     break;
                 case 5:
-                    if (DDA.IsLanguageUnitTypeUnlocked(letterProperty))
+                    if (DDA.IsLanguageUnitTypeUnlocked(property.letter))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector();
                     }
                     
-                    if(DDA.IsLanguageUnitTypeUnlocked(wordProperty))
+                    if(DDA.IsLanguageUnitTypeUnlocked(property.word))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector_Words();
                     }

@@ -198,29 +198,6 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
-    public void AdjustWeightLetter(string letter, bool correct)
-    {
-        foreach(LanguageUnit languageUnit in letters)
-        {
-            if(languageUnit.identifier == letter)
-            {
-                AdjustWeight(languageUnit, correct);
-                break;
-            }
-        }
-    }
-
-    public void AdjustWeightWord(string word, bool correct)
-    {
-        foreach(LanguageUnit languageUnit in words)
-        {
-            if(languageUnit.identifier == word)
-            {
-                AdjustWeight(languageUnit, correct);
-                break;
-            }
-        }
-    }
 
     /// <summary>
     /// Adjust the weight of a language unit in the letters list based on its identifier
@@ -331,6 +308,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
+        Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
         this.letters = letters;
         this.words = words;
     }

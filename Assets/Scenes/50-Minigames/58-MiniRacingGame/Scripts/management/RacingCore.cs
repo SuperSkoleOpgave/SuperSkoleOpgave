@@ -479,12 +479,12 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                         if(targetWord.Length > 1)
                         {
                             PlayerEvents.RaiseAddWord(targetWord);
-                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightWord(targetWord, true);
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(targetWord, true);
                         }
                         else
                         {
                             PlayerEvents.RaiseAddLetter(targetWord[0]);
-                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, true);
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, true);
                         }
                         currentIndex = 0; // Reset for the next game or end game
                         spelledWordsList.Add(targetWord); // Add the spelled word to the list
@@ -496,11 +496,11 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
                 {
                     if(targetWord.Length > 1)
                     {
-                        GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightWord(targetWord, false);
+                        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(targetWord, false);
                     }
                     else
                     {
-                        GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, false);
+                        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(targetWord, false);
                     }
                     AudioManager.Instance.PlaySound(incorrectSound, SoundType.SFX);
                 }

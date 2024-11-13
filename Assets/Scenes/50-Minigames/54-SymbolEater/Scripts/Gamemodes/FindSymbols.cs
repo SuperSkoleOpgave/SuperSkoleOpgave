@@ -179,14 +179,14 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
                         }
                     }
                     foreach(char letterSymbol in wrongFoundLetters)
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
                         }
                     }
                     won = true;
@@ -252,7 +252,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
                     {
                         if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                         {
-                            GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), true);
                             if(won)
                             {
                                 PlayerEvents.RaiseAddLetter(letterSymbol);
@@ -264,7 +264,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts.Gamemodes
             {
                 if(letterSymbol.ToString().ToLower() != gameRules.GetCorrectAnswer().ToLower())
                 {
-                    GameManager.Instance.DynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(letterSymbol.ToString(), false);
                 }
             }
         }
