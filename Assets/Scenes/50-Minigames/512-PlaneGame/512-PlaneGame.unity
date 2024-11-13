@@ -479,6 +479,8 @@ GameObject:
   m_Component:
   - component: {fileID: 248381023}
   - component: {fileID: 248381022}
+  - component: {fileID: 248381024}
+  - component: {fileID: 248381025}
   m_Layer: 0
   m_Name: PlaneGameHub
   m_TagString: Untagged
@@ -500,6 +502,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPointA: {fileID: 1835016239}
   spawnPointB: {fileID: 751945830}
+  planeGameManager: {fileID: 248381024}
+  planeGameController: {fileID: 248381025}
   objectLoopPool: {fileID: 1943012617}
   isOn: 1
 --- !u!4 &248381023
@@ -517,6 +521,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &248381024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248381021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1818cd45bf835c749bc1aaf47b9a6d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameOn: 1
+  gameController: {fileID: 0}
+--- !u!114 &248381025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248381021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b8b079a84077e4691cc6916706cb6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeHolderWord: Kat
+  currentWordNumber: 0
+  currentLetter: 116
 --- !u!1 &338582050
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +1025,7 @@ GameObject:
   - component: {fileID: 808344081}
   m_Layer: 5
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1012,7 +1045,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
