@@ -26,6 +26,8 @@ namespace CORE.Scripts.Game_Rules
         private List<LanguageUnit> languageUnits = new List<LanguageUnit>();
         private List<LanguageUnit> languageUnitsList = new List<LanguageUnit>();
 
+        private List<property> priorities;
+
         private bool usesSequence = false;
 
         
@@ -198,9 +200,10 @@ namespace CORE.Scripts.Game_Rules
             }
             else {
                 languageUnits.Clear();
+
             }
             languageUnits.Add(languageUnitsList[Random.Range(0, languageUnitsList.Count)]);
-            
+            correctAnswer = languageUnits[0].identifier;
         }
 
         /// <summary>

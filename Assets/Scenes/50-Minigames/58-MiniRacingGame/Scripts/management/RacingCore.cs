@@ -32,7 +32,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
         private GameObject levelCreator;
         public readonly FindLetterInPicture gameRuleVocal = new();
         private readonly FindConsonant gameRuleConsonant = new();
-        public readonly DynamicGameRules dynamicGameRules = new();
+        public DynamicGameRules dynamicGameRules = new();
 
         [SerializeField] private AudioClip music;
         [SerializeField] private AudioClip correctSound;
@@ -99,6 +99,8 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
             AudioManager.Instance.PlaySound(music, SoundType.Music, true);
             if(rule.GetType() == typeof(DynamicGameRules))
             {
+                DynamicGameRules dynRules = (DynamicGameRules)rule;
+                dynamicGameRules = dynRules;
                 dynamicGameRules.SetCorrectAnswer();
                 usedProperty = dynamicGameRules.usedProperty;
             }

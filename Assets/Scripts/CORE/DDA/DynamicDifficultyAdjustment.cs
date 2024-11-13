@@ -236,7 +236,13 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>an empty list</returns>
     public List<property> GetPlayerPriority()
     {
-        return new List<property>();
+        return new List<property>()
+        {
+            property.vowel,
+            property.consonant,
+            property.letter,
+            property.word
+        };
     }
 
     /// <summary>
@@ -265,6 +271,21 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         levelLocks = new Dictionary<property, int>();
         foreach(LanguageUnit languageUnit in letters)
         {
+            if(languageUnit.identifier[0] == '(')
+            {
+                switch(languageUnit.identifier)
+                {
+                    case "(AA)":
+                        languageUnit.identifier = "\u00c5";
+                        break;
+                    case "(AE)":
+                        languageUnit.identifier = "\u00c6";
+                        break;
+                    case "(OE)":
+                        languageUnit.identifier = "\u00d8";
+                        break;
+                }
+            }
             languageUnit.dynamicDifficultyAdjustment = this;
             foreach (property property in languageUnit.properties)
             {

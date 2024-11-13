@@ -148,6 +148,7 @@ namespace Scenes._50_Minigames.Gamemode
             {
                 usedProperty = property.vowel;
             }
+            Debug.Log(usedProperty);
             rules.SetUsedProperty(usedProperty);
             switch(usedProperty)
                 {
