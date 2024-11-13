@@ -12,9 +12,11 @@ public class IngredientHolderPickup : MonoBehaviour
     // Start is called before the first frame update
 
     public Vector3 startPosition;
+    public CheckPizzaIngredient ingredientChecker;
 
     Vector3 mousePosition;
     public bool isDragable = true;
+    public bool isCorrectLetter=false;
     void Start()
     {
        
@@ -47,7 +49,8 @@ public class IngredientHolderPickup : MonoBehaviour
     {
         return Camera.main.WorldToScreenPoint(transform.position);
     }
-
+    
+    
     
 
     private void OnMouseDown()
@@ -66,9 +69,13 @@ public class IngredientHolderPickup : MonoBehaviour
         }
     }
 
-    private void OnMouseExit()
+    private void OnMouseUp()
     {
-        isDragable = true;
+        if (isCorrectLetter == false)
+        {
+            ingredientChecker.checkLetter = true;
+            StartCoroutine(MakeDragableAgainAfterCoolDown());
+        }
     }
 
 

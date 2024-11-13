@@ -11,6 +11,8 @@ public class CheckPizzaIngredient : MonoBehaviour
     public char currentLetterToGuess;
 
     [SerializeField] GameObject wrongAnswerText;
+    public bool checkLetter;
+    private bool correctLetter=false;
 
     void Start()
     {
@@ -22,24 +24,47 @@ public class CheckPizzaIngredient : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
+
         if (collision.gameObject.tag == "Ingredient")
         {
-
-            char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
-
-            bool correctLetter = CheckIfCorrectLetter(letterAddedToPizza);
-
-            if (correctLetter == false)
+          
+            if (checkLetter == true)
             {
-                collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
-                collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
-               
-                StartCoroutine(DisplayWrongAnswerText());
+                
+                bool isPreviousCorrectLetter = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter;
 
+                if (isPreviousCorrectLetter == false)
+                {
+                    char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
+                    Debug.Log(letterAddedToPizza.ToString());
+                    correctLetter = CheckIfCorrectLetter(letterAddedToPizza);
+
+                    Debug.Log("CorrectLetter:" + correctLetter);
+                    Debug.Log("isPreviousCorrectLetter:" + isPreviousCorrectLetter);
+
+                    if (correctLetter == false && isPreviousCorrectLetter == false)
+                    {
+                        collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
+
+                        collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
+
+                        StartCoroutine(DisplayWrongAnswerText());
+
+                    }
+                    else if (correctLetter == true && isPreviousCorrectLetter == false)
+                    {
+                        collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter = true;
+                        manager.correctIngredientAdded();
+                    }
+
+
+
+
+                    checkLetter = false;
+                }
             }
-
 
         }
     }
@@ -49,7 +74,7 @@ public class CheckPizzaIngredient : MonoBehaviour
     {
         if(letterAdded==currentLetterToGuess)
         {
-            manager.correctIngredientAdded();
+          
             return true;
         }
         else

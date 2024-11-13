@@ -51,8 +51,11 @@ public class PizzaRestaurantManager : MonoBehaviour
         {
             foreach (var item in spawnedLetters)
             {
+                
                 Destroy(item);
+                
             }
+           lettersForCurrentRound = new char[3, 4];
             StartNewRound();
             
             Debug.Log("Finished Word Correctly");
@@ -68,7 +71,7 @@ public class PizzaRestaurantManager : MonoBehaviour
 
         wordToGuess = testWord;
         ///ÚSE LATER WHEN IMAGES CAN BE LOADED SO WHEN THE GAME IS IN THE MAINWORLD !!!!!!
-       // ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
+        //ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
         
         
      
@@ -81,18 +84,23 @@ public class PizzaRestaurantManager : MonoBehaviour
         int assignedCorrectLetters = 0;
 
 
-
-
         for (int i = 0; i < 12; i++)
         {
-
             int rndIndexX = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(0));
             int rndIndexY = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(1));
+           
 
-            
+
+           
             if (assignedCorrectLetters<numberOfRandomPositions)
             {
-                lettersForCurrentRound[rndIndexX,rndIndexY] = testWord[assignedCorrectLetters];
+                while (lettersForCurrentRound[rndIndexX, rndIndexY] != '\0')
+                {
+                    rndIndexX = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(0));
+                    rndIndexY = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(1));
+
+                }
+                lettersForCurrentRound[rndIndexX,rndIndexY] = wordToGuess[assignedCorrectLetters];
                 assignedCorrectLetters++;
               
             }
@@ -134,6 +142,7 @@ public class PizzaRestaurantManager : MonoBehaviour
 
                 instObject.transform.position += pos;
                 instObject.GetComponent<IngredientHolderPickup>().startPosition = instObject.transform.position;
+                instObject.GetComponent<IngredientHolderPickup>().ingredientChecker = ingredientChecker;
                 spawnedLetters.Add(instObject);
             }
             
