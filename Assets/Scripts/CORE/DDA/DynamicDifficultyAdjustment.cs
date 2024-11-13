@@ -231,9 +231,9 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     }
 
     /// <summary>
-    /// Not implemented yet
+    /// Returns the default player priority
     /// </summary>
-    /// <returns>an empty list</returns>
+    /// <returns>a list of properties</returns>
     public List<property> GetPlayerPriority()
     {
         return new List<property>()
@@ -265,6 +265,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Loads in language units from the bootstrapper. For letters it also sets up their properties and replaces the placeholder text for danish letters with the appropiate letter
+    /// </summary>
+    /// <param name="letters">The letters to use in the DDA</param>
+    /// <param name="words">The words to use in the DDA</param>
     public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
         Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
@@ -303,6 +308,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Tries to find the related object for a given property and if it cant find it creates it.
+    /// </summary>
+    /// <param name="property">The property to get the object for</param>
+    /// <returns>The object for the given property</returns>
     private Property FindOrCreateProperty(property property)
     {
         Property foundProperty = null;
