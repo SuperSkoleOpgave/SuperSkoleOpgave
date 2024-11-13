@@ -28,6 +28,8 @@ namespace CORE
         public string CurrentMonsterName { get; set; }
         public string CurrentMonsterColor { get; set; }
         public DeviceType UserDevice { get; set; }
+
+        public DynamicDifficultyAdjustment dynamicDifficultyAdjustment {get; set;}
         
         public string CurrentClothMid { get; set; }
         public string CurrentClothTop { get; set; }
@@ -157,6 +159,10 @@ namespace CORE
                 PlayerData = gameObject.AddComponent<PlayerData>();
             }
             
+            if(!GetComponent<DynamicDifficultyAdjustment>())
+            {
+                dynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
+            }
 
             return;
             /*
