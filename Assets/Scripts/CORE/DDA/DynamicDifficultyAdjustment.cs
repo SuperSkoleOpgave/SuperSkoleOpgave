@@ -198,6 +198,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
+    /// <summary>
+    /// Adjust the weight of a language unit in the letters list based on its identifier
+    /// </summary>
+    /// <param name="letter">The identifer of the language unit to adjust</param>
+    /// <param name="correct">Whether the player did something correct</param>
     public void AdjustWeightLetter(string letter, bool correct)
     {
         foreach(LanguageUnit languageUnit in letters)
@@ -210,6 +215,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adjust the weight of a language unit in the words list based on its identifier
+    /// </summary>
+    /// <param name="word">The identifer of the language unit to adjust</param>
+    /// <param name="correct">Whether the player did something correct</param>
     public void AdjustWeightWord(string word, bool correct)
     {
         foreach(LanguageUnit languageUnit in words)
