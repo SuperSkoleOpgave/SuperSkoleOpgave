@@ -22,6 +22,35 @@ public class DDATests
        var gameObject = GameObject.Find("GameObjectToTestFor");
        dDAUnderTest = gameObject.GetComponent<DynamicDifficultyAdjustment>();
     }
+
+    private List<LanguageUnit> CreateLanguageUnits(int amount)
+    {
+        List<LanguageUnit> languageUnits = new List<LanguageUnit>();
+        for(int i = 0; i < amount; i++)
+        {
+            LanguageUnit languageUnit = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
+            languageUnit.properties = new List<property>();
+            languageUnit.identifier = i.ToString();
+            languageUnit.dynamicDifficultyAdjustment = dDAUnderTest;
+            languageUnits.Add(languageUnit);
+        }
+        return languageUnits;
+    }
+
+    private List<Property> CreateProperties(int amount)
+    {
+        List<Property> properties = new List<Property>();
+        for(int i = 0; i < amount; i++)
+        {
+            Property property = new Property();
+            property.weight = 50;
+            property.property = (property)i;
+            property.levelLock = 0;
+            dDAUnderTest.AddProperty(property);
+            properties.Add(property);
+        }
+        return properties;
+    }
     #endregion
     #region TestMethods
     /// <summary>
@@ -30,16 +59,8 @@ public class DDATests
     [Test]
     public void CanAddWord()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.word;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetWords());
@@ -52,16 +73,8 @@ public class DDATests
     [Test]
     public void CanAddLetter()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.letter;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
 
         Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetLetters());
@@ -73,16 +86,9 @@ public class DDATests
     [Test]
     public void CanAddPropertyFromWord()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.letter;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         Assert.Contains(propertyUnderTest, dDAUnderTest.GetProperties());
@@ -94,16 +100,9 @@ public class DDATests
     [Test]
     public void CanAddPropertyFromLetter()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.letter;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
 
         Assert.Contains(propertyUnderTest, dDAUnderTest.GetProperties());
@@ -126,16 +125,8 @@ public class DDATests
     [Test]
     public void WeightUpdatedOnSingleProperty()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
 
         languageUnitUnderTest.CalculateWeight();
         Assert.AreEqual(50, languageUnitUnderTest.weight);
@@ -147,18 +138,13 @@ public class DDATests
     [Test]
     public void WeightUpdatedOnMultipleProperties()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        languageUnitUnderTest.properties = new List<Property>();
-        languageUnitUnderTest.identifier = "d";
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        List<Property> properties = CreateProperties(Random.Range(2, 20));
         float totalWeight = 0;
-        for(int i = 0; i < Random.Range(2, 20); i++)
+        foreach(Property property in properties)
         {
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = Random.Range(0, 100);
-            totalWeight += propertyUnderTest.weight;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.properties.Add(propertyUnderTest);
+            languageUnitUnderTest.properties.Add(property.property);
+            totalWeight += property.weight;
         }
         languageUnitUnderTest.CalculateWeight();
         Assert.AreEqual(totalWeight, languageUnitUnderTest.weight);
@@ -171,16 +157,9 @@ public class DDATests
     [Test]
     public void CanAdjustWeightofWordUpwards()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, false);
@@ -194,16 +173,9 @@ public class DDATests
     [Test]
     public void CanAdjustWeightofWordDownWards()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
@@ -217,16 +189,10 @@ public class DDATests
     [Test]
     public void WeightCantbeAdjustedBelowOne()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
         propertyUnderTest.weight = 1;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
@@ -240,16 +206,10 @@ public class DDATests
     [Test]
     public void WeightCantbeAdjustedAbove100()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
         propertyUnderTest.weight = 100;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, false);
@@ -263,16 +223,9 @@ public class DDATests
     [Test]
     public void WeightCanBeAdjustedForLetters()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
 
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, false);
@@ -286,16 +239,9 @@ public class DDATests
     [Test]
     public void LanguageUnitMustBeOnAList()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         Assert.Throws<Exception>(() => dDAUnderTest.AdjustWeight(languageUnitUnderTest, false));
     }
     #endregion
@@ -306,15 +252,10 @@ public class DDATests
     [Test]
     public void UnlockedIfLevelLockIsBelowPlayerLevel()
     {
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        
-
+        CreateProperties(1);
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
     }
 
     /// <summary>
@@ -323,15 +264,11 @@ public class DDATests
     [Test]
     public void UnlockedIfLevelLockIsEqualToPlayerLevel()
     {
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
+        Property propertyUnderTest = CreateProperties(1)[0];
         propertyUnderTest.levelLock = 1;
-        
-
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
     }
 
     /// <summary>
@@ -340,15 +277,11 @@ public class DDATests
     [Test]
     public void LockedIfLevelLockIsAbovePlayerLevel()
     {
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
+        Property propertyUnderTest = CreateProperties(1)[0];
         propertyUnderTest.levelLock = 2;
-        
-
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(false, dDAUnderTest.IsLanguageUnitTypeUnlocked(propertyUnderTest));
+        Assert.AreEqual(false, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
     }
     #endregion
     #region GetLetter
@@ -358,20 +291,12 @@ public class DDATests
     [Test]
     public void CanGetLetter()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
 
 
-        Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetLetter(new List<Property>()));
+        Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetLetter(new List<property>()));
     }
     /// <summary>
     /// Checks that the highest weighted letter is the most likely to be returned
@@ -379,34 +304,20 @@ public class DDATests
     [Test]
     public void CanGetHighestWeightedLetterInGetLetter()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 99;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        lowerweightedPropertyUnderTest.property = property.testProperty;
-        lowerweightedPropertyUnderTest.weight = 1;
-        lowerweightedPropertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "e";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddLetter(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 99;
+        properties[1].weight = 1;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
         
         int highestWeightedRetrieved = 0;
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(languageUnitUnderTest.identifier == dDAUnderTest.GetLetter(new List<Property>()).identifier)
+            if(languageUnits[0].identifier == dDAUnderTest.GetLetter(new List<property>()).identifier)
             {
                 highestWeightedRetrieved++;
             }
@@ -423,33 +334,18 @@ public class DDATests
     [Test]
     public void CanGetLowerWeightedLetterInGetLetter()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        lowerweightedPropertyUnderTest.property = property.testProperty;
-        lowerweightedPropertyUnderTest.weight = 49;
-        lowerweightedPropertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "e";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddLetter(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddLetter(languageUnitUnderTest);
-        
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 50;
+        properties[1].weight = 49;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(LowerWeightedLanguageUnitUnderTest.identifier == dDAUnderTest.GetLetter(new List<Property>()).identifier)
+            if(languageUnits[1].identifier == dDAUnderTest.GetLetter(new List<property>()).identifier)
             {
                 lowestWeigtedRetrieved++;
             }
@@ -463,7 +359,7 @@ public class DDATests
     [Test]
     public void EmptyLettersListThrowsExceptionInGetLetter()
     {
-        Assert.Throws<Exception>(()=> dDAUnderTest.GetLetter(new List<Property>()));
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetLetter(new List<property>()));
     }
     #endregion
     #region GetLetters
@@ -474,24 +370,17 @@ public class DDATests
     public void CanGetAllLetters()
     {
         int amount = Random.Range(1, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "d";
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddLetter(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddLetter(languageUnits[i]);
         }
         
 
 
-        Assert.AreEqual(amount, dDAUnderTest.GetLetters(new List<Property>(), amount).Count);
+        Assert.AreEqual(amount, dDAUnderTest.GetLetters(new List<property>(), amount).Count);
     }
     /// <summary>
     /// Ensures you can get some of the letters in the list
@@ -499,25 +388,18 @@ public class DDATests
     [Test]
     public void CanGetSomeLetters()
     {
-        int amount = Random.Range(2, 20);
+        int amount = Random.Range(1, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "d";
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddLetter(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddLetter(languageUnits[i]);
         }
         
         int requestAmount = Random.Range(1, amount);
 
-        Assert.AreEqual(requestAmount, dDAUnderTest.GetLetters(new List<Property>(), requestAmount).Count);
+        Assert.AreEqual(requestAmount, dDAUnderTest.GetLetters(new List<property>(), requestAmount).Count);
     }
     /// <summary>
     /// Ensures the  highest weighted letter is the most likely when using getLetters
@@ -525,34 +407,20 @@ public class DDATests
     [Test]
     public void CanGetHighestWeightedLetterInGetLetters()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 99;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 1;
-        propertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "e";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddLetter(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 99;
+        properties[1].weight = 1;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
         
         int highestWeightedRetrieved = 0;
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(languageUnitUnderTest.identifier == dDAUnderTest.GetLetters(new List<Property>(), 1)[0].identifier)
+            if(languageUnits[0].identifier == dDAUnderTest.GetLetters(new List<property>(), 1)[0].identifier)
             {
                 highestWeightedRetrieved++;
             }
@@ -569,33 +437,19 @@ public class DDATests
     [Test]
     public void CanGetLowerWeightedLetterInGetLetters()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        lowerweightedPropertyUnderTest.property = property.testProperty;
-        lowerweightedPropertyUnderTest.weight = 49;
-        lowerweightedPropertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "e";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddLetter(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 50;
+        properties[1].weight = 49;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
         
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(LowerWeightedLanguageUnitUnderTest.identifier == dDAUnderTest.GetLetters(new List<Property>(), 1)[0].identifier)
+            if(languageUnits[1].identifier == dDAUnderTest.GetLetters(new List<property>(), 1)[0].identifier)
             {
                 lowestWeigtedRetrieved++;
             }
@@ -610,21 +464,14 @@ public class DDATests
     public void MultipleLettersDontGiveDuplicates()
     {
         int amount = Random.Range(2, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = i.ToString();
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddLetter(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddLetter(languageUnits[i]);
         }
-        List<LanguageUnit> retrievedList = dDAUnderTest.GetLetters(new List<Property>(), amount);
+        List<LanguageUnit> retrievedList = dDAUnderTest.GetLetters(new List<property>(), amount);
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
@@ -634,18 +481,10 @@ public class DDATests
     [Test]
     public void RequestAmountCantBeAboveListSize()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "d";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
-        Assert.Throws<Exception>(() => dDAUnderTest.GetLetters(new List<Property>(), 2));
+        Assert.Throws<Exception>(() => dDAUnderTest.GetLetters(new List<property>(), 2));
     }
 
     /// <summary>
@@ -654,7 +493,7 @@ public class DDATests
     [Test]
     public void EmptyLettersListThrowsExceptionInGetLetters()
     {
-        Assert.Throws<Exception>(()=> dDAUnderTest.GetLetters(new List<Property>(), 1));
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetLetters(new List<property>(), 1));
     }
     #endregion
     #region GetWord
@@ -664,20 +503,12 @@ public class DDATests
     [Test]
     public void CanGetWord()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
 
-        Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetWord(new List<Property>()));
+        Assert.AreEqual(languageUnitUnderTest, dDAUnderTest.GetWord(new List<property>()));
     }
     /// <summary>
     /// Ensures you are most likely to get the highest weighted word
@@ -685,34 +516,20 @@ public class DDATests
     [Test]
     public void CanGetHighestWeightedWordInGetWord()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 99;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 1;
-        propertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "ee";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddWord(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddWord(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 99;
+        properties[1].weight = 1;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
         
         int highestWeightedRetrieved = 0;
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(languageUnitUnderTest.identifier == dDAUnderTest.GetWord(new List<Property>()).identifier)
+            if(languageUnits[0].identifier == dDAUnderTest.GetWord(new List<property>()).identifier)
             {
                 highestWeightedRetrieved++;
             }
@@ -730,33 +547,19 @@ public class DDATests
     [Test]
     public void CanGetLowerWeightedWordInGetWord()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        lowerweightedPropertyUnderTest.property = property.testProperty;
-        lowerweightedPropertyUnderTest.weight = 49;
-        lowerweightedPropertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "ee";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddWord(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddWord(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 50;
+        properties[1].weight = 49;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
         
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(LowerWeightedLanguageUnitUnderTest.identifier == dDAUnderTest.GetWord(new List<Property>()).identifier)
+            if(languageUnits[1].identifier == dDAUnderTest.GetWord(new List<property>()).identifier)
             {
                 lowestWeigtedRetrieved++;
             }
@@ -770,7 +573,7 @@ public class DDATests
     [Test]
     public void EmptyWordsListThrowsExceptionInGetWord()
     {
-        Assert.Throws<Exception>(()=> dDAUnderTest.GetWord(new List<Property>()));
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetWord(new List<property>()));
     }
     #endregion
     #region GetWords
@@ -781,24 +584,17 @@ public class DDATests
     public void CanGetAllWords()
     {
         int amount = Random.Range(1, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "dd";
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddWord(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddWord(languageUnits[i]);
         }
         
 
 
-        Assert.AreEqual(amount, dDAUnderTest.GetWords(new List<Property>(), amount).Count);
+        Assert.AreEqual(amount, dDAUnderTest.GetWords(new List<property>(), amount).Count);
     }
     /// <summary>
     /// Ensures you can get some of the words on the list
@@ -806,25 +602,18 @@ public class DDATests
     [Test]
     public void CanGetSomeWords()
     {
-        int amount = Random.Range(2, 20);
+        int amount = Random.Range(1, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = "d";
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddWord(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddWord(languageUnits[i]);
         }
         
         int requestAmount = Random.Range(1, amount);
 
-        Assert.AreEqual(requestAmount, dDAUnderTest.GetWords(new List<Property>(), requestAmount).Count);
+        Assert.AreEqual(requestAmount, dDAUnderTest.GetWords(new List<property>(), requestAmount).Count);
     }
     /// <summary>
     /// Ensures the highest weighted word is the most likely to get
@@ -832,34 +621,20 @@ public class DDATests
     [Test]
     public void CanGetHighestWeightedWordInGetWords()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 99;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 1;
-        propertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "ee";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddWord(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddWord(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 99;
+        properties[1].weight = 1;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
         
         int highestWeightedRetrieved = 0;
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(languageUnitUnderTest.identifier == dDAUnderTest.GetWords(new List<Property>(), 1)[0].identifier)
+            if(languageUnits[0].identifier == dDAUnderTest.GetWords(new List<property>(), 1)[0].identifier)
             {
                 highestWeightedRetrieved++;
             }
@@ -876,33 +651,19 @@ public class DDATests
     [Test]
     public void CanGetLowerWeightedWordInGetWords()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
-        LanguageUnit LowerWeightedLanguageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property lowerweightedPropertyUnderTest = new Property();
-        lowerweightedPropertyUnderTest.property = property.testProperty;
-        lowerweightedPropertyUnderTest.weight = 49;
-        lowerweightedPropertyUnderTest.levelLock = 0;
-        LowerWeightedLanguageUnitUnderTest.identifier = "ee";
-        LowerWeightedLanguageUnitUnderTest.properties = new List<Property>
-        {
-            lowerweightedPropertyUnderTest
-        };
-        dDAUnderTest.AddWord(LowerWeightedLanguageUnitUnderTest);
-        dDAUnderTest.AddWord(languageUnitUnderTest);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 50;
+        properties[1].weight = 49;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
         
         int lowestWeigtedRetrieved = 0;
         for(int i = 0; i < 100; i++)
         {
-            if(LowerWeightedLanguageUnitUnderTest.identifier == dDAUnderTest.GetWords(new List<Property>(), 1)[0].identifier)
+            if(languageUnits[1].identifier == dDAUnderTest.GetWords(new List<property>(), 1)[0].identifier)
             {
                 lowestWeigtedRetrieved++;
             }
@@ -917,22 +678,15 @@ public class DDATests
     public void MultipleWordsDontGiveDuplicates()
     {
         int amount = Random.Range(2, 20);
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(amount);
+        List<Property> properties = CreateProperties(amount);
         for(int i = 0; i < amount; i++)
         {
-            LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-            Property propertyUnderTest = new Property();
-            propertyUnderTest.property = property.testProperty;
-            propertyUnderTest.weight = 50;
-            propertyUnderTest.levelLock = 0;
-            languageUnitUnderTest.identifier = i.ToString();
-            languageUnitUnderTest.properties = new List<Property>
-            {
-                propertyUnderTest
-            };
-            dDAUnderTest.AddWord(languageUnitUnderTest);
+            languageUnits[i].properties.Add(properties[i].property);
+            dDAUnderTest.AddWord(languageUnits[i]);
         }
         
-        List<LanguageUnit> retrievedList = dDAUnderTest.GetWords(new List<Property>(), amount);
+        List<LanguageUnit> retrievedList = dDAUnderTest.GetWords(new List<property>(), amount);
         Assert.AreEqual(retrievedList.Count, retrievedList.Distinct().Count());
     }
 
@@ -942,18 +696,10 @@ public class DDATests
     [Test]
     public void RequestAmountCantBeAboveWordListSize()
     {
-        LanguageUnit languageUnitUnderTest = (LanguageUnit)ScriptableObject.CreateInstance("LanguageUnit");
-        Property propertyUnderTest = new Property();
-        propertyUnderTest.property = property.testProperty;
-        propertyUnderTest.weight = 50;
-        propertyUnderTest.levelLock = 0;
-        languageUnitUnderTest.identifier = "dd";
-        languageUnitUnderTest.properties = new List<Property>
-        {
-            propertyUnderTest
-        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
-        Assert.Throws<Exception>(() => dDAUnderTest.GetWords(new List<Property>(), 2));
+        Assert.Throws<Exception>(() => dDAUnderTest.GetWords(new List<property>(), 2));
     }
 
     /// <summary>
@@ -962,7 +708,7 @@ public class DDATests
     [Test]
     public void EmptyWordsListThrowsExceptionInGetWords()
     {
-        Assert.Throws<Exception>(()=> dDAUnderTest.GetWords(new List<Property>(), 1));
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetWords(new List<property>(), 1));
     }
     #endregion
     /// <summary>
