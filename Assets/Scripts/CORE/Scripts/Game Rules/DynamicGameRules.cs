@@ -18,7 +18,7 @@ namespace CORE.Scripts.Game_Rules
     {
         public static bool usesImages = true;
         string correctAnswer;
-        string word;
+        string word = "";
         int index;
         int remainingLetterIndex = 1;
         private List<char> wrongAnswerList;
@@ -61,11 +61,11 @@ namespace CORE.Scripts.Game_Rules
 
                 displayString = "Error";
                 
-                if(languageUnits.Count > 1 && usedProperty == property.vowel)
+                if(usedProperty == property.vowel)
                 {
                     displayString = "vokaler";
                 }
-                else if(languageUnits.Count > 1 && usedProperty == property.consonant)
+                else if(usedProperty == property.consonant)
                 {
                     displayString = "konsonanter";
                 }
@@ -76,7 +76,6 @@ namespace CORE.Scripts.Game_Rules
                 return word;
             }
             
-            Debug.LogError("code removed as it was using old DDA");
             return displayString;
         }
 
@@ -170,22 +169,27 @@ namespace CORE.Scripts.Game_Rules
                     case property.vowel:
                         errorProperty = property.consonant;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        correctAnswer = languageUnitsList[0].identifier;
                         break;
                     case property.consonant:
                         errorProperty = property.vowel;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
+                        correctAnswer = languageUnitsList[0].identifier;
                         break;
                     case property.letter:
                         errorProperty = property.letter;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<property>(), 5);
+                        correctAnswer = languageUnitsList[0].identifier;
                         break;
                     case property.word:
                         errorProperty = property.letter;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(properties, 5);
+                        word = languageUnitsList[0].identifier;
                         break;
                     default:
                         throw new Exception("the property " + usedProperty + " is not implemented");
                 }
+                
                 DetermineWrongLetterCategory(errorProperty);
             }
             if(languageUnits == null)
@@ -197,9 +201,6 @@ namespace CORE.Scripts.Game_Rules
             }
             languageUnits.Add(languageUnitsList[Random.Range(0, languageUnitsList.Count)]);
             
-            
-            
-            Debug.LogError("code removed as it was using old DDA");
         }
 
         /// <summary>
@@ -229,10 +230,20 @@ namespace CORE.Scripts.Game_Rules
 
         public string GetSecondaryAnswer()
         {
+
             if(languageUnits.Count > 1)
             {
                 string res = "";
                 foreach(LanguageUnit languageUnit in languageUnits)
+                {
+                    res += languageUnit.identifier;
+                }
+                return res;
+            }
+            else if(word.Length == 0)
+            {
+                string res = "";
+                foreach(LanguageUnit languageUnit in languageUnitsList)
                 {
                     res += languageUnit.identifier;
                 }
