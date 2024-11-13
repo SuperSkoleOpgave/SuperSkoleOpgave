@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Analytics;
 using CORE.Scripts;
 using LoadSave;
 using Scenes;
-using Scenes._00_Bootstrapper;
 using Scenes._10_PlayerScene.Scripts;
 using Scenes._24_HighScoreScene.Scripts;
 using TMPro;
@@ -31,7 +28,9 @@ namespace CORE
         public string CurrentMonsterName { get; set; }
         public string CurrentMonsterColor { get; set; }
         public DeviceType UserDevice { get; set; }
-        public DynamicDifficultyAdjustment DynamicDifficultyAdjustment {get; set; }
+
+        public DynamicDifficultyAdjustment dynamicDifficultyAdjustment {get; set;}
+        
         public string CurrentClothMid { get; set; }
         public string CurrentClothTop { get; set; }
         public bool IsNewGame { get; set; }
@@ -159,10 +158,10 @@ namespace CORE
             {
                 PlayerData = gameObject.AddComponent<PlayerData>();
             }
-            if (!GetComponent<DynamicDifficultyAdjustment>())
+            
+            if(!GetComponent<DynamicDifficultyAdjustment>())
             {
-                DynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
-                StartCoroutine(WaitOnBootstrapper());
+                dynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
             }
 
             return;
@@ -182,12 +181,6 @@ namespace CORE
                 DynamicDifficultyAdjustmentManager = gameObject.AddComponent<DynamicDifficultyAdjustmentManager>();
             }
             */
-        }  
-
-        private IEnumerator WaitOnBootstrapper()
-        {
-            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
-            DynamicDifficultyAdjustment.SetupLanguageUnits(GameObject.FindGameObjectWithTag("Bootstrapper").GetComponent<Bootstrapper>().letters, new List<LanguageUnit>());
         }
 
         /// <summary>
