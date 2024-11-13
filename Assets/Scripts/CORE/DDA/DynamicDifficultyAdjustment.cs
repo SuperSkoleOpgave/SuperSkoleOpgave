@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.Properties;
@@ -18,6 +19,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     {
         property.word
     };
+
+    Dictionary<property, int> levelLocks;
     int playerLanguageLevel;
 
     /// <summary>
@@ -161,23 +164,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             {
                 if(!nonWeightedProperties.Contains(property))
                 {
-                    Property foundProperty = null;
-                    foreach(Property p in properties)
-                    {
-                        if(p.property == property)
-                        {
-                            foundProperty = p;
-                            break;
-                        }
-                    }
-                    if(foundProperty == null)
-                    {
-                        foundProperty = new Property();
-                        foundProperty.property = property;
-                        foundProperty.levelLock = 0;
-                        foundProperty.weight = 50;
-                        properties.Add(foundProperty);
-                    }
+                    Property foundProperty = FindOrCreateProperty(property);
                     
                     if(correct && foundProperty.weight > 1)
                     {
@@ -240,24 +227,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>Whether the player is high enough level to use the property</returns>
     public bool IsLanguageUnitTypeUnlocked(property property)
     {
-        Property foundProperty = null;
-        foreach(Property p in properties)
-        {
-            if(property == p.property)
-            {
-                foundProperty = p;
-                break;
-            }
-        }
-        if(foundProperty == null)
-        {
-            foundProperty = new Property();
-            foundProperty.property = property;
-            foundProperty.weight = 50;
-            foundProperty.levelLock = 0;
-            properties.Add(foundProperty);
-        }
-        return foundProperty.levelLock <= playerLanguageLevel;
+        return FindOrCreateProperty(property).levelLock <= playerLanguageLevel;
     }
 
     /// <summary>
@@ -276,24 +246,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>The weight of the property</returns>
     public float GetPropertyWeight(property property)
     {
-        Property foundProperty = null;
-        foreach(Property p in properties)
-        {
-            if(property == p.property)
-            {
-                foundProperty = p;
-                break;
-            }
-        }
-        if(foundProperty == null)
-        {
-            foundProperty = new Property();
-            foundProperty.property = property;
-            foundProperty.weight = 50;
-            foundProperty.levelLock = 0;
-            properties.Add(foundProperty);
-        }
-        return foundProperty.weight;
+        return FindOrCreateProperty(property).weight;
     }
 
     private void Load()
@@ -309,7 +262,17 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
         Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
+        levelLocks = new Dictionary<property, int>();
+        foreach(LanguageUnit languageUnit in letters)
+        {
+            languageUnit.dynamicDifficultyAdjustment = this;
+            foreach (property property in languageUnit.properties)
+            {
+                FindOrCreateProperty(property);
+            }
+        }
         this.letters = letters;
+
         this.words = words;
     }
 
@@ -319,7 +282,35 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     }
 
-    
+    private Property FindOrCreateProperty(property property)
+    {
+        Property foundProperty = null;
+        if(properties == null)
+        {
+            properties = new List<Property>();
+        }
+        foreach(Property p in properties)
+        {
+            if(property == p.property)
+            {
+                foundProperty = p;
+                break;
+            }
+        }
+        if(foundProperty == null)
+        {
+            foundProperty = new Property();
+            foundProperty.property = property;
+            foundProperty.weight = 50;
+            foundProperty.levelLock = 0;
+            if(levelLocks.Keys.Contains(property))
+            {
+                foundProperty.levelLock = levelLocks[property];
+            }
+            properties.Add(foundProperty);
+        }
+        return foundProperty;
+    }
 
     #region unitTesting
     /// <summary>
