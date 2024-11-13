@@ -259,11 +259,20 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         return foundProperty.levelLock <= playerLanguageLevel;
     }
 
+    /// <summary>
+    /// Not implemented yet
+    /// </summary>
+    /// <returns>an empty list</returns>
     public List<property> GetPlayerPriority()
     {
         return new List<property>();
     }
 
+    /// <summary>
+    /// Gets the weight of the given property
+    /// </summary>
+    /// <param name="property">The property to get the weight of</param>
+    /// <returns>The weight of the property</returns>
     public float GetPropertyWeight(property property)
     {
         Property foundProperty = null;
