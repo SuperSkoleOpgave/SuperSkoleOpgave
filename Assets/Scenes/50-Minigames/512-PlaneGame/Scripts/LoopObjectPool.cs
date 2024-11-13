@@ -1,5 +1,3 @@
-using Scenes._50_Minigames._67_WordProductionLine.Scripts;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
