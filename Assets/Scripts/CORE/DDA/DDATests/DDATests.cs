@@ -245,6 +245,70 @@ public class DDATests
         Assert.Throws<Exception>(() => dDAUnderTest.AdjustWeight(languageUnitUnderTest, false));
     }
     #endregion
+    #region AdjustWeightLetter
+    /// <summary>
+    /// Ensures you can adjust a letters weight based on its identifier
+    /// </summary>
+    [Test]
+    public void CanAdjustWeightofletter()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+
+        dDAUnderTest.AdjustWeightLetter(languageUnitUnderTest.identifier, false);
+
+        Assert.AreEqual(50 + 1, propertyUnderTest.weight);
+    }
+    /// <summary>
+    /// Ensures you cant adjust weight of letters based on nonexistant letters
+    /// </summary>
+    [Test]
+    public void CantAdjustWeightofnonExistantLetter()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+
+        dDAUnderTest.AdjustWeightLetter("e", false);
+
+        Assert.AreEqual(50, propertyUnderTest.weight);
+    }
+    #endregion
+    #region AdjustWeightWord
+    /// <summary>
+    /// Ensures you can adjust a words weight based on its identifier
+    /// </summary>
+    [Test]
+    public void CanAdjustWeightofWord()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        dDAUnderTest.AddWord(languageUnitUnderTest);
+
+        dDAUnderTest.AdjustWeightWord(languageUnitUnderTest.identifier, false);
+
+        Assert.AreEqual(50 + 1, propertyUnderTest.weight);
+    }
+    /// <summary>
+    /// Ensures you cant adjust weight of words based on nonexistant words
+    /// </summary>
+    [Test]
+    public void CantAdjustWeightofnonExistantWord()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        Property propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        dDAUnderTest.AddWord(languageUnitUnderTest);
+
+        dDAUnderTest.AdjustWeightWord("ee", false);
+
+        Assert.AreEqual(50, propertyUnderTest.weight);
+    }
+    #endregion
     #region IsLanguageUnitUnlocked
     /// <summary>
     /// Ensures the player can use properties with a required level lower than their own
