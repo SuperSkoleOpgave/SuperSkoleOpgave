@@ -26,7 +26,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
         {
             List<SplineSymbolDataHolder> result = new List<SplineSymbolDataHolder>();
             List<string> usedLetters = new List<string>();
-            bool shouldRegenerateAnswer = true;
+            bool shouldRegenerateAnswer = false;
             if(gameRules.GetType() == typeof(DynamicGameRules))
             {
                 shouldRegenerateAnswer = true;
