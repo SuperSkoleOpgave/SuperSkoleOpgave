@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: O
   m_EditorClassIdentifier: 
   identifier: O
-  properties:
-  - property: 1
-    levelLock: 0
+  properties: 15000000
   weight: 0
+  dynamicDifficultyAdjustment: {fileID: 0}

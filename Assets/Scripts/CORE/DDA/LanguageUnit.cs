@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
@@ -22,7 +23,10 @@ public class LanguageUnit : ScriptableObject
         weight = 0;
         foreach(property prop in properties)
         {
-
+            if(dynamicDifficultyAdjustment == null)
+            {
+                throw new Exception("DDA has not been assigned");
+            }
             weight += dynamicDifficultyAdjustment.GetPropertyWeight(prop);
         }
     }
