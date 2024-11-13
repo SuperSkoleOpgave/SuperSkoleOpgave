@@ -198,6 +198,30 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
+    public void AdjustWeightLetter(string letter, bool correct)
+    {
+        foreach(LanguageUnit languageUnit in letters)
+        {
+            if(languageUnit.identifier == letter)
+            {
+                AdjustWeight(languageUnit, correct);
+                break;
+            }
+        }
+    }
+
+    public void AdjustWeightWord(string word, bool correct)
+    {
+        foreach(LanguageUnit languageUnit in words)
+        {
+            if(languageUnit.identifier == word)
+            {
+                AdjustWeight(languageUnit, correct);
+                break;
+            }
+        }
+    }
+
     /// <summary>
     /// Checks if the levelLock of the property is less than or equal to the playerLanguageLevel
     /// </summary>
