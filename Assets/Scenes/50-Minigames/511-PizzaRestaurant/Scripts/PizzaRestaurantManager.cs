@@ -86,48 +86,42 @@ public void CorrectIngredientAdded()
 
             int numberOfRandomPositions = wordToGuess.Length;
 
+
+            // Get dimensions for clarity
+            int numRows = lettersForCurrentRound.GetLength(0);
+            int numCols = lettersForCurrentRound.GetLength(1);
+
+            // Randomly assign the letters of 'wordToGuess' into the grid
             int assignedCorrectLetters = 0;
-
-
-            for (int i = 0; i < 12; i++)
+            while (assignedCorrectLetters < wordToGuess.Length)
             {
-                int rndIndexX = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(0));
-                int rndIndexY = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(1));
+                int rndIndexX = UnityEngine.Random.Range(0, numRows);
+                int rndIndexY = UnityEngine.Random.Range(0, numCols);
 
-
-
-                //Code to assign random positions for the letters of the correct word on the ingredientboard. 
-                if (assignedCorrectLetters < numberOfRandomPositions)
+                if (lettersForCurrentRound[rndIndexX, rndIndexY] == '\0')
                 {
-                    while (lettersForCurrentRound[rndIndexX, rndIndexY] != '\0')
-                    {
-                        rndIndexX = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(0));
-                        rndIndexY = UnityEngine.Random.Range(0, lettersForCurrentRound.GetLength(1));
-
-                    }
                     lettersForCurrentRound[rndIndexX, rndIndexY] = wordToGuess[assignedCorrectLetters];
                     assignedCorrectLetters++;
-
                 }
-                else
+            }
+
+            // Fill the remaining empty positions with random letters
+            for (int x = 0; x < numRows; x++)
+            {
+                for (int y = 0; y < numCols; y++)
                 {
-                    //Code to assign random letters places on the ingredientboard. 
-                    for (int x = 0; x < lettersForCurrentRound.GetLength(0); x++)
+                    if (lettersForCurrentRound[x, y] == '\0')
                     {
-                        for (int y = 0; y < lettersForCurrentRound.GetLength(1); y++)
-                        {
-
-                            if (lettersForCurrentRound[x, y] == '\0')
-                            {
-                                lettersForCurrentRound[x, y] = LetterManager.GetRandomLetter();
-
-                                break;
-                            }
-                        }
-
+                        lettersForCurrentRound[x, y] = LetterManager.GetRandomLetter();
                     }
                 }
             }
+
+            
+
+        
+     
+
 
 
 
