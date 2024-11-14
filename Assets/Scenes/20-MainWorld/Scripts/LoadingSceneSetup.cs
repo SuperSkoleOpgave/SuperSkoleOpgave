@@ -62,6 +62,11 @@ public class LoadingSceneSetup : MonoBehaviour
                 case 6:
                     SwitchScenes.SwitchToProductionLineLoadingScene();
                     break;
+
+                case 7:
+                    SwitchScenes.SwitchToPizzaRestaurant();
+
+                    break;
                 default:
                     Debug.LogError("unknown sceneID");
                     break;
