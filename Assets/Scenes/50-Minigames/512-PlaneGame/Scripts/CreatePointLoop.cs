@@ -41,7 +41,7 @@ public class CreatePointLoop : MonoBehaviour
         if (loopObject != null)
         {
 
-            loopObject.transform.Find("Sign/Canvas").GetComponent<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+           // loopObject.transform.Find("Sign/Canvas").GetComponent<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
             loopObject.transform.position = spawnPointA.transform.position;
             loopObject.SetActive(true);
         }

@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOn: 1
-  gameController: {fileID: 0}
+  gameController: {fileID: 248381025}
 --- !u!114 &248381025
 MonoBehaviour:
   m_ObjectHideFlags: 0
