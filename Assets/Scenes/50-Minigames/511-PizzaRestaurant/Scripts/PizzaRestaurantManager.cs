@@ -75,7 +75,13 @@ public void CorrectIngredientAdded()
         
 
             wordToGuess = WordsForImagesManager.GetRandomWordForImage();
-            
+            if (string.IsNullOrEmpty(wordToGuess))
+            {
+                Debug.LogError("Received an invalid word to guess.");
+                    
+                   
+                    return;
+            }
             ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
 
 
