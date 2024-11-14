@@ -6,6 +6,11 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Manages the Pizza Restaurant minigame, handling word generation, letter placement,
+/// and game state for a word-guessing puzzle where players assemble letters on a pizza.
+/// </summary>
 public class PizzaRestaurantManager : MonoBehaviour
 {
     [SerializeField] GameObject ingredientBoard;
@@ -13,6 +18,8 @@ public class PizzaRestaurantManager : MonoBehaviour
     [SerializeField] GameObject textIngredientHolder;
 
     [SerializeField] CheckPizzaIngredient ingredientChecker;
+
+    [SerializeField] Texture defaultImage;
     string testWord = "abe";
 
     char[,] lettersForCurrentRound = new char[3,4];
@@ -22,6 +29,9 @@ public class PizzaRestaurantManager : MonoBehaviour
     private int currentLetterToGuessIndex;
 
     private List<GameObject> spawnedLetters = new List<GameObject>();
+
+    private const float LETTER_SPACING_X = 12f;
+    private const float LETTER_SPACING_Y = -12f;
 
 
 
@@ -140,7 +150,7 @@ public void CorrectIngredientAdded()
                     text.text = lettersForCurrentRound[x, y].ToString();
 
 
-                    Vector3 pos = new Vector3(12 * x, y * -12, 0);
+                    Vector3 pos = new Vector3(LETTER_SPACING_X * x, y * LETTER_SPACING_Y, 0);
 
 
 
@@ -158,6 +168,16 @@ public void CorrectIngredientAdded()
         catch (Exception ex)
         {
             Debug.LogError($"Failed to initialize round: {ex.Message}");
+            // Fallback to a simple predefined word if random word generation fails
+            wordToGuess = "pizza";
+            currentLetterToGuessIndex = 0;
+            ingredientChecker.currentLetterToGuess = wordToGuess[0];
+            
+                    // Set a default texture or placeholder image
+                    if (ImageDisplay != null)
+                        {
+                ImageDisplay.texture = defaultImage;
+                        }
             
         }
     }

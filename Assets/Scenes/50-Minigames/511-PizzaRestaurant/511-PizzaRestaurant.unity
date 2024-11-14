@@ -633,6 +633,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   currentLetterToGuess: 77
   wrongAnswerText: {fileID: 1380200110}
+  checkLetter: 0
 --- !u!50 &908607184
 Rigidbody2D:
   serializedVersion: 4
@@ -1110,6 +1111,7 @@ MonoBehaviour:
   ingredientBoard: {fileID: 1555238387}
   textIngredientHolder: {fileID: 3151795347140597268, guid: 3680af526da35304f9a8912d353cadaf, type: 3}
   ingredientChecker: {fileID: 908607183}
+  defaultImage: {fileID: 2800000, guid: f6d5579347eb9a943aaf61619c37559f, type: 3}
   ImageDisplay: {fileID: 29329177}
 --- !u!4 &1389603294
 Transform:
