@@ -44,28 +44,21 @@ public class PizzaRestaurantManager : MonoBehaviour
     /// Method used when a correct letter is added to the pizza. 
     /// It then either moves on the next letter in the word or loads up a new round with a new word. 
     /// </summary>
-   public void CorrectIngredientAdded()
+public void CorrectIngredientAdded()
+{
+    if (currentLetterToGuessIndex < wordToGuess.Length - 1)
     {
-        if (wordToGuess.Length-1 > currentLetterToGuessIndex)
-        {
-            currentLetterToGuessIndex++;
-            ingredientChecker.currentLetterToGuess = wordToGuess[currentLetterToGuessIndex];
-        }
-        else
-        {
-            foreach (var item in spawnedLetters)
-            {
-                
-                Destroy(item);
-                
-            }
-           lettersForCurrentRound = new char[3, 4];
-            StartNewRound();
-            
-            //Debug.Log("Finished Word Correctly");
-        }
-        
+        currentLetterToGuessIndex++;
+        ingredientChecker.currentLetterToGuess = wordToGuess[currentLetterToGuessIndex];
     }
+    else
+    {
+        spawnedLetters.ForEach(Destroy);
+        spawnedLetters.Clear();
+        lettersForCurrentRound = new char[3, 4];
+        StartNewRound();
+    }
+}
 
 
 
@@ -79,7 +72,7 @@ public class PizzaRestaurantManager : MonoBehaviour
         TextMeshProUGUI text= textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         wordToGuess = WordsForImagesManager.GetRandomWordForImage();
-        ///ÚSE LATER WHEN IMAGES CAN BE LOADED SO WHEN THE GAME IS IN THE MAINWORLD !!!!!!
+        ///ÃšSE LATER WHEN IMAGES CAN BE LOADED SO WHEN THE GAME IS IN THE MAINWORLD !!!!!!
         ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
         
         
