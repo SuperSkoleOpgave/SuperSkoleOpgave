@@ -27,23 +27,25 @@ public class CheckPizzaIngredient : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
 
+        //Checks if the collision with an ingredient is colliding with the pizza and if it should check the letter if its correct. 
         if (collision.gameObject.tag == "Ingredient")
         {
           
             if (checkLetter == true)
             {
-                
+                // Checks if the letter is a previous correct letter. 
                 bool isPreviousCorrectLetter = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter;
+
 
                 if (isPreviousCorrectLetter == false)
                 {
+
                     char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
-                    Debug.Log(letterAddedToPizza.ToString());
+                 
                     correctLetter = CheckIfCorrectLetter(letterAddedToPizza);
 
-                    Debug.Log("CorrectLetter:" + correctLetter);
-                    Debug.Log("isPreviousCorrectLetter:" + isPreviousCorrectLetter);
-
+                 
+                    //Moves on to next letter if the answer is correct and displays a incorret text if its not the right letter added. 
                     if (correctLetter == false && isPreviousCorrectLetter == false)
                     {
                         collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
@@ -56,7 +58,7 @@ public class CheckPizzaIngredient : MonoBehaviour
                     else if (correctLetter == true && isPreviousCorrectLetter == false)
                     {
                         collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter = true;
-                        manager.correctIngredientAdded();
+                        manager.CorrectIngredientAdded();
                     }
 
 
@@ -69,7 +71,11 @@ public class CheckPizzaIngredient : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Checks if the added letters is the current letter to guess and returns a true or false. 
+    /// </summary>
+    /// <param name="letterAdded"></param>
+    /// <returns></returns>
     bool CheckIfCorrectLetter(char letterAdded)
     {
         if(letterAdded==currentLetterToGuess)
@@ -85,6 +91,10 @@ public class CheckPizzaIngredient : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Used to activate and deactivate the "Wrong answer" text after a certain amount of time. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DisplayWrongAnswerText()
     {
         wrongAnswerText.SetActive(true);

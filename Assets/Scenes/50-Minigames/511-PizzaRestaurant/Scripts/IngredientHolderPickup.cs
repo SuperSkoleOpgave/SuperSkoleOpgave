@@ -14,7 +14,7 @@ public class IngredientHolderPickup : MonoBehaviour
     public Vector3 startPosition;
     public CheckPizzaIngredient ingredientChecker;
 
-    Vector3 mousePosition;
+    Vector3 mouseAndIngredientPosDif;
     public bool isDragable = true;
     public bool isCorrectLetter=false;
     void Start()
@@ -25,16 +25,13 @@ public class IngredientHolderPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        //if(gameObject.transform.position==startPosition && isDragable==false)
-        //{
-
-        //    StartCoroutine(MakeDragableAgainAfterCoolDown());
-        //}
       
-
     }
 
+    /// <summary>
+    /// Makes the ingredient dragable after a certain amount of time. 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MakeDragableAgainAfterCoolDown()
     {
         yield return new WaitForSeconds(4);
@@ -44,31 +41,42 @@ public class IngredientHolderPickup : MonoBehaviour
     }
 
     
-
-    private Vector3 GetMousePos()
+    /// <summary>
+    /// Returns the current position of the ingredient in screen space. 
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 GetIngredientPos()
     {
         return Camera.main.WorldToScreenPoint(transform.position);
     }
     
     
     
-
+    /// <summary>
+    /// When the mouse button is pressed down over an ingredientholder the mouse position in relation to the ingredient in screen space before dragging is updated 
+    /// </summary>
     private void OnMouseDown()
     {
         if (isDragable == true)
         {
-            mousePosition = Input.mousePosition - GetMousePos();
+            mouseAndIngredientPosDif = Input.mousePosition - GetIngredientPos();
         }
     }
-
+    /// <summary>
+    /// when the mouse button is held down over and ingredient and dragged the position of the ingredient is updated based on the mouse pos and the mouse-ingredient position relation. 
+    /// </summary>
     private void OnMouseDrag()
     {
         if (isDragable == true)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mouseAndIngredientPosDif);
         }
     }
 
+    /// <summary>
+    /// When the mouse button is up the ingredient on the pizza is checked and it is made dragable again and potentially not depending on wether or not the answer is correct.
+    /// If the letter has already been added and checked as a correct letter the check letter does not happen again. 
+    /// </summary>
     private void OnMouseUp()
     {
         if (isCorrectLetter == false)

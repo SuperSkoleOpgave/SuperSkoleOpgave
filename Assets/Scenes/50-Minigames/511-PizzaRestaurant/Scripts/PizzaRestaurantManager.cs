@@ -40,7 +40,11 @@ public class PizzaRestaurantManager : MonoBehaviour
         
     }
 
-   public void correctIngredientAdded()
+    /// <summary>
+    /// Method used when a correct letter is added to the pizza. 
+    /// It then either moves on the next letter in the word or loads up a new round with a new word. 
+    /// </summary>
+   public void CorrectIngredientAdded()
     {
         if (wordToGuess.Length-1 > currentLetterToGuessIndex)
         {
@@ -58,20 +62,25 @@ public class PizzaRestaurantManager : MonoBehaviour
            lettersForCurrentRound = new char[3, 4];
             StartNewRound();
             
-            Debug.Log("Finished Word Correctly");
+            //Debug.Log("Finished Word Correctly");
         }
         
     }
 
+
+
+    /// <summary>
+    /// Sets up a round with a new word, new coresponding image to the word and letters that can be moved over to the pizza and checked for the new word. 
+    /// </summary>
     void StartNewRound()
     {
 
 
-       TextMeshProUGUI text= textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI text= textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        wordToGuess = testWord;
+        wordToGuess = WordsForImagesManager.GetRandomWordForImage();
         ///ÚSE LATER WHEN IMAGES CAN BE LOADED SO WHEN THE GAME IS IN THE MAINWORLD !!!!!!
-        //ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
+        ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
         
         
      
@@ -91,7 +100,7 @@ public class PizzaRestaurantManager : MonoBehaviour
            
 
 
-           
+           //Code to assign random positions for the letters of the correct word on the ingredientboard. 
             if (assignedCorrectLetters<numberOfRandomPositions)
             {
                 while (lettersForCurrentRound[rndIndexX, rndIndexY] != '\0')
@@ -106,6 +115,7 @@ public class PizzaRestaurantManager : MonoBehaviour
             }
             else
             {
+                //Code to assign random letters places on the ingredientboard. 
                 for (int x = 0; x < lettersForCurrentRound.GetLength(0); x++)
                 {
                     for (int y = 0; y < lettersForCurrentRound.GetLength(1); y++)
@@ -126,7 +136,7 @@ public class PizzaRestaurantManager : MonoBehaviour
 
         
 
-
+        // Code to actually instantiate the letters for the current round that have been put together in a random sequence. 
         for (int y = 0; y < lettersForCurrentRound.GetLength(1); y++)
         {
             for (int x = 0; x < lettersForCurrentRound.GetLength(0); x++)
