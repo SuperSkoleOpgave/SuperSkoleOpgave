@@ -75,7 +75,7 @@ public void CorrectIngredientAdded()
         
 
             wordToGuess = WordsForImagesManager.GetRandomWordForImage();
-            ///�SE LATER WHEN IMAGES CAN BE LOADED SO WHEN THE GAME IS IN THE MAINWORLD !!!!!!
+            
             ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
 
 
