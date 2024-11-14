@@ -5,6 +5,6 @@ namespace Words
 {
     public interface IWordRepository
     {
-        List<WordData> GetWordsByLength(WordLength length);
+        //List<WordData> GetWordsByLength(WordLength length);
     }
 }

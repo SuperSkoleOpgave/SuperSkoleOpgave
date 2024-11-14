@@ -68,10 +68,10 @@ public class Level5_POD : IPODGameMode
     /// <returns>Returns a set of answers strings to be used by the PathOfDangerManager</returns>
     public string[] GenerateAnswers(int count)
     {
-        List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
         List<ILanguageUnit> letters = new List<ILanguageUnit>();
-
+        /*
         LetterData modeLetterType = (LetterData)languageUnits[0];
 
         foreach (var item in languageUnits)
@@ -89,6 +89,8 @@ public class Level5_POD : IPODGameMode
                 }
             }
         }
+        */
+        Debug.LogError("code removed as it was using old DDA");
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)
         {

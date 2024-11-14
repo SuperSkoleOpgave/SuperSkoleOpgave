@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using CORE;
 using Analytics;
 using Letters;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Scenes._50_Minigames.Gamemode
 {
@@ -61,101 +63,48 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("X", 60);
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
-            List<ILanguageUnit> languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager
-                    .GetNextLanguageUnitsBasedOnLevel(80);
-            IGenericGameMode mode;
-            switch(languageUnit[0].LanguageUnitType)
+            IGenericGameMode mode = null;
+            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            property usedProperty = property.testProperty;
+            while(priorities.Count > 0 && usedProperty == property.testProperty)
             {
-                case LanguageUnit.Letter:
+                switch(priorities[0])
+                {
+                    case property.vowel:
+                    case property.consonant:
+                    case property.letter:
+                    case property.word:
+                        usedProperty = priorities[0];
+                        break;
+                }
+                priorities.RemoveAt(0);
+            }
+            if(usedProperty == property.testProperty)
+            {
+                usedProperty = property.vowel;
+            }
+            dynamicGameRules.SetUsedProperty(usedProperty);
+            switch(usedProperty)
+            {
+                case property.vowel:
+                case property.consonant:
+                    mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
+                    break;
+                case property.letter:
                     mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
-                    LetterData letterData = (LetterData)languageUnit[0];
-                    if(letterData.Category == LetterCategory.Vowel || letterData.Category == LetterCategory.Consonant)
-                    {
-                        mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
-                    }
-                    List<ILanguageUnit> filteredLetters = new List<ILanguageUnit>();
-                    foreach(ILanguageUnit unit in languageUnit)
-                    {
-                        if(unit.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            if(unit.Identifier.Length > 1)
-                            {
-                                Debug.LogError("word got sorted into wrong category");
-                            }
-                            filteredLetters.Add(unit);
-                        }
-                    }
-                    dynamicGameRules.AddFilteredList(filteredLetters);
                     break;
-                case LanguageUnit.Word:
+                case property.word:
                     mode = wordGamemodes[Random.Range(0, wordGamemodes.Count)];
-                    List<ILanguageUnit>filteredWords = new List<ILanguageUnit>();
-                    for(int i = 0; i < languageUnit.Count; i++)
-                    {
-                        if(languageUnit[i].LanguageUnitType == LanguageUnit.Word && WordsForImagesManager.imageWords.Contains(languageUnit[i].Identifier))
-                        {
-                            filteredWords.Add(languageUnit[i]);
-                        }
-                    }
-                    if(filteredWords.Count > 0)
-                    {
-                        dynamicGameRules.AddFilteredList(filteredWords);
-                    }
-                    else
-                    {
-                        (IGenericGameMode, DynamicGameRules) modeSet = NoValidWordsMode(languageUnit);
-                        dynamicGameRules = modeSet.Item2;
-                        mode = modeSet.Item1;
-                    }
                     break;
-                case LanguageUnit.Sentence:
                 default:
-                    Debug.LogError("the type of language unit has not been implemented");
-                    mode = new FindSymbols();
                     break;
+            }
+            
+            if(mode == null)
+            {
+                throw new Exception("No Gamemode assigned");
             }
             return (dynamicGameRules, mode);
-        }
-
-        private (IGenericGameMode, DynamicGameRules) NoValidWordsMode(List<ILanguageUnit> languageUnits)
-        {
-            IGenericGameMode mode = null;
-            DynamicGameRules dynamicGameRules = new DynamicGameRules();
-            List<ILanguageUnit> filteredLetters = new List<ILanguageUnit>();
-            bool pickedGamemode = false;
-            
-            LetterData letter = new LetterData("ds", LetterCategory.Consonant, 1);
-            for(int i = 1; i < languageUnits.Count; i++)
-            {
-                if(languageUnits[i].LanguageUnitType == LanguageUnit.Letter)
-                {
-                    LetterData letterData = (LetterData)languageUnits[i];
-                    if(!pickedGamemode)
-                    {
-                        mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
-                        
-                        if(letterData.Category == LetterCategory.Vowel || letterData.Category == LetterCategory.Consonant)
-                        {
-                            mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
-                        }
-                        pickedGamemode = true;
-                        letter = letterData;
-                    }
-                    if(letter.Identifier.Length == 1 && letterData.Category == letter.Category)
-                    {
-                        filteredLetters.Add(letter);
-                    }
-                }
-            }
-            if(filteredLetters.Count > 0)
-            {
-                dynamicGameRules.AddFilteredList(filteredLetters);
-                return (mode, dynamicGameRules);
-            }
-            else
-            {
-                return (null, null);
-            }
         }
 
         /// <summary>

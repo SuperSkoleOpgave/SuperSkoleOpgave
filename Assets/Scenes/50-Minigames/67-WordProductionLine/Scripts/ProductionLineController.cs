@@ -28,6 +28,7 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
         private void Start()
         {
             langUnit = new List<ILanguageUnit>();
+            /*
             List<ILanguageUnit> units = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
             foreach (ILanguageUnit unit in units)
             {
@@ -36,6 +37,8 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
                     langUnit.Add(unit);
                 }
             }
+            */
+            Debug.LogError("code removed as it was using old DDA");
         }
 
 

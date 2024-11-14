@@ -101,7 +101,7 @@ namespace Scenes._00_Bootstrapper
             string csvData = request.downloadHandler.text;
             string[] lines = csvData.Split('\n');
             string setName = GetFileNameWithoutExtension(filePath);
-            List<WordData> wordDataList = new List<WordData>();
+            //List<WordData> wordDataList = new List<WordData>();
 
             for (int i = 1; i < lines.Length; i++) // Skip the header
             {
@@ -109,13 +109,10 @@ namespace Scenes._00_Bootstrapper
                 if (!string.IsNullOrWhiteSpace(word))
                 {
                     WordLength length = DetermineWordLength(word);
-                    var wordData = new WordData(word, length, DynamicDifficultyAdjustmentSettings.InitialWeight);
-                    wordDataList.Add(wordData);
+                    //var wordData = new WordData(word, length, DynamicDifficultyAdjustmentSettings.InitialWeight);
+                    //wordDataList.Add(wordData);
                 }
             }
-
-            // Pass parsed word data to WordRepository
-            WordRepository.AddWords(setName, wordDataList);
         }
         
         private WordLength DetermineWordLength(string word)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Words
 {
+    /*
     /// <summary>
     /// Represents a word data entity which includes metadata
     /// such as length, weights, last used time, and error count.
@@ -36,4 +37,5 @@ namespace Words
             LastUsed = DateTime.UtcNow;
         }
     }
+    */
 }
