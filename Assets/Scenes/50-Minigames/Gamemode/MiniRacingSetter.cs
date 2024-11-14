@@ -4,6 +4,7 @@ using CORE.Scripts;
 using CORE.Scripts.Game_Rules;
 using Scenes._50_Minigames._58_MiniRacingGame.Scripts;
 using Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -160,6 +161,8 @@ namespace Scenes._50_Minigames.Gamemode
                     case property.word:
                         mode = new LevelThreeRacing();
                         break;
+                    default:
+                        throw new Exception("no mode could be found");
                 }
             return (rules, mode);
         }

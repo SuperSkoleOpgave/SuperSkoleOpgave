@@ -117,16 +117,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts
                     PlayerEvents.RaiseAddLetter(currentSymbol.symbol);
                     oldLetter = currentSymbol.symbol.ToString();
                     GameManager.Instance.PlayerData.CollectedLetters.Add(currentSymbol.symbol);
-                    LanguageUnit currentLetter = new LanguageUnit();
-                    foreach(LanguageUnit languageUnit in gamemode.GetCurrentLanguageUnits())
-                    {
-                        if(currentSymbol.symbol.ToString() == languageUnit.identifier)
-                        {
-                            currentLetter = languageUnit;
-                            break;
-                        }
-                    }
-                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeight(currentLetter, true);
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(currentSymbol.symbol.ToString(), true);
                     //GameManager.Instance.DynamicDifficultyAdjustmentManager.UpdateLanguageUnitWeight(currentSymbol.symbol.ToString(), true);
                     Instantiate(coinObject);
                     //StartCoroutine(TakeScreenShot());
