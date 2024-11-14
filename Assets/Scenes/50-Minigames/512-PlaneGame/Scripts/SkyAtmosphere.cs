@@ -8,6 +8,6 @@ public class SkyAtmosphere : MonoBehaviour
     // Makes every object affected by this script fly left.
     void Update()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        transform.position += Vector3.back * speed * Time.deltaTime;
     }
 }

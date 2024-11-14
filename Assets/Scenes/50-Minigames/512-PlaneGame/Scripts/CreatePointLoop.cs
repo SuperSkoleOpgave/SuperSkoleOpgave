@@ -7,10 +7,9 @@ public class CreatePointLoop : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject spawnPointA;
+    private GameObject spawnPointA, spawnPointB, spawnPointC, spawnPointD;
 
-    [SerializeField]
-    private GameObject spawnPointB;
+    
 
     [SerializeField]
     private PlaneGameManager planeGameManager;
@@ -53,6 +52,26 @@ public class CreatePointLoop : MonoBehaviour
 
 
             loopObject.transform.position = spawnPointB.transform.position;
+            loopObject.SetActive(true);
+        }
+
+        loopObject = objectLoopPool.GetPooledObject();
+
+        if (loopObject != null)
+        {
+
+
+            loopObject.transform.position = spawnPointC.transform.position;
+            loopObject.SetActive(true);
+        }
+
+        loopObject = objectLoopPool.GetPooledObject();
+
+        if (loopObject != null)
+        {
+
+
+            loopObject.transform.position = spawnPointD.transform.position;
             loopObject.SetActive(true);
         }
     }
