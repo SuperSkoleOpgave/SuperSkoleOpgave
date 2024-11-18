@@ -319,7 +319,7 @@ public class DDATests
         CreateProperties(1);
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(0));
     }
 
     /// <summary>
@@ -332,7 +332,7 @@ public class DDATests
         propertyUnderTest.levelLock = 1;
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
+        Assert.AreEqual(true, dDAUnderTest.IsLanguageUnitTypeUnlocked(0));
     }
 
     /// <summary>
@@ -345,7 +345,7 @@ public class DDATests
         propertyUnderTest.levelLock = 2;
         dDAUnderTest.SetPlayerLevel(1);
 
-        Assert.AreEqual(false, dDAUnderTest.IsLanguageUnitTypeUnlocked(property.testProperty));
+        Assert.AreEqual(false, dDAUnderTest.IsLanguageUnitTypeUnlocked(0));
     }
     #endregion
     #region GetLetter

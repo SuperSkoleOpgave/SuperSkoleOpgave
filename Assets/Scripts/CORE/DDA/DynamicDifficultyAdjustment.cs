@@ -377,6 +377,29 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 FindOrCreateProperty(property);
             }
         }
+        foreach(LanguageUnit languageUnit in words)
+        {
+            if(languageUnit.identifier[0] == '(')
+            {
+                switch(languageUnit.identifier)
+                {
+                    case "(AA)":
+                        languageUnit.identifier = "\u00c5";
+                        break;
+                    case "(AE)":
+                        languageUnit.identifier = "\u00c6";
+                        break;
+                    case "(OE)":
+                        languageUnit.identifier = "\u00d8";
+                        break;
+                }
+            }
+            languageUnit.dynamicDifficultyAdjustment = this;
+            foreach (property property in languageUnit.properties)
+            {
+                FindOrCreateProperty(property);
+            }
+        }
         this.letters = letters;
 
         this.words = words;

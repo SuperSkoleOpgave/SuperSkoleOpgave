@@ -65,8 +65,8 @@ namespace Scenes._50_Minigames.Gamemode
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode mode = null;
             List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
-            property usedProperty = property.testProperty;
-            while(priorities.Count > 0 && usedProperty == property.testProperty)
+            property usedProperty = property.wordWithA;
+            while(priorities.Count > 0 && usedProperty == property.wordWithA)
             {
                 switch(priorities[0])
                 {
@@ -79,7 +79,7 @@ namespace Scenes._50_Minigames.Gamemode
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == property.testProperty)
+            if(usedProperty == property.wordWithA)
             {
                 usedProperty = property.vowel;
             }
