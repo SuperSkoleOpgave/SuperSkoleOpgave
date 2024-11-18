@@ -149,7 +149,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     private List<LanguageUnit> FilterList(List<LanguageUnit> listToFilter, List<property> filterProperties)
     {
-        List<LanguageUnit> fliteredList = new List<LanguageUnit>();
+        List<LanguageUnit> filteredList = new List<LanguageUnit>();
         foreach(LanguageUnit languageUnit in listToFilter)
         {
             bool hasFilterProperty = true;
@@ -163,10 +163,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             }
             if(hasFilterProperty)
             {
-                fliteredList.Add(languageUnit);
+                filteredList.Add(languageUnit);
             }
         }
-        return fliteredList;
+        if(filteredList.Count == 0)
+        {
+            throw new Exception("could not find any languageunits with the given properties");
+        }
+        return filteredList;
     }
 
     /// <summary>
@@ -215,14 +219,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     private void CalculateAveragedProperties()
     {
-        List<float> sums = new List<float>();
-        List<int> amounts = new List<int>();
-        Dictionary<property, int> indicies = new Dictionary<property, int>();
+        Dictionary<property, float> sums = new Dictionary<property, float>();
+        Dictionary<property, int> amounts = new Dictionary<property, int>();
         for(int i = 0; i < averagedProperties.Count; i++)
         {
-            indicies.Add(averagedProperties[i], i);
-            sums.Add(0);
-            amounts.Add(0);
+            sums.Add(averagedProperties[i],0);
+            amounts.Add(averagedProperties[i], 0);
         }
         foreach(LanguageUnit letter in letters)
         {
@@ -231,8 +233,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             {
                 if(letter.properties.Contains(property))
                 {
-                    sums[indicies[property]] += letter.weight;
-                    amounts[indicies[property]]++;
+                    sums[property] += letter.weight;
+                    amounts[property]++;
                 }
             }
         }
@@ -243,17 +245,17 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             {
                 if(word.properties.Contains(property))
                 {
-                    sums[indicies[property]] += word.weight;
-                    amounts[indicies[property]]++;
+                    sums[property] += word.weight;
+                    amounts[property]++;
                 }
             }
         }
         foreach(property property in averagedProperties)
         {
-            if(amounts[indicies[property]] > 0)
+            if(amounts[property] > 0)
             {
                 Property averagedProperty = FindOrCreateProperty(property);
-                averagedProperty.weight = sums[indicies[property]] / amounts[indicies[property]];
+                averagedProperty.weight = sums[property] / amounts[property];
             }
         }
     }

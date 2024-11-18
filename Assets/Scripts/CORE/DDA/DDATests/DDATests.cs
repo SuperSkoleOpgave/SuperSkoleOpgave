@@ -444,7 +444,7 @@ public class DDATests
     }
 
     /// <summary>
-    /// Ensures you only get letters with all filter properties0
+    /// Ensures you only get letters with all filter properties
     /// </summary>
     [Test]
     public void CanFilterLettersBasedOnMultipleProperties()
@@ -693,7 +693,7 @@ public class DDATests
     }
 
     /// <summary>
-    /// Ensures you only get words with all filter properties0
+    /// Ensures you only get words with all filter properties
     /// </summary>
     [Test]
     public void CanFilterWordsBasedOnMultipleProperties()
