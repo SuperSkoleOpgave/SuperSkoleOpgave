@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4072917850246090128}
   - component: {fileID: 8125809857101129991}
   - component: {fileID: 3045486587505485042}
+  - component: {fileID: 6631080527316748991}
   - component: {fileID: 6752684045303501419}
   - component: {fileID: 6731430875791644083}
-  - component: {fileID: 6631080527316748991}
   m_Layer: 0
   m_Name: GoalLoop
   m_TagString: GoalLoop
@@ -73,6 +73,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 11.732744, y: 12.134214, z: 1.0967381}
   m_Center: {x: 4.9684663, y: 0.099999905, z: 0.04836908}
+--- !u!114 &6631080527316748991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276228267713107490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1398c90df146b8e4eb9d3d6c1f1a01b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerContactMat: {fileID: 2100000, guid: e46724ca0c9c05246afd35deeab291f1, type: 2}
 --- !u!114 &6752684045303501419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,19 +128,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6631080527316748991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276228267713107490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1398c90df146b8e4eb9d3d6c1f1a01b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerContactMat: {fileID: 2100000, guid: e46724ca0c9c05246afd35deeab291f1, type: 2}
 --- !u!1 &2663752081827566244
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.01}
+  m_AnchoredPosition: {x: 0, y: 0.05}
   m_SizeDelta: {x: 0.3, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2633661841816685690
@@ -220,8 +220,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -375,7 +375,6 @@ GameObject:
   - component: {fileID: 7794221835797684085}
   - component: {fileID: 2485308303625171035}
   - component: {fileID: 4314468661412120989}
-  - component: {fileID: 4071528492153011252}
   m_Layer: 0
   m_Name: Sign
   m_TagString: Untagged
@@ -393,7 +392,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5, y: 7, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1.1}
+  m_LocalScale: {x: 1, y: 2, z: 1.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 948654213908882339}
@@ -449,27 +448,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4071528492153011252
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4973390931744849711}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0000005, y: 1, z: 1.0000006}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1806202732982137762
 PrefabInstance:
   m_ObjectHideFlags: 0

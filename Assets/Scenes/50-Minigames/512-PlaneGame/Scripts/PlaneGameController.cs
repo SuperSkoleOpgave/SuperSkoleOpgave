@@ -8,21 +8,19 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
 {
 
     [SerializeField]
-    private string placeHolderWord = "Kat";
+    private string placeHolderWord = "mis";
 
     public int currentWordNumber = 0;
 
     [SerializeField]
+    private string randoWord = "";
+
+    [SerializeField]
     private char currentLetter;
 
-    void Start()
+    private void Start()
     {
-        UpdateCurrentLetter();
-    }
-
-    void Update()
-    {
-        
+        GetWord();
     }
 
     /// <summary>
@@ -31,41 +29,50 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
     /// <returns>A random word</returns>
     public string GetWord()
     {
-        string randomWord = WordsForImagesManager.GetRandomWordForImage();
+        randoWord = WordsForImagesManager.GetRandomWordForImage();
 
-        return randomWord;
+        return randoWord;
     }
 
     public string CurrentWord()
     {
-        string currentWord = GetWord();
+        string currentWord = randoWord;
 
         return currentWord;
     }
 
     public char CurrentLetter()
     {
-        UpdateCurrentLetter();
-
         return currentLetter;
     }
 
+    public char GetRandomLetter()
+    {
+        char randoLetter = LetterManager.GetRandomLetter();
 
-    private void UpdateCurrentLetter()
+        if (randoLetter == currentLetter)
+        {
+            randoLetter = LetterManager.GetRandomLetter();
+        }
+
+        return randoLetter;
+    }
+
+
+    public void UpdateCurrentLetter()
     {
         string currentWord = CurrentWord() != null ? CurrentWord() : placeHolderWord;
 
         if (currentWordNumber >= 0 && currentWordNumber < currentWord.Length)
         {
             currentLetter = currentWord[currentWordNumber];
+
         }
         else
         {
             Debug.LogWarning("currentWordNumber is out of range for the current word.");
             currentLetter = '\0';
         }
-
-        Debug.Log("Current Letter: " + currentLetter);
 
     }
 

@@ -11,22 +11,42 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField]
     private PlaneGameController gameController;
 
+    [SerializeField]
+    private CreatePointLoop createPoint;
+
+    public bool resetLoop = false;
+    [SerializeField]
+    private string currentWord;
+
+    
+
     
     void Start()
     {
         isGameOn = true;
+
+        createPoint.CreatePointLoops();
+
+        currentWord = gameController.CurrentWord();
     }
 
     
     void Update()
     {
-        
+        if (resetLoop)
+        {
+            LoopHitsWall();
+        }
     }
 
-    private void GameStart()
+    public void LoopHitsWall()
     {
-
+        
+        createPoint.CreatePointLoops();
+        resetLoop = false;
     }
+
+    
 
     
 }

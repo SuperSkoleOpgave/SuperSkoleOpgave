@@ -1,6 +1,3 @@
-using Scenes._50_Minigames._67_WordProductionLine.Scripts;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class CreatePointLoop : MonoBehaviour
@@ -9,7 +6,7 @@ public class CreatePointLoop : MonoBehaviour
     [SerializeField]
     private GameObject spawnPointA, spawnPointB, spawnPointC, spawnPointD;
 
-    
+
 
     [SerializeField]
     private PlaneGameManager planeGameManager;
@@ -17,30 +14,30 @@ public class CreatePointLoop : MonoBehaviour
     [SerializeField]
     private PlaneGameController planeGameController;
 
+    int randoNum = 0;
+
     [SerializeField]
     private LoopObjecPool objectLoopPool;
-
-
-    public bool isOn = true;
-
-    void Start()
-    {
-        StartCoroutine(WaitForSeconds());
-    }
-
-    
 
     /// <summary>
     /// Creates loop answers the player can fly through
     /// </summary>
-    private void CreatePointLoops()
+    public void CreatePointLoops()
     {
+        randoNum = Random.Range(0, 3);
+        
 
         GameObject loopObject = objectLoopPool.GetPooledObject();
         if (loopObject != null)
         {
-
-           // loopObject.transform.Find("Sign/Canvas").GetComponent<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+            if (randoNum == 0)
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+            }
+            else
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.GetRandomLetter().ToString());
+            }
             loopObject.transform.position = spawnPointA.transform.position;
             loopObject.SetActive(true);
         }
@@ -49,7 +46,14 @@ public class CreatePointLoop : MonoBehaviour
 
         if (loopObject != null)
         {
-
+            if (randoNum == 1)
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+            }
+            else
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.GetRandomLetter().ToString());
+            }
 
             loopObject.transform.position = spawnPointB.transform.position;
             loopObject.SetActive(true);
@@ -59,7 +63,14 @@ public class CreatePointLoop : MonoBehaviour
 
         if (loopObject != null)
         {
-
+            if (randoNum == 2)
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+            }
+            else
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.GetRandomLetter().ToString());
+            }
 
             loopObject.transform.position = spawnPointC.transform.position;
             loopObject.SetActive(true);
@@ -69,30 +80,17 @@ public class CreatePointLoop : MonoBehaviour
 
         if (loopObject != null)
         {
-
+            if (randoNum == 3)
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.CurrentLetter().ToString());
+            }
+            else
+            {
+                loopObject.transform.GetComponentInChildren<GoalLoop>().GetLetter(planeGameController.GetRandomLetter().ToString());
+            }
 
             loopObject.transform.position = spawnPointD.transform.position;
             loopObject.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// Waits x amount of seconds...
-    /// </summary>
-    IEnumerator WaitForSeconds()
-    {
-
-        while (planeGameManager.isGameOn)
-        {
-
-
-            // Wait for 8 seconds
-            yield return new WaitForSeconds(8);
-
-            if (isOn)
-            {
-                CreatePointLoops();
-            }
         }
     }
 }
