@@ -425,6 +425,41 @@ public class DDATests
     {
         Assert.Throws<Exception>(()=> dDAUnderTest.GetLetter(new List<property>()));
     }
+
+    /// <summary>
+    /// Ensures you only get letters with a property when using it to filter letters
+    /// </summary>
+    [Test]
+    public void CanFilterLettersBasedOnSingleProperty()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<property>(){properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures you only get letters with all filter properties0
+    /// </summary>
+    [Test]
+    public void CanFilterLettersBasedOnMultipleProperties()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[0].properties.Add(properties[1].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<property>(){properties[0].property, properties[1].property}));
+    }
     #endregion
     #region GetLetters
     /// <summary>
@@ -638,6 +673,41 @@ public class DDATests
     public void EmptyWordsListThrowsExceptionInGetWord()
     {
         Assert.Throws<Exception>(()=> dDAUnderTest.GetWord(new List<property>()));
+    }
+
+    /// <summary>
+    /// Ensures you only get words with a property when using it to filter words
+    /// </summary>
+    [Test]
+    public void CanFilterWordsBasedOnSingleProperty()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<property>(){properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures you only get words with all filter properties0
+    /// </summary>
+    [Test]
+    public void CanFilterWordsBasedOnMultipleProperties()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[0].properties.Add(properties[1].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<property>(){properties[0].property, properties[1].property}));
     }
     #endregion
     #region GetWords
