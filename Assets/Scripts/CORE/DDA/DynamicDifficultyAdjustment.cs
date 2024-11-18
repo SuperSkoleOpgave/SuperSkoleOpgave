@@ -236,13 +236,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>a list of properties</returns>
     public List<languageUnitProperty> GetPlayerPriority()
     {
-        return new List<languageUnitProperty>()
+        List<LanguageUnitPropertyInfo> languageUnitProperties = new List<LanguageUnitPropertyInfo>();
+        foreach(languageUnitProperty languageUnitProperty in nonWeightedProperties)
         {
-            languageUnitProperty.vowel,
-            languageUnitProperty.consonant,
-            languageUnitProperty.letter,
-            languageUnitProperty.word
-        };
+            languageUnitProperties.Add(FindOrCreateProperty(languageUnitProperty));
+        }
+        languageUnitProperties = languageUnitProperties.OrderBy(p=>p.weight).ToList();
+        List<languageUnitProperty> sortedProperties = languageUnitProperties.Select(p => p.property).ToList();
+        return sortedProperties;
     }
 
     /// <summary>
