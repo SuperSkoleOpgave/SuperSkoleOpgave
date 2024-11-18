@@ -460,6 +460,38 @@ public class DDATests
         dDAUnderTest.AddLetter(languageUnits[1]);
         Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<property>(){properties[0].property, properties[1].property}));
     }
+
+    /// <summary>
+    /// Ensures you get an exception if using a property for which no letters exists
+    /// </summary>
+    [Test]
+    public void GettingAnEmptyLetterListThrowsAnException()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(1);
+        List<Property> properties = CreateProperties(1);
+        languageUnits[0].properties.Add(properties[0].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetLetter(new List<property>(){property.wordWithE}));
+    }
+
+    /// <summary>
+    /// Ensures when you filter words that you only get letters 
+    /// </summary>
+    [Test]
+    public void CantGetWord()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<property>(){properties[0].property}));
+    }
     #endregion
     #region GetLetters
     /// <summary>
@@ -689,6 +721,38 @@ public class DDATests
         languageUnits[1].properties.Add(properties[1].property);
         dDAUnderTest.AddWord(languageUnits[0]);
         dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<property>(){properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures you get an exception if using a property for which no words exists
+    /// </summary>
+    [Test]
+    public void GettingAnEmptyWordListThrowsAnException()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(1);
+        List<Property> properties = CreateProperties(1);
+        languageUnits[0].properties.Add(properties[0].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+
+        Assert.Throws<Exception>(()=> dDAUnderTest.GetWord(new List<property>(){property.wordWithE}));
+    }
+
+    /// <summary>
+    /// Ensures when you filter words that you only get words 
+    /// </summary>
+    [Test]
+    public void CantGetLetter()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<Property> properties = CreateProperties(2);
+        properties[0].weight = 1;
+        properties[1].weight = 99;
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[0].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
         Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<property>(){properties[0].property}));
     }
 
