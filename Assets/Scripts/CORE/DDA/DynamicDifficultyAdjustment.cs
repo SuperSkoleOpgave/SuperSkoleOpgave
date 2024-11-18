@@ -147,6 +147,13 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         return returnedWords;
     }
 
+    /// <summary>
+    /// Creates a list of languageunits which all have properties from a given list
+    /// </summary>
+    /// <param name="listToFilter">The list which should be filtered</param>
+    /// <param name="filterProperties">The properties which languageunits should have to be on the resulting list</param>
+    /// <returns>A list of language units which all have some specific properties</returns>
+    /// <exception cref="Exception">Throws an exception if no languageunits with the given properties could be found</exception>
     private List<LanguageUnit> FilterList(List<LanguageUnit> listToFilter, List<property> filterProperties)
     {
         List<LanguageUnit> filteredList = new List<LanguageUnit>();
@@ -217,6 +224,9 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         CalculateLanguageLevel();
     }
 
+    /// <summary>
+    /// Calculates the weight of various properties which are an average of other properties
+    /// </summary>
     private void CalculateAveragedProperties()
     {
         Dictionary<property, float> sums = new Dictionary<property, float>();
