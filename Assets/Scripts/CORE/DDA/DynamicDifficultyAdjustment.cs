@@ -15,9 +15,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     List<LanguageUnit> letters;
     List<Property> properties;
 
-    List<property> nonWeightedProperties = new List<property>()
+    List<property> averagedProperties = new List<property>()
     {
-        property.word
+        property.word,
+        property.letter,
+        property.vowel,
+        property.consonant
     };
 
     Dictionary<property, int> levelLocks;
@@ -186,7 +189,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             //goes through the properties of the languageunit and updates the weight of its weighted properties
             foreach(property property in languageUnit.properties)
             {
-                if(!nonWeightedProperties.Contains(property))
+                if(!averagedProperties.Contains(property))
                 {
                     Property foundProperty = FindOrCreateProperty(property);
                     
@@ -206,10 +209,54 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             //Debug.LogError("no list contains the languageunit with identifier: " + languageUnit.identifier);
             throw new Exception();
         }
+        CalculateAveragedProperties();
         CalculateLanguageLevel();
     }
 
-
+    private void CalculateAveragedProperties()
+    {
+        List<float> sums = new List<float>();
+        List<int> amounts = new List<int>();
+        Dictionary<property, int> indicies = new Dictionary<property, int>();
+        for(int i = 0; i < averagedProperties.Count; i++)
+        {
+            indicies.Add(averagedProperties[i], i);
+            sums.Add(0);
+            amounts.Add(0);
+        }
+        foreach(LanguageUnit letter in letters)
+        {
+            letter.CalculateWeight();
+            foreach(property property in averagedProperties)
+            {
+                if(letter.properties.Contains(property))
+                {
+                    sums[indicies[property]] += letter.weight;
+                    amounts[indicies[property]]++;
+                }
+            }
+        }
+        foreach(LanguageUnit word in words)
+        {
+            word.CalculateWeight();
+            foreach(property property in averagedProperties)
+            {
+                if(word.properties.Contains(property))
+                {
+                    sums[indicies[property]] += word.weight;
+                    amounts[indicies[property]]++;
+                }
+            }
+        }
+        foreach(property property in averagedProperties)
+        {
+            if(amounts[indicies[property]] > 0)
+            {
+                Property averagedProperty = FindOrCreateProperty(property);
+                averagedProperty.weight = sums[indicies[property]] / amounts[indicies[property]];
+            }
+        }
+    }
     /// <summary>
     /// Adjust the weight of a language unit in the letters list based on its identifier
     /// </summary>
@@ -276,7 +323,16 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>The weight of the property</returns>
     public float GetPropertyWeight(property property)
     {
-        return FindOrCreateProperty(property).weight;
+        Property foundProperty = FindOrCreateProperty(property);
+        if(averagedProperties.Contains(foundProperty.property))
+        {
+            return 0;
+        }
+        else
+        {
+            return foundProperty.weight;
+        }
+        
     }
 
     private void Load()
