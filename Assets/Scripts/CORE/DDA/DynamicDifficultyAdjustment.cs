@@ -15,12 +15,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     List<LanguageUnit> letters;
     List<LanguageUnitPropertyInfo> properties;
 
-    List<property> averagedProperties = new List<property>()
+    List<languageUnitProperty> averagedProperties = new List<languageUnitProperty>()
     {
-        property.word,
-        property.letter,
-        property.vowel,
-        property.consonant
+        languageUnitProperty.word,
+        languageUnitProperty.letter,
+        languageUnitProperty.vowel,
+        languageUnitProperty.consonant
     };
 
     Dictionary<languageUnitProperty, int> levelLocks;
@@ -154,13 +154,13 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="filterProperties">The properties which languageunits should have to be on the resulting list</param>
     /// <returns>A list of language units which all have some specific properties</returns>
     /// <exception cref="Exception">Throws an exception if no languageunits with the given properties could be found</exception>
-    private List<LanguageUnit> FilterList(List<LanguageUnit> listToFilter, List<property> filterProperties)
+    private List<LanguageUnit> FilterList(List<LanguageUnit> listToFilter, List<languageUnitProperty> filterProperties)
     {
         List<LanguageUnit> filteredList = new List<LanguageUnit>();
         foreach(LanguageUnit languageUnit in listToFilter)
         {
             bool hasFilterProperty = true;
-            foreach(property property in filterProperties)
+            foreach(languageUnitProperty property in filterProperties)
             {
                 if(!languageUnit.properties.Contains(property))
                 {
@@ -229,8 +229,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     private void CalculateAveragedProperties()
     {
-        Dictionary<property, float> sums = new Dictionary<property, float>();
-        Dictionary<property, int> amounts = new Dictionary<property, int>();
+        Dictionary<languageUnitProperty, float> sums = new Dictionary<languageUnitProperty, float>();
+        Dictionary<languageUnitProperty, int> amounts = new Dictionary<languageUnitProperty, int>();
         for(int i = 0; i < averagedProperties.Count; i++)
         {
             sums.Add(averagedProperties[i],0);
@@ -239,7 +239,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         foreach(LanguageUnit letter in letters)
         {
             letter.CalculateWeight();
-            foreach(property property in averagedProperties)
+            foreach(languageUnitProperty property in averagedProperties)
             {
                 if(letter.properties.Contains(property))
                 {
@@ -251,7 +251,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         foreach(LanguageUnit word in words)
         {
             word.CalculateWeight();
-            foreach(property property in averagedProperties)
+            foreach(languageUnitProperty property in averagedProperties)
             {
                 if(word.properties.Contains(property))
                 {
@@ -260,11 +260,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 }
             }
         }
-        foreach(property property in averagedProperties)
+        foreach(languageUnitProperty property in averagedProperties)
         {
             if(amounts[property] > 0)
             {
-                Property averagedProperty = FindOrCreateProperty(property);
+                LanguageUnitPropertyInfo averagedProperty = FindOrCreateProperty(property);
                 averagedProperty.weight = sums[property] / amounts[property];
             }
         }
@@ -320,7 +320,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     public List<languageUnitProperty> GetPlayerPriority()
     {
         List<LanguageUnitPropertyInfo> languageUnitProperties = new List<LanguageUnitPropertyInfo>();
-        foreach(languageUnitProperty languageUnitProperty in nonWeightedProperties)
+        foreach(languageUnitProperty languageUnitProperty in averagedProperties)
         {
             languageUnitProperties.Add(FindOrCreateProperty(languageUnitProperty));
         }
@@ -336,7 +336,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>The weight of the property</returns>
     public float GetPropertyWeight(languageUnitProperty property)
     {
-        Property foundProperty = FindOrCreateProperty(property);
+        LanguageUnitPropertyInfo foundProperty = FindOrCreateProperty(property);
         if(averagedProperties.Contains(foundProperty.property))
         {
             return 0;
