@@ -35,14 +35,15 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             throw new Exception("could not find any letters");
         }
         float totalweight = 0;
-        foreach (LanguageUnit letter in letters)
+        List<LanguageUnit> filteredLetters = FilterList(letters, properties);
+        foreach (LanguageUnit letter in filteredLetters)
         {
             letter.CalculateWeight();
             totalweight += letter.weight;
         }
         float rand = Random.Range(0f, totalweight);
         float cumulativeWeight = 0;
-        foreach (LanguageUnit letter in letters)
+        foreach (LanguageUnit letter in filteredLetters)
         {
             cumulativeWeight += letter.weight;
             if(rand <= cumulativeWeight)
@@ -94,14 +95,15 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             throw new Exception("could not find any words");
         }
         float totalweight = 0;
-        foreach (LanguageUnit word in words)
+        List<LanguageUnit> filteredWords = FilterList(words, properties);
+        foreach (LanguageUnit word in filteredWords)
         {
             word.CalculateWeight();
             totalweight += word.weight;
         }
         float rand = Random.Range(0f, totalweight);
         float cumulativeWeight = 0;
-        foreach (LanguageUnit word in words)
+        foreach (LanguageUnit word in filteredWords)
         {
             cumulativeWeight += word.weight;
             if (rand <= cumulativeWeight)
@@ -140,6 +142,28 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             returnedWords.Add(languageUnit);
         }
         return returnedWords;
+    }
+
+    private List<LanguageUnit> FilterList(List<LanguageUnit> listToFilter, List<property> filterProperties)
+    {
+        List<LanguageUnit> fliteredList = new List<LanguageUnit>();
+        foreach(LanguageUnit languageUnit in listToFilter)
+        {
+            bool hasFilterProperty = true;
+            foreach(property property in filterProperties)
+            {
+                if(!languageUnit.properties.Contains(property))
+                {
+                    hasFilterProperty = false;
+                    break;
+                }
+            }
+            if(hasFilterProperty)
+            {
+                fliteredList.Add(languageUnit);
+            }
+        }
+        return fliteredList;
     }
 
     /// <summary>
