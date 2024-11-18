@@ -13,14 +13,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 {
     List<LanguageUnit> words;
     List<LanguageUnit> letters;
-    List<Property> properties;
+    List<LanguageUnitPropertyInfo> properties;
 
-    List<property> nonWeightedProperties = new List<property>()
+    List<languageUnitProperty> nonWeightedProperties = new List<languageUnitProperty>()
     {
-        property.word
+        languageUnitProperty.word
     };
 
-    Dictionary<property, int> levelLocks;
+    Dictionary<languageUnitProperty, int> levelLocks;
     int playerLanguageLevel;
 
     /// <summary>
@@ -28,7 +28,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="properties"></param>
     /// <returns></returns>
-    public LanguageUnit GetLetter(List<property> properties)
+    public LanguageUnit GetLetter(List<languageUnitProperty> properties)
     {
         if(letters == null)
         {
@@ -59,7 +59,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="properties"></param>
     /// <param name="count"></param>
     /// <returns></returns>
-    public List<LanguageUnit> GetLetters(List<property> properties, int count)
+    public List<LanguageUnit> GetLetters(List<languageUnitProperty> properties, int count)
     {
         if(letters == null)
         {
@@ -87,7 +87,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="properties"></param>
     /// <returns></returns>
-    public LanguageUnit GetWord(List<property> properties)
+    public LanguageUnit GetWord(List<languageUnitProperty> properties)
     {
         if(words == null)
         {
@@ -118,7 +118,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="properties"></param>
     /// <param name="count"></param>
     /// <returns></returns>
-    public List<LanguageUnit> GetWords(List<property> properties, int count)
+    public List<LanguageUnit> GetWords(List<languageUnitProperty> properties, int count)
     {
         if(words == null)
         {
@@ -160,11 +160,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         if(words.Contains(languageUnit) || letters.Contains(languageUnit))
         {
             //goes through the properties of the languageunit and updates the weight of its weighted properties
-            foreach(property property in languageUnit.properties)
+            foreach(languageUnitProperty property in languageUnit.properties)
             {
                 if(!nonWeightedProperties.Contains(property))
                 {
-                    Property foundProperty = FindOrCreateProperty(property);
+                    LanguageUnitPropertyInfo foundProperty = FindOrCreateProperty(property);
                     
                     if(correct && foundProperty.weight > 1)
                     {
@@ -225,7 +225,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="property">The property to be checked</param>
     /// <returns>Whether the player is high enough level to use the property</returns>
-    public bool IsLanguageUnitTypeUnlocked(property property)
+    public bool IsLanguageUnitTypeUnlocked(languageUnitProperty property)
     {
         return FindOrCreateProperty(property).levelLock <= playerLanguageLevel;
     }
@@ -234,14 +234,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// Returns the default player priority
     /// </summary>
     /// <returns>a list of properties</returns>
-    public List<property> GetPlayerPriority()
+    public List<languageUnitProperty> GetPlayerPriority()
     {
-        return new List<property>()
+        return new List<languageUnitProperty>()
         {
-            property.vowel,
-            property.consonant,
-            property.letter,
-            property.word
+            languageUnitProperty.vowel,
+            languageUnitProperty.consonant,
+            languageUnitProperty.letter,
+            languageUnitProperty.word
         };
     }
 
@@ -250,7 +250,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="property">The property to get the weight of</param>
     /// <returns>The weight of the property</returns>
-    public float GetPropertyWeight(property property)
+    public float GetPropertyWeight(languageUnitProperty property)
     {
         return FindOrCreateProperty(property).weight;
     }
@@ -273,7 +273,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
         Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
-        levelLocks = new Dictionary<property, int>();
+        levelLocks = new Dictionary<languageUnitProperty, int>();
         foreach(LanguageUnit languageUnit in letters)
         {
             if(languageUnit.identifier[0] == '(')
@@ -292,7 +292,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 }
             }
             languageUnit.dynamicDifficultyAdjustment = this;
-            foreach (property property in languageUnit.properties)
+            foreach (languageUnitProperty property in languageUnit.properties)
             {
                 FindOrCreateProperty(property);
             }
@@ -315,7 +315,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 }
             }
             languageUnit.dynamicDifficultyAdjustment = this;
-            foreach (property property in languageUnit.properties)
+            foreach (languageUnitProperty property in languageUnit.properties)
             {
                 FindOrCreateProperty(property);
             }
@@ -336,14 +336,14 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// </summary>
     /// <param name="property">The property to get the object for</param>
     /// <returns>The object for the given property</returns>
-    private Property FindOrCreateProperty(property property)
+    private LanguageUnitPropertyInfo FindOrCreateProperty(languageUnitProperty property)
     {
-        Property foundProperty = null;
+        LanguageUnitPropertyInfo foundProperty = null;
         if(properties == null)
         {
-            properties = new List<Property>();
+            properties = new List<LanguageUnitPropertyInfo>();
         }
-        foreach(Property p in properties)
+        foreach(LanguageUnitPropertyInfo p in properties)
         {
             if(property == p.property)
             {
@@ -353,7 +353,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
         if(foundProperty == null)
         {
-            foundProperty = new Property();
+            foundProperty = new LanguageUnitPropertyInfo();
             foundProperty.property = property;
             foundProperty.weight = 50;
             foundProperty.levelLock = 0;
@@ -381,12 +381,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         words.Add(languageUnit);
         if(properties == null)
         {
-            properties = new List<Property>();
+            properties = new List<LanguageUnitPropertyInfo>();
         }
-        foreach(property property in languageUnit.properties)
+        foreach(languageUnitProperty property in languageUnit.properties)
         {
-            Property foundProperty = null;
-            foreach(Property p in properties)
+            LanguageUnitPropertyInfo foundProperty = null;
+            foreach(LanguageUnitPropertyInfo p in properties)
             {
                 if(p.property == property)
                 {
@@ -396,7 +396,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             }
             if(foundProperty == null)
             {
-                foundProperty = new Property();
+                foundProperty = new LanguageUnitPropertyInfo();
                 foundProperty.property = property;
                 foundProperty.levelLock = 0;
                 foundProperty.weight = 50;
@@ -408,7 +408,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// Gets the list of properties
     /// </summary>
     /// <returns>the list of properties</returns>
-    public List<Property> GetProperties()
+    public List<LanguageUnitPropertyInfo> GetProperties()
     {
         return properties;
     }
@@ -431,12 +431,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         letters.Add(languageUnit);
         if(properties == null)
         {
-            properties = new List<Property>();
+            properties = new List<LanguageUnitPropertyInfo>();
         }
-        foreach(property property in languageUnit.properties)
+        foreach(languageUnitProperty property in languageUnit.properties)
         {
-            Property foundProperty = null;
-            foreach(Property p in properties)
+            LanguageUnitPropertyInfo foundProperty = null;
+            foreach(LanguageUnitPropertyInfo p in properties)
             {
                 if(p.property == property)
                 {
@@ -446,7 +446,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             }
             if(foundProperty == null)
             {
-                foundProperty = new Property();
+                foundProperty = new LanguageUnitPropertyInfo();
                 foundProperty.property = property;
                 foundProperty.levelLock = 0;
                 foundProperty.weight = 50;
@@ -454,11 +454,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
     }
 
-    public void AddProperty(Property property)
+    public void AddProperty(LanguageUnitPropertyInfo property)
     {
         if(properties == null)
         {
-            properties = new List<Property>();
+            properties = new List<LanguageUnitPropertyInfo>();
         }
         properties.Add(property);
     }

@@ -246,14 +246,14 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts.Managers
             
             // Fetch language units from DDA system
             //var languageUnits = DynamicDifficultyAdjustmentManager.Instance.GetNextLanguageUnitsBasedOnLevel(20);
-            var wordlanguageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<property>(), 20);
+            var wordlanguageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<languageUnitProperty>(), 20);
             List<string> words = new List<string>();
             foreach(LanguageUnit languageUnit in wordlanguageUnits)
             {
                 languageUnit.CalculateWeight();
                 words.Add(languageUnit.identifier);
             }
-            var letterLanguageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<property>(), 20);
+            var letterLanguageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<languageUnitProperty>(), 20);
             List<string> letters = new List<string>();
             foreach(LanguageUnit languageUnit in letterLanguageUnits)
             {

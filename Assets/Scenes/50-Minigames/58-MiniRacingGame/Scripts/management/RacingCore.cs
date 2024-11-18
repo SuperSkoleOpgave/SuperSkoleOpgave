@@ -81,7 +81,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
 
         public IRacingGameMode racingGameMode;
 
-        public property usedProperty;
+        public languageUnitProperty usedProperty;
 
         private bool setCorrectAnswerHasBeenRan = false;
 
