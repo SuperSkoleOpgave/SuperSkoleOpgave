@@ -454,6 +454,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                     playerLanguageLevel++;
                 }
                 break;
+            case 3:
+                break;
+            default:
+                throw new Exception("Player level has not been implemented");
         }
     }
 

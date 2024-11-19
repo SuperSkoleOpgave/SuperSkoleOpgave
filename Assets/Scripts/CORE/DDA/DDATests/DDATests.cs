@@ -1258,7 +1258,7 @@ public class DDATests
     }
     
     /// <summary>
-    /// Ensures the player can level up to level 1
+    /// Ensures the player can level up to level 3
     /// </summary>
     [Test]
     public void PlayerCanLevelUpToLevel3()
@@ -1266,6 +1266,12 @@ public class DDATests
         TestLevelUp(LanguageUnitProperty.letter, 3, 41);
     }
 
+    /// <summary>
+    /// Common structure for level up tests
+    /// </summary>
+    /// <param name="property">the property whos weight must be reduced for level up</param>
+    /// <param name="targetLevel">the level the player should hit</param>
+    /// <param name="startWeight">The weight the property should start at</param>
     private void TestLevelUp(LanguageUnitProperty property, int targetLevel, float startWeight)
     {
         LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
