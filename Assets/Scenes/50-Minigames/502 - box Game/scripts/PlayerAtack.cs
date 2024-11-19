@@ -13,13 +13,22 @@ public class PlayerAtack : MonoBehaviour
     List<DestroyBox> targets = new List<DestroyBox>();
     string inventory = "";
     private PlayerAnimatior animatior;
+    [SerializeField] private Vector3 hitboxCenter = new(0.6743157f, -5.974327f, -1.754525f);
+    [SerializeField] private Vector3 hitboxSize = new(11.18315f, 12.94866f, 7.647582f);
+
     void Start()
     {
-        animatior = GetComponent<PlayerAnimatior>();
+        animator = GetComponent<PlayerAnimatior>();
+        if (animator == null)
+        {
+            Debug.LogError($"Missing PlayerAnimatior component on {gameObject.name}");
+            enabled = false;
+            return;
+        }
         hitBox = gameObject.AddComponent<BoxCollider>();
         hitBox.isTrigger = true;
-        hitBox.center = new(0.6743157f, -5.974327f, -1.754525f);
-        hitBox.size = new(11.18315f, 12.94866f, 7.647582f);
+        hitBox.center = hitboxCenter;
+        hitBox.size = hitboxSize;
     }
 
     
