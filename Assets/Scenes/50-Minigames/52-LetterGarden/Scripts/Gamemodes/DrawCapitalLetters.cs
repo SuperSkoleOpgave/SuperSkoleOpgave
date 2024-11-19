@@ -12,6 +12,8 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
     /// </summary>
     public class DrawCapitalLetters : LettergardenGameMode
     {
+
+
         /// <summary>
         /// creates a list of SplineSymbolDataHolders of a given length
         /// </summary>

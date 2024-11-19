@@ -98,6 +98,16 @@ namespace Scenes._50_Minigames.Gamemode
                         title.text = "Ord Produktion B\u00E5nd";
                     }
                     break;
+
+                case 7:
+                    modeSetter = null;
+                    sceneSwitcher = new SceneSwitch(SwitchScenes.SwitchToPizzaRestaurant);
+
+                    if (usePlayerLevel)
+                    {
+                        title.text = "Pizza Restaurant";
+                    }
+                    break;
             }
             if(usePlayerLevel)
             {
