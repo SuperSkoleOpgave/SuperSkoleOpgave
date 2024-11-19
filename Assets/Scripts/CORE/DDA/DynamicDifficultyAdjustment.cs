@@ -24,7 +24,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     };
 
     Dictionary<LanguageUnitProperty, int> levelLocks;
-    int playerLanguageLevel;
+    int playerLanguageLevel = 0;
 
     /// <summary>
     /// returns a letter, using properties given
@@ -321,7 +321,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         List<LanguageUnitPropertyInfo> languageUnitProperties = new List<LanguageUnitPropertyInfo>();
         foreach(LanguageUnitProperty languageUnitProperty in averagedProperties)
         {
-            languageUnitProperties.Add(FindOrCreateProperty(languageUnitProperty));
+            if(IsLanguageUnitTypeUnlocked(languageUnitProperty))
+            {
+                languageUnitProperties.Add(FindOrCreateProperty(languageUnitProperty));
+            }
         }
         languageUnitProperties = languageUnitProperties.OrderBy(p=> -p.weight).ToList();
         List<LanguageUnitProperty> sortedProperties = languageUnitProperties.Select(p => p.property).ToList();
@@ -379,6 +382,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     {
         Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
         levelLocks = new Dictionary<LanguageUnitProperty, int>();
+        SetupLevelLocks();
         foreach(LanguageUnit languageUnit in letters)
         {
             if(languageUnit.identifier[0] == '(')
@@ -430,7 +434,31 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     private void CalculateLanguageLevel()
     {
-
+        switch(playerLanguageLevel)
+        {
+            case 0:
+                if(GetAveragedPropertyWeight(LanguageUnitProperty.vowel) <= 45)
+                {
+                    playerLanguageLevel++;
+                }
+                break;
+            case 1:
+                if(GetAveragedPropertyWeight(LanguageUnitProperty.consonant) <= 45)
+                {
+                    playerLanguageLevel++;
+                }
+                break;
+            case 2:
+                if(GetAveragedPropertyWeight(LanguageUnitProperty.letter) <= 40)
+                {
+                    playerLanguageLevel++;
+                }
+                break;
+            case 3:
+                break;
+            default:
+                throw new Exception("Player level has not been implemented");
+        }
     }
 
     /// <summary>
@@ -470,6 +498,17 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             properties.Add(foundProperty);
         }
         return foundProperty;
+    }
+
+    public void SetupLevelLocks()
+    {
+        if(levelLocks == null)
+        {
+            levelLocks = new Dictionary<LanguageUnitProperty, int>();
+        }
+        levelLocks.Add(LanguageUnitProperty.consonant, 1);
+        levelLocks.Add(LanguageUnitProperty.letter, 2);
+        levelLocks.Add(LanguageUnitProperty.word, 3);
     }
 
     #region unitTesting
