@@ -27,9 +27,10 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
 
         private void Start()
         {
+            langUnit = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 16);
+
+
             
-            
-           
         }
 
 
@@ -61,14 +62,14 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
         {
             if (Random.Range(0, 2) == 1)
             {
-                string randomWord = langUnit[Random.Range(0, langUnit.Count)].Identifier;
+                string randomWord = langUnit[Random.Range(0, langUnit.Count)].identifier;
 
                 randomWord = WordsForImagesManager.GetRandomWordForImage();
                 return randomWord;
             }
             else
             {
-                string randomWord = langUnit[Random.Range(0, langUnit.Count)].Identifier;
+                string randomWord = langUnit[Random.Range(0, langUnit.Count)].identifier;
 
                 if (randomWord.Length <= 1)
                 {
