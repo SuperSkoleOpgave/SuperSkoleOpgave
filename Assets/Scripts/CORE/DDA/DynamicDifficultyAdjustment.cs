@@ -17,10 +17,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     List<languageUnitProperty> averagedProperties = new List<languageUnitProperty>()
     {
-        languageUnitProperty.word,
-        languageUnitProperty.letter,
         languageUnitProperty.vowel,
-        languageUnitProperty.consonant
+        languageUnitProperty.consonant,
+        languageUnitProperty.letter,
+        languageUnitProperty.word
     };
 
     Dictionary<languageUnitProperty, int> levelLocks;
@@ -217,8 +217,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("no list contains the languageunit with identifier: " + languageUnit.identifier);
-            throw new Exception();
+            throw new Exception("no list contains the languageunit with identifier: " + languageUnit.identifier);
         }
         CalculateAveragedProperties();
         CalculateLanguageLevel();
@@ -324,7 +323,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         {
             languageUnitProperties.Add(FindOrCreateProperty(languageUnitProperty));
         }
-        languageUnitProperties = languageUnitProperties.OrderBy(p=>p.weight).ToList();
+        languageUnitProperties = languageUnitProperties.OrderBy(p=> -p.weight).ToList();
         List<languageUnitProperty> sortedProperties = languageUnitProperties.Select(p => p.property).ToList();
         return sortedProperties;
     }
@@ -346,6 +345,19 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             return foundProperty.weight;
         }
         
+    }
+
+    public float GetAveragedPropertyWeight(languageUnitProperty property)
+    {
+        LanguageUnitPropertyInfo foundProperty = FindOrCreateProperty(property);
+        if(averagedProperties.Contains(foundProperty.property))
+        {
+            return foundProperty.weight;
+        }
+        else
+        {
+            throw new Exception("given property is not an averaged property. Use GetPropertyWeight Instead");
+        }
     }
 
     private void Load()
@@ -435,6 +447,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         if(properties == null)
         {
             properties = new List<LanguageUnitPropertyInfo>();
+        }
+        if(levelLocks == null)
+        {
+            levelLocks = new Dictionary<languageUnitProperty, int>();
         }
         foreach(LanguageUnitPropertyInfo p in properties)
         {

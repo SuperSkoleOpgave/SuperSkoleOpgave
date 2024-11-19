@@ -23,6 +23,11 @@ public class DDATests
        dDAUnderTest = gameObject.GetComponent<DynamicDifficultyAdjustment>();
     }
 
+    /// <summary>
+    /// Creates a given number of empty languageUnits
+    /// </summary>
+    /// <param name="amount">how many LanguageUnits to be created</param>
+    /// <returns>a list of languageunits</returns>
     private List<LanguageUnit> CreateLanguageUnits(int amount)
     {
         List<LanguageUnit> languageUnits = new List<LanguageUnit>();
@@ -37,6 +42,11 @@ public class DDATests
         return languageUnits;
     }
 
+    /// <summary>
+    /// Create a LanguageUnitPropertyInfo with default values
+    /// </summary>
+    /// <param name="amount">how many LanguageUnitPropertyInfo should be created</param>
+    /// <returns>a list of LanguageUnitPropertyInfo</returns>
     private List<LanguageUnitPropertyInfo> CreateProperties(int amount)
     {
         List<LanguageUnitPropertyInfo> properties = new List<LanguageUnitPropertyInfo>();
@@ -243,6 +253,184 @@ public class DDATests
         LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
         languageUnitUnderTest.properties.Add(propertyUnderTest.property);
         Assert.Throws<Exception>(() => dDAUnderTest.AdjustWeight(languageUnitUnderTest, false));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with a single languageunit
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnSingleLanguageUnitPropertyAndAveragedProperty()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(dDAUnderTest.GetPropertyWeight(languageUnitUnderTest.properties[0]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[1]));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with a single languageunit
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnSingleLanguageUnitMultiplePropertiesAndSingleAveragedProperty()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitUnderTest.properties.Add(propertiesUnderTest[1].property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(dDAUnderTest.GetPropertyWeight(languageUnitUnderTest.properties[0]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[1]));
+    }
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with a single languageunit
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnSingleLanguageUnitPropertyAndMultipleAveragedProperties()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.letter);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.vowel);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[2]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[1]));
+    }
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsSinglePropertyAndSingleAveragedProperty()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitsUnderTest[0].properties.Add(propertyUnderTest.property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(propertyUnderTest.property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[0], true);
+        Assert.AreEqual(dDAUnderTest.GetPropertyWeight(languageUnitsUnderTest[0].properties[0]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[1]));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits and multiple properties which all languageUnits have
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsPropertiesAndSingleAveragedPropertyBothContainsAll()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[1].property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[1].properties.Add(propertiesUnderTest[1].property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[0], true);
+        float weight = (languageUnitsUnderTest[0].weight + languageUnitsUnderTest[1].weight) / 2;
+        Assert.AreEqual(weight, dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[2]));
+    }
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits and multiple properties where some have all 
+    /// and adjustweight is run on the one with all properties 
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsPropertiesAndSingleAveragedPropertyOneContainsAllOneAdjustWeightBothProperties()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[1].property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[0], true);
+        float weight = (languageUnitsUnderTest[0].weight + languageUnitsUnderTest[1].weight) / 2;
+        Assert.AreEqual(weight, dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[2]));
+    }
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits and multiple properties where some have all 
+    /// and adjustweight is run one the one with some properties
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsPropertiesAndSingleAveragedPropertyOneContainsAllOneAdjustWeightOneProperty()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[1].property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.letter);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[1], true);
+        float weight = (languageUnitsUnderTest[0].weight + languageUnitsUnderTest[1].weight) / 2;
+        Assert.AreEqual(weight, dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[2]));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits a single property and multiple averaged properties which all languageunits have
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsSinglePropertyAndMultipleAveragedProperties()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitsUnderTest[0].properties.Add(propertyUnderTest.property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.vowel);
+        languageUnitsUnderTest[1].properties.Add(propertyUnderTest.property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.vowel);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[0], true);
+        Assert.AreEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[1]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[2]));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with a single languageunit
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnSingleLanguageUnitMultiplePropertiesAndAveragedProperty()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitUnderTest.properties.Add(propertiesUnderTest[1].property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.letter);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.vowel);
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[2]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitUnderTest.properties[1]));
+    }
+
+    /// <summary>
+    /// Ensures that an averaged propertys weight is calculated correctly with multiple languageunits and multiple properties where some have all 
+    /// and adjustweight is run one the one with some properties
+    /// </summary>
+    [Test]
+    public void AveragedPropertiesCalculatedCorrectlyOnMultipleLanguageUnitsPropertiesAndAveragedPropertySplitBetweenLAnguageUnits()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(2);
+        languageUnitsUnderTest[0].properties.Add(propertiesUnderTest[0].property);
+        languageUnitsUnderTest[0].properties.Add(languageUnitProperty.letter);
+        languageUnitsUnderTest[1].properties.Add(propertiesUnderTest[1].property);
+        languageUnitsUnderTest[1].properties.Add(languageUnitProperty.vowel);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[0]);
+        dDAUnderTest.AddLetter(languageUnitsUnderTest[1]);
+        dDAUnderTest.AdjustWeight(languageUnitsUnderTest[1], true);
+        Assert.AreNotEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[1].properties[1]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[1]));
     }
     #endregion
     #region AdjustWeightLetter
@@ -479,7 +667,7 @@ public class DDATests
     /// Ensures when you filter words that you only get letters 
     /// </summary>
     [Test]
-    public void CantGetWord()
+    public void CanOnlyGetLetters()
     {
         List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
         List<LanguageUnitPropertyInfo> properties = CreateProperties(2);
@@ -491,6 +679,38 @@ public class DDATests
         dDAUnderTest.AddLetter(languageUnits[0]);
         dDAUnderTest.AddWord(languageUnits[1]);
         Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<languageUnitProperty>(){properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures the order of filter properties doesn't matter
+    /// </summary>
+    [Test]
+    public void FilterOrderDoesntMatterForLetters()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> properties = CreateProperties(1);
+        languageUnits[0].properties.Add(properties[0].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetLetter(new List<languageUnitProperty>(){properties[0].property, properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures duplicate filter properties has no effect on the result
+    /// </summary>
+    [Test]
+    public void DuplicateFilterPropertiesHasNoEffectOnResult()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(3);
+        List<LanguageUnitPropertyInfo> properties = CreateProperties(2);
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[0].properties.Add(properties[1].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        languageUnits[2].properties.Add(properties[0].property);
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddLetter(languageUnits[1]);
+        dDAUnderTest.AddLetter(languageUnits[2]);
+        Assert.AreEqual(dDAUnderTest.GetLetter(new List<languageUnitProperty>(){properties[0].property, properties[1].property}), dDAUnderTest.GetLetter(new List<languageUnitProperty>(){properties[1].property, properties[0].property}));
     }
     #endregion
     #region GetLetters
@@ -742,7 +962,7 @@ public class DDATests
     /// Ensures when you filter words that you only get words 
     /// </summary>
     [Test]
-    public void CantGetLetter()
+    public void CanOnlyGetWords()
     {
         List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
         List<LanguageUnitPropertyInfo> properties = CreateProperties(2);
@@ -772,6 +992,38 @@ public class DDATests
         dDAUnderTest.AddWord(languageUnits[0]);
         dDAUnderTest.AddWord(languageUnits[1]);
         Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<languageUnitProperty>(){properties[0].property, properties[1].property}));
+    }
+
+    /// <summary>
+    /// Ensures duplicate filter properties has no effect on the result
+    /// </summary>
+    [Test]
+    public void DuplicateFilterPropertiesHasNoEffectOnResultForWords()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        List<LanguageUnitPropertyInfo> properties = CreateProperties(1);
+        languageUnits[0].properties.Add(properties[0].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(languageUnits[0], dDAUnderTest.GetWord(new List<languageUnitProperty>(){properties[0].property, properties[0].property}));
+    }
+
+    /// <summary>
+    /// Ensures the order of filter properties doesn't matter
+    /// </summary>
+    [Test]
+    public void FilterOrderDoesntMatterForWords()
+    {
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(3);
+        List<LanguageUnitPropertyInfo> properties = CreateProperties(2);
+        languageUnits[0].properties.Add(properties[0].property);
+        languageUnits[0].properties.Add(properties[1].property);
+        languageUnits[1].properties.Add(properties[1].property);
+        languageUnits[2].properties.Add(properties[0].property);
+        dDAUnderTest.AddWord(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        dDAUnderTest.AddWord(languageUnits[2]);
+        Assert.AreEqual(dDAUnderTest.GetWord(new List<languageUnitProperty>(){properties[0].property, properties[1].property}), dDAUnderTest.GetWord(new List<languageUnitProperty>(){properties[1].property, properties[0].property}));
     }
     #endregion
     #region GetWords
@@ -907,6 +1159,67 @@ public class DDATests
     public void EmptyWordsListThrowsExceptionInGetWords()
     {
         Assert.Throws<Exception>(()=> dDAUnderTest.GetWords(new List<languageUnitProperty>(), 1));
+    }
+    #endregion
+    #region GetPlayerPriority
+    /// <summary>
+    /// Ensures you can get the default order if all have the same weight
+    /// </summary>
+    [Test]
+    public void CanGetDefaultOrder()
+    {
+        List<languageUnitProperty> languageUnitProperties = new List<languageUnitProperty>()
+        {
+            languageUnitProperty.vowel,
+            languageUnitProperty.consonant,
+            languageUnitProperty.letter,
+            languageUnitProperty.word
+        };
+        Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
+    }
+
+    /// <summary>
+    /// Ensures errors ensures the relevant property moves up in priority
+    /// </summary>
+    [Test]
+    public void ErrorsMovePropertiesUpInPriority()
+    {
+        List<languageUnitProperty> languageUnitProperties = new List<languageUnitProperty>()
+        {
+            languageUnitProperty.word,
+            languageUnitProperty.vowel,
+            languageUnitProperty.consonant,
+            languageUnitProperty.letter
+        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.word);
+        dDAUnderTest.AddWord(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, false);
+        Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
+    }
+
+    /// <summary>
+    /// Ensures doing something correct moves the relevant property down in priority 
+    /// </summary>
+    [Test]
+    public void CorrectMovePropertiesDownInPriority()
+    {
+        List<languageUnitProperty> languageUnitProperties = new List<languageUnitProperty>()
+        {
+            languageUnitProperty.consonant,
+            languageUnitProperty.letter,
+            languageUnitProperty.word,
+            languageUnitProperty.vowel
+        };
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(propertyUnderTest.property);
+        languageUnitUnderTest.properties.Add(languageUnitProperty.vowel);
+        dDAUnderTest.AddWord(languageUnitUnderTest);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
     }
     #endregion
     /// <summary>
