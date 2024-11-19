@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manages a box object that displays a symbol and handles its lifecycle in the game.
+/// </summary>
 public class DestroyBox : MonoBehaviour
 {
-    public GameObject letterBox;
-    public string symbol;
+    [SerializeField]
+    private GameObject letterBox;
+    
+    [SerializeField]
+    private string symbol;
+
+    private void Awake()
+    {
+        if (letterBox == null)
+            Debug.LogError($"Required reference 'letterBox' is missing on {gameObject.name}");
+    }
     private void Start()
     {
         var text = letterBox.GetComponentsInChildren<TextMeshProUGUI>();
