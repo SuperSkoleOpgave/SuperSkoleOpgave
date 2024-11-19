@@ -31,7 +31,7 @@ public class LevelFiveRacing : IRacingGameMode
             do
             {
                 core.targetWord = core.level5Consonants[Random.Range(0, core.level5Consonants.Length)];
-                if(core.usedProperty == languageUnitProperty.letter || core.usedProperty == languageUnitProperty.vowel || core.usedProperty == languageUnitProperty.consonant)
+                if(core.usedProperty == LanguageUnitProperty.letter || core.usedProperty == LanguageUnitProperty.vowel || core.usedProperty == LanguageUnitProperty.consonant)
                 {
                     core.dynamicGameRules.SetCorrectAnswer();
                     core.targetWord = core.dynamicGameRules.GetCorrectAnswer();

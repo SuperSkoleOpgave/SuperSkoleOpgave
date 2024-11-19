@@ -130,35 +130,35 @@ namespace Scenes._50_Minigames.Gamemode
             //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             IGenericGameMode mode = null;
             DynamicGameRules rules = new DynamicGameRules();
-            List<languageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
-            languageUnitProperty usedProperty = languageUnitProperty.wordWithA;
-            while(priorities.Count > 0 && usedProperty == languageUnitProperty.wordWithA)
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
+            while(priorities.Count > 0 && usedProperty == LanguageUnitProperty.wordWithA)
             {
                 switch(priorities[0])
                 {
-                    case languageUnitProperty.vowel:
-                    case languageUnitProperty.consonant:
-                    case languageUnitProperty.letter:
-                    case languageUnitProperty.word:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
+                    case LanguageUnitProperty.word:
                         usedProperty = priorities[0];
                         break;
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == languageUnitProperty.wordWithA)
+            if(usedProperty == LanguageUnitProperty.wordWithA)
             {
-                usedProperty = languageUnitProperty.vowel;
+                usedProperty = LanguageUnitProperty.vowel;
             }
             Debug.Log(usedProperty);
             rules.SetUsedProperty(usedProperty);
             switch(usedProperty)
                 {
-                    case languageUnitProperty.vowel:
-                    case languageUnitProperty.consonant:
-                    case languageUnitProperty.letter:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
                         mode = new LevelFiveRacing();
                         break;
-                    case languageUnitProperty.word:
+                    case LanguageUnitProperty.word:
                         mode = new LevelThreeRacing();
                         break;
                     default:

@@ -32,11 +32,11 @@ public class LoadingSceneSetup : MonoBehaviour
                  
                 case 0:
 
-                    if (DDA.IsLanguageUnitTypeUnlocked(languageUnitProperty.letter))
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.letter))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene();
                     }
-                    if (DDA.IsLanguageUnitTypeUnlocked(languageUnitProperty.word))
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene_Words();
                     }
@@ -49,12 +49,12 @@ public class LoadingSceneSetup : MonoBehaviour
                     SwitchScenes.SwitchToLetterGardenLoaderScene();
                     break;
                 case 5:
-                    if (DDA.IsLanguageUnitTypeUnlocked(languageUnitProperty.letter))
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.letter))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector();
                     }
                     
-                    if(DDA.IsLanguageUnitTypeUnlocked(languageUnitProperty.word))
+                    if(DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector_Words();
                     }

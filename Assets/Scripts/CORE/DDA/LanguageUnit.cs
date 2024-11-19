@@ -10,7 +10,7 @@ using UnityEngine;
 public class LanguageUnit : ScriptableObject
 {
     public string identifier;
-    public List<languageUnitProperty> properties;
+    public List<LanguageUnitProperty> properties;
     public float weight;
 
     public DynamicDifficultyAdjustment dynamicDifficultyAdjustment;
@@ -21,7 +21,7 @@ public class LanguageUnit : ScriptableObject
     public void CalculateWeight()
     {
         weight = 0;
-        foreach(languageUnitProperty prop in properties)
+        foreach(LanguageUnitProperty prop in properties)
         {
             if(dynamicDifficultyAdjustment == null)
             {

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using UnityEngine;
 
 [Serializable]
-public enum languageUnitProperty
+public enum LanguageUnitProperty
 {
     wordWithA,
     wordWithB,
@@ -45,7 +45,7 @@ public enum languageUnitProperty
 [Serializable]
 public class LanguageUnitPropertyInfo
 {
-    public languageUnitProperty property;
+    public LanguageUnitProperty property;
     [NonSerialized]
     public float weight;
     public int levelLock;
