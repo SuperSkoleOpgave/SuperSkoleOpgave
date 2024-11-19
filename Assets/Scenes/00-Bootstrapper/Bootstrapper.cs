@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Core;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Scenes._00_Bootstrapper
     /// </summary>
     public class Bootstrapper : MonoBehaviour
     {
+        public List<LanguageUnit> letters;
+        public List<LanguageUnit> words;
         private const int MaxRetries = 3;
 
         /// <summary>

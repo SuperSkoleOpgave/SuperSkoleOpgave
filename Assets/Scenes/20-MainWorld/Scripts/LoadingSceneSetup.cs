@@ -16,9 +16,9 @@ public class LoadingSceneSetup : MonoBehaviour
     /// </summary>
     public void Load()
     {
-        /*
+        DynamicDifficultyAdjustment DDA = GameManager.Instance.dynamicDifficultyAdjustment;
         //loads the general level selector and prepares the setup method if the player level is low enough 
-        if(GameManager.Instance.DynamicDifficultyAdjustmentManager.playerLanguageLevel < 7)
+        if(DDA.GetPlayerLevel() < 7)
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SwitchScenes.SwitchToMinigameLoadingScene();
@@ -26,17 +26,17 @@ public class LoadingSceneSetup : MonoBehaviour
         //loads the specific gamemode selector for the given sceneID
         else 
         {
-            ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             switch (sceneID)
             {
 
                  
                 case 0:
-                    if (languageUnit.LanguageUnitType == LanguageUnit.Letter)
+
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.letter))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene();
                     }
-                    if (languageUnit.LanguageUnitType == LanguageUnit.Word)
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
                     {
                         SwitchScenes.SwitchToTowerLoaderScene_Words();
                     }
@@ -49,12 +49,12 @@ public class LoadingSceneSetup : MonoBehaviour
                     SwitchScenes.SwitchToLetterGardenLoaderScene();
                     break;
                 case 5:
-                    if (languageUnit.LanguageUnitType == LanguageUnit.Letter)
+                    if (DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.letter))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector();
                     }
                     
-                    if(languageUnit.LanguageUnitType==LanguageUnit.Word)
+                    if(DDA.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
                     {
                         SwitchScenes.SwitchToPathOfDangerAllModesSelector_Words();
                     }
@@ -62,13 +62,17 @@ public class LoadingSceneSetup : MonoBehaviour
                 case 6:
                     SwitchScenes.SwitchToProductionLineLoadingScene();
                     break;
+
+                case 7:
+                    SwitchScenes.SwitchToPizzaRestaurant();
+
+                    break;
                 default:
                     Debug.LogError("unknown sceneID");
                     break;
             }
         }
-        */
-        Debug.LogError("code removed as it was using old DDA");
+        
     }
 
     /// <summary>

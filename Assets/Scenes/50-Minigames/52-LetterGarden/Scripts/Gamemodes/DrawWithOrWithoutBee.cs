@@ -14,6 +14,7 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
     /// </summary>
     public class DrawWithOrWithOutBee : LettergardenGameMode
     {
+
         /// <summary>
         /// creates a list of SplineSymbolDataHolders of a given length
         /// </summary>
@@ -23,17 +24,10 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
         {
             List<SplineSymbolDataHolder> result = new List<SplineSymbolDataHolder>();
             List<string> usedLetters = new List<string>();
-            bool shouldRegenerateAnswer = true;
+            bool shouldRegenerateAnswer = false;
             if(gameRules.GetType() == typeof(DynamicGameRules))
             {
-                /*
-                LetterData letterData = (LetterData)GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
-                if(letterData.Category == Analytics.LetterCategory.All)
-                {
-                    shouldRegenerateAnswer = true;
-                }
-                */
-                Debug.LogError("code removed as it was using old DDA");
+                shouldRegenerateAnswer = true;
             }
             gameRules.SetCorrectAnswer();
             //Adds a given amount of random letters to the result list based on the given game rules.

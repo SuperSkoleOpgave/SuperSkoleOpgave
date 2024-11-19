@@ -26,6 +26,8 @@ TagManager:
   - Platform
   - Checkpoint
   - GoalLoop
+  - Ingredient
+  - Bootstrapper
   layers:
   - Default
   - TransparentFX

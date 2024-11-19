@@ -29,31 +29,28 @@ namespace Scenes._50_Minigames.Gamemode
 
         public (IGameRules, IGenericGameMode) DetermineGamemodeAndGameRulesToUse(int level)
         {
-            //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ø", 60);
-            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
-            /*
-            if(languageUnits[0].LanguageUnitType == Analytics.LanguageUnit.Letter)
+            DynamicGameRules dynamicGameRules = new DynamicGameRules();
+            IGenericGameMode gameMode = gamemodes[Random.Range(0, gamemodes.Count)];
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
+            while(priorities.Count > 0 && usedProperty != LanguageUnitProperty.wordWithA)
             {
-                DynamicGameRules dynamicGameRules = new DynamicGameRules();
-                List<ILanguageUnit> filteredList = new List<ILanguageUnit>();
-                foreach(ILanguageUnit languageUnit in languageUnits)
+                switch(priorities[0])
                 {
-                    if(languageUnit.LanguageUnitType == LanguageUnit.Letter)
-                    {
-                        filteredList.Add(languageUnit);
-                    }
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
+                        usedProperty = priorities[0];
+                        break;
                 }
-                dynamicGameRules.AddFilteredList(filteredList);
-                return(dynamicGameRules, gamemodes[Random.Range(0, gamemodes.Count)]);
+                priorities.RemoveAt(0);
             }
-            //Lettergarden only supports letters
-            else
+            if(usedProperty == LanguageUnitProperty.wordWithA)
             {
-                return(null, null);
+                usedProperty = LanguageUnitProperty.vowel;
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
-            return (null, null);
+            dynamicGameRules.SetUsedProperty(usedProperty);
+            return (dynamicGameRules, gameMode);
         }
 
 
