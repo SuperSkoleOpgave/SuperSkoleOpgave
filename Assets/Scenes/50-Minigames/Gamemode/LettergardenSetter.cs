@@ -31,23 +31,23 @@ namespace Scenes._50_Minigames.Gamemode
         {
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode gameMode = gamemodes[Random.Range(0, gamemodes.Count)];
-            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
-            property usedProperty = property.wordWithA;
-            while(priorities.Count > 0 && usedProperty != property.wordWithA)
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
+            while(priorities.Count > 0 && usedProperty != LanguageUnitProperty.wordWithA)
             {
                 switch(priorities[0])
                 {
-                    case property.vowel:
-                    case property.consonant:
-                    case property.letter:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
                         usedProperty = priorities[0];
                         break;
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == property.wordWithA)
+            if(usedProperty == LanguageUnitProperty.wordWithA)
             {
-                usedProperty = property.vowel;
+                usedProperty = LanguageUnitProperty.vowel;
             }
             dynamicGameRules.SetUsedProperty(usedProperty);
             return (dynamicGameRules, gameMode);

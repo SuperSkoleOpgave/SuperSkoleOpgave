@@ -41,7 +41,7 @@ public class LevelThreeRacing : IRacingGameMode
                 
                 core.gameRuleVocal.SetCorrectAnswer();
                 core.targetWord = core.gameRuleVocal.GetCorrectAnswer();
-                if(core.usedProperty == property.word)
+                if(core.usedProperty == LanguageUnitProperty.word)
                 {
                     string word = core.dynamicGameRules.GetSecondaryAnswer();
                     char vowel = word[0];

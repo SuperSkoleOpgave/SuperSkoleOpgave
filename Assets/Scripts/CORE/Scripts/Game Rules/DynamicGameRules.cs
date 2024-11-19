@@ -22,11 +22,11 @@ namespace CORE.Scripts.Game_Rules
         int index;
         int remainingLetterIndex = 1;
         private List<char> wrongAnswerList;
-        public property usedProperty;
+        public LanguageUnitProperty usedProperty;
         private List<LanguageUnit> languageUnits = new List<LanguageUnit>();
         private List<LanguageUnit> languageUnitsList = new List<LanguageUnit>();
 
-        private List<property> priorities;
+        private List<LanguageUnitProperty> priorities;
 
         private bool usesSequence = false;
 
@@ -39,7 +39,7 @@ namespace CORE.Scripts.Game_Rules
         {
             
             //gets a random letter from the languageunits list if it contains more than one element
-            if(languageUnits.Count > 1 && (usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant))
+            if(languageUnits.Count > 1 && (usedProperty == LanguageUnitProperty.letter || usedProperty == LanguageUnitProperty.vowel || usedProperty == LanguageUnitProperty.consonant))
             {
                 return languageUnits[Random.Range(0, languageUnits.Count)].identifier;
             }
@@ -55,22 +55,22 @@ namespace CORE.Scripts.Game_Rules
             string displayString = "";
             
             //Sets the display string to the correctanswer if it is a letter and there are no extra letters is in languageUnits. In that case it returns the type of letter 
-            if(usedProperty == property.letter || usedProperty == property.vowel || usedProperty == property.consonant)
+            if(usedProperty == LanguageUnitProperty.letter || usedProperty == LanguageUnitProperty.vowel || usedProperty == LanguageUnitProperty.consonant)
             {
 
                 displayString = "Error";
                 
-                if(usedProperty == property.vowel)
+                if(usedProperty == LanguageUnitProperty.vowel)
                 {
                     displayString = "vokaler";
                 }
-                else if(usedProperty == property.consonant)
+                else if(usedProperty == LanguageUnitProperty.consonant)
                 {
                     displayString = "konsonanter";
                 }
             }
             //for now returns the word to ensure compatability with existing gamemodes but should be removed once the GetSecondaryAnswer() is properly implemented
-            else if(usedProperty == property.word)
+            else if(usedProperty == LanguageUnitProperty.word)
             {
                 return word;
             }
@@ -159,29 +159,29 @@ namespace CORE.Scripts.Game_Rules
             
             if(languageUnitsList.Count == 0)
             {
-                List<property> properties = new List<property>();
-                property filterProperty = usedProperty;
+                List<LanguageUnitProperty> properties = new List<LanguageUnitProperty>();
+                LanguageUnitProperty filterProperty = usedProperty;
                 properties.Add(filterProperty);
-                property errorProperty;
+                LanguageUnitProperty errorProperty;
                 switch(usedProperty)
                 {
-                    case property.vowel:
-                        errorProperty = property.consonant;
+                    case LanguageUnitProperty.vowel:
+                        errorProperty = LanguageUnitProperty.consonant;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
                         correctAnswer = languageUnitsList[0].identifier;
                         break;
-                    case property.consonant:
-                        errorProperty = property.vowel;
+                    case LanguageUnitProperty.consonant:
+                        errorProperty = LanguageUnitProperty.vowel;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
                         correctAnswer = languageUnitsList[0].identifier;
                         break;
-                    case property.letter:
-                        errorProperty = property.letter;
-                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<property>(), 5);
+                    case LanguageUnitProperty.letter:
+                        errorProperty = LanguageUnitProperty.letter;
+                        languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 5);
                         correctAnswer = languageUnitsList[0].identifier;
                         break;
-                    case property.word:
-                        errorProperty = property.letter;
+                    case LanguageUnitProperty.word:
+                        errorProperty = LanguageUnitProperty.letter;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(properties, 5);
                         word = languageUnitsList[0].identifier;
                         break;
@@ -207,18 +207,18 @@ namespace CORE.Scripts.Game_Rules
         /// Determines which lettercategory to use for wronganswers
         /// </summary>
         /// <param name="letterCategory">the lettercategory to use for wrong letters</param>
-        private void DetermineWrongLetterCategory(property letterCategory)
+        private void DetermineWrongLetterCategory(LanguageUnitProperty letterCategory)
         {
             switch(letterCategory)
             {
                 //for consonants and vowels if the player is low enough level it also sets up so correct answer looks for a random correct letter
-                case property.consonant:
+                case LanguageUnitProperty.consonant:
                     wrongAnswerList = LetterRepository.GetVowels().ToList();
                     break;
-                case property.vowel:
+                case LanguageUnitProperty.vowel:
                     wrongAnswerList = LetterRepository.GetConsonants().ToList();
                     break;
-                case property.letter:
+                case LanguageUnitProperty.letter:
                     wrongAnswerList = LetterRepository.GetAllLetters().ToList();
                     wrongAnswerList.Remove(correctAnswer[0]);
                     break;
@@ -287,7 +287,7 @@ namespace CORE.Scripts.Game_Rules
             }
         }
 
-        public void SetUsedProperty(property property)
+        public void SetUsedProperty(LanguageUnitProperty property)
         {
             usedProperty = property;
         }
