@@ -17,7 +17,7 @@ public class DestroyBox : MonoBehaviour
     }
 
     /// <summary>
-    /// spawns letter and destroyes itself after
+    /// Spawns a letter box and destroys itself afterward
     /// </summary>
     public void Destroy()
     {
