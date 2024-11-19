@@ -20,7 +20,10 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
 
     private void Start()
     {
-        GetWord();
+        randoWord = GetWord();
+        CurrentWord();
+        UpdateCurrentLetter();
+        CurrentLetter();
     }
 
     /// <summary>
