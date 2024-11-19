@@ -67,6 +67,7 @@ namespace Scenes
         public const string PathOfDangerLoseScreen = "PathOfDangerLoseScreen";
         public const string MinigameLoading = "LevelSelect";
         public const string PizzaRestaurant = "511-PizzaRestaurant";
+        public const string PlaneGame = "512-PlaneGame";
 
         //Arcade 70
         public const string Arcade = "70-ArcadeScene";

@@ -509,9 +509,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 248381023}
+  - component: {fileID: 248381025}
   - component: {fileID: 248381022}
   - component: {fileID: 248381024}
-  - component: {fileID: 248381025}
   m_Layer: 0
   m_Name: PlaneGameHub
   m_TagString: Untagged
@@ -569,6 +569,7 @@ MonoBehaviour:
   gameController: {fileID: 248381025}
   createPoint: {fileID: 248381022}
   resetLoop: 0
+  currentWord: 
 --- !u!114 &248381025
 MonoBehaviour:
   m_ObjectHideFlags: 0
