@@ -16,8 +16,21 @@ public class BoxManager : MonoBehaviour
     void Start()
     {
         bounds = spawningBox.bounds;
-        SpawnBox();
-        
+        //get a small list of words
+        List<string> words = new List<string>()
+        { 
+            "båd",
+            "cat",
+            "hat"
+        };
+        for (int i = 0; i < words.Count; i++)
+        {
+            for (int j = 0; j < words[i].Length; j++)
+            {
+                SpawnBox(words[i][j].ToString());
+            }
+        }
+
     }
 
     private void Update()
@@ -26,11 +39,16 @@ public class BoxManager : MonoBehaviour
         {
             PlayerManager.Instance.PositionPlayerAt(spawn);
             PlayerManager.Instance.SpawnedPlayer.AddComponent<PlayerAtack>();
+            PlayerManager.Instance.SpawnedPlayer.GetComponent<Rigidbody>().useGravity = true;
             positionedPlayer = true;
         }
     }
 
-    void SpawnBox()
+    /// <summary>
+    /// spawns a box with the given letter inside at a random pos within colider
+    /// </summary>
+    /// <param name="letter">the letter that is inside the spawned box</param>
+    void SpawnBox(string letter)
     {
         float offsetX = Random.Range(-bounds.extents.x,bounds.extents.x);
         float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
@@ -39,6 +57,6 @@ public class BoxManager : MonoBehaviour
 
         temp.transform.position = bounds.center + new Vector3(offsetX,0,offsetZ);
         //give letter
-        temp.GetComponent<DestroyBox>().symbol = "S";
+        temp.GetComponent<DestroyBox>().symbol = letter;
     }
 }

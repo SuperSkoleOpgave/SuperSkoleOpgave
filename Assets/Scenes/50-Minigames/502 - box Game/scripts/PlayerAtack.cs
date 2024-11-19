@@ -31,6 +31,7 @@ public class PlayerAtack : MonoBehaviour
             {
                 targets[i].Destroy();
             }
+            targets.Clear();
         }
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -81,6 +82,9 @@ public class PlayerAtack : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// use for when exiting this scean
+    /// </summary>
     void Exit()
     {
         Destroy(hitBox);

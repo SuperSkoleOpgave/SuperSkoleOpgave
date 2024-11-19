@@ -21,7 +21,7 @@ public class DestroyBox : MonoBehaviour
     /// </summary>
     public void Destroy()
     {
-        Instantiate(letterBox, transform.position,Quaternion.identity);
+        Instantiate(letterBox, transform.position+Vector3.up,Quaternion.identity);
         Destroy(gameObject);
     }
 }
