@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CheckPizzaIngredient : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class CheckPizzaIngredient : MonoBehaviour
 
     public PizzaRestaurantManager manager;
     public char currentLetterToGuess;
+    public string currentWordToGuess;
 
     [SerializeField] GameObject wrongAnswerText;
     public bool checkLetter;
-    private bool correctLetter=false;
+    private bool correctIngredient=false;
+    private string wordToCheck;
 
     void Start()
     {
@@ -33,39 +36,51 @@ public class CheckPizzaIngredient : MonoBehaviour
           
             if (checkLetter == true)
             {
-                // Checks if the letter is a previous correct letter. 
-                bool isPreviousCorrectLetter = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter;
+                
+                    // Checks if the letter is a previous correct letter. 
+                    bool isPreviousCorrect = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrect;
 
 
-                if (isPreviousCorrectLetter == false)
-                {
-
-                    char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
-                 
-                    correctLetter = CheckIfCorrectLetter(letterAddedToPizza);
-
-                 
-                    //Moves on to next letter if the answer is correct and displays a incorret text if its not the right letter added. 
-                    if (correctLetter == false && isPreviousCorrectLetter == false)
+                    if (isPreviousCorrect == false)
                     {
-                        collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
+                    
+                    if (manager.gameMode is WritingLevel_Pizza)
+                    {
+                        Debug.Log("writing Level");
+                        char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
 
-                        collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
-
-                        StartCoroutine(DisplayWrongAnswerText());
-
+                        correctIngredient = CheckIfCorrectLetter(letterAddedToPizza);
                     }
-                    else if (correctLetter == true && isPreviousCorrectLetter == false)
+                    else if (manager.gameMode is ReadingLevel_Pizza)
                     {
-                        collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter = true;
-                        manager.CorrectIngredientAdded();
+                        Debug.Log("reading Level");
+                        string wordAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture.name;
+
+                        correctIngredient = CheckIfCorrectWord(wordAddedToPizza);
                     }
 
+                        //Moves on to next letter if the answer is correct and displays a incorret textOnIngredientHolder if its not the right ingredient added. 
+                        if (correctIngredient == false && isPreviousCorrect == false)
+                        {
+                            collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
+
+                            collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
+
+                            StartCoroutine(DisplayWrongAnswerText());
+
+                        }
+                        else if (correctIngredient == true && isPreviousCorrect == false)
+                        {
+                            collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrect = true;
+                            manager.CorrectIngredientAdded();
+                        }
 
 
 
-                    checkLetter = false;
-                }
+
+                        checkLetter = false;
+                    }
+                
             }
 
         }
@@ -78,7 +93,9 @@ public class CheckPizzaIngredient : MonoBehaviour
     /// <returns></returns>
     bool CheckIfCorrectLetter(char letterAdded)
     {
-        if(letterAdded==currentLetterToGuess)
+        
+     
+        if (letterAdded==currentLetterToGuess)
         {
           
             return true;
@@ -92,7 +109,35 @@ public class CheckPizzaIngredient : MonoBehaviour
     }
 
     /// <summary>
-    /// Used to activate and deactivate the "Wrong answer" text after a certain amount of time. 
+    /// Checks if the added wordImage is the current word to guess and returns a true or false. 
+    /// </summary>
+    /// <param name="letterAdded"></param>
+    /// <returns></returns>
+    bool CheckIfCorrectWord(string wordAdded)
+    {
+        wordToCheck = wordAdded.Split(" ")[0];
+
+        wordToCheck= wordToCheck.Replace("(aa)","\u00e5");
+        wordToCheck=wordToCheck.Replace("(ae)","\u00e6");
+        wordToCheck=wordToCheck.Replace("(oe)","ø");
+
+        Debug.Log(wordToCheck + "==" + currentWordToGuess);
+
+        if (wordToCheck == currentWordToGuess)
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+
+    /// <summary>
+    /// Used to activate and deactivate the "Wrong answer" textOnIngredientHolder after a certain amount of time. 
     /// </summary>
     /// <returns></returns>
     IEnumerator DisplayWrongAnswerText()

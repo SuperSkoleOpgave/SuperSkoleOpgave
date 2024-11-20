@@ -109,7 +109,7 @@ namespace Scenes._88_LeaderBoard.Scripts
         /// Displays the leaderboard based on the provided parameters.
         /// </summary>
         /// <param name="leaderboardId">The unique identifier of the leaderboard to be displayed.</param>
-        /// <param name="displayText">The text component where the leaderboard content will be displayed.</param>
+        /// <param name="displayText">The textOnIngredientHolder component where the leaderboard content will be displayed.</param>
         /// <param name="title">The title of the leaderboard to be displayed.</param>
         private async Task DisplayLeaderboard(
             string leaderboardId,

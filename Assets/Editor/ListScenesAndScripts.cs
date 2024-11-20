@@ -93,7 +93,7 @@ public class ListSceneScriptsByFolder : EditorWindow
 
         int totalScripts = uniqueScripts.Count;
 
-        // *** Output the results to a text file ***
+        // *** Output the results to a textOnIngredientHolder file ***
         string outputPath = "Assets/Editor/SceneScriptsList.txt";
         using (StreamWriter writer = new StreamWriter(outputPath))
         {

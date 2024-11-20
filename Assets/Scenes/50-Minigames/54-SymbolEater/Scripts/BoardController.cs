@@ -134,9 +134,9 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         }
 
         /// <summary>
-        /// Sets the text of the answertext ui element
+        /// Sets the textOnIngredientHolder of the answertext ui element
         /// </summary>
-        /// <param name="text">the text which should be displayed</param>
+        /// <param name="text">the textOnIngredientHolder which should be displayed</param>
         public void SetAnswerText(string text)
         {
             answerText.text = text;
@@ -255,7 +255,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         /// <summary>
         /// Called when the player wins a gamemode
         /// </summary>
-        /// <param name="winText">The text to display</param>
+        /// <param name="winText">The textOnIngredientHolder to display</param>
         public void Won(string winText, int xpReward, int goldReward)
         {
             GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightLetter(gameRules.GetCorrectAnswer(), true);

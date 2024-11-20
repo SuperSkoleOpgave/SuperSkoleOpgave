@@ -30,7 +30,7 @@ public class BalloonSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// updates the text on the screen
+    /// updates the textOnIngredientHolder on the screen
     /// </summary>
     private void Update()
     {
