@@ -192,7 +192,7 @@ namespace CORE
             yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
             GameObject bootstrapperObject = GameObject.FindGameObjectWithTag("Bootstrapper");
             Bootstrapper bootstrapper = bootstrapperObject.GetComponent<Bootstrapper>();
-            dynamicDifficultyAdjustment.SetupLanguageUnits(bootstrapper.letters, new List<LanguageUnit>());
+            dynamicDifficultyAdjustment.SetupLanguageUnits(bootstrapper.letters, bootstrapper.words);
         }
 
         /// <summary>

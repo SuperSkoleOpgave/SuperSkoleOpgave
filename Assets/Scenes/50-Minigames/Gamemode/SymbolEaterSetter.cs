@@ -64,36 +64,36 @@ namespace Scenes._50_Minigames.Gamemode
             //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             DynamicGameRules dynamicGameRules = new DynamicGameRules();
             IGenericGameMode mode = null;
-            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
-            property usedProperty = property.testProperty;
-            while(priorities.Count > 0 && usedProperty == property.testProperty)
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
+            while(priorities.Count > 0 && usedProperty == LanguageUnitProperty.wordWithA)
             {
                 switch(priorities[0])
                 {
-                    case property.vowel:
-                    case property.consonant:
-                    case property.letter:
-                    case property.word:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
+                    case LanguageUnitProperty.word:
                         usedProperty = priorities[0];
                         break;
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == property.testProperty)
+            if(usedProperty == LanguageUnitProperty.wordWithA)
             {
-                usedProperty = property.vowel;
+                usedProperty = LanguageUnitProperty.vowel;
             }
             dynamicGameRules.SetUsedProperty(usedProperty);
             switch(usedProperty)
             {
-                case property.vowel:
-                case property.consonant:
+                case LanguageUnitProperty.vowel:
+                case LanguageUnitProperty.consonant:
                     mode = letterCategoryGamemodes[Random.Range(0, letterCategoryGamemodes.Count)];
                     break;
-                case property.letter:
+                case LanguageUnitProperty.letter:
                     mode = letterGamemodes[Random.Range(0, letterGamemodes.Count)];
                     break;
-                case property.word:
+                case LanguageUnitProperty.word:
                     mode = wordGamemodes[Random.Range(0, wordGamemodes.Count)];
                     break;
                 default:

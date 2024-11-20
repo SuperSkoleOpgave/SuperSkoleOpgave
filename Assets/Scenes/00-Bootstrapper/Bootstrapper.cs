@@ -13,6 +13,7 @@ namespace Scenes._00_Bootstrapper
     public class Bootstrapper : MonoBehaviour
     {
         public List<LanguageUnit> letters;
+        public List<LanguageUnit> words;
         private const int MaxRetries = 3;
 
         /// <summary>

@@ -14,11 +14,6 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
     /// </summary>
     public class DrawWithBee : LettergardenGameMode
     {
-        List<LanguageUnit> languageUnits = new List<LanguageUnit>();
-        public List<LanguageUnit> GetCurrentLanguageUnits()
-        {
-            return languageUnits;
-        }
 
 
         /// <summary>
@@ -55,18 +50,6 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes {
                     letter = gameRules.GetCorrectAnswer();
                 }
                 usedLetters.Add(letter);
-                if(gameRules.GetType() == typeof(DynamicGameRules))
-                {
-                    DynamicGameRules dynamicGameRules = (DynamicGameRules)gameRules;
-                    foreach(LanguageUnit languageUnit in dynamicGameRules.GetLanguageUnits())
-                    {
-                        if(languageUnit.identifier == letter)
-                        {
-                            languageUnits.Add(languageUnit);
-                            break;
-                        }
-                    }
-                }
                 if(Random.Range(0, 2) == 0)
                 {
                     result.Add(new SplineSymbolDataHolder(SymbolManager.capitalLettersObjects[letter.ToUpper()[0]], SymbolManager.capitalLetters[letter.ToUpper()[0]], letter.ToUpper()[0]));

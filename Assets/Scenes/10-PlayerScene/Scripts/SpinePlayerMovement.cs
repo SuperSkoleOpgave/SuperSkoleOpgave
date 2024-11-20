@@ -26,6 +26,7 @@ namespace Scenes._10_PlayerScene.Scripts
         [SerializeField] ParticleSystem pointAndClickEffect;
         [SerializeField] private Rigidbody rb;
 
+        private bool positionedPlayer = false;
         /// <summary>
         /// Handles player input for point-and-click movement.
         /// </summary>

@@ -4,6 +4,7 @@ using CORE.Scripts;
 using CORE.Scripts.Game_Rules;
 using Scenes._50_Minigames._58_MiniRacingGame.Scripts;
 using Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -129,37 +130,39 @@ namespace Scenes._50_Minigames.Gamemode
             //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
             IGenericGameMode mode = null;
             DynamicGameRules rules = new DynamicGameRules();
-            List<property> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
-            property usedProperty = property.testProperty;
-            while(priorities.Count > 0 && usedProperty == property.testProperty)
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
+            while(priorities.Count > 0 && usedProperty == LanguageUnitProperty.wordWithA)
             {
                 switch(priorities[0])
                 {
-                    case property.vowel:
-                    case property.consonant:
-                    case property.letter:
-                    case property.word:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
+                    case LanguageUnitProperty.word:
                         usedProperty = priorities[0];
                         break;
                 }
                 priorities.RemoveAt(0);
             }
-            if(usedProperty == property.testProperty)
+            if(usedProperty == LanguageUnitProperty.wordWithA)
             {
-                usedProperty = property.vowel;
+                usedProperty = LanguageUnitProperty.vowel;
             }
             Debug.Log(usedProperty);
             rules.SetUsedProperty(usedProperty);
             switch(usedProperty)
                 {
-                    case property.vowel:
-                    case property.consonant:
-                    case property.letter:
+                    case LanguageUnitProperty.vowel:
+                    case LanguageUnitProperty.consonant:
+                    case LanguageUnitProperty.letter:
                         mode = new LevelFiveRacing();
                         break;
-                    case property.word:
+                    case LanguageUnitProperty.word:
                         mode = new LevelThreeRacing();
                         break;
+                    default:
+                        throw new Exception("no mode could be found");
                 }
             return (rules, mode);
         }

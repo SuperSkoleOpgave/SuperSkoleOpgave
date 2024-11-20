@@ -22,6 +22,5 @@ namespace Scenes.Minigames.LetterGarden.Scripts.Gamemodes
 
         public bool UseBee();
 
-        public List<LanguageUnit> GetCurrentLanguageUnits();
     }
 }
