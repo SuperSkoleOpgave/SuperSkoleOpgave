@@ -7,8 +7,17 @@ public class PlayerHitGoal : MonoBehaviour
     [SerializeField]
     private Material playerContactMat;
 
-    [SerializeField]
-   private PlaneGameManager gameManager;
+    private PlaneGameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<PlaneGameManager>();
+
+        if (gameManager == null)
+        {
+            Debug.LogError("cant find game manager");
+        }
+    }
 
     /// <summary>
     /// ResetGoalLoops that deactivate GoalLoops when the collide.

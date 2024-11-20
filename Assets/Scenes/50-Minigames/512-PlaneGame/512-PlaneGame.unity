@@ -570,6 +570,11 @@ MonoBehaviour:
   createPoint: {fileID: 248381022}
   resetLoop: 0
   currentWord: 
+  letterNumber: 0
+  currentLetter: 65
+  letterBoxText: {fileID: 1502370654}
+  letterText: {fileID: 1502370656}
+  isCorrect: 0
 --- !u!114 &248381025
 MonoBehaviour:
   m_ObjectHideFlags: 0
