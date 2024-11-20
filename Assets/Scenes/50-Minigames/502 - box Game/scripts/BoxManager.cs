@@ -19,8 +19,8 @@ public class BoxManager : MonoBehaviour
         //get a small list of words
         List<string> words = new List<string>()
         { 
-            "båd",
-            "cat",
+            "b\u00c5d",
+            "kat",
             "hat"
         };
         for (int i = 0; i < words.Count; i++)
