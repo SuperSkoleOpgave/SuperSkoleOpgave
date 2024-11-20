@@ -1166,7 +1166,7 @@ public class DDATests
     /// Ensures you can get the default order if all have the same weight
     /// </summary>
     [Test]
-    public void CanGetDefaultOrder()
+    public void CanGetDefaultCompleteOrder()
     {
         List<LanguageUnitProperty> languageUnitProperties = new List<LanguageUnitProperty>()
         {
@@ -1175,6 +1175,8 @@ public class DDATests
             LanguageUnitProperty.letter,
             LanguageUnitProperty.word
         };
+        dDAUnderTest.SetupLevelLocks();
+        dDAUnderTest.SetPlayerLevel(3);
         Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
     }
 
@@ -1191,6 +1193,8 @@ public class DDATests
             LanguageUnitProperty.consonant,
             LanguageUnitProperty.letter
         };
+        dDAUnderTest.SetupLevelLocks();
+        dDAUnderTest.SetPlayerLevel(3);
         LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
         LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
         languageUnitUnderTest.properties.Add(propertyUnderTest.property);
@@ -1213,6 +1217,8 @@ public class DDATests
             LanguageUnitProperty.word,
             LanguageUnitProperty.vowel
         };
+        dDAUnderTest.SetupLevelLocks();
+        dDAUnderTest.SetPlayerLevel(3);
         LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
         LanguageUnitPropertyInfo propertyUnderTest = CreateProperties(1)[0];
         languageUnitUnderTest.properties.Add(propertyUnderTest.property);
@@ -1220,6 +1226,63 @@ public class DDATests
         dDAUnderTest.AddWord(languageUnitUnderTest);
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
         Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
+    }
+
+    [Test]
+    public void OnlyReturnsPropertiesThePlayerHasAccessTo()
+    {
+        List<LanguageUnitProperty> languageUnitProperties = new List<LanguageUnitProperty>()
+        {
+            LanguageUnitProperty.vowel
+        };
+        dDAUnderTest.SetupLevelLocks();
+        Assert.AreEqual(languageUnitProperties, dDAUnderTest.GetPlayerPriority());
+    }
+    #endregion
+    #region CalculatePlayerLevel
+    /// <summary>
+    /// Ensures the player can level up to level 1
+    /// </summary>
+    [Test]
+    public void PlayerCanLevelUpToLevel1()
+    {
+        TestLevelUp(LanguageUnitProperty.vowel, 1, 46);
+    }
+    /// <summary>
+    /// Ensures the player can level up to level 2
+    /// </summary>
+    [Test]
+    public void PlayerCanLevelUpToLevel2()
+    {
+        TestLevelUp(LanguageUnitProperty.consonant, 2, 46);
+    }
+    
+    /// <summary>
+    /// Ensures the player can level up to level 3
+    /// </summary>
+    [Test]
+    public void PlayerCanLevelUpToLevel3()
+    {
+        TestLevelUp(LanguageUnitProperty.letter, 3, 41);
+    }
+
+    /// <summary>
+    /// Common structure for level up tests
+    /// </summary>
+    /// <param name="property">the property whos weight must be reduced for level up</param>
+    /// <param name="targetLevel">the level the player should hit</param>
+    /// <param name="startWeight">The weight the property should start at</param>
+    private void TestLevelUp(LanguageUnitProperty property, int targetLevel, float startWeight)
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        LanguageUnitPropertyInfo languageUnitPropertyUnderTest = CreateProperties(1)[0];
+        languageUnitUnderTest.properties.Add(languageUnitPropertyUnderTest.property);
+        languageUnitUnderTest.properties.Add(property);
+        languageUnitPropertyUnderTest.weight = startWeight;
+        dDAUnderTest.AddLetter(languageUnitUnderTest);
+        dDAUnderTest.SetPlayerLevel(targetLevel - 1);
+        dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
+        Assert.AreEqual(targetLevel, dDAUnderTest.GetPlayerLevel());
     }
     #endregion
     /// <summary>

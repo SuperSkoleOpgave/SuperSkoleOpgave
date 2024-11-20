@@ -33,7 +33,7 @@ namespace Scenes._50_Minigames.Gamemode
             IGenericGameMode gameMode = gamemodes[Random.Range(0, gamemodes.Count)];
             List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
             LanguageUnitProperty usedProperty = LanguageUnitProperty.wordWithA;
-            while(priorities.Count > 0 && usedProperty != LanguageUnitProperty.wordWithA)
+            while(priorities.Count > 0 && usedProperty == LanguageUnitProperty.wordWithA)
             {
                 switch(priorities[0])
                 {
