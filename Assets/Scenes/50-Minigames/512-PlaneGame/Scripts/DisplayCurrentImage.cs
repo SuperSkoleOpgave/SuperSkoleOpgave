@@ -17,11 +17,6 @@ public class DisplayCurrentImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        if (rawImage == null)
-        {
-            Debug.Log("YOOO");
-        }
         DisplayImage();
     }
 
