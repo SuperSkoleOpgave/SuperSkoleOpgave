@@ -586,6 +586,7 @@ MonoBehaviour:
   currentWordNumber: 0
   randoWord: 
   currentLetter: 116
+  planeGameManager: {fileID: 248381024}
 --- !u!1 &338582050
 GameObject:
   m_ObjectHideFlags: 0

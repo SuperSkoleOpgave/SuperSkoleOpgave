@@ -1,5 +1,7 @@
+using CORE;
 using CORE.Scripts;
 using CORE.Scripts.Game_Rules;
+using Scenes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +20,33 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
     [SerializeField]
     private char currentLetter;
 
+    [SerializeField]
+    private PlaneGameManager planeGameManager;
+
+
+    List<LanguageUnit> langUnit;
+
+    private bool kickedOut = false;
+
+
     private void Start()
     {
+        langUnit = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 16);
+
         randoWord = GetWord();
         CurrentWord();
         UpdateCurrentLetter();
         CurrentLetter();
+        planeGameManager.GameSetup();
+    }
+
+    private void Update()
+    {
+        if (langUnit.Count == 0 && !kickedOut)
+        {
+            kickedOut = true;
+            SwitchScenes.SwitchToMainWorld();
+        }
     }
 
     /// <summary>
@@ -32,7 +55,9 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
     /// <returns>A random word</returns>
     public string GetWord()
     {
-        randoWord = WordsForImagesManager.GetRandomWordForImage();
+        string randomWord = langUnit[Random.Range(0, langUnit.Count)].identifier;
+
+        randoWord = randomWord;
 
         return randoWord;
     }

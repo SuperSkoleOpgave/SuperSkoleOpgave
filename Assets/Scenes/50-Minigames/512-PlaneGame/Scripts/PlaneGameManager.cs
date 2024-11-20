@@ -23,11 +23,7 @@ public class PlaneGameManager : MonoBehaviour
     
     void Start()
     {
-        isGameOn = true;
-
-        createPoint.CreatePointLoops();
-
-        currentWord = gameController.CurrentWord();
+        
     }
 
     
@@ -37,6 +33,13 @@ public class PlaneGameManager : MonoBehaviour
         {
             LoopHitsWall();
         }
+    }
+
+    public void GameSetup()
+    {
+        currentWord = gameController.CurrentWord();
+        isGameOn = true;
+        createPoint.CreatePointLoops();
     }
 
     public void LoopHitsWall()

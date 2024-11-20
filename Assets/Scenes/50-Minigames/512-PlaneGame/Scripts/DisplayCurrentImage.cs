@@ -10,13 +10,18 @@ public class DisplayCurrentImage : MonoBehaviour
     [SerializeField]
     private PlaneGameController gameController;
 
+
     public RawImage rawImage;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rawImage = GetComponent<RawImage>();
+        
+        if (rawImage == null)
+        {
+            Debug.Log("YOOO");
+        }
         DisplayImage();
     }
 
