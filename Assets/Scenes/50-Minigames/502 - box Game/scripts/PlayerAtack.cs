@@ -12,7 +12,7 @@ public class PlayerAtack : MonoBehaviour
 
     List<DestroyBox> targets = new List<DestroyBox>();
     string inventory = "";
-    private PlayerAnimatior animatior;
+    private PlayerAnimatior animator;
     [SerializeField] private Vector3 hitboxCenter = new(0.6743157f, -5.974327f, -1.754525f);
     [SerializeField] private Vector3 hitboxSize = new(11.18315f, 12.94866f, 7.647582f);
 
@@ -61,11 +61,11 @@ public class PlayerAtack : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
         {
-            animatior.SetCharacterState("Walk");
+            animator.SetCharacterState("Walk");
         }
         else
         {
-            animatior.SetCharacterState("Idle");
+            animator.SetCharacterState("Idle");
         }
     }
 

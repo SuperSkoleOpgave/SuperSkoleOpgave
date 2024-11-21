@@ -11,8 +11,7 @@ public class DestroyBox : MonoBehaviour
     [SerializeField]
     private GameObject letterBox;
     
-    [SerializeField]
-    private string symbol;
+    public string symbol;
 
     private void Awake()
     {
