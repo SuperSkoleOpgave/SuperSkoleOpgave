@@ -124,12 +124,12 @@ public void CorrectIngredientAdded()
         catch (NullReferenceException ex)
         {
             Debug.LogError($"Null reference encountered: {ex.Message}");
-            // Handle null reference exception
+           
         }
         catch (ArgumentException ex)
         {
             Debug.LogError($"Invalid argument: {ex.Message}");
-            // Handle argument exception
+      
         }
         catch (Exception ex)
         {

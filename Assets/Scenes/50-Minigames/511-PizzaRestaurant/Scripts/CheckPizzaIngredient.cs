@@ -37,7 +37,7 @@ public class CheckPizzaIngredient : MonoBehaviour
             if (checkLetter == true)
             {
                 
-                    // Checks if the letter is a previous correct letter. 
+                    // Checks if the ingridient is a previous correct ingredient. 
                     bool isPreviousCorrect = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrect;
 
 
@@ -50,7 +50,9 @@ public class CheckPizzaIngredient : MonoBehaviour
                     }
                     else
                     {
+
                         Debug.LogError("Manager or GameMode is null.");
+                        return; // Exit the method to prevent further processing.
                     }
                  
                         //Moves on to next letter if the answer is correct and displays a incorret textOnIngredientHolder if its not the right ingredient added. 
