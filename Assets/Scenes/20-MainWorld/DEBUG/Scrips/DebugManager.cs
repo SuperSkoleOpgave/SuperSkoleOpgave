@@ -75,7 +75,7 @@ namespace Scenes._20_MainWorld.DEBUG.Scrips
 
 
 
-            //playerDataText.text = "WordsCollected:" + playerData.CollectedWords.Count + "\n" +
+            //playerDataText.textOnIngredientHolder = "WordsCollected:" + playerData.CollectedWords.Count + "\n" +
             //                      "LettersCollected:"+playerData.CollectedLetters.Count+ "\n" +
             //                      "GoldAmount:"+playerData.CurrentGoldAmount+ "\n" +
             //                      "XPAmount:"+playerData.CurrentXPAmount;

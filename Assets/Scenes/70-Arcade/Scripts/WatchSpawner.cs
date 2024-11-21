@@ -27,7 +27,7 @@ public class WatchSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets random text for the digiclock.
+    /// Gets random textOnIngredientHolder for the digiclock.
     /// </summary>
     public void GetRandoText()
     {

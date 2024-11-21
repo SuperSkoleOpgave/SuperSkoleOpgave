@@ -1,8 +1,8 @@
+using CORE;
 using CORE.Scripts;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,33 +13,59 @@ using UnityEngine.UI;
 /// </summary>
 public class PizzaRestaurantManager : MonoBehaviour
 {
-    [SerializeField] GameObject ingredientBoard;
+    public GameObject ingredientBoard;
 
-    [SerializeField] GameObject textIngredientHolder;
+    public GameObject textIngredientHolder;
+    public GameObject imageIngredientHolder;
 
-    [SerializeField] CheckPizzaIngredient ingredientChecker;
+
+    public TextMeshProUGUI displayAnswerText;
+
+    [SerializeField] GameObject displayAnswerImage;
+
+    [SerializeField] GameObject answerPrefab;
+
+    
+
+    public CheckPizzaIngredient ingredientChecker;
 
     [SerializeField] Texture defaultImage;
     string testWord = "abe";
 
-    char[,] lettersForCurrentRound = new char[3,4];
-    private string wordToGuess;
+    public char[,] lettersForCurrentRound = new char[3,4];
 
-    [SerializeField] RawImage ImageDisplay;
-    private int currentLetterToGuessIndex;
+    public string[,] wordsForCurrentRound = new string[3,4];
 
-    private List<GameObject> spawnedLetters = new List<GameObject>();
+    public string wordToGuess;
 
-    private const float LETTER_SPACING_X = 12f;
-    private const float LETTER_SPACING_Y = -12f;
+    public RawImage ImageDisplay;
+    public int currentLetterToGuessIndex;
 
+    public List<GameObject> spawnedIngredients = new List<GameObject>();
 
+    public  float LETTER_SPACING_X = 15f;
+    public  float LETTER_SPACING_Y = -15f;
+
+    public IPizzaGameMode gameMode;
+    private IPizzaGameMode[] gameModes = new IPizzaGameMode[] { new WritingLevel_Pizza() };
+    private int numRows;
+    private int numCols;
+
+    public TextMeshProUGUI textOnIngredientHolder { get; set; }
+    public RawImage imageOnIngredientHolder { get; set; }
 
 
     // Start is called before the first frame update
     void Start()
     {
+
+
+        //gameMode = gameModes[UnityEngine.Random.Range(0, gameModes.Length)];
+
+        gameMode = new ReadingLevel_Pizza();
         ingredientChecker.manager = this;
+        textOnIngredientHolder = textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        imageOnIngredientHolder = imageIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<RawImage>();
 
         StartNewRound();
     }
@@ -56,16 +82,18 @@ public class PizzaRestaurantManager : MonoBehaviour
     /// </summary>
 public void CorrectIngredientAdded()
 {
-    if (currentLetterToGuessIndex < wordToGuess.Length - 1)
+    if (gameMode is WritingLevel_Pizza &&currentLetterToGuessIndex < wordToGuess.Length - 1)
     {
         currentLetterToGuessIndex++;
         ingredientChecker.currentLetterToGuess = wordToGuess[currentLetterToGuessIndex];
-    }
+
+    }   
     else
     {
-        spawnedLetters.ForEach(Destroy);
-        spawnedLetters.Clear();
-        lettersForCurrentRound = new char[3, 4];
+        spawnedIngredients.ForEach(Destroy);
+        spawnedIngredients.Clear();
+        lettersForCurrentRound = new char[numRows, numCols];
+        wordsForCurrentRound = new string[numRows, numCols];
         StartNewRound();
     }
 }
@@ -80,91 +108,29 @@ public void CorrectIngredientAdded()
 
         try
         {
-            TextMeshProUGUI text = textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-
-        
-
-            wordToGuess = WordsForImagesManager.GetRandomWordForImage();
-            if (string.IsNullOrEmpty(wordToGuess))
-            {
-                Debug.LogError("Received an invalid word to guess.");
-                    
-                   
-                    return;
-            }
-            ImageDisplay.texture = ImageManager.GetImageFromWord(wordToGuess);
-
-
-
-            currentLetterToGuessIndex = 0;
-            ingredientChecker.currentLetterToGuess = wordToGuess[currentLetterToGuessIndex];
-
-
+          
+            gameMode.SetDisplayAnswer(this);
+          
             int numberOfRandomPositions = wordToGuess.Length;
 
-
             // Get dimensions for clarity
-            int numRows = lettersForCurrentRound.GetLength(0);
-            int numCols = lettersForCurrentRound.GetLength(1);
 
-            // Randomly assign the letters of 'wordToGuess' into the grid
-            int assignedCorrectLetters = 0;
-            while (assignedCorrectLetters < wordToGuess.Length)
-            {
-                int rndIndexX = UnityEngine.Random.Range(0, numRows);
-                int rndIndexY = UnityEngine.Random.Range(0, numCols);
+                 numRows = gameMode.GetNumRows();
+                 numCols = gameMode.GetNumCols();
+         
+            gameMode.GenerateAnswers(this, numRows, numCols);
 
-                if (lettersForCurrentRound[rndIndexX, rndIndexY] == '\0')
-                {
-                    lettersForCurrentRound[rndIndexX, rndIndexY] = wordToGuess[assignedCorrectLetters];
-                    assignedCorrectLetters++;
-                }
-            }
-
-            // Fill the remaining empty positions with random letters
-            for (int x = 0; x < numRows; x++)
-            {
-                for (int y = 0; y < numCols; y++)
-                {
-                    if (lettersForCurrentRound[x, y] == '\0')
-                    {
-                        lettersForCurrentRound[x, y] = LetterManager.GetRandomLetter();
-                    }
-                }
-            }
-
-            
-
-        
-     
-
-
-
-
-
-            // Code to actually instantiate the letters for the current round that have been put together in a random sequence. 
-            for (int y = 0; y < lettersForCurrentRound.GetLength(1); y++)
-            {
-                for (int x = 0; x < lettersForCurrentRound.GetLength(0); x++)
-                {
-                    text.text = lettersForCurrentRound[x, y].ToString();
-
-
-                    Vector3 pos = new Vector3(LETTER_SPACING_X * x, y * LETTER_SPACING_Y, 0);
-
-
-
-                    GameObject instObject = Instantiate(textIngredientHolder, ingredientBoard.transform);
-
-                    instObject.transform.position += pos;
-                    instObject.GetComponent<IngredientHolderPickup>().startPosition = instObject.transform.position;
-                    instObject.GetComponent<IngredientHolderPickup>().ingredientChecker = ingredientChecker;
-                    spawnedLetters.Add(instObject);
-                }
-
-            }
         }
-
+        catch (NullReferenceException ex)
+        {
+            Debug.LogError($"Null reference encountered: {ex.Message}");
+           
+        }
+        catch (ArgumentException ex)
+        {
+            Debug.LogError($"Invalid argument: {ex.Message}");
+      
+        }
         catch (Exception ex)
         {
             Debug.LogError($"Failed to initialize round: {ex.Message}");

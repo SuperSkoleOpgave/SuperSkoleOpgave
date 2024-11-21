@@ -186,7 +186,7 @@ namespace Scenes._03_StartScene.Scripts
             confirmDeleteButton.gameObject.SetActive(false);
             cancelDeleteButton.gameObject.SetActive(false);
 
-            // Clear the text and image data for the panel
+            // Clear the textOnIngredientHolder and image data for the panel
             GoldAmount.text = string.Empty;
             XPAmount.text = string.Empty;    
             LevelAmount.text = string.Empty;
