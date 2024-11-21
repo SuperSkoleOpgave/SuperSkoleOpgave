@@ -1,3 +1,4 @@
+using CORE;
 using CORE.Scripts;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ public class PizzaRestaurantManager : MonoBehaviour
     /// </summary>
 public void CorrectIngredientAdded()
 {
-    if (gameMode as WritingLevel_Pizza!=null &&currentLetterToGuessIndex < wordToGuess.Length - 1)
+    if (gameMode is WritingLevel_Pizza &&currentLetterToGuessIndex < wordToGuess.Length - 1)
     {
         currentLetterToGuessIndex++;
         ingredientChecker.currentLetterToGuess = wordToGuess[currentLetterToGuessIndex];
@@ -110,32 +111,17 @@ public void CorrectIngredientAdded()
 
         try
         {
-
-            
-
-
-            gameMode.GetDisplayAnswer(this);
-
-            Debug.Log("not getDisplayAnswer");
           
-
-
+            gameMode.GetDisplayAnswer(this);
+          
             int numberOfRandomPositions = wordToGuess.Length;
-
 
             // Get dimensions for clarity
 
                  numRows = gameMode.GetNumRows();
                  numCols = gameMode.GetNumCols();
-            
-            
-           
-               
-            
-
+         
             gameMode.GenerateAnswers(this, numRows, numCols);
-
-            Debug.Log("not generate answers");
 
         }
 

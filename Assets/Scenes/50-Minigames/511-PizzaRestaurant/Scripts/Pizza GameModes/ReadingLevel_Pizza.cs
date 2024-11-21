@@ -1,10 +1,36 @@
+using CORE;
 using CORE.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 {
+
+    /// <summary>
+    /// Checks if the added wordImage is the current word to guess and returns a true or false. 
+    /// </summary>
+    public bool CheckIngredient(Collider2D collision, CheckPizzaIngredient checker)
+    {
+        string wordAdded = collision.transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture.name;
+
+        if (string.IsNullOrEmpty(wordAdded))
+        {
+            Debug.LogWarning("wordAdded is null or empty.");
+            return false;
+        }
+
+        string wordToCheck = wordAdded.Split(" ")[0];
+
+        wordToCheck = wordToCheck.Replace("(aa)", "\u00e5");
+        wordToCheck = wordToCheck.Replace("(ae)", "\u00e6");
+        wordToCheck = wordToCheck.Replace("(oe)", "\u00F8");
+
+
+        return wordToCheck == checker.currentWordToGuess;
+    }
+
     public void GenerateAnswers(PizzaRestaurantManager manager, int numRows,int numCols)
     {
         // Randomly assign the 'wordToGuess' into the grid
@@ -29,7 +55,7 @@ public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
                 {
                     manager.wordsForCurrentRound[x, y] = WordsForImagesManager.GetRandomWordForImage();
 
-                    Debug.Log(manager.wordsForCurrentRound[x, y]);
+                    
                 }
             }
         }
@@ -41,18 +67,11 @@ public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
         {
             for (int x = 0; x < numRows; x++)
             {
-                Debug.Log(manager.wordsForCurrentRound[x, y]);
+               
 
                 manager.imageOnIngredientHolder.texture= ImageManager.GetImageFromWord(manager.wordsForCurrentRound[x, y]);
 
-                if (manager.imageOnIngredientHolder.texture == null)
-                {
-                    Debug.Log("Null image"+ manager.wordsForCurrentRound[x, y]);
-                }
-                else
-                {
-                    Debug.Log("image not null");
-                }
+               
              Vector3 pos = new Vector3(manager.LETTER_SPACING_X * x, y * manager.LETTER_SPACING_Y, 0);
 
 
@@ -72,7 +91,7 @@ public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
         public void GetDisplayAnswer(PizzaRestaurantManager manager)
     {
-        manager.wordToGuess = WordsForImagesManager.GetRandomWordForImage();
+        manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier; 
         manager.ingredientChecker.currentWordToGuess = manager.wordToGuess;
         if (string.IsNullOrEmpty(manager.wordToGuess))
         {

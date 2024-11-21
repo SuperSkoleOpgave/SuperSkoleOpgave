@@ -34,5 +34,15 @@ public interface IPizzaGameMode : IGenericGameMode
     /// <param name="count"></param>
     public void GenerateAnswers(PizzaRestaurantManager manager, int numRows, int numCols);
 
+
+   /// <summary>
+   /// Checks the ingredient if it's the correct answer. 
+   /// </summary>
+   /// <param name="collider"></param>
+   /// <param name="ingredientChecker"></param>
+    public bool CheckIngredient(Collider2D collision, CheckPizzaIngredient checker);
+   
+
+
    
 }

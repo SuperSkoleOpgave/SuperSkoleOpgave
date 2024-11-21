@@ -1,12 +1,22 @@
+using CORE;
 using CORE.Scripts;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 {
 
+    /// <summary>
+    /// Checks if the added letters is the current letter to guess and returns a true or false. 
+    /// </summary>
+    public bool CheckIngredient(Collider2D collision, CheckPizzaIngredient checker)
+    {
+        char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
 
+       return letterAddedToPizza == checker.currentLetterToGuess;
+    }
 
     public void GenerateAnswers(PizzaRestaurantManager manager, int numRows,int numCols)
     {
@@ -65,7 +75,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
         public void GetDisplayAnswer(PizzaRestaurantManager manager)
     {
-        manager.wordToGuess = WordsForImagesManager.GetRandomWordForImage();
+        manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier;
         manager.currentLetterToGuessIndex = 0;
         manager.ingredientChecker.currentLetterToGuess = manager.wordToGuess[manager.currentLetterToGuessIndex];
 

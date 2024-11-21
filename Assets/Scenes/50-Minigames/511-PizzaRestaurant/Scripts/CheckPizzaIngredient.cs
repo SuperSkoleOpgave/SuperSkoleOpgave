@@ -15,7 +15,7 @@ public class CheckPizzaIngredient : MonoBehaviour
     [SerializeField] GameObject wrongAnswerText;
     public bool checkLetter;
     private bool correctIngredient=false;
-    private string wordToCheck;
+    public string wordToCheck;
 
     void Start()
     {
@@ -43,22 +43,8 @@ public class CheckPizzaIngredient : MonoBehaviour
 
                     if (isPreviousCorrect == false)
                     {
-                    
-                    if (manager.gameMode is WritingLevel_Pizza)
-                    {
-                        Debug.Log("writing Level");
-                        char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
 
-                        correctIngredient = CheckIfCorrectLetter(letterAddedToPizza);
-                    }
-                    else if (manager.gameMode is ReadingLevel_Pizza)
-                    {
-                        Debug.Log("reading Level");
-                        string wordAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture.name;
-
-                        correctIngredient = CheckIfCorrectWord(wordAddedToPizza);
-                    }
-
+                        correctIngredient = manager.gameMode.CheckIngredient(collision, this);
                         //Moves on to next letter if the answer is correct and displays a incorret textOnIngredientHolder if its not the right ingredient added. 
                         if (correctIngredient == false && isPreviousCorrect == false)
                         {
