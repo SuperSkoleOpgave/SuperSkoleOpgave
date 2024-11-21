@@ -10,7 +10,7 @@ public class DestroyBox : MonoBehaviour
 {
     [SerializeField]
     private GameObject letterBox;
-
+    
     public string symbol;
 
     private void Awake()
@@ -32,7 +32,7 @@ public class DestroyBox : MonoBehaviour
     /// </summary>
     public void Destroy()
     {
-        Instantiate(letterBox, transform.position + Vector3.up, Quaternion.identity);
+        Instantiate(letterBox, transform.position+Vector3.up,Quaternion.identity);
         Destroy(gameObject);
     }
 }

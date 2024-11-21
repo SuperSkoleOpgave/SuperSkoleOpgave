@@ -28,6 +28,8 @@ TagManager:
   - GoalLoop
   - Ingredient
   - Bootstrapper
+  - ConveyerBelt
+  - WordShelf
   layers:
   - Default
   - TransparentFX

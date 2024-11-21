@@ -18,7 +18,7 @@ public class BoxManager : MonoBehaviour
         bounds = spawningBox.bounds;
         //get a small list of words
         List<string> words = new List<string>()
-        {
+        { 
             "b\u00c5d",
             "kat",
             "hat"
@@ -50,12 +50,12 @@ public class BoxManager : MonoBehaviour
     /// <param name="letter">the letter that is inside the spawned box</param>
     void SpawnBox(string letter)
     {
-        float offsetX = Random.Range(-bounds.extents.x, bounds.extents.x);
+        float offsetX = Random.Range(-bounds.extents.x,bounds.extents.x);
         float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
 
         GameObject temp = Instantiate(boxPrefab);
 
-        temp.transform.position = bounds.center + new Vector3(offsetX, 0, offsetZ);
+        temp.transform.position = bounds.center + new Vector3(offsetX,0,offsetZ);
         //give letter
         temp.GetComponent<DestroyBox>().symbol = letter;
     }
