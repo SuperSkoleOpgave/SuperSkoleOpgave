@@ -67,9 +67,6 @@ public class PizzaRestaurantManager : MonoBehaviour
         textOnIngredientHolder = textIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         imageOnIngredientHolder = imageIngredientHolder.transform.GetChild(0).GetChild(0).GetComponent<RawImage>();
 
-        Debug.Log("textOnIngredientHolder:"+textOnIngredientHolder);
-        Debug.Log("imageOnIngredientHolder:"+imageOnIngredientHolder);
-        
         StartNewRound();
     }
 
@@ -124,7 +121,16 @@ public void CorrectIngredientAdded()
             gameMode.GenerateAnswers(this, numRows, numCols);
 
         }
-
+        catch (NullReferenceException ex)
+        {
+            Debug.LogError($"Null reference encountered: {ex.Message}");
+            // Handle null reference exception
+        }
+        catch (ArgumentException ex)
+        {
+            Debug.LogError($"Invalid argument: {ex.Message}");
+            // Handle argument exception
+        }
         catch (Exception ex)
         {
             Debug.LogError($"Failed to initialize round: {ex.Message}");

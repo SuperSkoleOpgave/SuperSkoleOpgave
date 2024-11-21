@@ -44,7 +44,15 @@ public class CheckPizzaIngredient : MonoBehaviour
                     if (isPreviousCorrect == false)
                     {
 
+                    if (manager != null && manager.gameMode != null)
+                    {
                         correctIngredient = manager.gameMode.CheckIngredient(collision, this);
+                    }
+                    else
+                    {
+                        Debug.LogError("Manager or GameMode is null.");
+                    }
+                 
                         //Moves on to next letter if the answer is correct and displays a incorret textOnIngredientHolder if its not the right ingredient added. 
                         if (correctIngredient == false && isPreviousCorrect == false)
                         {
