@@ -73,7 +73,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
 
 
-        public void GetDisplayAnswer(PizzaRestaurantManager manager)
+        public void SetDisplayAnswer(PizzaRestaurantManager manager)
     {
         manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier;
         manager.currentLetterToGuessIndex = 0;

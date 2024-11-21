@@ -31,6 +31,13 @@ public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
         return wordToCheck == checker.currentWordToGuess;
     }
 
+
+    /// <summary>
+    /// Generates images that can be picked up and put on the pizza as an answer to the word to guess. 
+    /// </summary>
+    /// <param name="manager"></param>
+    /// <param name="numRows"></param>
+    /// <param name="numCols"></param>
     public void GenerateAnswers(PizzaRestaurantManager manager, int numRows,int numCols)
     {
         // Randomly assign the 'wordToGuess' into the grid
@@ -88,8 +95,11 @@ public class ReadingLevel_Pizza : MonoBehaviour, IPizzaGameMode
     }
 
 
-
-        public void GetDisplayAnswer(PizzaRestaurantManager manager)
+    /// <summary>
+  /// Sets the word up in text so the player knows what to image to drag over to the pizza
+  /// </summary>
+  /// <param name="manager">The game manager instance.</param>
+        public void SetDisplayAnswer(PizzaRestaurantManager manager)
     {
         manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier; 
         manager.ingredientChecker.currentWordToGuess = manager.wordToGuess;

@@ -73,47 +73,6 @@ public class CheckPizzaIngredient : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if the added letters is the current letter to guess and returns a true or false. 
-    /// </summary>
-    /// <param name="letterAdded"></param>
-    /// <returns></returns>
-    bool CheckIfCorrectLetter(char letterAdded)
-    {
-
-
-        return letterAdded == currentLetterToGuess;
-       
-
-
-    }
-
-    /// <summary>
-    /// Checks if the added wordImage is the current word to guess and returns a true or false. 
-    /// </summary>
-    /// <param name="wordAdded"></param>
-    /// <returns></returns>
-    bool CheckIfCorrectWord(string wordAdded)
-    {
-        if (string.IsNullOrEmpty(wordAdded))
-        {
-            Debug.LogWarning("wordAdded is null or empty.");
-            return false;
-        }
-
-        wordToCheck = wordAdded.Split(" ")[0];
-
-        wordToCheck= wordToCheck.Replace("(aa)","\u00e5");
-        wordToCheck=wordToCheck.Replace("(ae)","\u00e6");
-        wordToCheck=wordToCheck.Replace("(oe)", "\u00F8");
-        
-        Debug.Log(wordToCheck + "==" + currentWordToGuess);
-
-        return wordToCheck == currentWordToGuess;
-        
-
-    }
-
-    /// <summary>
     /// Used to activate and deactivate the "Wrong answer" text after a certain amount of time. 
     /// </summary>
     /// <returns></returns>

@@ -19,11 +19,11 @@ public interface IPizzaGameMode : IGenericGameMode
     /// </summary>
     /// <param name="str"></param>
     /// <param name="manager"></param>
-    public void GetDisplayAnswer(PizzaRestaurantManager manager);
+    public void SetDisplayAnswer(PizzaRestaurantManager manager);
 
 
     /// <summary>
-    ///will pick the correct prefab from prefabs in the PizzaRestaurantManager, then set that to be the PizzaRestaurantManager AnswerHolderPrefab
+    /// Sets the appropriate answer prefab for the current game mode.
     /// </summary>
     /// <param name="manager"></param>
     public void SetAnswerPrefab(PizzaRestaurantManager manager);
@@ -38,8 +38,8 @@ public interface IPizzaGameMode : IGenericGameMode
    /// <summary>
    /// Checks the ingredient if it's the correct answer. 
    /// </summary>
-   /// <param name="collider"></param>
-   /// <param name="ingredientChecker"></param>
+   /// <param name="collision">The collision to check</param>
+   /// <param name="checker">The ingredient checker instance</param>
     public bool CheckIngredient(Collider2D collision, CheckPizzaIngredient checker);
    
 

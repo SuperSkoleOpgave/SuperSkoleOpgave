@@ -95,8 +95,8 @@ public void CorrectIngredientAdded()
     {
         spawnedIngredients.ForEach(Destroy);
         spawnedIngredients.Clear();
-        lettersForCurrentRound = new char[3, 4];
-        wordsForCurrentRound = new string[3, 4];
+        lettersForCurrentRound = new char[numRows, numCols];
+        wordsForCurrentRound = new string[numRows, numCols];
         StartNewRound();
     }
 }
@@ -112,7 +112,7 @@ public void CorrectIngredientAdded()
         try
         {
           
-            gameMode.GetDisplayAnswer(this);
+            gameMode.SetDisplayAnswer(this);
           
             int numberOfRandomPositions = wordToGuess.Length;
 
