@@ -14,7 +14,10 @@ public class ShelfScript : MonoBehaviour
 
     private float deltaX = 0;
 
-    private List<LetterObject> letters;
+    public List<LetterObject> letters;
+
+    [SerializeField]
+    private ConveyerBeltPool conveyerBeltPool;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +58,19 @@ public class ShelfScript : MonoBehaviour
             {
                 l.transform.position = new Vector3(l.transform.position.x - deltaX, l.transform.position.y, l.transform.position.z);
             }
+        }
+    }
+
+    public void VerifyWord()
+    {
+        string word = "";
+        for(int i = 0; i < letters.Count; i++)
+        {
+            word += letters[i].letter;
+        }
+        if(conveyerBeltPool.VerifyWord(word))
+        {
+            conveyerBeltPool.RemoveFromPossibleWords(word);
         }
     }
 }

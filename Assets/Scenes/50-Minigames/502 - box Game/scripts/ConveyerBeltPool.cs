@@ -135,5 +135,14 @@ public class ConveyerBeltPool : MonoBehaviour
         SetLetters(letters);
     }
 
+    public bool VerifyWord(string word)
+    {
+        return possibleWords.Contains(word);
+    }
 
+    public void RemoveFromPossibleWords(string word)
+    {
+        possibleWords.Remove(word);
+        spelledWords.Add(word);
+    }
 }
