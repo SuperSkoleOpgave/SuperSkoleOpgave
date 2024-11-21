@@ -6,7 +6,7 @@ using UnityEngine;
 namespace CORE.Scripts
 {
     /// <summary>
-    /// USed to limit the length of a textOnIngredientHolder input
+    /// USed to limit the length of a text input
     /// </summary>
     public class InputLengthLimit : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace CORE.Scripts
         string oldValue = "";
         
         /// <summary>
-        /// Checks the length of textOnIngredientHolder of the input field. If it is larger than maxLength it gets replaced with the last value short enough
+        /// Checks the length of text of the input field. If it is larger than maxLength it gets replaced with the last value short enough
         /// </summary>
         public void OnChangeValue()
         {
