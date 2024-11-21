@@ -27,6 +27,8 @@ TagManager:
   - Checkpoint
   - Ingredient
   - Bootstrapper
+  - ConveyerBelt
+  - WordShelf
   layers:
   - Default
   - TransparentFX
