@@ -10,7 +10,15 @@ public class KeyPress : MonoBehaviour
 {
     Vector3 startingPosition;
     float pressedY = 0.0024f;
-    [SerializeField]Vector3 currentDestination;
+    [SerializeField]
+    Vector3 currentDestination;
+
+    [SerializeField]
+    Transform endPointTransform;
+
+    Vector3 endpoint;
+
+    bool endpointSet = false;
 
     public delegate void OnClickMethod();
 
@@ -24,6 +32,11 @@ public class KeyPress : MonoBehaviour
     {
         startingPosition = transform.localPosition;
         currentDestination = startingPosition;
+        if(endPointTransform != null)
+        {
+            endpoint = endPointTransform.position;
+            endpointSet = true;
+        }
     }
 
     /// <summary>
@@ -58,9 +71,13 @@ public class KeyPress : MonoBehaviour
     /// </summary>
     public void OnClick()
     {
-        if(transform.localPosition == startingPosition)
+        if(transform.localPosition == startingPosition && !endpointSet)
         {
             currentDestination = new Vector3(transform.localPosition.x, pressedY, transform.localPosition.z);
+        }
+        else if(transform.localPosition == startingPosition)
+        {
+            currentDestination = endpoint;
         }
     }
 }

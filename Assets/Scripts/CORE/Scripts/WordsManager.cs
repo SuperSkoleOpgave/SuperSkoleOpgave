@@ -94,6 +94,20 @@ namespace CORE.Scripts
             // Return a copy to avoid external modification
             return new HashSet<string>(_validWords);
         }
+
+        /// <summary>
+        /// Returns all words
+        /// </summary>
+        /// <returns>A list of all words</returns>
+        public static List<string> GetAllWords()
+        {
+            List<string> words = new List<string>();
+            foreach(HashSet<string> wordCategory in _wordSets.Values)
+            {
+                words.AddRange(wordCategory.ToList());
+            }
+            return words;
+        }
         
         public static void ResetValidWords()
         {
