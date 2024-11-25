@@ -116,4 +116,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/50-Minigames/511-PizzaRestaurant/511-PizzaRestaurant.unity
     guid: eb8160bbc3316934ca86ec02d30eb6f5
+  - enabled: 1
+    path: Assets/Scenes/20-MainWorld/21-MainWorldTwo.unity
+    guid: 6d4c10b2aea0f3c4fa572fa75e74bc2a
   m_configObjects: {}
