@@ -1,3 +1,5 @@
+using CORE;
+using Scenes;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,18 +30,25 @@ public class PlaneGameManager : MonoBehaviour
     private char currentLetter;
 
     [SerializeField]
+    private GameObject winScreen;
+
+    [SerializeField]
     private GameObject letterBoxText;
 
     public TextMeshProUGUI letterText;
 
     public bool isCorrect = false;
 
+    private string preMessage = "";
+
+    public int point = 0;
+
 
 
 
     void Start()
     {
-        
+        letterText = letterBoxText.GetComponent<TextMeshProUGUI>();
     }
 
     
@@ -87,14 +96,49 @@ public class PlaneGameManager : MonoBehaviour
     private void IsCorrect(GameObject gameObj)
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = correctMat;
+        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(currentWord, true);
+
+        preMessage += currentLetter.ToString();
+        letterText.text = $"Score: {preMessage}";
+
+        gameController.currentWordNumber += 1;
+        gameController.UpdateCurrentLetter();
+
+        if (currentWord.Length <= gameController.currentWordNumber)
+        {
+            point += 1;
+            gameController.ResetCurrentLetterNumber();
+            gameController.GetWord();
+            preMessage = "";
+
+            if (point >= 5)
+            {
+                StartCoroutine(CheckIfYouWin());
+            }
+
+        }
     }
 
     private void IsWrong(GameObject gameObj)
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = wrongMat;
+        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(currentWord, false);
     }
 
-    
+    /// <summary>
+    /// Sets winscreen active and after a few seconds switches to GameWorld
+    /// </summary>
+    /// <returns> 2 second delay</returns>
+    IEnumerator CheckIfYouWin()
+    {
 
-    
+        winScreen.SetActive(true);
+        yield return new WaitForSeconds(2);
+
+        SwitchScenes.SwitchToMainWorld();
+    }
+
+
+
+
 }

@@ -566,15 +566,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOn: 1
+  correctMat: {fileID: 2100000, guid: e46724ca0c9c05246afd35deeab291f1, type: 2}
+  wrongMat: {fileID: 7211448773848044386, guid: 40f17d91c2c1f1a4aae478578fe42133, type: 3}
   gameController: {fileID: 248381025}
   createPoint: {fileID: 248381022}
   resetLoop: 0
   currentWord: 
   letterNumber: 0
   currentLetter: 65
+  winScreen: {fileID: 1274538310}
   letterBoxText: {fileID: 1502370654}
   letterText: {fileID: 1502370656}
   isCorrect: 0
+  point: 0
 --- !u!114 &248381025
 MonoBehaviour:
   m_ObjectHideFlags: 0
