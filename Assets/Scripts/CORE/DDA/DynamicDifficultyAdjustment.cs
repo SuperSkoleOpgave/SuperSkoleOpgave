@@ -20,7 +20,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         LanguageUnitProperty.vowel,
         LanguageUnitProperty.consonant,
         LanguageUnitProperty.letter,
-        LanguageUnitProperty.word
+        LanguageUnitProperty.word,
+        LanguageUnitProperty.vowelConfuse,
+        LanguageUnitProperty.softD,
+        LanguageUnitProperty.doubleConsonant,
+        LanguageUnitProperty.silentConsonant
     };
 
     Dictionary<LanguageUnitProperty, int> levelLocks;
