@@ -19,7 +19,10 @@ public class DDAWordSetter : MonoBehaviour
     [SerializeField]
     List<Texture2D> silentConsonantWords;
 
-
+    /// <summary>
+    /// Loads the letters list and the generated words list into the given DDA
+    /// </summary>
+    /// <param name="dynamicDifficultyAdjustment">The DDA to load the languageUnits into</param>
     public void LoadWords(DynamicDifficultyAdjustment dynamicDifficultyAdjustment)
     {
         dynamicDifficultyAdjustment.SetupLanguageUnits(letters, ApplyLanguageUnits());
@@ -47,7 +50,16 @@ public class DDAWordSetter : MonoBehaviour
         return returnedUnits;
     }
 
+
     #region TestMethods
+    /// <summary>
+    /// Adds a word to the various lists
+    /// </summary>
+    /// <param name="word">the texture2D of the word with the word itself as its name</param>
+    /// <param name="vowelConfusedWord">if it is a vowel confused word</param>
+    /// <param name="doubleConsonant">if it is a double consonant word</param>
+    /// <param name="softDWord">if it is a soft d word</param>
+    /// <param name="silentConsonantWord">if it is a silent consonant word</param>
     public void AddWord(Texture2D word, bool vowelConfusedWord, bool doubleConsonantWord, bool softDWord, bool silentConsonantWord)
     {
         if(words == null)
@@ -90,25 +102,64 @@ public class DDAWordSetter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Adds a letter
+    /// </summary>
+    /// <param name="letter">The letter to be added</param>
+    public void AddLetter(LanguageUnit letter)
+    {
+        if(letters == null)
+        {
+            letters = new List<LanguageUnit>();
+        }
+        letters.Add(letter);
+    }
+    
+    /// <summary>
+    /// Whether the words list contains the texture2D
+    /// </summary>
+    /// <param name="word">The Texture2D to be checked</param>
+    /// <returns>Whether the Texture2D is on the list</returns>
     public bool WordsContainsWord(Texture2D word)
     {
         return words.Contains(word);
     }
+
+    /// <summary>
+    /// Whether the vowelConfusedWords list contains the texture2D
+    /// </summary>
+    /// <param name="word">The Texture2D to be checked</param>
+    /// <returns>Whether the Texture2D is on the list</returns>
     public bool VowelConfusedWordsContainsWord(Texture2D word)
     {
         return vowelConfusedWords.Contains(word);
     }
     
+    /// <summary>
+    /// Whether the doubleConsonantWords list contains the texture2D
+    /// </summary>
+    /// <param name="word">The Texture2D to be checked</param>
+    /// <returns>Whether the Texture2D is on the list</returns>
     public bool DoubleConsonantWordsContainsWord(Texture2D word)
     {
         return doubleConsonantWords.Contains(word);
     }
 
+    /// <summary>
+    /// Whether the softDWords list contains the texture2D
+    /// </summary>
+    /// <param name="word">The Texture2D to be checked</param>
+    /// <returns>Whether the Texture2D is on the list</returns>
     public bool SoftDWordsContainsWord(Texture2D word)
     {
         return softDWords.Contains(word);
     }
 
+    /// <summary>
+    /// Whether the silentConsonantWords list contains the texture2D
+    /// </summary>
+    /// <param name="word">The Texture2D to be checked</param>
+    /// <returns>Whether the Texture2D is on the list</returns>
     public bool SilentConsonantWordsContainsWord(Texture2D word)
     {
         return silentConsonantWords.Contains(word);

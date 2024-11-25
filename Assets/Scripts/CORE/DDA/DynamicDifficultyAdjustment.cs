@@ -356,6 +356,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Returns an averaged property's weight
+    /// </summary>
+    /// <param name="property">The property to get the weight of</param>
+    /// <returns>The weight of the given property</returns>
+    /// <exception cref="Exception">An Exception is thrown if the property is not on the AveragedProperties list</exception>
     public float GetAveragedPropertyWeight(LanguageUnitProperty property)
     {
         LanguageUnitPropertyInfo foundProperty = FindOrCreateProperty(property);
@@ -445,7 +451,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
         this.words = words;
     }
-    private void SetupLetterProperties()
+    public void SetupLetterProperties()
     {
         letterProperties = new Dictionary<char, LanguageUnitProperty>();
         wordLetterProperties = new Dictionary<char, LanguageUnitProperty>();
@@ -508,9 +514,9 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         letterProperties.Add('\u00c5', LanguageUnitProperty.letterAA);
         wordLetterProperties.Add('\u00c5', LanguageUnitProperty.wordWithAA);
     }
-    private void AddLetterProperty(LanguageUnit letter)
+    public LanguageUnitProperty GetWordLetterProperty(char letter)
     {
-        
+        return wordLetterProperties[letter];
     }
     private void CalculateLanguageLevel()
     {
@@ -612,6 +618,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         {
             properties = new List<LanguageUnitPropertyInfo>();
         }
+        
         foreach(LanguageUnitProperty property in languageUnit.properties)
         {
             LanguageUnitPropertyInfo foundProperty = null;
@@ -631,6 +638,27 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 foundProperty.weight = 50;
             }
         }
+    }
+
+    public List<LanguageUnitProperty> GetLetterProperty(char letter)
+    {
+        return new List<LanguageUnitProperty>()
+        {
+            letterProperties[letter]
+        };
+    }
+
+    public List<LanguageUnitProperty> GetWordProperties(string word)
+    {
+        List<LanguageUnitProperty> properties = new List<LanguageUnitProperty>();
+        foreach(char letter in word)
+        {
+            if(!properties.Contains(wordLetterProperties[letter]))
+            {
+                properties.Add(wordLetterProperties[letter]);
+            }
+        }
+        return properties;
     }
 
     /// <summary>
@@ -662,6 +690,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         {
             properties = new List<LanguageUnitPropertyInfo>();
         }
+        
         foreach(LanguageUnitProperty property in languageUnit.properties)
         {
             LanguageUnitPropertyInfo foundProperty = null;
