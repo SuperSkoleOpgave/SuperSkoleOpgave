@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using CORE.Scripts;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,8 +14,7 @@ public class ConveyerBeltPool : MonoBehaviour
     private List<string> spelledWords;
     [SerializeField]
     private List<string> possibleWords;
-    [SerializeField]
-    private string requiredWord;
+    public string requiredWord;
     [SerializeField]
     private Transform startPoint;
     [SerializeField]
@@ -32,37 +33,37 @@ public class ConveyerBeltPool : MonoBehaviour
     bool waitingOnLetters = false;
 
     public bool holdsBox = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        TestSetup();
-    }
 
+    /// <summary>
+    /// Used if the second phase needs to be tested in isolation
+    /// </summary>
     private void TestSetup()
     {
         List<string> letters = new List<string>()
         {
-            "k",
-            "a",
-            "t",
-            "h",
-            "e",
-            "p",
-            "q",
-            "w",
-            "r",
-            "y",
-            "u",
-            "i",
-            "o",
-            "å",
-            "s"
+            "K",
+            "A",
+            "T",
+            "H",
+            "E",
+            "P",
+            "Q",
+            "W",
+            "R",
+            "Y",
+            "U",
+            "I",
+            "O",
+            "Å",
+            "S"
         };
         string requiredWord = "kat";
         AddLetters(letters, requiredWord);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Restarts letter spawning when letters are added to the queue
+    /// </summary>
     void Update()
     {
         if(waitingOnLetters && queuedObjects.Count > 0)
@@ -71,11 +72,15 @@ public class ConveyerBeltPool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets up gameobjects for the given letters
+    /// </summary>
+    /// <param name="letters">The letters to use</param>
     public void SetLetters(List<string> letters)
     {
-        Debug.Log("creating objects for " + letters.Count + " letters");
         pooledObjects = new List<GameObject>();
         queuedObjects = new Queue<GameObject>();
+        //Goes through each letter and sets up its gameobject and adds the LetterObject script to pooledObjects and queuedObjects
         foreach(string letter in letters)
         {
             GameObject letterObject = Instantiate(letterObjectPrefab);
@@ -98,13 +103,22 @@ public class ConveyerBeltPool : MonoBehaviour
         StartCoroutine(SpawnLetters());
     }
 
+    /// <summary>
+    /// Resets a letterobjects position and adds it to the back of queuedObjects
+    /// </summary>
+    /// <param name="letterObject">The gameobject to use</param>
     public void ReenterPool(GameObject letterObject)
     {
         letterObject.transform.position = startPoint.position;
         letterObject.SetActive(false);
+        
         queuedObjects.Enqueue(letterObject);
     }
 
+    /// <summary>
+    /// Continually spawns letters until the list is empty
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpawnLetters()
     {
 
@@ -120,26 +134,62 @@ public class ConveyerBeltPool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds the letters and the required word found in phase 1
+    /// </summary>
+    /// <param name="letters">The letters found</param>
+    /// <param name="requiredWord">The required word which letters from was guaranteed</param>
     public void AddLetters(List<string> letters, string requiredWord)
     {
         availableLetters = letters;
         this.requiredWord = requiredWord;
         spelledWords = new List<string>();
-        possibleWords = new List<string>()
-        {
-            "kat",
-            "hat",
-            "b\u00c5d"
-        };
-
+        StartCoroutine(WaitOnWordsLoaded());
+        
         SetLetters(letters);
     }
 
+    /// <summary>
+    /// Waits on words getting added to the words manager and then saves the ones which can be spelled with the found letters
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitOnWordsLoaded()
+    {
+        yield return new WaitUntil(() => WordsManager.GetAllWords().Count > 0);
+        List<string> allWords = WordsManager.GetAllWords();
+        //Goes through the words in allWords and checks which can be spelled with the letters found in phase 1
+        foreach(string word in allWords)
+        {
+            bool wordContained = true;
+            foreach(char letter in word)
+            {
+                if(!availableLetters.Contains(letter.ToString()))
+                {
+                    wordContained = false;
+                    break;
+                }
+            }
+            if(wordContained)
+            {
+                possibleWords.Add(word);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks that the given word is correct and hasnt been spelled yet
+    /// </summary>
+    /// <param name="word">The word to be checked</param>
+    /// <returns>Whether it is correct</returns>
     public bool VerifyWord(string word)
     {
         return possibleWords.Contains(word);
     }
 
+    /// <summary>
+    /// Removes a spelled word from possiblewords and move it to the spelledwords list
+    /// </summary>
+    /// <param name="word">The word to be moved</param>
     public void RemoveFromPossibleWords(string word)
     {
         possibleWords.Remove(word);
