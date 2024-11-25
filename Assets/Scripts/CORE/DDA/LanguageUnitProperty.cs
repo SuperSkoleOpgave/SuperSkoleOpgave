@@ -39,7 +39,11 @@ public enum LanguageUnitProperty
     consonant,
     vowel,
     word,
-    letter
+    letter,
+    softD,
+    vowelConfuse,
+    silentConsonant,
+    doubleConsonant
 
 }
 [Serializable]
