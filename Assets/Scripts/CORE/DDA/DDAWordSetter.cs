@@ -6,6 +6,9 @@ using UnityEngine;
 public class DDAWordSetter : MonoBehaviour
 {
     [SerializeField]
+    List<LanguageUnit> letters;
+
+    [SerializeField]
     List<Texture2D> words;
     [SerializeField]
     List<Texture2D> vowelConfusedWords;
@@ -16,15 +19,17 @@ public class DDAWordSetter : MonoBehaviour
     [SerializeField]
     List<Texture2D> silentConsonantWords;
 
-    void Start()
+
+    public void LoadWords(DynamicDifficultyAdjustment dynamicDifficultyAdjustment)
     {
-        List<LanguageUnit> words = applyLanguageUnits();
+        dynamicDifficultyAdjustment.SetupLanguageUnits(letters, ApplyLanguageUnits());
     }
+
     /// <summary>
     /// goes through all words added to the words list and turns them into LanguageUnits
     /// </summary>
     /// <returns></returns>
-    private List<LanguageUnit> applyLanguageUnits()
+    private List<LanguageUnit> ApplyLanguageUnits()
     {
         List<LanguageUnit> returnedUnits = new List<LanguageUnit>();
         foreach(Texture2D word in words)
@@ -41,4 +46,72 @@ public class DDAWordSetter : MonoBehaviour
         }
         return returnedUnits;
     }
+
+    #region TestMethods
+    public void AddWord(Texture2D word, bool vowelConfusedWord, bool doubleConsonantWord, bool softDWord, bool silentConsonantWord)
+    {
+        if(words == null)
+        {
+            words = new List<Texture2D>();
+        }
+        words.Add(word);
+        if(vowelConfusedWords == null)
+        {
+            vowelConfusedWords = new List<Texture2D>();
+        }
+        if(vowelConfusedWord)
+        {
+            vowelConfusedWords.Add(word);
+        }
+        if(doubleConsonantWords == null)
+        {
+            doubleConsonantWords = new List<Texture2D>();
+        }
+        if(doubleConsonantWord)
+        {
+            doubleConsonantWords.Add(word);
+        }
+        if(softDWords == null)
+        {
+            softDWords = new List<Texture2D>();
+        }
+        if(softDWord)
+        {
+            softDWords.Add(word);
+        }
+        if(silentConsonantWords == null)
+        {
+            silentConsonantWords = new List<Texture2D>();
+        }
+        if(silentConsonantWord)
+        {
+            silentConsonantWords.Add(word);
+        }
+
+    }
+
+    public bool WordsContainsWord(Texture2D word)
+    {
+        return words.Contains(word);
+    }
+    public bool VowelConfusedWordsContainsWord(Texture2D word)
+    {
+        return vowelConfusedWords.Contains(word);
+    }
+    
+    public bool DoubleConsonantWordsContainsWord(Texture2D word)
+    {
+        return doubleConsonantWords.Contains(word);
+    }
+
+    public bool SoftDWordsContainsWord(Texture2D word)
+    {
+        return softDWords.Contains(word);
+    }
+
+    public bool SilentConsonantWordsContainsWord(Texture2D word)
+    {
+        return silentConsonantWords.Contains(word);
+    }
+    #endregion
 }

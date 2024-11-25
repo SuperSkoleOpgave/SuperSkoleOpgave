@@ -1173,7 +1173,11 @@ public class DDATests
             LanguageUnitProperty.vowel,
             LanguageUnitProperty.consonant,
             LanguageUnitProperty.letter,
-            LanguageUnitProperty.word
+            LanguageUnitProperty.word,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant
         };
         dDAUnderTest.SetupLevelLocks();
         dDAUnderTest.SetPlayerLevel(3);
@@ -1191,7 +1195,11 @@ public class DDATests
             LanguageUnitProperty.word,
             LanguageUnitProperty.vowel,
             LanguageUnitProperty.consonant,
-            LanguageUnitProperty.letter
+            LanguageUnitProperty.letter,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant
         };
         dDAUnderTest.SetupLevelLocks();
         dDAUnderTest.SetPlayerLevel(3);
@@ -1215,6 +1223,10 @@ public class DDATests
             LanguageUnitProperty.consonant,
             LanguageUnitProperty.letter,
             LanguageUnitProperty.word,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant,
             LanguageUnitProperty.vowel
         };
         dDAUnderTest.SetupLevelLocks();
@@ -1284,6 +1296,8 @@ public class DDATests
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
         Assert.AreEqual(targetLevel, dDAUnderTest.GetPlayerLevel());
     }
+    #endregion
+    #region SetupLanguageUnits
     #endregion
     /// <summary>
     /// Cleans up after tests are done
