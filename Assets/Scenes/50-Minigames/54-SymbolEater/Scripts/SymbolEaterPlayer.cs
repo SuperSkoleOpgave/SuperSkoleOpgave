@@ -66,7 +66,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         private CapsuleCollider colider;
 
         /// <summary>
-        /// Property of livesRemaining. if used to setting the value it cant be below 0 and it also updates the lives remaining text
+        /// Property of livesRemaining. if used to setting the value it cant be below 0 and it also updates the lives remaining textOnIngredientHolder
         /// </summary>
         public int LivesRemaining
         {

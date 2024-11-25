@@ -51,7 +51,7 @@ public class AsteroidGameManager : MonoBehaviour
         UpdateHealthUI();
       
 
-        //updates the score text
+        //updates the score textOnIngredientHolder
         textMesh.text = "Score: " + score;
 
         //updates timer for spawning. 

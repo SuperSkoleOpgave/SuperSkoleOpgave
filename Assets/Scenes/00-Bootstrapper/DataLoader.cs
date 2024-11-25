@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -187,6 +188,8 @@ namespace Scenes._00_Bootstrapper
         private IEnumerator LoadAndSetDicOnset(Texture2D texture)
         {
             string name = texture.name;
+
+           
             name = GetName(name);
             string firstLetterName = name[0].ToString();
 

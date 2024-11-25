@@ -66,7 +66,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts
 
             if (textBlocks.Length < consonants.Count)
             {
-                Debug.LogError("Not enough text blocks to display all consonants.");
+                Debug.LogError("Not enough textOnIngredientHolder blocks to display all consonants.");
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace Scenes._50_Minigames._56_WordFactory.Scripts
                 TextMeshProUGUI[] textBlocks = singleGearConsonantWordBlock.GetComponentsInChildren<TextMeshProUGUI>();
                 foreach (var textBlock in textBlocks)
                 {
-                    textBlock.text = ""; // Clear the text
+                    textBlock.text = ""; // Clear the textOnIngredientHolder
                 }
             }
             else

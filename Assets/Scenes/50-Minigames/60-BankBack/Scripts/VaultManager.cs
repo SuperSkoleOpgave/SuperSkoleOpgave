@@ -197,7 +197,7 @@ public class VaultManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gives the player xp and gold, Sets the gameover text and then starts a coroutine with WaitEeforeEnd
+    /// Gives the player xp and gold, Sets the gameover textOnIngredientHolder and then starts a coroutine with WaitEeforeEnd
     /// </summary>
     private void Won()
     {
@@ -211,7 +211,7 @@ public class VaultManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the gameover text and then starts a coroutine with WaitBeforeEnd
+    /// Sets the gameover textOnIngredientHolder and then starts a coroutine with WaitBeforeEnd
     /// </summary>
     private void Lost()
     {

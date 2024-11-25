@@ -6,6 +6,7 @@ using CORE.Scripts.Game_Rules;
 using Scenes;
 using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,6 +67,8 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
     private LanguageUnit letterModeType;
 
     [SerializeField] AudioClip backGroundMusic;
+
+    
     void Start()
     {
         AudioManager.Instance.PlaySound(backGroundMusic, SoundType.Music, true);
@@ -177,7 +180,7 @@ public class PathOfDangerManager : MonoBehaviour, IMinigameSetup
     /// <summary>
     /// Builds the platforms based on the fields x_AmountOfPlatforms and z_AmountOfPlatforms.
     /// Also uses fields that define the distance between the platforms in the x and z axes. 
-    /// The correct and incorrect text/image is set and instantiated on the plane based on the gamemode
+    /// The correct and incorrect textOnIngredientHolder/image is set and instantiated on the plane based on the gamemode
     /// Then at the end there is a final platform for the endgoal which shows the winUI when colliding with it. 
     /// </summary>
     public void BuildPlatforms()

@@ -170,7 +170,7 @@ public class BankManager : MonoBehaviour, IMinigameSetup
         /*completedGames++;
         if(completedGames >= 5)
         {
-            gameOverText.text = "Du vandt du sorterede mønterne korrekt og udregnede deres værdi 5 gange";
+            gameOverText.textOnIngredientHolder = "Du vandt du sorterede mønterne korrekt og udregnede deres værdi 5 gange";
         }*/
         gamemode.ClearCurrentCustomersCoins();
         currentCustomer.PrepareToLeaveBank();
@@ -183,7 +183,7 @@ public class BankManager : MonoBehaviour, IMinigameSetup
     }
 
     /// <summary>
-    /// Sets the gameover text and then waits a bit before ending the game
+    /// Sets the gameover textOnIngredientHolder and then waits a bit before ending the game
     /// </summary>
     /// <returns></returns>
     IEnumerator LostGame()

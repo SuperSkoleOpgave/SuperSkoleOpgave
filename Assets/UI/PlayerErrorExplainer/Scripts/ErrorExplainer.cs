@@ -14,11 +14,11 @@ public class ErrorExplainer : MonoBehaviour
     /// <summary>
     /// Starts the explanation with the desired parts
     /// </summary>
-    /// <param name="explanation">a text explanation</param>
+    /// <param name="explanation">a textOnIngredientHolder explanation</param>
     /// <param name="explanationSound">a sound explanation</param>
     private void InstantiateExplanation(string explanation, AudioClip explanationSound)
     {
-        //Checks if the text explanation should be used and sets up the textfield in that case
+        //Checks if the textOnIngredientHolder explanation should be used and sets up the textfield in that case
         float textLength = 0;
         if(explanation != "")
         {
@@ -40,9 +40,9 @@ public class ErrorExplainer : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the explanation with both text and sound
+    /// Starts the explanation with both textOnIngredientHolder and sound
     /// </summary>
-    /// <param name="explanation">the text explanation</param>
+    /// <param name="explanation">the textOnIngredientHolder explanation</param>
     /// <param name="explanationSound">the sound explanation</param>
     public void AddExplanation(string explanation, AudioClip explanationSound)
     {
@@ -50,9 +50,9 @@ public class ErrorExplainer : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the explanation with just text
+    /// Starts the explanation with just textOnIngredientHolder
     /// </summary>
-    /// <param name="explanation">The text explanation</param>
+    /// <param name="explanation">The textOnIngredientHolder explanation</param>
     public void AddExplanation(string explanation)
     {
         InstantiateExplanation(explanation, null);
@@ -90,14 +90,14 @@ public class ErrorExplainer : MonoBehaviour
     }
 
     /// <summary>
-    /// Automaticlly closes the explainer after some time based on either the text or the sound, depending on which is longest
+    /// Automaticlly closes the explainer after some time based on either the textOnIngredientHolder or the sound, depending on which is longest
     /// </summary>
-    /// <param name="textLength">The estimated length of the text in seconds</param>
+    /// <param name="textLength">The estimated length of the textOnIngredientHolder in seconds</param>
     /// <param name="soundLength">The length of the sound file in seconds</param>
     /// <returns></returns>
     IEnumerator AutomaticClose(float textLength, float soundLength)
     {   
-        //waits until the player has read the text
+        //waits until the player has read the textOnIngredientHolder
         if(textLength > soundLength)
         {
             yield return new WaitForSeconds(textLength);

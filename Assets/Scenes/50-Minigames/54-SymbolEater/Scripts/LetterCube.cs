@@ -210,7 +210,7 @@ namespace Scenes._50_Minigames._54_SymbolEater.Scripts
         }
 
         /// <summary>
-        /// Deactivates the letterbox by moving it back below the board and reseting the text and value of the letter variable
+        /// Deactivates the letterbox by moving it back below the board and reseting the textOnIngredientHolder and value of the letter variable
         /// </summary>
         public void Deactivate()
         {

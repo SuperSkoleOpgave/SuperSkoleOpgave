@@ -24,7 +24,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips
         /// <summary>
         /// sets the tooltip and shows it
         /// </summary>
-        /// <param name="text">the text the tooltip is set to</param>
+        /// <param name="text">the textOnIngredientHolder the tooltip is set to</param>
         public void SetAndShowToolTip(string text)
         {
             textFeld.text = text;

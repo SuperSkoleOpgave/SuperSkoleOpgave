@@ -84,7 +84,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
         }
 
         /// <summary>
-        /// sets the displaybox text
+        /// sets the displaybox textOnIngredientHolder
         /// </summary>
         /// <param name="str">the sentence we are setting as the question displayed</param>
         /// <param name="manager">a reference back to the manager calling the function so that we can modify displaybox</param>

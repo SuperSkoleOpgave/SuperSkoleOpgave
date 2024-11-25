@@ -122,7 +122,7 @@ namespace UI.Scripts
                 float currentFillAmount = Mathf.Lerp(startingAmount, targetAmount, t);
 
                 barFill.fillAmount = Mathf.Clamp01(currentFillAmount/ maxAmount);
-                // Update the text
+                // Update the textOnIngredientHolder
                 textMeshPro.text = Mathf.RoundToInt(currentFillAmount).ToString();
 
                             

@@ -16,7 +16,7 @@ public class IngredientHolderPickup : MonoBehaviour
 
     Vector3 mouseAndIngredientPosDif;
     public bool isDragable = true;
-    public bool isCorrectLetter=false;
+    public bool isCorrect=false;
     void Start()
     {
        
@@ -79,7 +79,7 @@ public class IngredientHolderPickup : MonoBehaviour
     /// </summary>
     private void OnMouseUp()
     {
-        if (isCorrectLetter == false)
+        if (isCorrect == false)
         {
             ingredientChecker.checkLetter = true;
             StartCoroutine(MakeDragableAgainAfterCoolDown());

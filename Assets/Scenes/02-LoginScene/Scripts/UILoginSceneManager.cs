@@ -283,7 +283,7 @@ namespace Scenes._02_LoginScene.Scripts
 //             if (isLoginButtonInteractable)
 //             {
 //                 // Retrieve the username from the input if provided, otherwise use 'TEST' as default.
-//                 string username = string.IsNullOrEmpty(usernameInput.text) ? "TEST" : usernameInput.text;
+//                 string username = string.IsNullOrEmpty(usernameInput.textOnIngredientHolder) ? "TEST" : usernameInput.textOnIngredientHolder;
 //
 //                 // In editor mode, perform anonymous login using the provided or default username.
 //                 bool signInSuccessful = await authenticationManager.SignInAnonymouslyAsync();
@@ -301,8 +301,8 @@ namespace Scenes._02_LoginScene.Scripts
 //             }
 // #else
 //     // In build mode, check for username and determine login type based on password presence.
-//     string username = usernameInput.text;
-//     string password = passwordInput.text;
+//     string username = usernameInput.textOnIngredientHolder;
+//     string password = passwordInput.textOnIngredientHolder;
 //
 //     if (!string.IsNullOrEmpty(username))
 //     {
@@ -349,8 +349,8 @@ namespace Scenes._02_LoginScene.Scripts
 //         {
 //             if (isRegisterButtonInteractable)
 //             {
-//                 string username = usernameInput.text.Trim(); 
-//                 string password = passwordInput.text;
+//                 string username = usernameInput.textOnIngredientHolder.Trim(); 
+//                 string password = passwordInput.textOnIngredientHolder;
 //
 //                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
 //                 {
