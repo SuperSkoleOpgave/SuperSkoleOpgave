@@ -114,6 +114,7 @@ public class PlaneGameManager : MonoBehaviour
             if (point >= 5)
             {
                 StartCoroutine(CheckIfYouWin());
+                point = 0;
             }
 
         }
@@ -131,7 +132,6 @@ public class PlaneGameManager : MonoBehaviour
     /// <returns> 2 second delay</returns>
     IEnumerator CheckIfYouWin()
     {
-
         winScreen.SetActive(true);
         yield return new WaitForSeconds(2);
 
