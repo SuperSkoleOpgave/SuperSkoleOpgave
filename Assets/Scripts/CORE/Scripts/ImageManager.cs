@@ -18,7 +18,7 @@ namespace CORE.Scripts
     public class ImageManager : MonoBehaviour
     {
 
-        private static Dictionary<string, List<Texture2D>> imageDictionary = new();
+        public static Dictionary<string, List<Texture2D>> imageDictionary = new();
 
         private static Dictionary<string, List<Texture2D>> letterImageDictionary = new();
 
@@ -34,6 +34,7 @@ namespace CORE.Scripts
         /// <param name="image">the image to add</param>
         public static void AddImageToSet(string name,Texture2D image)
         {
+
             if (imageDictionary.ContainsKey(name.ToLower()))
                 imageDictionary[name.ToLower()].Add(image);
             else
@@ -123,11 +124,19 @@ namespace CORE.Scripts
         /// <returns>a image or if it couldent find an image it returnes NULL</returns>
         public static Texture2D GetImageFromWord(string inputWord)
         {
-            if (!imageDictionary.TryGetValue(inputWord.ToLower(), out List<Texture2D> data))
+
+            string wordToGet = inputWord;
+
+            wordToGet.Replace("(aa)", "\u00e5");
+            wordToGet.Replace("(ae)", "\u00e6");
+            wordToGet.Replace("(oe)", "\u00f8");
+
+
+            if (!imageDictionary.TryGetValue(wordToGet.ToLower(), out List<Texture2D> data))
                 data = null;
             Texture2D image;
             if (data == null)
-                Debug.LogError($"Error getting image for the word: {inputWord}");
+                Debug.LogError($"Error getting image for the word: {wordToGet}");
             if (data.Count > 1)
                 image = data[UnityEngine.Random.Range(0, data.Count)];
             else

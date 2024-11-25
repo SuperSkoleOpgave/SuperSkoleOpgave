@@ -27,7 +27,7 @@ namespace CORE.Scripts.Game_Rules
         public string GetWrongAnswer();
 
         /// <summary>
-        /// Returns either the complete display text or just the specific part required
+        /// Returns either the complete display textOnIngredientHolder or just the specific part required
         /// </summary>
         /// <returns></returns>
         public string GetDisplayAnswer();

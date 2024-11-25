@@ -45,7 +45,7 @@ namespace Scenes._50_Minigames._58_MiniRacingGame.Scripts
             {
                 TriggerExit.OnChunkExited += PickAndSpawnChunk;
             }
-            string mapInput = "";//mapSeedText.text; FIX: The seed code doesn't get from the input properly. It apparently receives unicode characters. No idea for a fix.
+            string mapInput = "";//mapSeedText.textOnIngredientHolder; FIX: The seed code doesn't get from the input properly. It apparently receives unicode characters. No idea for a fix.
             if (mapInput is "" or " ")
             {
                 mapSeedText.text = mapSeedSuggestion;

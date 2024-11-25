@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CheckPizzaIngredient : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class CheckPizzaIngredient : MonoBehaviour
 
     public PizzaRestaurantManager manager;
     public char currentLetterToGuess;
+    public string currentWordToGuess;
 
     [SerializeField] GameObject wrongAnswerText;
     public bool checkLetter;
-    private bool correctLetter=false;
+    private bool correctIngredient=false;
+    public string wordToCheck;
 
     void Start()
     {
@@ -33,62 +36,50 @@ public class CheckPizzaIngredient : MonoBehaviour
           
             if (checkLetter == true)
             {
-                // Checks if the letter is a previous correct letter. 
-                bool isPreviousCorrectLetter = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter;
+                
+                    // Checks if the ingridient is a previous correct ingredient. 
+                    bool isPreviousCorrect = collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrect;
 
 
-                if (isPreviousCorrectLetter == false)
-                {
-
-                    char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
-                 
-                    correctLetter = CheckIfCorrectLetter(letterAddedToPizza);
-
-                 
-                    //Moves on to next letter if the answer is correct and displays a incorret text if its not the right letter added. 
-                    if (correctLetter == false && isPreviousCorrectLetter == false)
+                    if (isPreviousCorrect == false)
                     {
-                        collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
 
-                        collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
-
-                        StartCoroutine(DisplayWrongAnswerText());
-
-                    }
-                    else if (correctLetter == true && isPreviousCorrectLetter == false)
+                    if (manager != null && manager.gameMode != null)
                     {
-                        collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrectLetter = true;
-                        manager.CorrectIngredientAdded();
+                        correctIngredient = manager.gameMode.CheckIngredient(collision, this);
                     }
+                    else
+                    {
+
+                        Debug.LogError("Manager or GameMode is null.");
+                        return; // Exit the method to prevent further processing.
+                    }
+                 
+                        //Moves on to next letter if the answer is correct and displays a incorret textOnIngredientHolder if its not the right ingredient added. 
+                        if (correctIngredient == false && isPreviousCorrect == false)
+                        {
+                            collision.gameObject.GetComponent<IngredientHolderPickup>().isDragable = false;
+
+                            collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
+
+                            StartCoroutine(DisplayWrongAnswerText());
+
+                        }
+                        else if (correctIngredient == true && isPreviousCorrect == false)
+                        {
+                            collision.gameObject.GetComponent<IngredientHolderPickup>().isCorrect = true;
+                            manager.CorrectIngredientAdded();
+                        }
 
 
 
 
-                    checkLetter = false;
-                }
+                        checkLetter = false;
+                    }
+                
             }
 
         }
-    }
-
-    /// <summary>
-    /// Checks if the added letters is the current letter to guess and returns a true or false. 
-    /// </summary>
-    /// <param name="letterAdded"></param>
-    /// <returns></returns>
-    bool CheckIfCorrectLetter(char letterAdded)
-    {
-        if(letterAdded==currentLetterToGuess)
-        {
-          
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-
     }
 
     /// <summary>

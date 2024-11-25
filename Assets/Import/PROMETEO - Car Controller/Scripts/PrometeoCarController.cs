@@ -90,7 +90,7 @@ public class PrometeoCarController : MonoBehaviour
     [Space(20)]
     //[Header("UI")]
     [Space(10)]
-    //The following variable lets you to set up a UI text to display the speed of your car.
+    //The following variable lets you to set up a UI textOnIngredientHolder to display the speed of your car.
     public bool useUI = false;
     public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
 
@@ -212,7 +212,7 @@ public class PrometeoCarController : MonoBehaviour
             initialCarEngineSoundPitch = carEngineSound.pitch;
         }
 
-        // We invoke 2 methods inside this script. CarSpeedUI() changes the text of the UI object that stores
+        // We invoke 2 methods inside this script. CarSpeedUI() changes the textOnIngredientHolder of the UI object that stores
         // the speed of the car and CarSounds() controls the engine and drifting sounds. Both methods are invoked
         // in 0 seconds, and repeatedly called every 0.1 seconds.
         if (useUI)
@@ -430,7 +430,7 @@ public class PrometeoCarController : MonoBehaviour
 
     public void SetEnabledValue(bool value) => enableInput = value;
 
-    // This method converts the car speed data from float to string, and then set the text of the UI carSpeedText with this value.
+    // This method converts the car speed data from float to string, and then set the textOnIngredientHolder of the UI carSpeedText with this value.
     public void CarSpeedUI()
     {
 

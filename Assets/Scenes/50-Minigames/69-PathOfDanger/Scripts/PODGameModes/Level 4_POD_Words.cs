@@ -18,7 +18,7 @@ public class Level4_POD_Words : IPODGameMode
     /// <summary>
     /// Will be called by the PathOfDangerManager to create a platform with the correct answer
     /// </summary>
-    /// <param name="str">the correct answer will have to take a string to find the correct image using the ImageManager, or have a string for text</param>
+    /// <param name="str">the correct answer will have to take a string to find the correct image using the ImageManager, or have a string for textOnIngredientHolder</param>
     /// <param name="manager">a reference back to the tower manager so it can modify the tower manager</param>
     public void SetCorrectAnswer(string str, PathOfDangerManager manager)
     {
@@ -73,7 +73,7 @@ public class Level4_POD_Words : IPODGameMode
     /// <summary>
     /// Sets the answer key, which will tell the player which platform is correct. Uses the opposite medium of SetCorrectAnswer
     /// </summary>
-    /// <param name="str">The answer key will have to take a string to find the correct image using the ImageManager, or have a string for text</param>
+    /// <param name="str">The answer key will have to take a string to find the correct image using the ImageManager, or have a string for textOnIngredientHolder</param>
     /// <param name="manager">a reference back to the tower manager so it can modify the tower manager</param>
     public void GetDisplayAnswer(string str, PathOfDangerManager manager)
     {

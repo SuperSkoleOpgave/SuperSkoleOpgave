@@ -196,7 +196,7 @@ public class PrometeoEditor : Editor{
     GUILayout.Label("UI", EditorStyles.boldLabel);
     GUILayout.Space(10);
 
-    useUI.boolValue = EditorGUILayout.BeginToggleGroup("Use UI (Speed text)?", useUI.boolValue);
+    useUI.boolValue = EditorGUILayout.BeginToggleGroup("Use UI (Speed textOnIngredientHolder)?", useUI.boolValue);
     GUILayout.Space(10);
 
         EditorGUILayout.PropertyField(carSpeedText, new GUIContent("Speed Text (UI): "));

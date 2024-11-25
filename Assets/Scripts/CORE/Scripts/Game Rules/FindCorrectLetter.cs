@@ -10,7 +10,7 @@ namespace CORE.Scripts.Game_Rules
         string correctLetter;
 
         /// <summary>
-        /// returns the variable correctLetter
+        /// returns the variable correctIngredient
         /// </summary>
         /// <returns>the correct letter</returns>
         public string GetCorrectAnswer()
@@ -67,11 +67,11 @@ namespace CORE.Scripts.Game_Rules
         }
 
         /// <summary>
-        /// changes correctLetter to a new one
+        /// changes correctIngredient to a new one
         /// </summary>
         public void SetCorrectAnswer()
         {
-            //correctLetter = GameManager.Instance.PerformanceWeightManager.GetNextLanguageUnitsByTypeAndCategory(LanguageUnit.Letter, LetterCategory.All, 1)[0].Identifier;;
+            //correctIngredient = GameManager.Instance.PerformanceWeightManager.GetNextLanguageUnitsByTypeAndCategory(LanguageUnit.Letter, LetterCategory.All, 1)[0].Identifier;;
 
         }
     }
