@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae54fc7156421945aa4b3649c274c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultContactMat: {fileID: 7211448773848044386, guid: de115575ff979e842b854ad84bfd7339, type: 3}
+  defaultContactMat: {fileID: 4299781513889357167, guid: 132bf28824f65cc449cf9a9758d80fa0, type: 3}
   planeManager: {fileID: 248381024}
 --- !u!1 &1617374264
 GameObject:

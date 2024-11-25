@@ -8,6 +8,8 @@ public class PlaneGameManager : MonoBehaviour
 
     public bool isGameOn = true;
 
+    [SerializeField]
+    private Material correctMat, wrongMat;
 
     [SerializeField]
     private PlaneGameController gameController;
@@ -68,9 +70,28 @@ public class PlaneGameManager : MonoBehaviour
     {
         if (currentWord != null && currentLetter.ToString() != null)
         {
-            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[0];
+            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[gameController.currentWordNumber];
             Debug.Log(selectedLetter);
+
+            if (currentLetter == selectedLetter)
+            {
+                IsCorrect(gameObject);
+            }
+            else
+            {
+                IsWrong(gameObject);
+            }
         }
+    }
+
+    private void IsCorrect(GameObject gameObj)
+    {
+        gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = correctMat;
+    }
+
+    private void IsWrong(GameObject gameObj)
+    {
+        gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = wrongMat;
     }
 
     
