@@ -393,7 +393,6 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     public void SetupLanguageUnits(List<LanguageUnit> letters, List<LanguageUnit> words)
     {
         SetupLetterProperties();
-        Debug.Log("setting up languageunits with " + letters.Count + " letters and " + words.Count + " words");
         levelLocks = new Dictionary<LanguageUnitProperty, int>();
         SetupLevelLocks();
         foreach(LanguageUnit languageUnit in letters)
