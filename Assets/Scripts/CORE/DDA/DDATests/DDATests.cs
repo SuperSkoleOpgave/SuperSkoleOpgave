@@ -1706,6 +1706,9 @@ public class DDATests
         Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.silentConsonant));
     }
 
+    /// <summary>
+    /// Ensures spaces and chars after them are removed
+    /// </summary>
     [Test]
     public void SpacesGetRemoved()
     {
@@ -1713,7 +1716,10 @@ public class DDATests
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
         Assert.AreEqual("test", dDAUnderTest.GetWords()[0].identifier);
     }
-    
+
+    /// <summary>
+    /// Ensures that duplicate words are only added once to the DDA
+    /// </summary>
     [Test]
     public void DuplicatesGetsRemoved()
     {

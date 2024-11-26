@@ -437,10 +437,6 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 languageUnit.identifier = languageUnit.identifier.Replace("(OE)", "\u00d8");
             }
             languageUnit.dynamicDifficultyAdjustment = this;
-            if(languageUnit.identifier.Contains(' '))
-            {
-                Debug.Log(languageUnit.identifier);
-            }
             foreach(char letter in languageUnit.identifier.ToLower())
             {
                 
