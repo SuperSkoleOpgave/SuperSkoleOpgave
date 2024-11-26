@@ -165,7 +165,7 @@ namespace CORE
             if(!GetComponent<DynamicDifficultyAdjustment>())
             {
                 dynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
-                StartCoroutine(WaitOnBootstrapper());
+                StartCoroutine(WaitOnDDAWordSetter());
             }
 
             return;
@@ -187,12 +187,12 @@ namespace CORE
             */
         }
 
-        IEnumerator WaitOnBootstrapper()
+        IEnumerator WaitOnDDAWordSetter()
         {
-            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
-            GameObject bootstrapperObject = GameObject.FindGameObjectWithTag("Bootstrapper");
-            Bootstrapper bootstrapper = bootstrapperObject.GetComponent<Bootstrapper>();
-            dynamicDifficultyAdjustment.SetupLanguageUnits(bootstrapper.letters, bootstrapper.words);
+            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("DDAWordSetter") != null);
+            GameObject DDAWordSetterObject = GameObject.FindGameObjectWithTag("DDAWordSetter");
+            DDAWordSetter DDAWordSetter = DDAWordSetterObject.GetComponent<DDAWordSetter>();
+            DDAWordSetter.LoadWords(dynamicDifficultyAdjustment);
         }
 
         /// <summary>

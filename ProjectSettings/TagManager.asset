@@ -30,6 +30,7 @@ TagManager:
   - Bootstrapper
   - ConveyerBelt
   - WordShelf
+  - DDAWordSetter
   layers:
   - Default
   - TransparentFX
