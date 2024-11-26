@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class DDATests
 {
     DynamicDifficultyAdjustment dDAUnderTest;
+    DDAWordSetter dDAWordSetterUnderTest;
     #region Setup
     /// <summary>
     /// Loads the scene and sets up the test DDA
@@ -21,6 +22,7 @@ public class DDATests
        EditorSceneManager.OpenScene("Assets/Scripts/CORE/DDA/DDATests/DDATestScene.unity");
        var gameObject = GameObject.Find("GameObjectToTestFor");
        dDAUnderTest = gameObject.GetComponent<DynamicDifficultyAdjustment>();
+       dDAWordSetterUnderTest = gameObject.GetComponent<DDAWordSetter>();
     }
 
     /// <summary>
@@ -1173,7 +1175,11 @@ public class DDATests
             LanguageUnitProperty.vowel,
             LanguageUnitProperty.consonant,
             LanguageUnitProperty.letter,
-            LanguageUnitProperty.word
+            LanguageUnitProperty.word,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant
         };
         dDAUnderTest.SetupLevelLocks();
         dDAUnderTest.SetPlayerLevel(3);
@@ -1191,7 +1197,11 @@ public class DDATests
             LanguageUnitProperty.word,
             LanguageUnitProperty.vowel,
             LanguageUnitProperty.consonant,
-            LanguageUnitProperty.letter
+            LanguageUnitProperty.letter,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant
         };
         dDAUnderTest.SetupLevelLocks();
         dDAUnderTest.SetPlayerLevel(3);
@@ -1215,6 +1225,10 @@ public class DDATests
             LanguageUnitProperty.consonant,
             LanguageUnitProperty.letter,
             LanguageUnitProperty.word,
+            LanguageUnitProperty.vowelConfuse,
+            LanguageUnitProperty.softD,
+            LanguageUnitProperty.doubleConsonant,
+            LanguageUnitProperty.silentConsonant,
             LanguageUnitProperty.vowel
         };
         dDAUnderTest.SetupLevelLocks();
@@ -1284,6 +1298,431 @@ public class DDATests
         dDAUnderTest.AdjustWeight(languageUnitUnderTest, true);
         Assert.AreEqual(targetLevel, dDAUnderTest.GetPlayerLevel());
     }
+    #endregion
+    #region SetupLanguageUnits
+    /// <summary>
+    /// Test that letter properties are correctly set up for a given letter
+    /// </summary>
+    /// <param name="letter">The letter to be tested</param>
+    private void TestLetter(char letter)
+    {
+        dDAUnderTest.SetupLetterProperties();
+        List<LanguageUnit> languageUnits = CreateLanguageUnits(2);
+        languageUnits[0].identifier = letter.ToString();
+        languageUnits[0].properties = dDAUnderTest.GetLetterProperty(letter);
+        languageUnits[1].identifier = letter.ToString();
+        languageUnits[1].properties = dDAUnderTest.GetWordProperties(letter.ToString());
+        dDAUnderTest.AddLetter(languageUnits[0]);
+        dDAUnderTest.AddWord(languageUnits[1]);
+        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetLetters()[0].properties[0]));
+        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetWords()[0].properties[0])); 
+    }
+    
+    /// <summary>
+    /// Verify that the given property is correct for the letter
+    /// </summary>
+    /// <param name="letter">The letter the property is connected to</param>
+    /// <param name="letterProperty">The letter property to be checked</param>
+    /// <returns></returns>
+    private bool VerifyLetter(char letter, LanguageUnitProperty letterProperty)
+    {
+        switch(letter)
+        {
+            case 'a':
+                return letterProperty == LanguageUnitProperty.wordWithA || letterProperty == LanguageUnitProperty.letterA;
+            case 'b':
+                return letterProperty == LanguageUnitProperty.wordWithB || letterProperty == LanguageUnitProperty.letterB;
+            case 'c':
+                return letterProperty == LanguageUnitProperty.wordWithC || letterProperty == LanguageUnitProperty.letterC;
+            case 'd':
+                return letterProperty == LanguageUnitProperty.wordWithD || letterProperty == LanguageUnitProperty.letterD;
+            case 'e':
+                return letterProperty == LanguageUnitProperty.wordWithE || letterProperty == LanguageUnitProperty.letterE;
+            case 'f':
+                return letterProperty == LanguageUnitProperty.wordWithF || letterProperty == LanguageUnitProperty.letterF;
+            case 'g':
+                return letterProperty == LanguageUnitProperty.wordWithG || letterProperty == LanguageUnitProperty.letterG;
+            case 'h':
+                return letterProperty == LanguageUnitProperty.wordWithH || letterProperty == LanguageUnitProperty.letterH;
+            case 'i':
+                return letterProperty == LanguageUnitProperty.wordWithI || letterProperty == LanguageUnitProperty.letterI;
+            case 'j':
+                return letterProperty == LanguageUnitProperty.wordWithJ || letterProperty == LanguageUnitProperty.letterJ;
+            case 'k':
+                return letterProperty == LanguageUnitProperty.wordWithK || letterProperty == LanguageUnitProperty.letterK;
+            case 'l':
+                return letterProperty == LanguageUnitProperty.wordWithL || letterProperty == LanguageUnitProperty.letterL;
+            case 'm':
+                return letterProperty == LanguageUnitProperty.wordWithM || letterProperty == LanguageUnitProperty.letterM;
+            case 'n':
+                return letterProperty == LanguageUnitProperty.wordWithN || letterProperty == LanguageUnitProperty.letterN;
+            case 'o':
+                return letterProperty == LanguageUnitProperty.wordWithO || letterProperty == LanguageUnitProperty.letterO;
+            case 'p':
+                return letterProperty == LanguageUnitProperty.wordWithP || letterProperty == LanguageUnitProperty.letterP;
+            case 'q':
+                return letterProperty == LanguageUnitProperty.wordWithQ || letterProperty == LanguageUnitProperty.letterQ;
+            case 'r':
+                return letterProperty == LanguageUnitProperty.wordWithR || letterProperty == LanguageUnitProperty.letterR;
+            case 's':
+                return letterProperty == LanguageUnitProperty.wordWithS || letterProperty == LanguageUnitProperty.letterS;
+            case 't':
+                return letterProperty == LanguageUnitProperty.wordWithT || letterProperty == LanguageUnitProperty.letterT;
+            case 'u':
+                return letterProperty == LanguageUnitProperty.wordWithU || letterProperty == LanguageUnitProperty.letterU;
+            case 'v':
+                return letterProperty == LanguageUnitProperty.wordWithV || letterProperty == LanguageUnitProperty.letterV;
+            case 'w':
+                return letterProperty == LanguageUnitProperty.wordWithW || letterProperty == LanguageUnitProperty.letterW;
+            case 'x':
+                return letterProperty == LanguageUnitProperty.wordWithX || letterProperty == LanguageUnitProperty.letterX;
+            case 'y':
+                return letterProperty == LanguageUnitProperty.wordWithY || letterProperty == LanguageUnitProperty.letterY;
+            case 'z':
+                return letterProperty == LanguageUnitProperty.wordWithZ || letterProperty == LanguageUnitProperty.letterZ;
+            case '\u00c6':
+                return letterProperty == LanguageUnitProperty.wordWithAE || letterProperty == LanguageUnitProperty.letterAE;
+            case '\u00d8':
+                return letterProperty == LanguageUnitProperty.wordWithOE || letterProperty == LanguageUnitProperty.letterOE;
+            case '\u00c5':
+                return letterProperty == LanguageUnitProperty.wordWithAA || letterProperty == LanguageUnitProperty.letterAA;
+        }
+        return false;
+    }
+    [Test]
+    public void TestAddingA()
+    {
+        TestLetter('a');
+    }
+    [Test]
+    public void TestAddingB()
+    {
+        TestLetter('b');
+    }
+    [Test]
+    public void TestAddingC()
+    {
+        TestLetter('c');
+    }
+    [Test]
+    public void TestAddingD()
+    {
+        TestLetter('d');
+    }
+    [Test]
+    public void TestAddingE()
+    {
+        TestLetter('e');
+    }
+    [Test]
+    public void TestAddingF()
+    {
+        TestLetter('f');
+    }
+    [Test]
+    public void TestAddingG()
+    {
+        TestLetter('g');
+    }
+    [Test]
+    public void TestAddingH()
+    {
+        TestLetter('h');
+    }
+    [Test]
+    public void TestAddingI()
+    {
+        TestLetter('i');
+    }
+    [Test]
+    public void TestAddingJ()
+    {
+        TestLetter('j');
+    }
+    [Test]
+    public void TestAddingK()
+    {
+        TestLetter('k');
+    }
+    [Test]
+    public void TestAddingL()
+    {
+        TestLetter('l');
+    }
+    [Test]
+    public void TestAddingM()
+    {
+        TestLetter('m');
+    }
+    [Test]
+    public void TestAddingN()
+    {
+        TestLetter('n');
+    }
+    [Test]
+    public void TestAddingO()
+    {
+        TestLetter('o');
+    }
+    [Test]
+    public void TestAddingP()
+    {
+        TestLetter('p');
+    }
+    [Test]
+    public void TestAddingQ()
+    {
+        TestLetter('q');
+    }
+    [Test]
+    public void TestAddingR()
+    {
+        TestLetter('r');
+    }
+    [Test]
+    public void TestAddingS()
+    {
+        TestLetter('s');
+    }
+    [Test]
+    public void TestAddingT()
+    {
+        TestLetter('t');
+    }
+    [Test]
+    public void TestAddingU()
+    {
+        TestLetter('u');
+    }
+    [Test]
+    public void TestAddingV()
+    {
+        TestLetter('v');
+    }
+    [Test]
+    public void TestAddingW()
+    {
+        TestLetter('w');
+    }
+    [Test]
+    public void TestAddingX()
+    {
+        TestLetter('x');
+    }
+    [Test]
+    public void TestAddingY()
+    {
+        TestLetter('y');
+    }
+    [Test]
+    public void TestAddingZ()
+    {
+        TestLetter('z');
+    }
+    [Test]
+    public void TestAddingAE()
+    {
+        TestLetter('\u00c6');
+    }
+    [Test]
+    public void TestAddingOE()
+    {
+        TestLetter('\u00d8');
+    }
+    [Test]
+    public void TestAddingAA()
+    {
+        TestLetter('\u00c5');
+    }
+
+    /// <summary>
+    /// Ensures that letters are added
+    /// </summary>
+    [Test]
+    public void LettersGetsAdded()
+    {
+        List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
+        languageUnitUnderTest[0].identifier = "a";
+        dDAUnderTest.SetupLanguageUnits(languageUnitUnderTest, new List<LanguageUnit>());
+        Assert.AreEqual(1, dDAUnderTest.GetLetters().Count);
+    }
+
+    /// <summary>
+    /// Ensures words are added
+    /// </summary>
+    [Test]
+    public void WordsGetsAdded()
+    {
+        List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
+        languageUnitUnderTest[0].identifier = "a";
+        dDAUnderTest.SetupLanguageUnits(new List<LanguageUnit>(), languageUnitUnderTest);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
+    }
+
+    /// <summary>
+    /// Ensures the letter property is added for a letter
+    /// </summary>
+    [Test]
+    public void LetterPropertyGetsAddedForLetters()
+    {
+        List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
+        languageUnitUnderTest[0].identifier = "a";
+        dDAUnderTest.SetupLanguageUnits(languageUnitUnderTest, new List<LanguageUnit>());
+        Assert.AreEqual(LanguageUnitProperty.letterA, dDAUnderTest.GetLetters()[0].properties[0]);
+    }
+
+    /// <summary>
+    /// Ensures the letter properties are added for words
+    /// </summary>
+    [Test]
+    public void LetterPropertyGetsAddedForWords()
+    {
+        List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
+        languageUnitUnderTest[0].identifier = "hav";
+        dDAUnderTest.SetupLanguageUnits(new List<LanguageUnit>(), languageUnitUnderTest);
+        foreach(char letter in languageUnitUnderTest[0].identifier)
+        {
+            Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(dDAUnderTest.GetWordLetterProperty(letter)));
+        }
+        
+    }
+
+    /// <summary>
+    /// Ensures words get added to the DDAWordSetter
+    /// </summary>
+    [Test]
+    public void WordGetsAddedToDDAWordSetter()
+    {
+        Texture2D word = AddWordToDDaWordSetter("test", false, false, false, false);
+        Assert.AreEqual(true, dDAWordSetterUnderTest.WordsContainsWord(word));
+    }
+
+    /// <summary>
+    /// Ensures Vowel confused words gets added to the vowelConfusedWords list
+    /// </summary>
+    [Test]
+    public void VowelConfusedWordGetsAddedToDDAWordSetter()
+    {
+        Texture2D word = AddWordToDDaWordSetter("test", true, false, false, false);
+        Assert.AreEqual(true, dDAWordSetterUnderTest.VowelConfusedWordsContainsWord(word));
+    }
+
+    /// <summary>
+    /// Ensures double consonant words gets added to the DoubleConsonantWords list
+    /// </summary>
+    [Test]
+    public void DoubleConsonantWordGetsAddedToDDAWordSetter()
+    {
+        Texture2D word = AddWordToDDaWordSetter("test", false, true, false, false);
+        Assert.AreEqual(true, dDAWordSetterUnderTest.DoubleConsonantWordsContainsWord(word));
+    }
+
+    /// <summary>
+    /// Ensures Soft D Words words gets added to the SoftDWords list
+    /// </summary>
+    [Test]
+    public void SoftDWordGetsAddedToDDAWordSetter()
+    {
+        Texture2D word = AddWordToDDaWordSetter("test", false, false, true, false);
+        Assert.AreEqual(true, dDAWordSetterUnderTest.SoftDWordsContainsWord(word));
+    }
+
+    /// <summary>
+    /// Ensures silent consonant Words words gets added to the SilentConsonantWords list
+    /// </summary>
+    [Test]
+    public void SilentConsonantWordGetsAddedToDDAWordSetter()
+    {
+        Texture2D word = AddWordToDDaWordSetter("test", false, false, false, true);
+        Assert.AreEqual(true, dDAWordSetterUnderTest.SilentConsonantWordsContainsWord(word));
+    }
+
+    /// <summary>
+    /// Ensures letters from the DDAwordsetter gets added to the DDA
+    /// </summary>
+    [Test]
+    public void LettersFromDDAWordSetterGetsAddedToDDA()
+    {
+        LanguageUnit letter = CreateLanguageUnits(1)[0];
+        letter.identifier = "a";
+        dDAWordSetterUnderTest.AddLetter(letter);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(1, dDAUnderTest.GetLetters().Count);
+    }
+
+    /// <summary>
+    /// Ensures words from the DDAWordSetter gets added to the DDA
+    /// </summary>
+    [Test]
+    public void WordsFromDDAWordSetterGetsAddedToDDA()
+    {
+        string word = "test";
+        AddWordToDDaWordSetter(word, false, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
+    }
+
+    /// <summary>
+    /// Ensures a vowel confused word has the correct property in the DDA after getting added
+    /// </summary>
+    [Test]
+    public void vowelConfusedWordHasCorrectProperty()
+    {
+        AddWordToDDaWordSetter("test", true, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.vowelConfuse));
+    }
+
+    /// <summary>
+    /// Ensures a soft d word has the correct property in the DDA after getting added
+    /// </summary>
+    [Test]
+    public void softDWordHasCorrectProperty()
+    {
+        AddWordToDDaWordSetter("test", false, false, true, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.softD));
+    }
+
+    /// <summary>
+    /// Ensures a double consonant word has the correct property in the DDA after getting added
+    /// </summary>
+    [Test]
+    public void doubleConsonantWordHasCorrectProperty()
+    {
+        AddWordToDDaWordSetter("test", false, true, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.doubleConsonant));
+    }
+
+    /// <summary>
+    /// Ensures a silent consonant word has the correct property in the DDA after getting added
+    /// </summary>
+    [Test]
+    public void silentConsonantWordHasCorrectProperty()
+    {
+        AddWordToDDaWordSetter("test", false, false, false, true);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.silentConsonant));
+    }
+
+    /// <summary>
+    /// Adds a word to the DDAWordSetter
+    /// </summary>
+    /// <param name="word">the word to be added</param>
+    /// <param name="vowelConfusedWord">if it is a vowel confused word</param>
+    /// <param name="doubleConsonant">if it is a double consonant word</param>
+    /// <param name="softDWord">if it is a soft d word</param>
+    /// <param name="silentConsonantWord">if it is a silent consonant word</param>
+    /// <returns>The texture2D used by the DDAWordSetter</returns>
+    private Texture2D AddWordToDDaWordSetter(string word, bool vowelConfusedWord, bool doubleConsonant, bool softDWord, bool silentConsonantWord)
+    {
+        Texture2D image = new Texture2D(0, 0);
+        image.name = word;
+        dDAWordSetterUnderTest.AddWord(image, vowelConfusedWord, doubleConsonant, softDWord, silentConsonantWord);
+        return image;
+    }
+
     #endregion
     /// <summary>
     /// Cleans up after tests are done
