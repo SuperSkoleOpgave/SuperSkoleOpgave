@@ -43,6 +43,8 @@ namespace Scenes
 
         // Minigames 50-70
         public const string Gamemode = "50-GameModeSelector";
+        public const string Box1 = "502-Box";
+        public const string Box2 = "5021-Box2";
         public const string LetterLoading = "51-LetterGarden";
         public const string Letter = "52-LetterGarden";
         public const string EaterLoading = "53-SymbolEater";

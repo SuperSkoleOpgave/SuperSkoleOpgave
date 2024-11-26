@@ -35,16 +35,26 @@ public class DDAWordSetter : MonoBehaviour
     private List<LanguageUnit> ApplyLanguageUnits()
     {
         List<LanguageUnit> returnedUnits = new List<LanguageUnit>();
+        List<string> duplicateWords = new List<string>();
         foreach(Texture2D word in words)
         {
             LanguageUnit wordUnit = new LanguageUnit();
             wordUnit.identifier = word.name.ToLower();
+            if(wordUnit.identifier.Contains(' '))
+            {
+                wordUnit.identifier = wordUnit.identifier.Split(' ')[0];
+                duplicateWords.Add(wordUnit.identifier);
+            }
             List<LanguageUnitProperty> props = new List<LanguageUnitProperty>();
             if (vowelConfusedWords.Contains(word)) props.Add(LanguageUnitProperty.vowelConfuse);
             if (doubleConsonantWords.Contains(word)) props.Add(LanguageUnitProperty.doubleConsonant);
             if (softDWords.Contains(word)) props.Add(LanguageUnitProperty.softD);
             if (silentConsonantWords.Contains(word)) props.Add(LanguageUnitProperty.silentConsonant);
             wordUnit.properties = props;
+            if(!duplicateWords.Contains(wordUnit.identifier))
+            {
+                returnedUnits.Add(wordUnit);
+            }
             returnedUnits.Add(wordUnit);
         }
         return returnedUnits;

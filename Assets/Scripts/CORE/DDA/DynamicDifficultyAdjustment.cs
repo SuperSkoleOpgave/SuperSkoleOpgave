@@ -397,6 +397,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         SetupLevelLocks();
         foreach(LanguageUnit languageUnit in letters)
         {
+            languageUnit.identifier = languageUnit.identifier.ToUpper();
             if(languageUnit.identifier[0] == '(')
             {
                 switch(languageUnit.identifier)
@@ -421,21 +422,28 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
         foreach(LanguageUnit languageUnit in words)
         {
+            languageUnit.identifier = languageUnit.identifier.ToUpper();
             if(languageUnit.identifier.Contains("(AA)"))
             {
-                languageUnit.identifier.Replace("(AA)", "\u00c5");
+                languageUnit.identifier = languageUnit.identifier.Replace("(AA)", "\u00c5");
             }
+            
             if(languageUnit.identifier.Contains("(AE)"))
             {
-                languageUnit.identifier.Replace("(AE)", "\u00c6");
+                languageUnit.identifier = languageUnit.identifier.Replace("(AE)", "\u00c6");
             }
             if(languageUnit.identifier.Contains("(OE)"))
             {
-                languageUnit.identifier.Replace("(OE)", "\u00d8");
+                languageUnit.identifier = languageUnit.identifier.Replace("(OE)", "\u00d8");
             }
             languageUnit.dynamicDifficultyAdjustment = this;
+            if(languageUnit.identifier.Contains(' '))
+            {
+                Debug.Log(languageUnit.identifier);
+            }
             foreach(char letter in languageUnit.identifier.ToLower())
             {
+                
                 if(!languageUnit.properties.Contains(wordLetterProperties[letter]))
                 {
                     languageUnit.properties.Add(wordLetterProperties[letter]);
@@ -508,10 +516,16 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         wordLetterProperties.Add('z', LanguageUnitProperty.wordWithZ);
         letterProperties.Add('\u00c6', LanguageUnitProperty.letterAE);
         wordLetterProperties.Add('\u00c6', LanguageUnitProperty.wordWithAE);
+        letterProperties.Add('\u00e6', LanguageUnitProperty.letterAE);
+        wordLetterProperties.Add('\u00e6', LanguageUnitProperty.wordWithAE);
         letterProperties.Add('\u00d8', LanguageUnitProperty.letterOE);
         wordLetterProperties.Add('\u00d8', LanguageUnitProperty.wordWithOE);
+        letterProperties.Add('\u00f8', LanguageUnitProperty.letterOE);
+        wordLetterProperties.Add('\u00f8', LanguageUnitProperty.wordWithOE);
         letterProperties.Add('\u00c5', LanguageUnitProperty.letterAA);
         wordLetterProperties.Add('\u00c5', LanguageUnitProperty.wordWithAA);
+        letterProperties.Add('\u00e5', LanguageUnitProperty.letterAA);
+        wordLetterProperties.Add('\u00e5', LanguageUnitProperty.wordWithAA);
     }
     public LanguageUnitProperty GetWordLetterProperty(char letter)
     {
