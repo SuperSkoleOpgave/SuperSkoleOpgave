@@ -397,7 +397,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         SetupLevelLocks();
         foreach(LanguageUnit languageUnit in letters)
         {
-            languageUnit.identifier = languageUnit.identifier.ToUpper();
+            languageUnit.identifier = languageUnit.identifier.ToLower();
             if(languageUnit.identifier[0] == '(')
             {
                 switch(languageUnit.identifier)
@@ -422,7 +422,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         }
         foreach(LanguageUnit languageUnit in words)
         {
-            languageUnit.identifier = languageUnit.identifier.ToUpper();
+            languageUnit.identifier = languageUnit.identifier.ToLower();
             if(languageUnit.identifier.Contains("(AA)"))
             {
                 languageUnit.identifier = languageUnit.identifier.Replace("(AA)", "\u00c5");

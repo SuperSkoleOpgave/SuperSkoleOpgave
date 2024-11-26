@@ -1706,6 +1706,23 @@ public class DDATests
         Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.silentConsonant));
     }
 
+    [Test]
+    public void SpacesGetRemoved()
+    {
+        AddWordToDDaWordSetter("test 1", false, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual("test", dDAUnderTest.GetWords()[0].identifier);
+    }
+    
+    [Test]
+    public void DuplicatesGetsRemoved()
+    {
+        AddWordToDDaWordSetter("test 1", false, false, false, false);
+        AddWordToDDaWordSetter("test 2", false, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
+    }
+
     /// <summary>
     /// Adds a word to the DDAWordSetter
     /// </summary>
