@@ -1707,6 +1707,29 @@ public class DDATests
     }
 
     /// <summary>
+    /// Ensures spaces and chars after them are removed
+    /// </summary>
+    [Test]
+    public void SpacesGetRemoved()
+    {
+        AddWordToDDaWordSetter("test 1", false, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual("test", dDAUnderTest.GetWords()[0].identifier);
+    }
+
+    /// <summary>
+    /// Ensures that duplicate words are only added once to the DDA
+    /// </summary>
+    [Test]
+    public void DuplicatesGetsRemoved()
+    {
+        AddWordToDDaWordSetter("test 1", false, false, false, false);
+        AddWordToDDaWordSetter("test 2", false, false, false, false);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
+    }
+
+    /// <summary>
     /// Adds a word to the DDAWordSetter
     /// </summary>
     /// <param name="word">the word to be added</param>
