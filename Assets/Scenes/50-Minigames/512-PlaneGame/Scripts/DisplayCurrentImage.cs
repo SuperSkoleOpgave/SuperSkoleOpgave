@@ -20,6 +20,9 @@ public class DisplayCurrentImage : MonoBehaviour
         DisplayImage();
     }
 
+    /// <summary>
+    /// Sets the image through the currentWord from GameController
+    /// </summary>
     public void DisplayImage()
     {
         string randoWord = gameController.CurrentWord();
@@ -27,7 +30,10 @@ public class DisplayCurrentImage : MonoBehaviour
         GetImage(randoImg);
     }
 
-
+    /// <summary>
+    /// Get the wanted image and displays it
+    /// </summary>
+    /// <param name="textureImg">its a image</param>
     public void GetImage(Texture2D textureImg)
     {
         rawImage.texture = textureImg;

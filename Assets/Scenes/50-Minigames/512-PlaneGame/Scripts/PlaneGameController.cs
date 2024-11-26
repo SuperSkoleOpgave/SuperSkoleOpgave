@@ -62,6 +62,10 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
         return randoWord;
     }
 
+    /// <summary>
+    /// turns the randomWord into the current word
+    /// </summary>
+    /// <returns>Returns a string as the current word</returns>
     public string CurrentWord()
     {
         string currentWord = randoWord;
@@ -69,11 +73,19 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
         return currentWord;
     }
 
+    /// <summary>
+    ///  Simply returns the current Letter
+    /// </summary>
+    /// <returns> a char thats the currentLetter</returns>
     public char CurrentLetter()
     {
         return currentLetter;
     }
 
+    /// <summary>
+    /// gets a random char from the LetterManager
+    /// </summary>
+    /// <returns>Returns a Char as a random letter</returns>
     public char GetRandomLetter()
     {
         char randoLetter = LetterManager.GetRandomLetter();
@@ -86,7 +98,9 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
         return randoLetter;
     }
 
-
+    /// <summary>
+    /// updates the currentLetter when its called.
+    /// </summary>
     public void UpdateCurrentLetter()
     {
         string currentWord = CurrentWord() != null ? CurrentWord() : placeHolderWord;
@@ -104,13 +118,21 @@ public class PlaneGameController : MonoBehaviour, IMinigameSetup
 
     }
 
+    /// <summary>
+    /// Resest currentletterNumber to 0
+    /// </summary>
+    /// <returns>returns currentWordNumber as 0</returns>
     public int ResetCurrentLetterNumber()
     {
         currentWordNumber = 0;
         return currentWordNumber;
     }
 
-
+    /// <summary>
+    /// if gamemodes need to be set up.
+    /// </summary>
+    /// <param name="gameMode">nothing now</param>
+    /// <param name="gameRules">nothing now</param>
     public void SetupGame(IGenericGameMode gameMode, IGameRules gameRules)
     {
         

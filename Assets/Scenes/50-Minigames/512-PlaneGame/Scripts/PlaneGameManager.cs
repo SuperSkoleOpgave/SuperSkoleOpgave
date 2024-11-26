@@ -43,6 +43,8 @@ public class PlaneGameManager : MonoBehaviour
 
     public int point = 0;
 
+    private DisplayCurrentImage currentImage;
+
 
 
 
@@ -60,6 +62,9 @@ public class PlaneGameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets up the gamemode by getting current word, letter.
+    /// </summary>
     public void GameSetup()
     {
         currentWord = gameController.CurrentWord();
@@ -68,6 +73,9 @@ public class PlaneGameManager : MonoBehaviour
         createPoint.CreatePointLoops();
     }
 
+    /// <summary>
+    /// if the goalLoop hits the DeleteWall
+    /// </summary>
     public void LoopHitsWall()
     {
         
@@ -75,12 +83,16 @@ public class PlaneGameManager : MonoBehaviour
         resetLoop = false;
     }
 
+    /// <summary>
+    /// Checks if GameObject that collided with player has the correct TexT
+    /// </summary>
+    /// <param name="gameObject">is the gameObject that collided with the player</param>
     public void CheckIfCorrect(GameObject gameObject)
     {
         if (currentWord != null && currentLetter.ToString() != null)
         {
             char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[gameController.currentWordNumber];
-            Debug.Log(selectedLetter);
+           // Debug.Log(selectedLetter);
 
             if (currentLetter == selectedLetter)
             {
@@ -93,6 +105,10 @@ public class PlaneGameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// if letterContent is correct execute this context, assert points and resets word and letters the word is completed.
+    /// </summary>
+    /// <param name="gameObj">the gameObject that player collided with</param>
     private void IsCorrect(GameObject gameObj)
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = correctMat;
@@ -109,6 +125,7 @@ public class PlaneGameManager : MonoBehaviour
             point += 1;
             gameController.ResetCurrentLetterNumber();
             gameController.GetWord();
+            currentImage.DisplayImage();
             preMessage = "";
 
             if (point >= 5)
@@ -120,6 +137,10 @@ public class PlaneGameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// if letterContent is wrong execute this context.
+    /// </summary>
+    /// <param name="gameObj"></param>
     private void IsWrong(GameObject gameObj)
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = wrongMat;

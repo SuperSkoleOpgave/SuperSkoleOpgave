@@ -26,7 +26,9 @@ public class GoalLoop : MonoBehaviour
     {
         letterText.text = letter;
     }
-
+    /// <summary>
+    /// resets the cube and sets it inactive, so it goes back into the Objectpool
+    /// </summary>
     public void ResetCube()
     {
         gameObject.transform.parent.gameObject.SetActive(false);
