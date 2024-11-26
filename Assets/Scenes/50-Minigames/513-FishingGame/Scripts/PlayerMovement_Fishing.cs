@@ -9,6 +9,8 @@ public class PlayerMovement_Fishing : MonoBehaviour
     [SerializeField] Rigidbody2D rigidbody;
 
     [SerializeField] int playerAccelleration=50;
+    public bool inputFieldSelected=false;
+
     void Start()
     {
         gameObject.GetComponent<Rigidbody2D>();   
@@ -16,14 +18,17 @@ public class PlayerMovement_Fishing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Input.GetAxis("Horizontal")>0f)
+        if (inputFieldSelected == false)
         {
-            rigidbody.AddForce(new Vector2(transform.right.x, transform.right.y) * playerAccelleration);
-        }
+            if (Input.GetAxis("Horizontal") > 0f)
+            {
+                rigidbody.AddForce(new Vector2(transform.right.x, transform.right.y) * playerAccelleration);
+            }
 
-        if (Input.GetAxis("Horizontal") < 0f)
-        {
-            rigidbody.AddForce(-new Vector2(transform.right.x, transform.right.y) * playerAccelleration);
+            if (Input.GetAxis("Horizontal") < 0f)
+            {
+                rigidbody.AddForce(-new Vector2(transform.right.x, transform.right.y) * playerAccelleration);
+            }
         }
     }
 

@@ -17,6 +17,9 @@ public class UseFishingRod : MonoBehaviour
     [SerializeField] float minYScale = 0.8f;
 
    private Vector3 lineScale;
+
+    public bool validWordInputted = false;
+
     void Start()
     {
         
@@ -25,7 +28,7 @@ public class UseFishingRod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F) && validWordInputted==true)
         {
             useFishingRod = true;
         }
@@ -57,6 +60,8 @@ public class UseFishingRod : MonoBehaviour
                 lineIsRolledOut = false;
                 useFishingRod = false;
                 yScale = 0;
+
+                validWordInputted = false;
             }
 
         }
