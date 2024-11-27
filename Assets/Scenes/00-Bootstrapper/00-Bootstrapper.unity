@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 1150972431}
   m_Layer: 0
   m_Name: DDAWordSetup
-  m_TagString: Untagged
+  m_TagString: DDAWordSetter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -807,6 +807,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493f940bb11f98b4f9dad45bb3e0ae33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  letters:
+  - {fileID: 11400000, guid: 9f864c538ee4a0440aa75ecc97d83191, type: 2}
+  - {fileID: 11400000, guid: 61e82f44beab60141895480ea00b90c5, type: 2}
+  - {fileID: 11400000, guid: 554c55c6936f44149a62f297c7b68680, type: 2}
+  - {fileID: 11400000, guid: aff776916d5468f4c870ee72898da1d3, type: 2}
+  - {fileID: 11400000, guid: 0fdfc0ce5f61ae04eb4e24f0b7fd919f, type: 2}
+  - {fileID: 11400000, guid: 6018bc1a959d66947b72c923fa2be8cc, type: 2}
+  - {fileID: 11400000, guid: becdb7cee17ab824b997b391fe9e8b24, type: 2}
+  - {fileID: 11400000, guid: ebce23ea205253d4984bf4a47255496f, type: 2}
+  - {fileID: 11400000, guid: 7f7c4a499579f5946987df892f55bcdf, type: 2}
+  - {fileID: 11400000, guid: adfe80abfc01b5848acb8944735f9bc2, type: 2}
+  - {fileID: 11400000, guid: df0c8b244da9b7d48967735eff81b88f, type: 2}
+  - {fileID: 11400000, guid: 953797f0b185a6f4f960816735948990, type: 2}
+  - {fileID: 11400000, guid: 93e8598d7ce78c248971f4e817c811d8, type: 2}
+  - {fileID: 11400000, guid: 7385c8135c9371947adc64a1bb3144de, type: 2}
+  - {fileID: 11400000, guid: cd6b506cbaf5ef0489b393db15fb4437, type: 2}
+  - {fileID: 11400000, guid: 29082ee9fbc1d384db5fe866acaff34b, type: 2}
+  - {fileID: 11400000, guid: 6a078607d78b0fc4b984e22a3ba49194, type: 2}
+  - {fileID: 11400000, guid: 5b99106a0d17d0342a8801d40d1dca5c, type: 2}
+  - {fileID: 11400000, guid: e54342bbe7c9e91409692f07350b21d4, type: 2}
+  - {fileID: 11400000, guid: a5089906d2ddb6b4fabb292cf47a7cf5, type: 2}
+  - {fileID: 11400000, guid: a7661d539bd89ba4f93c020b351f5297, type: 2}
+  - {fileID: 11400000, guid: 8a48ebec6d644994bb5cf27962dee8c9, type: 2}
+  - {fileID: 11400000, guid: 401a2acbc96d8404387d60db1c1e25eb, type: 2}
+  - {fileID: 11400000, guid: 214617ce9bf1c754088db9b2bb4645dd, type: 2}
+  - {fileID: 11400000, guid: f4d415334ec18c64792cd88a17cdc210, type: 2}
+  - {fileID: 11400000, guid: f66c191532ad9454eacca74788c1b502, type: 2}
+  - {fileID: 11400000, guid: e137b2d0780c1a44c8cb660ca0b3f96e, type: 2}
+  - {fileID: 11400000, guid: e554376c075eb71449270fd1549d9b6b, type: 2}
+  - {fileID: 11400000, guid: 31a9b88c42cca6d418195c15907ff896, type: 2}
   words:
   - {fileID: 2800000, guid: 55657fb812b8fbe40a17f8ada5284d30, type: 3}
   - {fileID: 2800000, guid: ec0e25b392712864c82a1eb7c0311914, type: 3}
@@ -1389,6 +1419,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 2321c1a3a7bab8f489abd3d6ffef1678, type: 3}
   - {fileID: 2800000, guid: ba632cc59734a474aa7503290f9711d2, type: 3}
   - {fileID: 2800000, guid: 69d41b1a0c5f2b342b3f38ec5664992d, type: 3}
+  testing: 0
 --- !u!4 &1150972432
 Transform:
   m_ObjectHideFlags: 0

@@ -25,10 +25,12 @@ TagManager:
   - Shadow
   - Platform
   - Checkpoint
+  - GoalLoop
   - Ingredient
   - Bootstrapper
   - ConveyerBelt
   - WordShelf
+  - DDAWordSetter
   layers:
   - Default
   - TransparentFX

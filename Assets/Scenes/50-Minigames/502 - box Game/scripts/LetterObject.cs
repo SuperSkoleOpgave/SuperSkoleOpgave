@@ -13,17 +13,16 @@ public class LetterObject : MonoBehaviour
 
     bool selected = false;
     
-    bool fromConveyer = true;
+    public bool fromConveyer = true;
 
     public string letter;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+
+    /// <summary>
+    /// Moves the gameobject along the conveyerbelt unless it is the currently selected object. 
+    /// In that case it follows the mouse and if the player clicks on the place they want to move it to it gets placed there´. Or if rightclicking it gets moved back to where it came from 
+    /// </summary>
     void Update()
     {
         if(gameObject.activeSelf && transform.position != endPoint && !selected && fromConveyer)
@@ -70,6 +69,9 @@ public class LetterObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts moving the box if the player clicks on it
+    /// </summary>
     void OnMouseDown()
     {
         if(!conveyerBeltPool.holdsBox && !selected)

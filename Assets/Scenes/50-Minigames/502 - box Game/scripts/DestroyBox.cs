@@ -12,12 +12,20 @@ public class DestroyBox : MonoBehaviour
     private GameObject letterBox;
     
     public string symbol;
+    public BoxManager boxManager;
 
+    /// <summary>
+    /// Ensures the letterbox prefab has been assigned
+    /// </summary>
     private void Awake()
     {
         if (letterBox == null)
             Debug.LogError($"Required reference 'letterBox' is missing on {gameObject.name}");
     }
+
+    /// <summary>
+    /// Sets the text on the letterbox to the given symbol
+    /// </summary>
     private void Start()
     {
         var text = letterBox.GetComponentsInChildren<TextMeshProUGUI>();
@@ -33,6 +41,7 @@ public class DestroyBox : MonoBehaviour
     public void Destroy()
     {
         Instantiate(letterBox, transform.position+Vector3.up,Quaternion.identity);
+        boxManager.AddLetter(symbol, gameObject);
         Destroy(gameObject);
     }
 }
