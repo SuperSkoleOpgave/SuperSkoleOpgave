@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410209d1dbfec8140885980531eb1e92, type: 3}
   m_Name: A
   m_EditorClassIdentifier: 
-  identifier: A
-  properties: 15000000
+  identifier: a
+  properties: 3d0000001d0000003b000000
   weight: 0
   dynamicDifficultyAdjustment: {fileID: 0}
