@@ -1,5 +1,6 @@
 using CORE;
 using CORE.Scripts;
+using Scenes._10_PlayerScene.Scripts;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -25,7 +26,7 @@ public class PizzaRestaurantManager : MonoBehaviour
 
     [SerializeField] GameObject answerPrefab;
 
-    
+    [SerializeField] GameObject coinPrefab;
 
     public CheckPizzaIngredient ingredientChecker;
 
@@ -91,6 +92,9 @@ public void CorrectIngredientAdded()
     else
     {
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToGuess, true);
+        PlayerEvents.RaiseGoldChanged(1);
+        PlayerEvents.RaiseXPChanged(1);
+        Instantiate(coinPrefab);
         spawnedIngredients.ForEach(Destroy);
         spawnedIngredients.Clear();
         lettersForCurrentRound = new char[numRows, numCols];
