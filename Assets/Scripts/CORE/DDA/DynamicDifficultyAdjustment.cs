@@ -32,6 +32,12 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     Dictionary<char, LanguageUnitProperty> wordLetterProperties;
     int playerLanguageLevel = 0;
 
+    public List<LanguageUnitPropertyInfo> Properties
+    {  
+        get { return properties; } 
+        set { properties = value; } 
+    }
+
     /// <summary>
     /// returns a letter, using properties given
     /// </summary>
@@ -414,7 +420,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 }
             }
             languageUnit.dynamicDifficultyAdjustment = this;
-            languageUnit.properties.Add(letterProperties[languageUnit.identifier.ToLower()[0]]);
+            languageUnit.properties.Add(letterProperties[languageUnit.identifier.ToLower()[0]]);//i get an error here for the key bieng "("
             foreach (LanguageUnitProperty property in languageUnit.properties)
             {
                 FindOrCreateProperty(property);

@@ -135,6 +135,9 @@ namespace Scenes._03_StartScene.Scripts
                     // Unsubscribe from event once the player is set up
                     SceneManager.sceneLoaded -= onPlayerSceneLoaded;
 
+                    DynamicDifficultyAdjustment DDAref = GameManager.Instance.dynamicDifficultyAdjustment;
+                    DDAref.Properties = playerData.Properties;
+
                     // Load the house scene after player setup
                     StartCoroutine(LoadHouseAfterPlayerSetup());
                 };
