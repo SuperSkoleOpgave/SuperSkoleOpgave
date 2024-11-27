@@ -19,7 +19,6 @@ public class FlightControls : MonoBehaviour
         if (playerObject == null)
         {
             Debug.LogError($"{nameof(FlightControls)}: Player object reference is required!");
-            enabled = false;
         }
     }
 
@@ -44,7 +43,7 @@ public class FlightControls : MonoBehaviour
         Vector3 newPosition = transform.position + movement;
 
         newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
-        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 5f);
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 7f);
 
         transform.position = newPosition;
 
@@ -63,14 +62,14 @@ public class FlightControls : MonoBehaviour
     private IEnumerator SpinPlayer()
     {
         float timeTaken = 0f;
-        float startRotationX = playerObject.transform.rotation.eulerAngles.x;
-        float targetRotationX = startRotationX + 360f;
+        float startRotationZ = playerObject.transform.rotation.eulerAngles.x;
+        float targetRotationZ = startRotationZ + 360f;
 
         while (timeTaken < rotationDuration)
         {
 
-            float currentXRotation = Mathf.Lerp(startRotationX, targetRotationX, timeTaken / rotationDuration);
-            playerObject.transform.rotation = Quaternion.Euler(currentXRotation, 0, 0);
+            float currentZRotation = Mathf.Lerp(startRotationZ, targetRotationZ, timeTaken / rotationDuration);
+            playerObject.transform.rotation = Quaternion.Euler(0, 0, currentZRotation);
 
             timeTaken += Time.deltaTime;
             yield return null;

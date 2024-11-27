@@ -408,13 +408,13 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             {
                 switch(languageUnit.identifier.ToUpper())
                 {
-                    case "(AA)":
+                    case "(aa)":
                         languageUnit.identifier = "\u00c5";
                         break;
-                    case "(AE)":
+                    case "(ae)":
                         languageUnit.identifier = "\u00c6";
                         break;
-                    case "(OE)":
+                    case "(oe)":
                         languageUnit.identifier = "\u00d8";
                         break;
                 }
@@ -429,18 +429,18 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         foreach(LanguageUnit languageUnit in words)
         {
             languageUnit.identifier = languageUnit.identifier.ToLower();
-            if(languageUnit.identifier.Contains("(AA)"))
+            if(languageUnit.identifier.Contains("(aa)"))
             {
-                languageUnit.identifier = languageUnit.identifier.Replace("(AA)", "\u00c5");
+                languageUnit.identifier = languageUnit.identifier.Replace("(aa)", "\u00c5");
             }
             
-            if(languageUnit.identifier.Contains("(AE)"))
+            if(languageUnit.identifier.Contains("(ae)"))
             {
-                languageUnit.identifier = languageUnit.identifier.Replace("(AE)", "\u00c6");
+                languageUnit.identifier = languageUnit.identifier.Replace("(ae)", "\u00c6");
             }
-            if(languageUnit.identifier.Contains("(OE)"))
+            if(languageUnit.identifier.Contains("(oe)"))
             {
-                languageUnit.identifier = languageUnit.identifier.Replace("(OE)", "\u00d8");
+                languageUnit.identifier = languageUnit.identifier.Replace("(oe)", "\u00d8");
             }
             languageUnit.dynamicDifficultyAdjustment = this;
             foreach(char letter in languageUnit.identifier.ToLower())

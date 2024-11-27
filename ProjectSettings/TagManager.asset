@@ -25,6 +25,7 @@ TagManager:
   - Shadow
   - Platform
   - Checkpoint
+  - GoalLoop
   - Ingredient
   - Bootstrapper
   - ConveyerBelt

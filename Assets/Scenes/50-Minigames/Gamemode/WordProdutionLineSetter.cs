@@ -17,8 +17,8 @@ namespace Scenes._50_Minigames.Gamemode
 
         public (IGameRules, IGenericGameMode) DetermineGamemodeAndGameRulesToUse(int level)
         {
-            /*
-            if (GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0].LanguageUnitType == Analytics.LanguageUnit.Word)
+            
+            if (GameManager.Instance.dynamicDifficultyAdjustment.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
             {
                 return (new DynamicGameRules(), null);
             }
@@ -27,9 +27,6 @@ namespace Scenes._50_Minigames.Gamemode
             {
                 return (null, null);
             }
-            */
-            Debug.LogError("code removed as it was using old DDA");
-            return (null, null);
         }
 
         public IGenericGameMode SetMode(int level)
