@@ -90,6 +90,7 @@ public void CorrectIngredientAdded()
     }   
     else
     {
+        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToGuess, true);
         spawnedIngredients.ForEach(Destroy);
         spawnedIngredients.Clear();
         lettersForCurrentRound = new char[numRows, numCols];
