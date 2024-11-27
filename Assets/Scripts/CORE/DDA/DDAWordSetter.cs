@@ -29,7 +29,7 @@ public class DDAWordSetter : MonoBehaviour
         List<LanguageUnit> returnedUnits = new List<LanguageUnit>();
         foreach(Texture2D word in words)
         {
-            LanguageUnit wordUnit = new LanguageUnit();
+            LanguageUnit wordUnit = ScriptableObject.CreateInstance<LanguageUnit>();
             wordUnit.identifier = word.name.ToLower();
             List<LanguageUnitProperty> props = new List<LanguageUnitProperty>();
             if (vowelConfusedWords.Contains(word)) props.Add(LanguageUnitProperty.vowelConfuse);
