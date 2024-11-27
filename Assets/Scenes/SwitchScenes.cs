@@ -52,5 +52,8 @@ namespace Scenes
         public static void SwitchToProductionLine() => SceneLoader.Instance.LoadScene(SceneNames.WordLine);
         public static void SwitchToProductionLineLoadingScene() => SceneLoader.Instance.LoadScene(SceneNames.WordLineLoad);
         public static void SwitchToPizzaRestaurant() => SceneLoader.Instance.LoadScene(SceneNames.PizzaRestaurant);
+        public static void SwitchToPlaneGame() => SceneLoader.Instance.LoadScene(SceneNames.PlaneGame);
+
+
     }
 }
