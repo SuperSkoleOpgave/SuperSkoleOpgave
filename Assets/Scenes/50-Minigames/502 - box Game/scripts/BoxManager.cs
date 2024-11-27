@@ -87,7 +87,7 @@ public class BoxManager : MonoBehaviour
             countdownbar.size = timeRemaining / maxTime;
         }
         //Checks if the game can be ended and ends it if possible
-        if((foundWord.Length == 0 && timeRemaining <= 0) || (activeBoxes.Count == 0))
+        if(((foundWord.Length == 0 && timeRemaining <= 0) || (activeBoxes.Count == 0)) && words != null)
         {
             //Goes through words and checks if the found letters contains the letters of the word
             foreach(string word in words)
