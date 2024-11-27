@@ -33,7 +33,7 @@ namespace Scenes
         public const string Help = "25-HelpScene";  //
         public const string Story = "26-Cutscene";  //
         public const string Settings = "28-SettingsScene"; //
-        public const string MainTwo = "21-MainWorldTwo";
+        public const string MainTwo = "20-MainWorldTwo";
 
         // NPC and interaction scenes
         public const string NPCInteractions = "30-NPCInteractionScene"; // might be split out
