@@ -1,5 +1,6 @@
 using CORE;
 using Scenes;
+using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,9 @@ public class PlaneGameManager : MonoBehaviour
 
     [SerializeField]
     private Material correctMat, wrongMat;
+
+    [SerializeField]
+    private GameObject coinPrefab;
 
     [SerializeField]
     private PlaneGameController gameController;
@@ -153,6 +157,9 @@ public class PlaneGameManager : MonoBehaviour
     /// <returns> 2 second delay</returns>
     IEnumerator CheckIfYouWin()
     {
+        PlayerEvents.RaiseGoldChanged(1);
+        PlayerEvents.RaiseXPChanged(1);
+        Instantiate(coinPrefab);
         winScreen.SetActive(true);
         yield return new WaitForSeconds(2);
 
