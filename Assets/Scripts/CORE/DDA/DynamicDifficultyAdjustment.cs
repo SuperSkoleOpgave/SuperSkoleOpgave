@@ -406,7 +406,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             languageUnit.identifier = languageUnit.identifier.ToLower();
             if(languageUnit.identifier[0] == '(')
             {
-                switch(languageUnit.identifier.ToUpper())
+                switch(languageUnit.identifier)
                 {
                     case "(aa)":
                         languageUnit.identifier = "\u00c5";

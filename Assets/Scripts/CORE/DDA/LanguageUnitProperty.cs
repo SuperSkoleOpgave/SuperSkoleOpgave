@@ -79,7 +79,6 @@ public enum LanguageUnitProperty
 public class LanguageUnitPropertyInfo
 {
     public LanguageUnitProperty property;
-    [NonSerialized]
     public float weight;
     public int levelLock;
 }
