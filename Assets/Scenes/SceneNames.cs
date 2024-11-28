@@ -33,7 +33,7 @@ namespace Scenes
         public const string Help = "25-HelpScene";  //
         public const string Story = "26-Cutscene";  //
         public const string Settings = "28-SettingsScene"; //
-        public const string MainTwo = "21-MainWorldTwo";
+        public const string MainTwo = "20-MainWorldTwo";
 
         // NPC and interaction scenes
         public const string NPCInteractions = "30-NPCInteractionScene"; // might be split out
@@ -70,6 +70,9 @@ namespace Scenes
         public const string PathOfDangerLoseScreen = "PathOfDangerLoseScreen";
         public const string MinigameLoading = "LevelSelect";
         public const string PizzaRestaurant = "511-PizzaRestaurant";
+        public const string BoxBreaker = "502-Box";
+        public const string BoxAssembly = "5021 - Box 2";
+        public const string FlyingGame = "512-PlaneGame";
         public const string PlaneGame = "512-PlaneGame";
 
         //Arcade 70
