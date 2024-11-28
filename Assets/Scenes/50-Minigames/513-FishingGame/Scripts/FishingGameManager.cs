@@ -16,9 +16,13 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> fishImageHolders;
     [SerializeField] GameObject water;
-    private string tempWordToCheck = "abe";
+    public string wordToCheck = "abe";
 
     [SerializeField] int amountOfFish=3;
+
+    [SerializeField] List<GameObject> fishInSea = new List<GameObject>();
+
+    private int amountOfFishCaught;
     
 
     private List<string> wordsOnFish = new List<string>();
@@ -30,7 +34,7 @@ public class FishingGameManager : MonoBehaviour
 
         wordInput.onDeselect.AddListener((string text) => { playerMovement.inputFieldSelected = false; });
 
-        wordsOnFish.Add(tempWordToCheck);
+        wordsOnFish.Add(wordToCheck);
 
         SetupNewFish();
     }
@@ -59,17 +63,38 @@ public class FishingGameManager : MonoBehaviour
             float yPos= Random.Range(-225, 10);
 
             Debug.Log(xPos + "," + yPos);
-            var instObj=Instantiate(fishImageHolders[Random.Range(0,fishImageHolders.Count)],water.transform);
+            fishInSea.Add(Instantiate(fishImageHolders[Random.Range(0,fishImageHolders.Count)],water.transform));
 
-            RectTransform rectTransform = instObj.GetComponent<RectTransform>();
+            RectTransform rectTransform = fishInSea[i].GetComponent<RectTransform>();
             rectTransform.SetParent(water.transform, false);
             rectTransform.localPosition = new Vector3(xPos, yPos, 0);
 
             // instObj.transform.SetParent(water.transform);
 
-            Debug.Log(instObj.transform.position);
+            Debug.Log(fishInSea[i].transform.position);
            
         }
+    }
+
+
+    public void FishCaught(GameObject fishCaught)
+    {
+        amountOfFishCaught++;
+        if (fishInSea.Count > 0)
+        {
+            Destroy(fishCaught);
+            fishInSea.Remove(fishCaught);
+
+            if(fishInSea.Count<=0)
+            {
+                SetupNewFish();
+            }
+        }
+
+        Debug.Log("fish Caught:" + amountOfFishCaught);
+
+
+
     }
     
 }
