@@ -14,7 +14,12 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] UseFishingRod usefishingRod;
 
+    [SerializeField] List<GameObject> fishImageHolders;
+    [SerializeField] GameObject water;
     private string tempWordToCheck = "abe";
+
+    [SerializeField] int amountOfFish=3;
+    
 
     private List<string> wordsOnFish = new List<string>();
     void Start()
@@ -26,6 +31,8 @@ public class FishingGameManager : MonoBehaviour
         wordInput.onDeselect.AddListener((string text) => { playerMovement.inputFieldSelected = false; });
 
         wordsOnFish.Add(tempWordToCheck);
+
+        SetupNewFish();
     }
 
     // Update is called once per frame
@@ -44,6 +51,25 @@ public class FishingGameManager : MonoBehaviour
 
     }
 
-   
+   void SetupNewFish()
+    {
+        for (int i = 0; i < amountOfFish; i++)
+        {
+            float xPos = Random.Range(-360, 360);
+            float yPos= Random.Range(-225, 10);
+
+            Debug.Log(xPos + "," + yPos);
+            var instObj=Instantiate(fishImageHolders[Random.Range(0,fishImageHolders.Count)],water.transform);
+
+            RectTransform rectTransform = instObj.GetComponent<RectTransform>();
+            rectTransform.SetParent(water.transform, false);
+            rectTransform.localPosition = new Vector3(xPos, yPos, 0);
+
+            // instObj.transform.SetParent(water.transform);
+
+            Debug.Log(instObj.transform.position);
+           
+        }
+    }
     
 }
