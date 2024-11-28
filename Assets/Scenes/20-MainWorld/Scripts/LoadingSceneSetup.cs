@@ -68,7 +68,10 @@ public class LoadingSceneSetup : MonoBehaviour
 
                     break;
                 case 8:
-                    SwitchScenes.SwitchToBoxGamePhase1();
+                    SwitchScenes.SwitchToBoxBreak();
+                    break;
+                case 9:
+                    SwitchScenes.SwitchToPlaneGame();
                     break;
                 default:
                     Debug.LogError("unknown sceneID");

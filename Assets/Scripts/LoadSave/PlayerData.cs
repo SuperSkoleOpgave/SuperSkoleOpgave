@@ -60,6 +60,7 @@ namespace LoadSave
         [SerializeField] private bool tutorialCar;
         [SerializeField] private bool tutorialDecorHouse;
 
+        [SerializeField] private List<LanguageUnitPropertyInfo> properties;
 
         //For the Car
         [JsonIgnore] public List<CarInfo> ListOfCars = new List<CarInfo>();
@@ -117,6 +118,11 @@ namespace LoadSave
         public bool TutorialTransportbond { get => tutorialTransportbond; set => tutorialTransportbond = value; }
         public bool TutorialCar { get => tutorialCar; set => tutorialCar = value; }
         public bool TutorialDecorHouse { get => tutorialDecorHouse; set => tutorialDecorHouse = value; }
+
+
+        public List<LanguageUnitPropertyInfo> Properties { get => properties; set => properties = value; }
+
+
 
         /// <summary>
         /// Initializes the player's data with the provided parameters.
@@ -242,7 +248,7 @@ namespace LoadSave
             LastInteractionPoint = position;
         }
         
-        public string ReturnActiveCarName() => GameObject.FindGameObjectWithTag("Car").name;
+        public string ReturnActiveCarName() { /*GameObject.FindGameObjectWithTag("Car").name*/ Debug.Log("Requsting Car name"); return "";}
     }
 }
 

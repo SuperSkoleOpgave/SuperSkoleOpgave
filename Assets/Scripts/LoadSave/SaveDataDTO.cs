@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Analytics;
 using Letters;
 using Newtonsoft.Json;
+using UnityEditor.Purchasing;
 using UnityEngine;
 using Words;
 
@@ -54,6 +55,7 @@ namespace LoadSave
         [SerializeField] private bool tutorialCar;
         [SerializeField] private bool tutorialDecorHouse;
 
+        [SerializeField] private List<LanguageUnitPropertyInfo> properties;
         // Cars
         [JsonIgnore] public List<CarInfo> ListOfCars = new List<CarInfo>();
         
@@ -104,5 +106,7 @@ namespace LoadSave
         public bool TutorialTransportbond { get => tutorialTransportbond; set => tutorialTransportbond = value; }
         public bool TutorialCar { get => tutorialCar; set => tutorialCar = value; }
         public bool TutorialDecorHouse { get => tutorialDecorHouse; set => tutorialDecorHouse = value; }
+
+        public List<LanguageUnitPropertyInfo> Properties { get => properties; set => properties = value; }
     }
 }

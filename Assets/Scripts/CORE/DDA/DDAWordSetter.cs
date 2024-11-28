@@ -38,7 +38,7 @@ public class DDAWordSetter : MonoBehaviour
         List<string> addedWords = new List<string>();
         foreach(Texture2D word in words)
         {
-            LanguageUnit wordUnit = new LanguageUnit();
+            LanguageUnit wordUnit = ScriptableObject.CreateInstance<LanguageUnit>();
             wordUnit.identifier = word.name.ToLower();
             if(wordUnit.identifier.Contains(' '))
             {

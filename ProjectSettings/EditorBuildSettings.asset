@@ -120,6 +120,15 @@ EditorBuildSettings:
     path: Assets/Scenes/50-Minigames/512-PlaneGame/512-PlaneGame.unity
     guid: 0e32d818f73576d41be9a26a8fb3c4a6
   - enabled: 1
-    path: Assets/Scenes/20-MainWorld/21-MainWorldTwo.unity
+    path: Assets/Scenes/50-Minigames/502 - box Game/502-Box.unity
+    guid: 3513a7d02e7bd344babb0ab7e73d91d0
+  - enabled: 1
+    path: Assets/Scenes/50-Minigames/502 - box Game/5021-Box2.unity
+    guid: f842383297737cc4eaebfe11c38bdd57
+  - enabled: 1
+    path: Assets/Scenes/50-Minigames/512-PlaneGame/512-PlaneGame.unity
+    guid: 0e32d818f73576d41be9a26a8fb3c4a6
+  - enabled: 1
+    path: Assets/Scenes/20-MainWorld/20-MainWorldTwo.unity
     guid: 6d4c10b2aea0f3c4fa572fa75e74bc2a
   m_configObjects: {}
