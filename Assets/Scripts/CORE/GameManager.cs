@@ -136,11 +136,12 @@ namespace CORE
             // Proceed to save if all conditions are met
             if (PlayerManager.Instance.SpawnedPlayer != null)
             {
-                //Debug.Log("Saving game...");
-                //await SaveGameController.SaveGameAsync(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>());
-                
+                //gets and adds the waighted words and letters and adds them to the player data that is then saved
+                PlayerData playDataref = PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>();
+                playDataref.Properties = dynamicDifficultyAdjustment.Properties;
+
                 // Convert the PlayerData to a SaveDataDTO
-                SaveDataDTO dto = Converter.ConvertToDTO(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>());
+                SaveDataDTO dto = Converter.ConvertToDTO(playDataref);
                 
                 await SaveGameController.SaveDataAsync(dto, "PlayerData");
             }
