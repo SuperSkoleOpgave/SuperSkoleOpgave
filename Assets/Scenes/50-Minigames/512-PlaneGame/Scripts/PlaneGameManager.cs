@@ -48,7 +48,7 @@ public class PlaneGameManager : MonoBehaviour
     private DisplayCurrentImage currentImage;
 
     [SerializeField]
-    private SkyAtmosphere skyAtmosphere;
+    private LoopObjecPool skySpeed;
 
 
 
@@ -140,8 +140,10 @@ public class PlaneGameManager : MonoBehaviour
             currentLetter = gameController.CurrentLetter();
             currentImage.DisplayImage();
             preMessage = "";
+            skySpeed.speed += 3;
 
-            
+
+
 
             if (point >= 3)
             {
