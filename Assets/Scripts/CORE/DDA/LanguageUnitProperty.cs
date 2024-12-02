@@ -36,17 +36,49 @@ public enum LanguageUnitProperty
     wordWithAE,
     wordWithOE,
     wordWithAA,
+    letterA,
+    letterB,
+    letterC,
+    letterD,
+    letterE,
+    letterF,
+    letterG,
+    letterH,
+    letterI,
+    letterJ,
+    letterK,
+    letterL,
+    letterM,
+    letterN,
+    letterO,
+    letterP,
+    letterQ,
+    letterR,
+    letterS,
+    letterT,
+    letterU,
+    letterV,
+    letterW,
+    letterX,
+    letterY,
+    letterZ,
+    letterAE,
+    letterOE,
+    letterAA,
     consonant,
     vowel,
     word,
-    letter
+    letter,
+    softD,
+    vowelConfuse,
+    silentConsonant,
+    doubleConsonant
 
 }
 [Serializable]
 public class LanguageUnitPropertyInfo
 {
     public LanguageUnitProperty property;
-    [NonSerialized]
     public float weight;
     public int levelLock;
 }

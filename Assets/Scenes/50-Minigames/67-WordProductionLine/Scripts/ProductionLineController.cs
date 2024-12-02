@@ -18,7 +18,7 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
         [SerializeField]
         private ProductionLineObjectPool objectPool;
 
-        List<ILanguageUnit> langUnit;
+        List<LanguageUnit> langUnit;
 
         private bool kickedOut = false;
 
@@ -27,18 +27,10 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
 
         private void Start()
         {
-            langUnit = new List<ILanguageUnit>();
-            /*
-            List<ILanguageUnit> units = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
-            foreach (ILanguageUnit unit in units)
-            {
-                if (unit.LanguageUnitType == LanguageUnit.Word && WordsForImagesManager.imageWords.Contains(unit.Identifier))
-                {
-                    langUnit.Add(unit);
-                }
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            langUnit = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 16);
+
+
+            
         }
 
 
@@ -70,14 +62,14 @@ namespace Scenes._50_Minigames._67_WordProductionLine.Scripts
         {
             if (Random.Range(0, 2) == 1)
             {
-                string randomWord = langUnit[Random.Range(0, langUnit.Count)].Identifier;
+                string randomWord = langUnit[Random.Range(0, langUnit.Count)].identifier;
 
                 randomWord = WordsForImagesManager.GetRandomWordForImage();
                 return randomWord;
             }
             else
             {
-                string randomWord = langUnit[Random.Range(0, langUnit.Count)].Identifier;
+                string randomWord = langUnit[Random.Range(0, langUnit.Count)].identifier;
 
                 if (randomWord.Length <= 1)
                 {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CORE;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,6 +64,7 @@ public class CheckPizzaIngredient : MonoBehaviour
                             collision.gameObject.transform.position = collision.gameObject.GetComponent<IngredientHolderPickup>().startPosition;
 
                             StartCoroutine(DisplayWrongAnswerText());
+                            GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(manager.wordToGuess, false);
 
                         }
                         else if (correctIngredient == true && isPreviousCorrect == false)

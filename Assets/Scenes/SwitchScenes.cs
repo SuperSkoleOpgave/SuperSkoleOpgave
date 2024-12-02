@@ -23,7 +23,8 @@ namespace Scenes
         public static void SwitchToArcadeCatClock() => SceneManager.LoadScene(SceneNames.ArcadeCatClock);
         public static void SwitchToRacingScene() => SceneLoader.Instance.LoadScene(SceneNames.House);
         public static void SwitchToPathOfDangerAllModesSelector() => SceneManager.LoadScene(SceneNames.PathOfDangerAllModesSelector);
-
+        public static void SwitchToBoxGamePhase1() => SceneManager.LoadScene(SceneNames.Box1);
+        public static void SwitchToBoxGamePhase2() => SceneManager.LoadScene(SceneNames.Box2);
         public static void SwitchToPathOfDangerAllModesSelector_Words() => SceneManager.LoadScene(SceneNames.PathOfDangerAllModesSelector_Words);
         public static void SwitchToPathOfDanger() => SceneManager.LoadScene(SceneNames.PathOfDanger);
         public static void SwitchToPathOfDangerLoseScene() => SceneManager.LoadScene(SceneNames.PathOfDangerLoseScreen);
@@ -51,6 +52,10 @@ namespace Scenes
         public static void SwitchToProductionLine() => SceneLoader.Instance.LoadScene(SceneNames.WordLine);
         public static void SwitchToProductionLineLoadingScene() => SceneLoader.Instance.LoadScene(SceneNames.WordLineLoad);
         public static void SwitchToPizzaRestaurant() => SceneLoader.Instance.LoadScene(SceneNames.PizzaRestaurant);
+        public static void SwitchToBoxBreak() => SceneLoader.Instance.LoadScene(SceneNames.BoxBreaker);
+        public static void SwitchToBoxAssembly() => SceneLoader.Instance.LoadScene(SceneNames.BoxAssembly);
+        public static void SwitchToPlaneGame() => SceneLoader.Instance.LoadScene(SceneNames.FlyingGame);
+
 
 
     }

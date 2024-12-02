@@ -67,6 +67,12 @@ public class LoadingSceneSetup : MonoBehaviour
                     SwitchScenes.SwitchToPizzaRestaurant();
 
                     break;
+                case 8:
+                    SwitchScenes.SwitchToBoxBreak();
+                    break;
+                case 9:
+                    SwitchScenes.SwitchToPlaneGame();
+                    break;
                 default:
                     Debug.LogError("unknown sceneID");
                     break;

@@ -89,7 +89,7 @@ namespace Scenes._10_PlayerScene.Scripts
                 PlayerInteraction.Invoke();
                 PlayerInteraction = new UnityEvent();
             }
-            catch { print("PlayerEventManager/InvokeAction/No playeraction"); }
+            catch(ArgumentException e) { print($"PlayerEventManager/InvokeAction/No playeraction: {e.Message}"); }
         }
 
         // /// <summary>

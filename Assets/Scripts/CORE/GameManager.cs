@@ -136,11 +136,12 @@ namespace CORE
             // Proceed to save if all conditions are met
             if (PlayerManager.Instance.SpawnedPlayer != null)
             {
-                //Debug.Log("Saving game...");
-                //await SaveGameController.SaveGameAsync(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>());
-                
+                //gets and adds the waighted words and letters and adds them to the player data that is then saved
+                PlayerData playDataref = PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>();
+                playDataref.Properties = dynamicDifficultyAdjustment.Properties;
+
                 // Convert the PlayerData to a SaveDataDTO
-                SaveDataDTO dto = Converter.ConvertToDTO(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>());
+                SaveDataDTO dto = Converter.ConvertToDTO(playDataref);
                 
                 await SaveGameController.SaveDataAsync(dto, "PlayerData");
             }
@@ -165,7 +166,7 @@ namespace CORE
             if(!GetComponent<DynamicDifficultyAdjustment>())
             {
                 dynamicDifficultyAdjustment = gameObject.AddComponent<DynamicDifficultyAdjustment>();
-                StartCoroutine(WaitOnBootstrapper());
+                StartCoroutine(WaitOnDDAWordSetter());
             }
 
             return;
@@ -187,12 +188,12 @@ namespace CORE
             */
         }
 
-        IEnumerator WaitOnBootstrapper()
+        IEnumerator WaitOnDDAWordSetter()
         {
-            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Bootstrapper") != null);
-            GameObject bootstrapperObject = GameObject.FindGameObjectWithTag("Bootstrapper");
-            Bootstrapper bootstrapper = bootstrapperObject.GetComponent<Bootstrapper>();
-            dynamicDifficultyAdjustment.SetupLanguageUnits(bootstrapper.letters, bootstrapper.words);
+            yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("DDAWordSetter") != null);
+            GameObject DDAWordSetterObject = GameObject.FindGameObjectWithTag("DDAWordSetter");
+            DDAWordSetter DDAWordSetter = DDAWordSetterObject.GetComponent<DDAWordSetter>();
+            DDAWordSetter.LoadWords(dynamicDifficultyAdjustment);
         }
 
         /// <summary>

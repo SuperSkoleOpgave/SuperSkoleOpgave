@@ -31,10 +31,20 @@ public class DDATestScenVerification
     /// Verify the dda can be found
     /// </summary>
     [Test]
-    public void VerifyComponent()
+    public void VerifyDDAComponent()
     {
         var gameObject = GameObject.Find("GameObjectToTestFor");
         Assert.That(gameObject.GetComponent<DynamicDifficultyAdjustment>(), Is.Not.Null);
+    }
+
+    /// <summary>
+    /// Verify the ddaWordSetter can be found
+    /// </summary>
+    [Test]
+    public void VerifyDDAWordSetterComponent()
+    {
+        var gameObject = GameObject.Find("GameObjectToTestFor");
+        Assert.That(gameObject.GetComponent<DDAWordSetter>(), Is.Not.Null);
     }
 
     /// <summary>

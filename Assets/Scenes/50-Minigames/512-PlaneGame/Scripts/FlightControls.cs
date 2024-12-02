@@ -11,15 +11,18 @@ public class FlightControls : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
-    private float rotationDuration = 2f;
+    private float tiltAngle = 15f;  
+    [SerializeField]
+    private float rotationDuration = 1f;
+
     private bool isSpinning = false;
+    private float lastHorizontalInput = 0f;  
 
     private void Start()
     {
         if (playerObject == null)
         {
             Debug.LogError($"{nameof(FlightControls)}: Player object reference is required!");
-            enabled = false;
         }
     }
 
@@ -37,16 +40,27 @@ public class FlightControls : MonoBehaviour
     /// </summary>
     private void ProcessFlightControls()
     {
-
         Transform transform = playerObject.transform;
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed * Time.deltaTime;
+
+        float horizontal = Input.GetAxis("Horizontal");  // A/D
+        float vertical = Input.GetAxis("Vertical");      // W/S 
+
+        Vector3 movement = new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;
 
         Vector3 newPosition = transform.position + movement;
-
-        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
-        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 5f);
-
+        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f); 
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 7f);    
         transform.position = newPosition;
+
+        float pitch = -vertical * tiltAngle;
+        float roll = horizontal * tiltAngle;
+
+        transform.rotation = Quaternion.Euler(roll, 90, -3 + pitch);
+
+        if (horizontal != 0f)
+        {
+            lastHorizontalInput = -horizontal;
+        }
 
         if (Input.GetKey(KeyCode.Space) && !isSpinning)
         {
@@ -64,19 +78,19 @@ public class FlightControls : MonoBehaviour
     {
         float timeTaken = 0f;
         float startRotationX = playerObject.transform.rotation.eulerAngles.x;
-        float targetRotationX = startRotationX + 360f;
+        float targetRotationX = startRotationX + (lastHorizontalInput > 0 ? -360f : 360f);
 
         while (timeTaken < rotationDuration)
         {
 
             float currentXRotation = Mathf.Lerp(startRotationX, targetRotationX, timeTaken / rotationDuration);
-            playerObject.transform.rotation = Quaternion.Euler(currentXRotation, 0, 0);
+            playerObject.transform.rotation = Quaternion.Euler(currentXRotation, 90, -5);
 
             timeTaken += Time.deltaTime;
             yield return null;
         }
 
-        playerObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        playerObject.transform.rotation = Quaternion.Euler(0, 90, -5);
 
         isSpinning = false;
 
