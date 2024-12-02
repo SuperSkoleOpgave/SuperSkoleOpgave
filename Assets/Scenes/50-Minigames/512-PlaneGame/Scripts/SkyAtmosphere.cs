@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class SkyAtmosphere : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 3f;
 
-    // Makes every object affected by this script fly left.
+    public LoopObjecPool objecPool;
+
+    // Makes every object affected by this script fly towards screen.
     void Update()
     {
-        transform.position += Vector3.back * speed * Time.deltaTime;
+        transform.position += Vector3.back * objecPool.speed * Time.deltaTime;
     }
 }

@@ -8,6 +8,8 @@ public class LoopObjecPool : MonoBehaviour
 
     public int amountToPool = 10;
 
+    public float speed = 3f;
+
     public int amountSpawned;
 
     //[SerializeField]
@@ -39,6 +41,7 @@ public class LoopObjecPool : MonoBehaviour
             }
         }
         GameObject obj = Instantiate(loopPrefab, transform);
+        obj.GetComponent<SkyAtmosphere>().objecPool = this;
         obj.SetActive(false);
         pooledObjects.Add(obj);
         return obj;
