@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CORE;
+using Scenes._10_PlayerScene.Scripts;
 using UnityEngine;
 
 public class ShelfScript : MonoBehaviour
@@ -13,6 +14,9 @@ public class ShelfScript : MonoBehaviour
 
     [SerializeField]
     private KeyPress confirmKey;
+
+    [SerializeField]
+    private GameObject coinPrefab;
 
     private Vector3 placementPoint;
 
@@ -82,6 +86,9 @@ public class ShelfScript : MonoBehaviour
         if(conveyerBeltPool.VerifyWord(word))
         {
             GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(word, true);
+            PlayerEvents.RaiseGoldChanged(1);
+            PlayerEvents.RaiseXPChanged(1);
+            Instantiate(coinPrefab);
             conveyerBeltPool.RemoveFromPossibleWords(word);
             foreach(LetterObject letter in letters)
             {

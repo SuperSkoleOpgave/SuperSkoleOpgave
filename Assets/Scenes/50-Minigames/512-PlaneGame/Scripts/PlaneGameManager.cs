@@ -1,10 +1,12 @@
 using CORE;
 using CORE.Scripts;
 using Scenes;
+using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlaneGameManager : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class PlaneGameManager : MonoBehaviour
 
     [SerializeField]
     private Material correctMat, wrongMat;
+
+    [SerializeField]
+    private GameObject coinPrefab;
 
     [SerializeField]
     private PlaneGameController gameController;
@@ -34,6 +39,9 @@ public class PlaneGameManager : MonoBehaviour
     private GameObject winScreen;
 
     [SerializeField]
+    private GameObject lossScreen;
+
+    [SerializeField]
     private GameObject letterBoxText;
 
     public TextMeshProUGUI letterText;
@@ -49,6 +57,14 @@ public class PlaneGameManager : MonoBehaviour
 
     [SerializeField]
     private LoopObjecPool skySpeed;
+    private bool won = false;
+
+    [SerializeField]
+    private Scrollbar timerBar;
+    [SerializeField]
+    private float maxTime = 120;
+
+    private float remainingTime;
 
 
 
@@ -64,6 +80,15 @@ public class PlaneGameManager : MonoBehaviour
         {
             LoopHitsWall();
         }
+        if(!won && remainingTime > 0)
+        {
+            remainingTime -= Time.deltaTime;
+            timerBar.size = remainingTime / maxTime;
+        }
+        else if(!won && remainingTime <= 0)
+        {
+            StartCoroutine(CheckIfYouLose());
+        }
     }
 
     /// <summary>
@@ -76,6 +101,7 @@ public class PlaneGameManager : MonoBehaviour
         currentLetter = gameController.CurrentLetter();
         isGameOn = true;
         createPoint.CreatePointLoops();
+        remainingTime = maxTime;
     }
 
     /// <summary>
@@ -170,7 +196,24 @@ public class PlaneGameManager : MonoBehaviour
     /// <returns> 2 second delay</returns>
     IEnumerator CheckIfYouWin()
     {
+        won = true;
+        PlayerEvents.RaiseGoldChanged(1);
+        PlayerEvents.RaiseXPChanged(1);
+        Instantiate(coinPrefab);
         winScreen.SetActive(true);
+        yield return new WaitForSeconds(2);
+
+        SwitchScenes.SwitchToMainWorld();
+    }
+
+    /// <summary>
+    /// Sets winscreen active and after a few seconds switches to GameWorld
+    /// </summary>
+    /// <returns> 2 second delay</returns>
+    IEnumerator CheckIfYouLose()
+    {
+        won = true;
+        lossScreen.SetActive(true);
         yield return new WaitForSeconds(2);
 
         SwitchScenes.SwitchToMainWorld();
