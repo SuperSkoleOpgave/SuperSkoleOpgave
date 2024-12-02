@@ -519,6 +519,7 @@ MonoBehaviour:
   currentWordToGuess: 
   wrongAnswerText: {fileID: 1380200110}
   checkLetter: 0
+  wordToCheck: 
 --- !u!50 &908607184
 Rigidbody2D:
   serializedVersion: 4
@@ -1000,6 +1001,7 @@ MonoBehaviour:
   displayAnswerText: {fileID: 83531714}
   displayAnswerImage: {fileID: 209726888}
   answerPrefab: {fileID: 0}
+  coinPrefab: {fileID: 4789875805035089658, guid: 44edc6b21d77c664e9dbd70b58502d11, type: 3}
   ingredientChecker: {fileID: 908607183}
   defaultImage: {fileID: 2800000, guid: f6d5579347eb9a943aaf61619c37559f, type: 3}
   wordToGuess: 

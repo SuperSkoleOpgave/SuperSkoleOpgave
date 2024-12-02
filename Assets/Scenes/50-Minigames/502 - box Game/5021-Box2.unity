@@ -445,6 +445,7 @@ MonoBehaviour:
   startPoint: {fileID: 1660596353}
   endPoint: {fileID: 1711237629}
   confirmKey: {fileID: 919465285}
+  coinPrefab: {fileID: 4789875805035089658, guid: 44edc6b21d77c664e9dbd70b58502d11, type: 3}
   letters: []
   conveyerBeltPool: {fileID: 831665362}
 --- !u!1 &558419043
