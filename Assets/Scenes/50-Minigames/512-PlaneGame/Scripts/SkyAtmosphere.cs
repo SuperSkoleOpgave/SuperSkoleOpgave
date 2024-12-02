@@ -3,9 +3,9 @@ using UnityEngine;
 public class SkyAtmosphere : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 3f;
+    public float speed = 3f;
 
-    // Makes every object affected by this script fly left.
+    // Makes every object affected by this script fly towards screen.
     void Update()
     {
         transform.position += Vector3.back * speed * Time.deltaTime;

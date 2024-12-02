@@ -1,4 +1,5 @@
 using CORE;
+using CORE.Scripts;
 using Scenes;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,8 +44,11 @@ public class PlaneGameManager : MonoBehaviour
 
     public int point = 0;
 
+    [SerializeField]
     private DisplayCurrentImage currentImage;
 
+    [SerializeField]
+    private SkyAtmosphere skyAtmosphere;
 
 
 
@@ -123,16 +127,23 @@ public class PlaneGameManager : MonoBehaviour
 
         gameController.currentWordNumber += 1;
         gameController.UpdateCurrentLetter();
+        
 
         if (currentWord.Length <= gameController.currentWordNumber)
         {
             point += 1;
             gameController.ResetCurrentLetterNumber();
             gameController.GetWord();
+            gameController.UpdateCurrentLetter();
+            currentWord = gameController.CurrentWord();
+            letterNumber = gameController.currentWordNumber;
+            currentLetter = gameController.CurrentLetter();
             currentImage.DisplayImage();
             preMessage = "";
 
-            if (point >= 5)
+            
+
+            if (point >= 3)
             {
                 StartCoroutine(CheckIfYouWin());
                 point = 0;
