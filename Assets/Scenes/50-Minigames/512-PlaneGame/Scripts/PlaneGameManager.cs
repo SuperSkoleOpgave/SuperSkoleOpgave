@@ -68,6 +68,7 @@ public class PlaneGameManager : MonoBehaviour
     public void GameSetup()
     {
         currentWord = gameController.CurrentWord();
+        letterNumber = gameController.currentWordNumber;
         currentLetter = gameController.CurrentLetter();
         isGameOn = true;
         createPoint.CreatePointLoops();
@@ -89,9 +90,12 @@ public class PlaneGameManager : MonoBehaviour
     /// <param name="gameObject">is the gameObject that collided with the player</param>
     public void CheckIfCorrect(GameObject gameObject)
     {
+
+        gameController.UpdateCurrentLetter();
+        currentLetter = gameController.CurrentWord()[gameController.currentWordNumber];
         if (currentWord != null && currentLetter.ToString() != null)
         {
-            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[gameController.currentWordNumber];
+            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[0];
            // Debug.Log(selectedLetter);
 
             if (currentLetter == selectedLetter)
