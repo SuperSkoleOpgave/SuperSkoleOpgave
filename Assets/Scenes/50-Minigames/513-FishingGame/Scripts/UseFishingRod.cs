@@ -44,14 +44,9 @@ public class UseFishingRod : MonoBehaviour
 
         if (lineIsRolledOut == false && useFishingRod==true)
         {
-           
             currentLength -= lineSpeed * Time.deltaTime;
 
-            
-            
-
             lineEndPos = startPoint.localPosition + new Vector3(0, currentLength, 0);
-
 
             fishingLine.SetPosition(1, lineEndPos);
             hook.transform.localPosition = lineEndPos;

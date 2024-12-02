@@ -1,3 +1,5 @@
+using CORE;
+using CORE.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -34,8 +36,7 @@ public class FishingGameManager : MonoBehaviour
 
         wordInput.onDeselect.AddListener((string text) => { playerMovement.inputFieldSelected = false; });
 
-        wordsOnFish.Add(wordToCheck);
-
+      
         SetupNewFish();
     }
 
@@ -49,7 +50,7 @@ public class FishingGameManager : MonoBehaviour
     {
         if (wordsOnFish.Contains(text))
         {
-            Debug.Log("Correct answer");
+           // Debug.Log("Correct answer");
             usefishingRod.validWordInputted = true;
         }
 
@@ -57,13 +58,31 @@ public class FishingGameManager : MonoBehaviour
 
    void SetupNewFish()
     {
+        wordsOnFish.Clear();
+
+        for (int i = 0; i < amountOfFish; i++)
+        {
+            string wordToAdd = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier;
+            wordsOnFish.Add(wordToAdd);
+        }
+        
+
         for (int i = 0; i < amountOfFish; i++)
         {
             float xPos = Random.Range(-360, 360);
             float yPos= Random.Range(-225, 10);
 
-            Debug.Log(xPos + "," + yPos);
-            fishInSea.Add(Instantiate(fishImageHolders[Random.Range(0,fishImageHolders.Count)],water.transform));
+            //Debug.Log(xPos + "," + yPos);
+
+            int rndFishIndex = Random.Range(0, fishImageHolders.Count);
+
+            //Texture textureOnFish = ImageManager.GetImageFromWord(wordsOnFish[i]);
+
+            Debug.Log("DDA Word:"+wordsOnFish[i]);
+
+            //fishImageHolders[rndFishIndex].transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture = textureOnFish;
+
+            fishInSea.Add(Instantiate(fishImageHolders[rndFishIndex],water.transform));
 
             RectTransform rectTransform = fishInSea[i].GetComponent<RectTransform>();
             rectTransform.SetParent(water.transform, false);
@@ -71,7 +90,7 @@ public class FishingGameManager : MonoBehaviour
 
             // instObj.transform.SetParent(water.transform);
 
-            Debug.Log(fishInSea[i].transform.position);
+           // Debug.Log(fishInSea[i].transform.position);
            
         }
     }
@@ -79,6 +98,7 @@ public class FishingGameManager : MonoBehaviour
 
     public void FishCaught(GameObject fishCaught)
     {
+        //GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeight(LanguageUnit)
         amountOfFishCaught++;
         if (fishInSea.Count > 0)
         {
@@ -87,11 +107,12 @@ public class FishingGameManager : MonoBehaviour
 
             if(fishInSea.Count<=0)
             {
+              
                 SetupNewFish();
             }
         }
 
-        Debug.Log("fish Caught:" + amountOfFishCaught);
+        //Debug.Log("fish Caught:" + amountOfFishCaught);
 
 
 
