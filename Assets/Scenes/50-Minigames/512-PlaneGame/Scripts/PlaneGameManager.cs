@@ -1,4 +1,5 @@
 using CORE;
+using CORE.Scripts;
 using Scenes;
 using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
@@ -51,8 +52,11 @@ public class PlaneGameManager : MonoBehaviour
 
     public int point = 0;
 
+    [SerializeField]
     private DisplayCurrentImage currentImage;
 
+    [SerializeField]
+    private LoopObjecPool skySpeed;
     private bool won = false;
 
     [SerializeField]
@@ -93,6 +97,7 @@ public class PlaneGameManager : MonoBehaviour
     public void GameSetup()
     {
         currentWord = gameController.CurrentWord();
+        letterNumber = gameController.currentWordNumber;
         currentLetter = gameController.CurrentLetter();
         isGameOn = true;
         createPoint.CreatePointLoops();
@@ -115,9 +120,12 @@ public class PlaneGameManager : MonoBehaviour
     /// <param name="gameObject">is the gameObject that collided with the player</param>
     public void CheckIfCorrect(GameObject gameObject)
     {
+
+        gameController.UpdateCurrentLetter();
+        currentLetter = gameController.CurrentWord()[gameController.currentWordNumber];
         if (currentWord != null && currentLetter.ToString() != null)
         {
-            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[gameController.currentWordNumber];
+            char selectedLetter = gameObject.transform.GetComponentInChildren<TextMeshProUGUI>().text.ToLower()[0];
            // Debug.Log(selectedLetter);
 
             if (currentLetter == selectedLetter)
@@ -145,16 +153,25 @@ public class PlaneGameManager : MonoBehaviour
 
         gameController.currentWordNumber += 1;
         gameController.UpdateCurrentLetter();
+        
 
         if (currentWord.Length <= gameController.currentWordNumber)
         {
             point += 1;
             gameController.ResetCurrentLetterNumber();
             gameController.GetWord();
+            gameController.UpdateCurrentLetter();
+            currentWord = gameController.CurrentWord();
+            letterNumber = gameController.currentWordNumber;
+            currentLetter = gameController.CurrentLetter();
             currentImage.DisplayImage();
             preMessage = "";
+            skySpeed.speed += 3;
 
-            if (point >= 5)
+
+
+
+            if (point >= 3)
             {
                 StartCoroutine(CheckIfYouWin());
                 point = 0;

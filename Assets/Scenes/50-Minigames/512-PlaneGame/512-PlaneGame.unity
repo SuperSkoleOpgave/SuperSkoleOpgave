@@ -751,6 +751,8 @@ MonoBehaviour:
   letterText: {fileID: 1502370656}
   isCorrect: 0
   point: 0
+  currentImage: {fileID: 1184136925}
+  skySpeed: {fileID: 1943012617}
   timerBar: {fileID: 2082286240}
   maxTime: 120
 --- !u!114 &248381025
@@ -2271,8 +2273,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2307,7 +2309,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -40.252632, y: 0, z: -39.152367, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2663,6 +2665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   amountToPool: 10
+  speed: 3
   amountSpawned: 0
   loopPrefab: {fileID: 1276228267713107490, guid: ae91cf30df63f1444829cae2ddd55c7b, type: 3}
 --- !u!1001 &2046291114
@@ -3028,7 +3031,6 @@ SceneRoots:
   - {fileID: 834881378}
   - {fileID: 2140927784}
   - {fileID: 813402484}
-  - {fileID: 2046291114}
   - {fileID: 1262787839}
   - {fileID: 1835016240}
   - {fileID: 751945831}

@@ -13,7 +13,7 @@ public class FlightControls : MonoBehaviour
     [SerializeField]
     private float tiltAngle = 15f;  
     [SerializeField]
-    private float rotationDuration = 2f;
+    private float rotationDuration = 1f;
 
     private bool isSpinning = false;
     private float lastHorizontalInput = 0f;  
