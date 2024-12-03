@@ -87,7 +87,7 @@ public class PlaneGameManager : MonoBehaviour
 
         if (resetCloud)
         {
-            
+            SpawnClouds();
         }
         if (resetLoop)
         {
