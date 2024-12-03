@@ -1,3 +1,4 @@
+using CORE;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,6 +81,10 @@ public class UseFishingRod : MonoBehaviour
                         gameManager.FishCaught(hook.transform.GetChild(i).gameObject);
                     }
                    
+                }
+                else
+                {
+                    GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(gameManager.wordToCheck, false);
                 }
                 
                 validWordInputted = false;

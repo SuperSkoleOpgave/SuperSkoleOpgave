@@ -131,4 +131,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/20-MainWorld/20-MainWorldTwo.unity
     guid: 6d4c10b2aea0f3c4fa572fa75e74bc2a
+  - enabled: 1
+    path: Assets/Scenes/50-Minigames/513-FishingGame/513-FishingGame.unity
+    guid: 0b9bcab61d6d4ac46840c691f103d599
   m_configObjects: {}

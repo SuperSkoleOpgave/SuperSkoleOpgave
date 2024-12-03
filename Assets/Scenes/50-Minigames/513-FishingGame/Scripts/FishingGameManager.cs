@@ -18,7 +18,7 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> fishImageHolders;
     [SerializeField] GameObject water;
-    public string wordToCheck = "abe";
+    public string wordToCheck;
 
     [SerializeField] int amountOfFish=3;
 
@@ -50,7 +50,8 @@ public class FishingGameManager : MonoBehaviour
     {
         if (wordsOnFish.Contains(text))
         {
-           // Debug.Log("Correct answer");
+            // Debug.Log("Correct answer");
+            wordToCheck = text;
             usefishingRod.validWordInputted = true;
         }
 
@@ -76,11 +77,10 @@ public class FishingGameManager : MonoBehaviour
 
             int rndFishIndex = Random.Range(0, fishImageHolders.Count);
 
-            //Texture textureOnFish = ImageManager.GetImageFromWord(wordsOnFish[i]);
+            Texture textureOnFish = ImageManager.GetImageFromWord(wordsOnFish[i]);
 
-            Debug.Log("DDA Word:"+wordsOnFish[i]);
 
-            //fishImageHolders[rndFishIndex].transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture = textureOnFish;
+            fishImageHolders[rndFishIndex].transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture = textureOnFish;
 
             fishInSea.Add(Instantiate(fishImageHolders[rndFishIndex],water.transform));
 
@@ -98,7 +98,7 @@ public class FishingGameManager : MonoBehaviour
 
     public void FishCaught(GameObject fishCaught)
     {
-        //GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeight(LanguageUnit)
+        GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToCheck, true);
         amountOfFishCaught++;
         if (fishInSea.Count > 0)
         {
@@ -107,7 +107,7 @@ public class FishingGameManager : MonoBehaviour
 
             if(fishInSea.Count<=0)
             {
-              
+                
                 SetupNewFish();
             }
         }
