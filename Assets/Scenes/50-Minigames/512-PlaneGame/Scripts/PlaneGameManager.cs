@@ -79,6 +79,7 @@ public class PlaneGameManager : MonoBehaviour
     void Start()
     {
         letterText = letterBoxText.GetComponent<TextMeshProUGUI>();
+        SpawnClouds();
     }
 
     
@@ -115,7 +116,7 @@ public class PlaneGameManager : MonoBehaviour
         isGameOn = true;
         createPoint.CreatePointLoops();
         remainingTime = maxTime;
-        SpawnClouds();
+        
     }
 
     /// <summary>
@@ -247,15 +248,15 @@ public class PlaneGameManager : MonoBehaviour
     {
         backgroundClouds.CreateCloud();
         cloudCount += 1;
-        yield return new WaitForSeconds(3);
+        
 
         if (cloudCount <= 8)
         {
             backgroundClouds.CreateCloud();
         }
+        yield return new WaitForSeconds(3);
 
-        
-        
+
     }
 
 

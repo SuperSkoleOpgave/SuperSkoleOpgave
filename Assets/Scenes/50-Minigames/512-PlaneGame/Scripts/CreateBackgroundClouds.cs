@@ -21,8 +21,13 @@ public class CreateBackgroundClouds : MonoBehaviour
     // Creates clouds that fly in the background
     public void CreateCloud()
     {
+        Debug.Log("CloudSpawn");
         randoNum = Random.Range(0, 5);
+
         GameObject loopObject = objectLoopPool.GetPooledObject();
+
+        loopObject.transform.position = spawnPointA.transform.position;
+        loopObject.SetActive(true);
 
         if (loopObject != null && randoNum == 0)
         {

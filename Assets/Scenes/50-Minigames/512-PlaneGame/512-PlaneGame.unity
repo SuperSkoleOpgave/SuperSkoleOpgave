@@ -742,7 +742,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 4789875805035089658, guid: 44edc6b21d77c664e9dbd70b58502d11, type: 3}
   gameController: {fileID: 248381025}
   createPoint: {fileID: 248381022}
-  backgroundClouds: {fileID: 0}
+  backgroundClouds: {fileID: 248381026}
   resetLoop: 0
   resetCloud: 0
   currentWord: 
@@ -2052,13 +2052,13 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1925862783546744940, guid: 409b324a820e6434d8af205c2e776403, type: 3}
-      insertIndex: 2
+    - targetCorrespondingSourceObject: {fileID: 2803242686079079925, guid: 409b324a820e6434d8af205c2e776403, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1262787841}
   m_SourcePrefab: {fileID: 100100000, guid: 409b324a820e6434d8af205c2e776403, type: 3}
 --- !u!1 &1262787840 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1925862783546744940, guid: 409b324a820e6434d8af205c2e776403, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2803242686079079925, guid: 409b324a820e6434d8af205c2e776403, type: 3}
   m_PrefabInstance: {fileID: 1262787839}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1262787841
