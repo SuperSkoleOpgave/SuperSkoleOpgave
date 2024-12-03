@@ -239,6 +239,10 @@ public class PlaneGameManager : MonoBehaviour
         SwitchScenes.SwitchToMainWorld();
     }
 
+    /// <summary>
+    /// Spawns clouds
+    /// </summary>
+    /// <returns>spawns a cloud if theres less than 8 spawns more.</returns>
     IEnumerator SpawnClouds()
     {
         backgroundClouds.CreateCloud();
