@@ -25,7 +25,13 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField]
     private CreatePointLoop createPoint;
 
+    [SerializeField]
+    private CreateBackgroundClouds backgroundClouds;
+
     public bool resetLoop = false;
+
+    public bool resetCloud = false;
+
     [SerializeField]
     private string currentWord;
 
@@ -66,6 +72,8 @@ public class PlaneGameManager : MonoBehaviour
 
     private float remainingTime;
 
+    [SerializeField]
+    private int cloudCount = 0;
 
 
     void Start()
@@ -76,6 +84,11 @@ public class PlaneGameManager : MonoBehaviour
     
     void Update()
     {
+
+        if (resetCloud)
+        {
+            
+        }
         if (resetLoop)
         {
             LoopHitsWall();
@@ -102,6 +115,7 @@ public class PlaneGameManager : MonoBehaviour
         isGameOn = true;
         createPoint.CreatePointLoops();
         remainingTime = maxTime;
+        SpawnClouds();
     }
 
     /// <summary>
@@ -112,6 +126,12 @@ public class PlaneGameManager : MonoBehaviour
         
         createPoint.CreatePointLoops();
         resetLoop = false;
+    }
+
+    public void CloudHitsWall()
+    {
+        backgroundClouds.CreateCloud();
+        resetCloud = false;
     }
 
     /// <summary>
@@ -209,7 +229,7 @@ public class PlaneGameManager : MonoBehaviour
     /// <summary>
     /// Sets winscreen active and after a few seconds switches to GameWorld
     /// </summary>
-    /// <returns> 2 second delay</returns>
+    /// <returns> 2 second delay then proceed to return to MainWorld</returns>
     IEnumerator CheckIfYouLose()
     {
         won = true;
@@ -217,6 +237,21 @@ public class PlaneGameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         SwitchScenes.SwitchToMainWorld();
+    }
+
+    IEnumerator SpawnClouds()
+    {
+        backgroundClouds.CreateCloud();
+        cloudCount += 1;
+        yield return new WaitForSeconds(3);
+
+        if (cloudCount <= 8)
+        {
+            backgroundClouds.CreateCloud();
+        }
+
+        
+        
     }
 
 
