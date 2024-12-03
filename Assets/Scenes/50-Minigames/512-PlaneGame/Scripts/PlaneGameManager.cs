@@ -79,7 +79,7 @@ public class PlaneGameManager : MonoBehaviour
     void Start()
     {
         letterText = letterBoxText.GetComponent<TextMeshProUGUI>();
-        SpawnClouds();
+        CloudHitsWall();
     }
 
     
@@ -88,7 +88,7 @@ public class PlaneGameManager : MonoBehaviour
 
         if (resetCloud)
         {
-            SpawnClouds();
+            CloudHitsWall();
         }
         if (resetLoop)
         {
@@ -132,6 +132,17 @@ public class PlaneGameManager : MonoBehaviour
     public void CloudHitsWall()
     {
         backgroundClouds.CreateCloud();
+        cloudCount += 1;
+
+        StartCoroutine(SpawnCloudWithDelay());
+
+        if (cloudCount <= 8)
+        {
+            backgroundClouds.CreateCloud();
+            cloudCount += 1;
+        }
+
+        cloudCount -= 1;
         resetCloud = false;
     }
 
@@ -188,7 +199,7 @@ public class PlaneGameManager : MonoBehaviour
             currentImage.DisplayImage();
             preMessage = "";
             skySpeed.speed += 3;
-
+            backgroundClouds.CreateCloud();
 
 
 
@@ -241,22 +252,17 @@ public class PlaneGameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawns clouds
+    /// Coroutine that spawns clouds with a delay
     /// </summary>
-    /// <returns>spawns a cloud if theres less than 8 spawns more.</returns>
-    IEnumerator SpawnClouds()
+    private IEnumerator SpawnCloudWithDelay()
     {
-        backgroundClouds.CreateCloud();
-        cloudCount += 1;
-        
+        yield return new WaitForSeconds(2f); 
 
-        if (cloudCount <= 8)
+        if (cloudCount < 8) 
         {
-            backgroundClouds.CreateCloud();
+            backgroundClouds.CreateCloud(); 
+            cloudCount += 1;
         }
-        yield return new WaitForSeconds(3);
-
-
     }
 
 
