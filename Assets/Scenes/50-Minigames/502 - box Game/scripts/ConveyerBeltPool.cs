@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CORE;
 using CORE.Scripts;
 using TMPro;
 using Unity.VisualScripting;
@@ -23,6 +24,14 @@ public class ConveyerBeltPool : MonoBehaviour
     [SerializeField]
     private ShelfScript shelfScript;
 
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+    private Material beltMaterial;
+    [SerializeField]
+    private MeshRenderer returnBeltRenderer;
+    private Material returnBeltMaterial;
+
+    [SerializeField]
     private List<GameObject> pooledObjects;
 
     private Queue<GameObject> queuedObjects;
@@ -30,9 +39,19 @@ public class ConveyerBeltPool : MonoBehaviour
     [SerializeField]
     private GameObject letterObjectPrefab;
 
+
     bool waitingOnLetters = false;
 
     public bool holdsBox = false;
+
+    float speed = 0.25f;
+    
+    private void Start()
+    {
+        beltMaterial = meshRenderer.material;
+        returnBeltMaterial = returnBeltRenderer.material;
+        //TestSetup();
+    }
 
     /// <summary>
     /// Used if the second phase needs to be tested in isolation
@@ -41,21 +60,24 @@ public class ConveyerBeltPool : MonoBehaviour
     {
         List<string> letters = new List<string>()
         {
-            "K",
-            "A",
-            "T",
-            "H",
-            "E",
-            "P",
-            "Q",
-            "W",
-            "R",
-            "Y",
-            "U",
-            "I",
-            "O",
-            "Å",
-            "S"
+            "k",
+            "a",
+            "t",
+            "h",
+            "e",
+            "p",
+            "q",
+            "w",
+            "r",
+            "y",
+            "u",
+            "i",
+            "o",
+            "å",
+            "s",
+            "a",
+            "l",
+            "f"
         };
         string requiredWord = "kat";
         AddLetters(letters, requiredWord);
@@ -70,6 +92,7 @@ public class ConveyerBeltPool : MonoBehaviour
         {
             StartCoroutine(SpawnLetters());
         }
+        MoveBelt();
     }
 
     /// <summary>
@@ -155,15 +178,41 @@ public class ConveyerBeltPool : MonoBehaviour
     /// <returns></returns>
     private IEnumerator WaitOnWordsLoaded()
     {
-        yield return new WaitUntil(() => WordsManager.GetAllWords().Count > 0);
-        List<string> allWords = WordsManager.GetAllWords();
+        yield return new WaitUntil(() => GameManager.Instance.dynamicDifficultyAdjustment != null);
+        List<string> allWords = GameManager.Instance.dynamicDifficultyAdjustment.GetWordStrings();
         //Goes through the words in allWords and checks which can be spelled with the letters found in phase 1
         foreach(string word in allWords)
         {
             bool wordContained = true;
+            Dictionary<char, int> usedLetters = new Dictionary<char, int>();
             foreach(char letter in word)
             {
-                if(!availableLetters.Contains(letter.ToString()))
+                if(availableLetters.Contains(letter.ToString().ToLower()) && !usedLetters.Keys.Contains(letter))
+                {
+                    usedLetters.Add(letter, 1);
+                }
+                else if(usedLetters.Keys.Contains(letter))
+                {
+                    int count = 0;
+                    foreach(string letter1 in availableLetters)
+                    {
+                        if(letter.ToString().ToLower() == letter1)
+                        {
+                            count++;
+                        }
+                        if(count > usedLetters[letter])
+                        {
+                            usedLetters[letter] = count;
+                            break;
+                        }
+                    }
+                    if(count < usedLetters[letter])
+                    {
+                        wordContained = false;
+                        break;
+                    }
+                }
+                else
                 {
                     wordContained = false;
                     break;
@@ -195,4 +244,15 @@ public class ConveyerBeltPool : MonoBehaviour
         possibleWords.Remove(word);
         spelledWords.Add(word);
     }
+
+    /// <summary>
+    /// Gives the illusion of moving the belt by offsetting the belt
+    /// </summary>
+    private void MoveBelt()
+    {
+        
+        beltMaterial.mainTextureOffset = new Vector2(beltMaterial.mainTextureOffset.x + speed * Time.deltaTime, beltMaterial.mainTextureOffset.y);
+        returnBeltMaterial.mainTextureOffset = new Vector2(returnBeltMaterial.mainTextureOffset.x - speed * Time.deltaTime, returnBeltMaterial.mainTextureOffset.y);
+    }
+
 }
