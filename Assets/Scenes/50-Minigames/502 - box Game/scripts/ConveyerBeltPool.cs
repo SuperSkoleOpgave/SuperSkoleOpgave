@@ -43,6 +43,8 @@ public class ConveyerBeltPool : MonoBehaviour
     bool waitingOnLetters = false;
 
     public bool holdsBox = false;
+
+    float speed = 0.25f;
     
     private void Start()
     {
@@ -248,7 +250,7 @@ public class ConveyerBeltPool : MonoBehaviour
     /// </summary>
     private void MoveBelt()
     {
-        float speed = 0.25f;
+        
         beltMaterial.mainTextureOffset = new Vector2(beltMaterial.mainTextureOffset.x + speed * Time.deltaTime, beltMaterial.mainTextureOffset.y);
         returnBeltMaterial.mainTextureOffset = new Vector2(returnBeltMaterial.mainTextureOffset.x - speed * Time.deltaTime, returnBeltMaterial.mainTextureOffset.y);
     }

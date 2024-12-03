@@ -23,7 +23,7 @@ public class LetterObject : MonoBehaviour
 
     public bool spelledWord = false;
 
-    private bool turned = false;
+    private bool hasTurned = false;
 
     /// <summary>
     /// Moves the gameobject along the conveyerbelt unless it is the currently selected object. 
@@ -39,23 +39,22 @@ public class LetterObject : MonoBehaviour
         {
             conveyerBeltPool.ReenterPool(gameObject);
         }
-        if(spelledWord && !turned && transform.position != turnPoint)
+        if(spelledWord && !hasTurned && transform.position != turnPoint)
         {
             transform.position = Vector3.MoveTowards(transform.position, turnPoint,  speed * Time.deltaTime);
         }
-        if(spelledWord && !turned && transform.position == turnPoint)
+        if(spelledWord && !hasTurned && transform.position == turnPoint)
         {
-            turned = true;
+            hasTurned = true;
         }
-        if(spelledWord && turned && transform.position != despawnPoint)
+        if(spelledWord && hasTurned && transform.position != despawnPoint)
         {
             transform.position = Vector3.MoveTowards(transform.position, despawnPoint,  speed * Time.deltaTime);
         }
-        if(spelledWord && turned && transform.position == despawnPoint)
+        if(spelledWord && hasTurned && transform.position == despawnPoint)
         {
-            turned = false;
+            hasTurned = false;
             spelledWord = false;
-            fromConveyer = true;
             fromConveyer = true;
             shelfScript.RemoveLetter(this);
             conveyerBeltPool.ReenterPool(gameObject);

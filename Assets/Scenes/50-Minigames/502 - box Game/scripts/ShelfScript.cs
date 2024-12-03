@@ -39,6 +39,7 @@ public class ShelfScript : MonoBehaviour
     private MeshRenderer returnBeltRenderer;
     private Material returnBeltMaterial;
     bool moving = false;
+    float speed = 0.25f;
     /// <summary>
     /// Sets up the initial position to place boxes on and the method for the button to call. Also retrieves the materials from the belt renderers
     /// </summary>
@@ -57,7 +58,7 @@ public class ShelfScript : MonoBehaviour
     {
         if(moving)
         {
-            float speed = 0.25f;
+            
             beltMaterial.mainTextureOffset = new Vector2(beltMaterial.mainTextureOffset.x + speed * Time.deltaTime, beltMaterial.mainTextureOffset.y);
             returnBeltMaterial.mainTextureOffset = new Vector2(returnBeltMaterial.mainTextureOffset.x - speed * Time.deltaTime, returnBeltMaterial.mainTextureOffset.y);
         }
