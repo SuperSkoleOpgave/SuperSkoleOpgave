@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2dd12feeec67646a73b29f2fa353b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  objecPool: {fileID: 0}
 --- !u!65 &3045486587505485042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85,7 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1398c90df146b8e4eb9d3d6c1f1a01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerContactMat: {fileID: 2100000, guid: e46724ca0c9c05246afd35deeab291f1, type: 2}
 --- !u!114 &6752684045303501419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +255,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.080939, y: 0, z: 0.29735237, w: 0}
+  m_margin: {x: 0.057654805, y: 0, z: 0.29735237, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -391,8 +390,8 @@ Transform:
   m_GameObject: {fileID: 4973390931744849711}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5, y: 7, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1.8}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 948654213908882339}

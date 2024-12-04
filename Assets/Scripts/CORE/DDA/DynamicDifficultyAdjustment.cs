@@ -616,6 +616,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         levelLocks.Add(LanguageUnitProperty.silentConsonant, 3);
     }
 
+    public List<string> GetWordStrings()
+    {
+        return words.Select(p => p.identifier).ToList();
+    }
+
     #region unitTesting
     /// <summary>
     /// Adds languageUnits to the words list. The method is intended for testing purpouses and should not be used in completed code
