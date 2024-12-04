@@ -29,7 +29,7 @@ public class SetUpPlayerCar : MonoBehaviour
         playerData = PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>();
         populateDics();
         CarSpawnPos = playerData.CarPos;
-        if(gameObject.tag == "World2CarSetter" && defaultSpawnPoint != null)
+        if(gameObject.CompareTag("World2CarSetter") && defaultSpawnPoint != null)
         {
             CarSpawnPos = defaultSpawnPoint.position;
         }
