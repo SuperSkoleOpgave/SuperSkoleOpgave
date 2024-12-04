@@ -21,6 +21,9 @@ public class BoxManager : MonoBehaviour
     [SerializeField]
     private Scrollbar countdownbar;
 
+    [SerializeField]
+    private DropOffPointThingy dropOffPointThingy;
+
     private float timeRemaining;
 
     private bool positionedPlayer = false;
@@ -110,6 +113,7 @@ public class BoxManager : MonoBehaviour
             //ends the game and prepares for the next phase
             if(foundWord.Length > 0)
             {
+                string allLetters = dropOffPointThingy.allLettersCollected;
                 SceneManager.sceneLoaded += LoadLetters;
                 SwitchScenes.SwitchToBoxGamePhase2();
             }  
