@@ -81,7 +81,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
             //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<ILanguageUnit> letters = new List<ILanguageUnit>();
+            List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 10);
 
             //LetterData modeLetterType = (LetterData)languageUnits[0];
             /*
@@ -107,12 +107,12 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
                 //Code to make sure that the previous answer is not getting repeated imediatly after. 
 
-                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
 
                 while (returnedString[i] == previousRetrievedAnswer)
                 {
 
-                    returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                    returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                 }
 
                 previousRetrievedAnswer = returnedString[i];

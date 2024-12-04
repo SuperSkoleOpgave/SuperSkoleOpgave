@@ -72,27 +72,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
         {
             //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<ILanguageUnit> letters = new List<ILanguageUnit>();
-            /*
-            LetterData modeLetterType = (LetterData)languageUnits[0];
-
-            foreach (var item in languageUnits)
-            {
-                if (item.LanguageUnitType == LanguageUnit.Letter)
-                {
-                    LetterData letterData = (LetterData)item;
-                    if (GameManager.Instance.PlayerData.PlayerLanguageLevel >= 2)
-                    {
-                        letters.Add(item);
-                    }
-                    else if (letterData.Category == modeLetterType.Category)
-                    {
-                        letters.Add(item);
-                    }
-                }
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 10);
             string[] returnedString = new string[count];
 
             
@@ -100,7 +80,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
             for (int i = 0; i < count; i++)
             {
                 //Random.Range(0, 15)
-                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
 
 
                 bool checkIfAvailable = true;
@@ -110,27 +90,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     switch (returnedString[i].ToLower())
                     {
                         case "y":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         case "z":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         case "w":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         case "c":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         case "q":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         case "x":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                             break;
 
                         default:
@@ -141,7 +121,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
                 while (returnedString[i] == previousRetrievedAnswer)
                 {
-                    returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                    returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
 
 
                     checkIfAvailable = true;
@@ -151,27 +131,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                         switch (returnedString[i].ToLower())
                         {
                             case "y":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             case "z":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             case "w":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             case "c":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             case "q":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             case "x":
-                                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
+                                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
                                 break;
 
                             default:

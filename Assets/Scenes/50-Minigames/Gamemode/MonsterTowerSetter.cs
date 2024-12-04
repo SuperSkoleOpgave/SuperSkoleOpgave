@@ -52,11 +52,11 @@ namespace Scenes._50_Minigames.Gamemode
 
         public (IGameRules, IGenericGameMode) DetermineGamemodeAndGameRulesToUse(int level)
         {
-           // GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ø", 70);
+           // GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ï¿½", 70);
             //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
             //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
-            IGenericGameMode mode = null;
+            IGenericGameMode mode = gameModes[4];
 
             /*
              switch (languageUnit.LanguageUnitType)
@@ -118,7 +118,6 @@ namespace Scenes._50_Minigames.Gamemode
 
              }
             */
-            Debug.LogError("code removed as it was using old DDA");
 
 
 
