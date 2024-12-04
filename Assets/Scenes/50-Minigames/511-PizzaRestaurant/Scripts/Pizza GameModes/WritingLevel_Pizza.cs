@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 {
@@ -13,7 +14,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
     /// </summary>
     public bool CheckIngredient(Collider2D collision, CheckPizzaIngredient checker)
     {
-        char letterAddedToPizza = collision.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text[0];
+        char letterAddedToPizza = collision.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text[0];
 
        return letterAddedToPizza == checker.currentLetterToGuess;
     }
@@ -53,8 +54,13 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
         {
             for (int x = 0; x < numRows; x++)
             {
-                manager.textOnIngredientHolder.text = manager.lettersForCurrentRound[x, y].ToString();
+                string letterToDisplay= manager.lettersForCurrentRound[x, y].ToString();
 
+                manager.textOnIngredientHolder.text = letterToDisplay;
+
+                List<string> ingredientsToDisplay = manager.ingredientWords[letterToDisplay.ToLower()];
+              
+                manager.textOnIngredientHolderBackGround.texture = ImageManager.GetImageFromWord(ingredientsToDisplay[UnityEngine.Random.Range(0,ingredientsToDisplay.Count)].ToLower());
 
                 Vector3 pos = new Vector3(manager.LETTER_SPACING_X * x, y * manager.LETTER_SPACING_Y, 0);
 
