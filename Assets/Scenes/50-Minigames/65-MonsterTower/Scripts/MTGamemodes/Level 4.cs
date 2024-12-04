@@ -79,29 +79,9 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
             string[] returnedString = new string[count];
 
-            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
             List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 10);
 
-            //LetterData modeLetterType = (LetterData)languageUnits[0];
-            /*
-            foreach (var item in languageUnits)
-            {
-                if (item.LanguageUnitType == LanguageUnit.Letter)
-                {
-                    LetterData letterData = (LetterData)item;
-                    if ( GameManager.Instance.PlayerData.PlayerLanguageLevel>=2)
-                    { 
-                        letters.Add(item);
-                    }
-                  else if (letterData.Category == modeLetterType.Category)
-                  {
-                        letters.Add(item);
-                  }
-                }
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
             for (int i = 0; i < count; i++)
             {
 

@@ -73,22 +73,11 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
             string[] returnedString = new string[count];
 
-            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<ILanguageUnit> words = new List<ILanguageUnit>();
-            /*
-            foreach (var item in languageUnits)
-            {
-                if (item.LanguageUnitType == LanguageUnit.Word)
-                {
-                    words.Add(item);
-                }
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
             for (int i = 0; i < count; i++)
             {
-                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
 
                 bool checkIfAvailable = true;
@@ -98,27 +87,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     switch (returnedString[i].ToLower())
                     {
                         case "y":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         case "z":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         case "w":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         case "c":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         case "q":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         case "x":
-                            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                             break;
 
                         default:
@@ -129,7 +118,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
                 while (returnedString[i] == previousRetrievedAnswer)
                 {
-                    returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                    returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
 
                     checkIfAvailable = true;
@@ -139,27 +128,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                         switch (returnedString[i].ToLower())
                         {
                             case "y":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             case "z":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             case "w":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             case "c":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             case "q":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             case "x":
-                                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
                                 break;
 
                             default:

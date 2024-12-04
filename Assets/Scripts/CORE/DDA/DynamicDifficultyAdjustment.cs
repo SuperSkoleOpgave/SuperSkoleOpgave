@@ -610,8 +610,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             levelLocks = new Dictionary<LanguageUnitProperty, int>();
         }
         levelLocks.Add(LanguageUnitProperty.consonant, 1);
-        /*levelLocks.Add(LanguageUnitProperty.letter, 2);
-        levelLocks.Add(LanguageUnitProperty.word, 3);*/
+        levelLocks.Add(LanguageUnitProperty.letter, 2);
+        levelLocks.Add(LanguageUnitProperty.word, 3);
         levelLocks.Add(LanguageUnitProperty.vowelConfuse, 3);
         levelLocks.Add(LanguageUnitProperty.softD, 3);
         levelLocks.Add(LanguageUnitProperty.doubleConsonant, 3);
