@@ -47,15 +47,14 @@ namespace Scenes._50_Minigames.Gamemode
             List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
             for(int i = 0; i < priorities.Count; i++)
             {
-                Debug.Log(priorities[i]);
                 if(priorities[i] == LanguageUnitProperty.letter)
                 {
-                    mode = letterGameModes[Random.Range(0, priorities.Count)];
+                    mode = letterGameModes[Random.Range(0, letterGameModes.Count)];
                     break;
                 }
                 if(priorities[i] == LanguageUnitProperty.word)
                 {
-                    mode = wordGameModes[Random.Range(0, priorities.Count)];
+                    mode = wordGameModes[Random.Range(0, wordGameModes.Count)];
                     break;
                 }
             }

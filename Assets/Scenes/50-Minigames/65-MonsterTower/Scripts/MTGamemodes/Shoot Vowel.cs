@@ -165,7 +165,6 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                 previousRetrievedAnswer = returnedString[i];
             }
             
-            Debug.LogError("code removed as it was using old DDA");
             return returnedString;
         }
         /// <summary>
