@@ -745,7 +745,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// Gets the list of words(For testing purpouses)
     /// </summary>
     /// <returns>the list of words</returns>
-    public List<LanguageUnit> GetWords()
+    public List<LanguageUnit> GetWordList()
     {
         return words;
     }
@@ -754,7 +754,7 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// Gets the list of letters(For testing purpouses)
     /// </summary>
     /// <returns>the list of letters</returns>
-    public List<LanguageUnit> GetLetters()
+    public List<LanguageUnit> GetLetterList()
     {
         return letters;
     }
