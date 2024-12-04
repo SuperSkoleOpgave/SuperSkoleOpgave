@@ -8191,7 +8191,7 @@ GameObject:
   - component: {fileID: 1030951746}
   m_Layer: 0
   m_Name: anti-lag-feature
-  m_TagString: Untagged
+  m_TagString: World2CarSetter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8620,9 +8620,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 640012916116512776, guid: 4b44bac4b2e67d54fb1f85813287858c, type: 3}
+      propertyPath: defaultSpawnPoint
+      value: 
+      objectReference: {fileID: 1900147764}
     - target: {fileID: 6387926897983962466, guid: 4b44bac4b2e67d54fb1f85813287858c, type: 3}
       propertyPath: m_Name
       value: StartUpCarManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387926897983962466, guid: 4b44bac4b2e67d54fb1f85813287858c, type: 3}
+      propertyPath: m_TagString
+      value: World2CarSetter
       objectReference: {fileID: 0}
     - target: {fileID: 8563970292297338557, guid: 4b44bac4b2e67d54fb1f85813287858c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14474,6 +14482,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 489674, guid: 3c75fe85eb37f5843976b233e951a756, type: 3}
   m_PrefabInstance: {fileID: 1863909698}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1900147763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1900147764}
+  m_Layer: 0
+  m_Name: CarSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1900147764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900147763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.98, y: 0.36, z: -89.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1905798559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17643,3 +17682,4 @@ SceneRoots:
   - {fileID: 339974205}
   - {fileID: 1030951749}
   - {fileID: 1057978684}
+  - {fileID: 1900147764}
