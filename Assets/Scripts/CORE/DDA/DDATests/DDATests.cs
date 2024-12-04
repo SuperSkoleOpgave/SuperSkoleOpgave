@@ -22,6 +22,7 @@ public class DDATests
        EditorSceneManager.OpenScene("Assets/Scripts/CORE/DDA/DDATests/DDATestScene.unity");
        var gameObject = GameObject.Find("GameObjectToTestFor");
        dDAUnderTest = gameObject.GetComponent<DynamicDifficultyAdjustment>();
+       dDAUnderTest.underTest = true;
        dDAWordSetterUnderTest = gameObject.GetComponent<DDAWordSetter>();
     }
 

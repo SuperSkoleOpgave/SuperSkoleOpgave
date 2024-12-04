@@ -15,6 +15,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     List<LanguageUnit> letters;
     List<LanguageUnitPropertyInfo> properties;
 
+    public bool underTest = false;
+
     List<LanguageUnitProperty> averagedProperties = new List<LanguageUnitProperty>()
     {
         LanguageUnitProperty.vowel,
@@ -608,8 +610,8 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
             levelLocks = new Dictionary<LanguageUnitProperty, int>();
         }
         levelLocks.Add(LanguageUnitProperty.consonant, 1);
-        levelLocks.Add(LanguageUnitProperty.letter, 2);
-        levelLocks.Add(LanguageUnitProperty.word, 3);
+        /*levelLocks.Add(LanguageUnitProperty.letter, 2);
+        levelLocks.Add(LanguageUnitProperty.word, 3);*/
         levelLocks.Add(LanguageUnitProperty.vowelConfuse, 3);
         levelLocks.Add(LanguageUnitProperty.softD, 3);
         levelLocks.Add(LanguageUnitProperty.doubleConsonant, 3);
@@ -621,6 +623,15 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
         return words.Select(p => p.identifier).ToList();
     }
 
+    /// <summary>
+    /// Gets the playerLanguageLevel
+    /// </summary>
+    /// <returns>the player languagelevel</returns>
+    public int GetPlayerLevel()
+    {
+        return playerLanguageLevel;
+    }
+
     #region unitTesting
     /// <summary>
     /// Adds languageUnits to the words list. The method is intended for testing purpouses and should not be used in completed code
@@ -628,6 +639,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="languageUnit">the languageUnit to be added</param>
     public void AddWord(LanguageUnit languageUnit)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method AddWord(LanguageUnit languageUnit) is for testing purposes only");
+        }
         if(words == null)
         {
             words = new List<LanguageUnit>();
@@ -662,6 +677,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     public List<LanguageUnitProperty> GetLetterProperty(char letter)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method GetLetterProperty(char letter) is for testing purposes only");
+        }
         return new List<LanguageUnitProperty>()
         {
             letterProperties[letter]
@@ -670,6 +689,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     public List<LanguageUnitProperty> GetWordProperties(string word)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method GetWordProperties(string word) is for testing purposes only");
+        }
         List<LanguageUnitProperty> properties = new List<LanguageUnitProperty>();
         foreach(char letter in word)
         {
@@ -687,6 +710,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>the list of properties</returns>
     public List<LanguageUnitPropertyInfo> GetProperties()
     {
+        if(!underTest)
+        {
+            throw new Exception("The method GetProperties() is for testing purposes only");
+        }
         return properties;
     }
 
@@ -696,6 +723,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="languageUnit">the languageUnit to be added</param>
     public void AddLetter(LanguageUnit languageUnit)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method AddLetter(LanguageUnit languageUnit) is for testing purposes only");
+        }
         if(letters == null)
         {
             letters = new List<LanguageUnit>();
@@ -734,6 +765,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
 
     public void AddProperty(LanguageUnitPropertyInfo property)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method AddProperty(LanguageUnitPropertyInfo property) is for testing purposes only");
+        }
         if(properties == null)
         {
             properties = new List<LanguageUnitPropertyInfo>();
@@ -747,6 +782,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>the list of words</returns>
     public List<LanguageUnit> GetWordList()
     {
+        if(!underTest)
+        {
+            throw new Exception("The method GetWordList() is for testing purposes only");
+        }
         return words;
     }
 
@@ -756,19 +795,16 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <returns>the list of letters</returns>
     public List<LanguageUnit> GetLetterList()
     {
+        if(!underTest)
+        {
+            throw new Exception("The method GetLetterList() is for testing purposes only");
+        }
         return letters;
     }
 
     
 
-    /// <summary>
-    /// Gets the playerLanguageLevel(For testing purpouses)
-    /// </summary>
-    /// <returns>the player languagelevel</returns>
-    public int GetPlayerLevel()
-    {
-        return playerLanguageLevel;
-    }
+    
 
     /// <summary>
     /// Sets the playerLanguageLevel(For testing purpouses)
@@ -776,6 +812,10 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
     /// <param name="level">the new value of playerLanguagageLevel</param>
     public void SetPlayerLevel(int level)
     {
+        if(!underTest)
+        {
+            throw new Exception("The method SetPlayerLevel(int level) is for testing purposes only");
+        }
         playerLanguageLevel = level;
     }
     #endregion
