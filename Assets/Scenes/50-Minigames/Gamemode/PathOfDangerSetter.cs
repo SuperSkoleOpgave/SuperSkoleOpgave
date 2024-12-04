@@ -4,7 +4,9 @@ using CORE;
 using CORE.Scripts;
 using CORE.Scripts.Game_Rules;
 using Letters;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Scenes._50_Minigames.Gamemode
 {
@@ -12,27 +14,18 @@ namespace Scenes._50_Minigames.Gamemode
     {
         public List<IGenericGameMode> gamemodes = new List<IGenericGameMode>()
         {
-            null,
-            null,
-            null,
             new Level4_POD(),
             new Level5_POD()
         };
 
         public List<IGenericGameMode> letterGameModes = new List<IGenericGameMode>()
         {
-            null,
-            null,
-            null,
             new Level4_POD(),
             new Level5_POD()
         };
 
         public List<IGenericGameMode> wordGameModes = new List<IGenericGameMode>()
         {
-            null,
-            null,
-            null,
             new Level4_POD_Words(),
             new Level5_POD_Words()
         };
@@ -49,73 +42,23 @@ namespace Scenes._50_Minigames.Gamemode
 
         public (IGameRules, IGenericGameMode) DetermineGamemodeAndGameRulesToUse(int level)
         {
-            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
-
-            //GameManager.Instance.PerformanceWeightManager.SetEntityWeight("ko", 60);
             
-            //ILanguageUnit languageUnit = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(1)[0];
-            IGenericGameMode mode = null ;
-            /*
-            switch (languageUnit.LanguageUnitType)
+            IGenericGameMode mode = null;
+            List<LanguageUnitProperty> priorities = GameManager.Instance.dynamicDifficultyAdjustment.GetPlayerPriority();
+            for(int i = 0; i < priorities.Count; i++)
             {
-                case LanguageUnit.Letter:
-                    mode = letterGameModes[Random.Range(3, 5)];
-                   
+                Debug.Log(priorities[i]);
+                if(priorities[i] == LanguageUnitProperty.letter)
+                {
+                    mode = letterGameModes[Random.Range(0, priorities.Count)];
                     break;
-                case LanguageUnit.Word:
-                    mode = wordGameModes[3];
-                   
+                }
+                if(priorities[i] == LanguageUnitProperty.word)
+                {
+                    mode = wordGameModes[Random.Range(0, priorities.Count)];
                     break;
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
-            /*
-            if (languageUnits[0].LanguageUnitType == LanguageUnit.Letter)
-            {
-                LetterData letterData = (LetterData)languageUnits[0];
-                if (GameManager.Instance.PlayerData.PlayerLanguageLevel < 2 && (letterData.Category == LetterCategory.Consonant || letterData.Category == LetterCategory.Vowel))
-                {
-                    List<ILanguageUnit> letters = new List<ILanguageUnit>();
-                    foreach (var item in languageUnits)
-                    {
-                        if (item.LanguageUnitType == LanguageUnit.Letter)
-                        {
-                            if (letterData.Category == LetterCategory.Consonant || letterData.Category == LetterCategory.Vowel)
-                            {
-                                letters.Add(item);
-                            }
-                        }
-                    }
-
-                    if (letters.Count < 3)
-                    {
-                        return (null, null);
-                    }
-
-
                 }
             }
-            else
-            {
-                List<ILanguageUnit> words = new List<ILanguageUnit>();
-                foreach (var item in languageUnits)
-                {
-                    if (item.LanguageUnitType == LanguageUnit.Word)
-                    {
-
-                        words.Add(item);
-
-                    }
-                }
-
-                if (words.Count < 3)
-                {
-                    return (null, null);
-                }
-
-
-            }
-            */
             return (null, mode);
         }
 
