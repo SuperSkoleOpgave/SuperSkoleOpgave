@@ -68,18 +68,30 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField]
     private Scrollbar timerBar;
     [SerializeField]
-    private float maxTime = 120;
+    private float maxTime = 480;
 
     private float remainingTime;
 
     [SerializeField]
     private int cloudCount = 0;
 
+    [SerializeField]
+    private Image targetCanvas;  
+    private Color green = Color.green; 
+    private Color white = Color.white;  
+    private float blinkDuration = 3f;    
+    private float blinkInterval = 0.3f;
+
+    private bool isBlinking = false;
+
+    [SerializeField] private AudioClip wrongBuzz, correctBuzz, backgroundAmbience;
+
 
     void Start()
     {
         letterText = letterBoxText.GetComponent<TextMeshProUGUI>();
         CloudHitsWall();
+        AudioManager.Instance.PlaySound(backgroundAmbience, SoundType.Music, true);
     }
 
     
@@ -197,7 +209,12 @@ public class PlaneGameManager : MonoBehaviour
             letterNumber = gameController.currentWordNumber;
             currentLetter = gameController.CurrentLetter();
             currentImage.DisplayImage();
-            preMessage = "";
+
+            if (!isBlinking)
+            {
+                StartCoroutine(Blink());
+            }
+            
             skySpeed.speed += 3;
             backgroundClouds.CreateCloud();
 
@@ -220,6 +237,7 @@ public class PlaneGameManager : MonoBehaviour
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = wrongMat;
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(currentWord, false);
+        AudioManager.Instance.PlaySound(wrongBuzz, SoundType.SFX);
     }
 
     /// <summary>
@@ -263,6 +281,34 @@ public class PlaneGameManager : MonoBehaviour
             backgroundClouds.CreateCloud(); 
             cloudCount += 1;
         }
+    }
+
+    /// <summary>
+    /// makes the canvas blink when you do a correct word.
+    /// </summary>
+    /// <returns>delay while the win blink</returns>
+    private IEnumerator Blink()
+    {
+        isBlinking = true;
+        float elapsedTime = 0f;
+
+        AudioManager.Instance.PlaySound(correctBuzz, SoundType.SFX);
+
+        while (elapsedTime < blinkDuration)
+        {
+            targetCanvas.color = green; 
+            yield return new WaitForSeconds(blinkInterval);
+
+            targetCanvas.color = white; 
+            yield return new WaitForSeconds(blinkInterval);
+
+            elapsedTime += blinkInterval * 2; // Tæl tiden
+        }
+
+        targetCanvas.color = white;
+        preMessage = "";
+        letterText.text = $"Score: {preMessage}";
+        isBlinking = false;
     }
 
 
