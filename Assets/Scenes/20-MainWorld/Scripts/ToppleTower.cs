@@ -30,7 +30,7 @@ public class ToppleTower : MonoBehaviour
         destinationRotation = destinationTransform.localEulerAngles.x;
         initialDistance = Vector3.Distance(transform.localPosition, destination);
         initialRotation = transform.localEulerAngles.x;
-        if(!toppled && GameManager.Instance.dynamicDifficultyAdjustment != null && GameManager.Instance.dynamicDifficultyAdjustment.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
+        if(!topplingTower && !toppled && GameManager.Instance.dynamicDifficultyAdjustment != null && GameManager.Instance.dynamicDifficultyAdjustment.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
         {
             toppled = true;
         }
@@ -58,6 +58,7 @@ public class ToppleTower : MonoBehaviour
         if(transform.localPosition == destination)
         {
             topplingTower = false;
+            toppled = true;
             foreach(GameObject border in bordersToBeRemoved)
             {
                 border.SetActive(false);
