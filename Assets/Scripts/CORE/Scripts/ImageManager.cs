@@ -95,6 +95,36 @@ namespace CORE.Scripts
         }
 
 
+        /// <summary>
+        /// Get an image from the letterImageDictionary that can be an food ingredient
+        /// </summary>
+        /// <param name="inputLetter"></param>
+        /// <returns></returns>
+        public static Texture2D GetIngredientImageFromLetter(string inputLetter)
+        {
+
+            string letterToGet = inputLetter;
+
+            letterToGet.Replace("(aa)", "\u00e5");
+            letterToGet.Replace("(ae)", "\u00e6");
+            letterToGet.Replace("(oe)", "\u00f8");
+
+            if (!letterImageDictionary.TryGetValue(letterToGet.ToLower(), out List<Texture2D> data))
+                data = null;
+            Texture2D image;
+            if (data == null)
+                Debug.LogError($"Error getting image for the word: {letterToGet}");
+            if (data.Count > 1)
+                image = data[UnityEngine.Random.Range(0, data.Count)];
+            else
+                image = data[0];
+
+
+
+            return image;
+        }
+
+
         public static string GetRandomFirstLetterFromImageDic()
         {
             string returnedLetter="";
