@@ -141,6 +141,10 @@ public class PlaneGameManager : MonoBehaviour
         resetLoop = false;
     }
 
+
+    /// <summary>
+    /// If cloud connects with the wall it will create other clouds and if theres less than 8 cloud it will make more.
+    /// </summary>
     public void CloudHitsWall()
     {
         backgroundClouds.CreateCloud();
