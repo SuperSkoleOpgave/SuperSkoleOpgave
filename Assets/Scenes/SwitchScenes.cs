@@ -16,6 +16,8 @@ namespace Scenes
             if(inEditor) SceneLoader.Instance.LoadScene(SceneNames.MainTwo);
             else SceneLoader.Instance.LoadScene(SceneNames.Main);
         }
+
+        public static void SwitchToMainWorld2() => SceneLoader.Instance.LoadScene(SceneNames.MainTwo);
         public static void SwitchToPlayerHouseScene() => SceneLoader.Instance.LoadScene(SceneNames.House);
         public static void SwitchToWordFactoryLoadingScene() => SceneLoader.Instance.LoadScene(SceneNames.FactoryLoading);
         public static void SwitchToArcadeAsteroidScene() => SceneManager.LoadScene(SceneNames.ArcadeAsteroid);

@@ -269,6 +269,10 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips
         /// </summary>
          IEnumerator GoToWinScreen()
         { 
+            if(GameManager.Instance.dynamicDifficultyAdjustment.IsLanguageUnitTypeUnlocked(LanguageUnitProperty.word))
+            {
+                ToppleTower.topplingTower = true;
+            }
             yield return new WaitForSeconds(4);
 
             // saving the game so the fact that there are no lanes left is saved .
