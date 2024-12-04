@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 {
+    private string letterToDisplay;
 
     /// <summary>
     /// Checks if the added letters is the current letter to guess and returns a true or false. 
@@ -54,7 +55,13 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
         {
             for (int x = 0; x < numRows; x++)
             {
-                string letterToDisplay= manager.lettersForCurrentRound[x, y].ToString();
+                letterToDisplay= manager.lettersForCurrentRound[x, y].ToString();
+
+                while(letterToDisplay.ToLower()=="q" ||letterToDisplay.ToLower()=="x" || letterToDisplay=="w")
+                {
+                    letterToDisplay = LetterManager.GetRandomLetter().ToString();
+                }
+                manager.lettersForCurrentRound[x, y] = letterToDisplay[0];
 
                 manager.textOnIngredientHolder.text = letterToDisplay;
 

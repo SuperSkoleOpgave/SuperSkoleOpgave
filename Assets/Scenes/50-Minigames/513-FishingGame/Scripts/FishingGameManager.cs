@@ -25,6 +25,9 @@ public class FishingGameManager : MonoBehaviour
     [SerializeField] List<GameObject> fishInSea = new List<GameObject>();
 
     private int amountOfFishCaught;
+
+    [SerializeField] TextMeshProUGUI fishCaughtScoreUI;
+    [SerializeField] GameObject wrongAnswerUIText;
     
 
     private List<string> wordsOnFish = new List<string>();
@@ -53,6 +56,10 @@ public class FishingGameManager : MonoBehaviour
             // Debug.Log("Correct answer");
             wordToCheck = text;
             usefishingRod.validWordInputted = true;
+        }
+        else
+        {
+           StartCoroutine(ShowWrongAnswerUIText());
         }
 
     }
@@ -100,6 +107,7 @@ public class FishingGameManager : MonoBehaviour
     {
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToCheck, true);
         amountOfFishCaught++;
+        fishCaughtScoreUI.text = "Fisk Fanget:" + amountOfFishCaught;
         if (fishInSea.Count > 0)
         {
             Destroy(fishCaught);
@@ -116,6 +124,14 @@ public class FishingGameManager : MonoBehaviour
 
 
 
+    }
+
+
+    private IEnumerator ShowWrongAnswerUIText()
+    {
+        wrongAnswerUIText.SetActive(true);
+        yield return new WaitForSeconds(4);
+        wrongAnswerUIText.SetActive(false);
     }
     
 }

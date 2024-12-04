@@ -187,7 +187,7 @@ public void CorrectIngredientAdded()
     void SetupIngredientWords()
     {
      
-        ingredientWords.Add("a", new List<string>() { "agurk", "abe", " albue", "and", "ananas", "avokado" });
+        ingredientWords.Add("a", new List<string>() { "agurk", "abe", "albue", "and", "ananas", "avokado" });
         ingredientWords.Add("b", new List<string>() { "baby", "banan", "ben", "bi", "bjørn", "bønner", });
         ingredientWords.Add("c", new List<string>() { "cola", "chili", "chokolade", "cowboy", });
         ingredientWords.Add("d", new List<string>() { "delfin", "dino", "donuts", "drage", "drink", });
