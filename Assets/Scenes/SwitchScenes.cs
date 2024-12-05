@@ -11,7 +11,7 @@ namespace Scenes
         {
             bool inEditor = false;
 #if UNITY_EDITOR
-            inEditor = true;
+            inEditor = false;
 #endif
             if(inEditor) SceneLoader.Instance.LoadScene(SceneNames.MainTwo);
             else SceneLoader.Instance.LoadScene(SceneNames.Main);

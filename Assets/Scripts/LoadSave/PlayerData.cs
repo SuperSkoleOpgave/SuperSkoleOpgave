@@ -248,7 +248,7 @@ namespace LoadSave
             LastInteractionPoint = position;
         }
         
-        public string ReturnActiveCarName() { /*GameObject.FindGameObjectWithTag("Car").name*/ Debug.Log("Requsting Car name"); return "";}
+        public string ReturnActiveCarName() {return GameObject.FindGameObjectWithTag("Car").name;}
     }
 }
 

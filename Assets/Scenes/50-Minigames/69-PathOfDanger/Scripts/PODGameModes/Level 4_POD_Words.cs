@@ -39,26 +39,14 @@ public class Level4_POD_Words : IPODGameMode
     public void SetWrongAnswer(PathOfDangerManager manager, string correctAnswer)
     {
 
-        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
 
-        List<ILanguageUnit> words = new List<ILanguageUnit>();
-        /*
-        foreach (var item in languageUnits)
-        {
-            if (item.LanguageUnitType == LanguageUnit.Word)
-            {
-                words.Add(item);
-            }
-        }
-        */
-        Debug.LogError("code removed as it was using old DDA");
-
-        var rndLetterWithKey = words[Random.Range(0,words.Count)].Identifier;
+        var rndLetterWithKey = words[Random.Range(0,words.Count)].identifier;
 
 
         while (rndLetterWithKey == correctAnswer)
         {
-            rndLetterWithKey = words[Random.Range(0, words.Count)].Identifier;
+            rndLetterWithKey = words[Random.Range(0, words.Count)].identifier;
         }
 
         manager.textOnPlatform.text = rndLetterWithKey.ToString();
@@ -92,32 +80,20 @@ public class Level4_POD_Words : IPODGameMode
     /// <returns>Returns a set of answers strings to be used by the PathOfDangerManager</returns>
     public string[] GenerateAnswers(int count)
     {
-        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-        List<ILanguageUnit> words = new List<ILanguageUnit>();
-        /*
-        foreach (var item in languageUnits)
-        {
-            if (item.LanguageUnitType == LanguageUnit.Word)
-            {
-                words.Add(item);
-            }
-        }
-        */
-        Debug.LogError("code removed as it was using old DDA");
-
+        List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)
         {
 
             //Code to make sure that the previous answer is not getting repeated imediatly after. 
 
-            returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+            returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
             while (returnedString[i]==previousRetrievedAnswer)
             {
           
-                    returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                    returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
             }
 
