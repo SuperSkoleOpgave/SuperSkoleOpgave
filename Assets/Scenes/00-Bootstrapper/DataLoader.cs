@@ -6,6 +6,7 @@ using Analytics;
 using CORE.Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Rendering;
 using Words;
 
 namespace Scenes._00_Bootstrapper
@@ -21,6 +22,7 @@ namespace Scenes._00_Bootstrapper
         public List<Texture2D> images = new();
         public List<Texture2D> soundCorrectImages = new();
         public List<Texture2D> onsetImages = new();
+        public List<Texture2D> otherImages = new();
         public List<AudioClip> letterSounds = new();
         public List<AudioClip> danskCongrats = new();
         public List<AudioClip> englishCongrats = new();
@@ -169,6 +171,13 @@ namespace Scenes._00_Bootstrapper
             {
                 StartCoroutine(LoadAndSetDic(fileName));
             }
+
+            foreach (Texture2D filename in otherImages)
+            {
+                StartCoroutine(LoadAndSetDicOnOther(filename));
+            }
+
+
             yield return null;
         }
 
@@ -201,6 +210,22 @@ namespace Scenes._00_Bootstrapper
             WordsForImagesManager.AddNameToSet(name);
             yield return null;
         }
+        
+        private IEnumerator LoadAndSetDicOnOther(Texture2D texture)
+        {
+            string name = texture.name;
+
+
+            name = GetName(name);
+            string firstLetterName = name[0].ToString();
+
+            ImageManager.AddImageToSet(name, texture);
+            ImageManager.AddImageToLetterSet(firstLetterName, texture);
+            WordsForImagesManager.AddNameToSet(name);
+            yield return null;
+        }
+     
+
 
         private IEnumerator LoadAndSetDicSoundCorrect(Texture2D texture)
         {

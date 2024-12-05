@@ -95,6 +95,9 @@ namespace CORE.Scripts
         }
 
 
+      
+
+
         public static string GetRandomFirstLetterFromImageDic()
         {
             string returnedLetter="";
