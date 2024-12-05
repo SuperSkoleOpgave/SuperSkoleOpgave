@@ -31,7 +31,6 @@ TagManager:
   - ConveyerBelt
   - WordShelf
   - DDAWordSetter
-  - World2CarSetter
   layers:
   - Default
   - TransparentFX

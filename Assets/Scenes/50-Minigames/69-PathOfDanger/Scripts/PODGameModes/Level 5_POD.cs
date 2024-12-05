@@ -68,13 +68,34 @@ public class Level5_POD : IPODGameMode
     /// <returns>Returns a set of answers strings to be used by the PathOfDangerManager</returns>
     public string[] GenerateAnswers(int count)
     {
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-        List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 15);
+        List<ILanguageUnit> letters = new List<ILanguageUnit>();
+        /*
+        LetterData modeLetterType = (LetterData)languageUnits[0];
+
+        foreach (var item in languageUnits)
+        {
+            if (item.LanguageUnitType == LanguageUnit.Letter)
+            {
+                LetterData letterData = (LetterData)item;
+                if (GameManager.Instance.PlayerData.PlayerLanguageLevel >= 2)
+                {
+                    letters.Add(item);
+                }
+                else if (letterData.Category == modeLetterType.Category)
+                {
+                    letters.Add(item);
+                }
+            }
+        }
+        */
+        Debug.LogError("code removed as it was using old DDA");
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)
         {
 
-            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
 
             bool checkIfAvailable = true;
 
@@ -83,27 +104,27 @@ public class Level5_POD : IPODGameMode
                 switch (returnedString[i].ToLower())
                 {
                     case "y":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "z":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "w":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "c":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "q":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "x":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     default:
@@ -121,27 +142,27 @@ public class Level5_POD : IPODGameMode
                 switch (returnedString[i].ToLower())
                 {
                     case "y":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "z":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "w":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "c":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "q":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     case "x":
-                        returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                        returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                         break;
 
                     default:
@@ -160,7 +181,7 @@ public class Level5_POD : IPODGameMode
                
 
 
-                returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
 
                 checkIfAvailable = true;
 
@@ -169,27 +190,27 @@ public class Level5_POD : IPODGameMode
                     switch (returnedString[i].ToLower())
                     {
                         case "y":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "z":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "w":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "c":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "q":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "x":
-                            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         default:

@@ -20,8 +20,6 @@ public class SetUpPlayerCar : MonoBehaviour
     [SerializeField] private GameObject carFuelMeterUI;
     [SerializeField] private GameObject carSpeedTextUI;
 
-    [SerializeField] private Transform defaultSpawnPoint;
-
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +27,6 @@ public class SetUpPlayerCar : MonoBehaviour
         playerData = PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerData>();
         populateDics();
         CarSpawnPos = playerData.CarPos;
-        if(gameObject.CompareTag("World2CarSetter") && defaultSpawnPoint != null)
-        {
-            CarSpawnPos = defaultSpawnPoint.position;
-        }
         foreach (var item in playerData.ListOfCars)
         {
             if (item.IsActive)

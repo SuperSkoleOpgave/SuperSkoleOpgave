@@ -104,8 +104,19 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
             string sentence;
             string[] answers = new string[count];
 
+            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 15);
+            List<ILanguageUnit> letters = new List<ILanguageUnit>();
+            /*
+            foreach (var item in languageUnits)
+            {
+                if (item.LanguageUnitType == LanguageUnit.Letter)
+                {
+                    letters.Add(item);
+                }
+            }
+            */
+            Debug.LogError("code removed as it was using old DDA");
 
             for (int i = 0; i < count; i++)
             {
@@ -115,8 +126,8 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
               
 
-                string first= letters[Random.Range(0, letters.Count)].identifier;
-                string second= letters[Random.Range(0, letters.Count)].identifier;
+                string first= letters[Random.Range(0, letters.Count)].Identifier;
+                string second= letters[Random.Range(0, letters.Count)].Identifier;
 
 
                 bool checkIfAvailable = true;
@@ -126,27 +137,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     switch (first.ToLower())
                     {
                         case "y":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "z":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "w":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "c":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "q":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "x":
-                            first = letters[Random.Range(0, letters.Count)].identifier;
+                            first = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         default:
@@ -163,27 +174,27 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                     switch (second.ToLower())
                     {
                         case "y":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "z":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "w":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "c":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "q":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         case "x":
-                            second = letters[Random.Range(0, letters.Count)].identifier;
+                            second = letters[Random.Range(0, letters.Count)].Identifier;
                             break;
 
                         default:

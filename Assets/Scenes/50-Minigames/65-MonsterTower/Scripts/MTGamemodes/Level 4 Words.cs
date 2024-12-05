@@ -35,15 +35,26 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
         /// <param name="manager">a reference back to the tower manager so it can modify the tower manager</param>
         public void SetWrongAnswer(TowerManager manager,string correctAnswer)
         {
+            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
+            List<ILanguageUnit> words = new List<ILanguageUnit>();
+            /*
+            foreach (var item in languageUnits)
+            {
+                if (item.LanguageUnitType == LanguageUnit.Word)
+                {
+                    words.Add(item);
+                }
+            }
+            */
+            Debug.LogError("code removed as it was using old DDA");
 
-            var rndWordWithKey = words[Random.Range(0, words.Count)].identifier;
+            var rndWordWithKey = words[Random.Range(0, words.Count)].Identifier;
 
 
             while (rndWordWithKey == correctAnswer)
             {
-                rndWordWithKey = words[Random.Range(0, words.Count)].identifier;
+                rndWordWithKey = words[Random.Range(0, words.Count)].Identifier;
             }
 
             manager.textOnBrick.text = rndWordWithKey.ToString();
@@ -78,19 +89,30 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
             string[] returnedString = new string[count];
 
+            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
+            List<ILanguageUnit> words = new List<ILanguageUnit>();
+            /*
+            foreach (var item in languageUnits)
+            {
+                if (item.LanguageUnitType == LanguageUnit.Word)
+                {
+                    words.Add(item);
+                }
+            }
+            */
+            Debug.LogError("code removed as it was using old DDA");
             for (int i = 0; i < count; i++)
             {
 
                 //Code to make sure that the previous answer is not getting repeated imediatly after. 
 
-                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
+                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
 
                 while (returnedString[i] == previousRetrievedAnswer)
                 {
 
-                    returnedString[i] = words[Random.Range(0,words.Count)].identifier;
+                    returnedString[i] = words[Random.Range(0,words.Count)].Identifier;
                 }
 
                 previousRetrievedAnswer = returnedString[i];
@@ -109,7 +131,7 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
 
             manager.textOnBrick = manager.textHolderPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-            manager.descriptionText.text = "Tryk p\u00e5 ammunition for at lade. \nTryk pï¿½ den grï¿½nne knap for at hï¿½re et forbogstav og skyd det ord som har forbogstavet";
+            manager.descriptionText.text = "Tryk p\u00e5 ammunition for at lade. \nTryk på den grønne knap for at høre et forbogstav og skyd det ord som har forbogstavet";
         }
     }
 

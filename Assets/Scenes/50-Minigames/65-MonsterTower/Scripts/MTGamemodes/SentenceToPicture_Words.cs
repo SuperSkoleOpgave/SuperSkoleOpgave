@@ -108,10 +108,21 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
                 //update the range if more options are needed for the binding word of the sentence generator, the range should be (0, x) where x is the number of cases
                 int rnd = Random.Range(0, 2);
 
-                List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
+                //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-                string first= words[Random.Range(0, words.Count)].identifier;
-                string second= words[Random.Range(0, words.Count)].identifier;
+                List<ILanguageUnit> words = new List<ILanguageUnit>();
+                /*
+                foreach (var item in languageUnits)
+                {
+                    if (item.LanguageUnitType == LanguageUnit.Word)
+                    {
+                        words.Add(item);
+                    }
+                }
+                */
+                Debug.LogError("code removed as it was using old DDA");
+                string first= words[Random.Range(0, words.Count)].Identifier;
+                string second= words[Random.Range(0, words.Count)].Identifier;
 
 
                 switch (rnd)

@@ -80,19 +80,44 @@ public class Level4_POD : IPODGameMode
     /// <returns>Returns a set of answers strings to be used by the PathOfDangerManager</returns>
     public string[] GenerateAnswers(int count)
     {
-        List<LanguageUnit> letters = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 15);
+
+
+        //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
+        
+
+        List<ILanguageUnit> letters=new List<ILanguageUnit>();
+        /*
+        LetterData modeLetterType = (LetterData)languageUnits[0];
+
+        foreach (var item in languageUnits)
+        {
+            if (item.LanguageUnitType == LanguageUnit.Letter)
+            {
+                LetterData letterData = (LetterData)item;
+                if (GameManager.Instance.PlayerData.PlayerLanguageLevel >= 2)
+                {
+                    letters.Add(item);
+                }
+                else if (letterData.Category == modeLetterType.Category)
+                {
+                    letters.Add(item);
+                }
+            }
+        }
+        */
+        Debug.LogError("code removed as it was using old DDA");
         string[] returnedString = new string[count];
         for (int i = 0; i < count; i++)
         {
 
             //Code to make sure that the previous answer is not getting repeated imediatly after. 
 
-            returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+            returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
 
             while (returnedString[i]==previousRetrievedAnswer)
             {
           
-                    returnedString[i] = letters[Random.Range(0, letters.Count)].identifier;
+                    returnedString[i] = letters[Random.Range(0, letters.Count)].Identifier;
 
             }
 
@@ -114,6 +139,6 @@ public class Level4_POD : IPODGameMode
 
         manager.textOnPlatform = manager.textHolderPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        manager.descriptionText.text = " Tryk pï¿½ MellemRum knappen for at hoppe. Tryk pï¿½ F for at hï¿½re et bogstav. Hop pï¿½ det rigtige bogstav";
+        manager.descriptionText.text = " Tryk på MellemRum knappen for at hoppe. Tryk på F for at høre et bogstav. Hop på det rigtige bogstav";
     }
 }

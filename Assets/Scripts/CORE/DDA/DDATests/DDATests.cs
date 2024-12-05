@@ -22,7 +22,6 @@ public class DDATests
        EditorSceneManager.OpenScene("Assets/Scripts/CORE/DDA/DDATests/DDATestScene.unity");
        var gameObject = GameObject.Find("GameObjectToTestFor");
        dDAUnderTest = gameObject.GetComponent<DynamicDifficultyAdjustment>();
-       dDAUnderTest.underTest = true;
        dDAWordSetterUnderTest = gameObject.GetComponent<DDAWordSetter>();
     }
 
@@ -76,7 +75,7 @@ public class DDATests
         languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddWord(languageUnitUnderTest);
 
-        Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetWordList());
+        Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetWords());
 
     }
 
@@ -90,7 +89,7 @@ public class DDATests
         languageUnitUnderTest.properties.Add(CreateProperties(1)[0].property);
         dDAUnderTest.AddLetter(languageUnitUnderTest);
 
-        Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetLetterList());
+        Assert.Contains(languageUnitUnderTest, dDAUnderTest.GetLetters());
     }
 
     /// <summary>
@@ -1315,8 +1314,8 @@ public class DDATests
         languageUnits[1].properties = dDAUnderTest.GetWordProperties(letter.ToString());
         dDAUnderTest.AddLetter(languageUnits[0]);
         dDAUnderTest.AddWord(languageUnits[1]);
-        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetLetterList()[0].properties[0]));
-        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetWordList()[0].properties[0])); 
+        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetLetters()[0].properties[0]));
+        Assert.AreEqual(true, VerifyLetter(letter, dDAUnderTest.GetWords()[0].properties[0])); 
     }
     
     /// <summary>
@@ -1545,7 +1544,7 @@ public class DDATests
         List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
         languageUnitUnderTest[0].identifier = "a";
         dDAUnderTest.SetupLanguageUnits(languageUnitUnderTest, new List<LanguageUnit>());
-        Assert.AreEqual(1, dDAUnderTest.GetLetterList().Count);
+        Assert.AreEqual(1, dDAUnderTest.GetLetters().Count);
     }
 
     /// <summary>
@@ -1557,7 +1556,7 @@ public class DDATests
         List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
         languageUnitUnderTest[0].identifier = "a";
         dDAUnderTest.SetupLanguageUnits(new List<LanguageUnit>(), languageUnitUnderTest);
-        Assert.AreEqual(1, dDAUnderTest.GetWordList().Count);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
     }
 
     /// <summary>
@@ -1569,7 +1568,7 @@ public class DDATests
         List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
         languageUnitUnderTest[0].identifier = "a";
         dDAUnderTest.SetupLanguageUnits(languageUnitUnderTest, new List<LanguageUnit>());
-        Assert.AreEqual(LanguageUnitProperty.letterA, dDAUnderTest.GetLetterList()[0].properties[0]);
+        Assert.AreEqual(LanguageUnitProperty.letterA, dDAUnderTest.GetLetters()[0].properties[0]);
     }
 
     /// <summary>
@@ -1583,7 +1582,7 @@ public class DDATests
         dDAUnderTest.SetupLanguageUnits(new List<LanguageUnit>(), languageUnitUnderTest);
         foreach(char letter in languageUnitUnderTest[0].identifier)
         {
-            Assert.AreEqual(true, dDAUnderTest.GetWordList()[0].properties.Contains(dDAUnderTest.GetWordLetterProperty(letter)));
+            Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(dDAUnderTest.GetWordLetterProperty(letter)));
         }
         
     }
@@ -1648,7 +1647,7 @@ public class DDATests
         letter.identifier = "a";
         dDAWordSetterUnderTest.AddLetter(letter);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(1, dDAUnderTest.GetLetterList().Count);
+        Assert.AreEqual(1, dDAUnderTest.GetLetters().Count);
     }
 
     /// <summary>
@@ -1660,7 +1659,7 @@ public class DDATests
         string word = "test";
         AddWordToDDaWordSetter(word, false, false, false, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(1, dDAUnderTest.GetWordList().Count);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
     }
 
     /// <summary>
@@ -1671,7 +1670,7 @@ public class DDATests
     {
         AddWordToDDaWordSetter("test", true, false, false, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(true, dDAUnderTest.GetWordList()[0].properties.Contains(LanguageUnitProperty.vowelConfuse));
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.vowelConfuse));
     }
 
     /// <summary>
@@ -1682,7 +1681,7 @@ public class DDATests
     {
         AddWordToDDaWordSetter("test", false, false, true, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(true, dDAUnderTest.GetWordList()[0].properties.Contains(LanguageUnitProperty.softD));
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.softD));
     }
 
     /// <summary>
@@ -1693,7 +1692,7 @@ public class DDATests
     {
         AddWordToDDaWordSetter("test", false, true, false, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(true, dDAUnderTest.GetWordList()[0].properties.Contains(LanguageUnitProperty.doubleConsonant));
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.doubleConsonant));
     }
 
     /// <summary>
@@ -1704,7 +1703,7 @@ public class DDATests
     {
         AddWordToDDaWordSetter("test", false, false, false, true);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(true, dDAUnderTest.GetWordList()[0].properties.Contains(LanguageUnitProperty.silentConsonant));
+        Assert.AreEqual(true, dDAUnderTest.GetWords()[0].properties.Contains(LanguageUnitProperty.silentConsonant));
     }
 
     /// <summary>
@@ -1715,7 +1714,7 @@ public class DDATests
     {
         AddWordToDDaWordSetter("test 1", false, false, false, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual("test", dDAUnderTest.GetWordList()[0].identifier);
+        Assert.AreEqual("test", dDAUnderTest.GetWords()[0].identifier);
     }
 
     /// <summary>
@@ -1727,7 +1726,7 @@ public class DDATests
         AddWordToDDaWordSetter("test 1", false, false, false, false);
         AddWordToDDaWordSetter("test 2", false, false, false, false);
         dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
-        Assert.AreEqual(1, dDAUnderTest.GetWordList().Count);
+        Assert.AreEqual(1, dDAUnderTest.GetWords().Count);
     }
 
     /// <summary>
