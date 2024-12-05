@@ -32,7 +32,7 @@ public class PizzaRestaurantManager : MonoBehaviour
     public CheckPizzaIngredient ingredientChecker;
 
     [SerializeField] Texture defaultImage;
-    string testWord = "abe";
+   
 
     public char[,] lettersForCurrentRound = new char[3,4];
 
@@ -49,7 +49,6 @@ public class PizzaRestaurantManager : MonoBehaviour
     public  float LETTER_SPACING_Y = -15f;
 
     public IPizzaGameMode gameMode;
-    private IPizzaGameMode[] gameModes = new IPizzaGameMode[] { new WritingLevel_Pizza() };
     private int numRows;
     private int numCols;
 
@@ -62,12 +61,7 @@ public class PizzaRestaurantManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-       
-
         SetupIngredientWords();
-
-        //gameMode = gameModes[UnityEngine.Random.Range(0, gameModes.Length)];
 
         gameMode = new ReadingLevel_Pizza();
         ingredientChecker.manager = this;
@@ -112,6 +106,9 @@ public void CorrectIngredientAdded()
     }
 }
 
+    /// <summary>
+    /// Used to switch the gamemode between reading and writing. 
+    /// </summary>
     public void SwitchGameMode()
     {
         spawnedIngredients.ForEach(Destroy);
@@ -183,7 +180,9 @@ public void CorrectIngredientAdded()
         }
     }
 
-
+    /// <summary>
+    /// Setup of all the words that can be used to get a background image for the ingredients/Letters
+    /// </summary>
     void SetupIngredientWords()
     {
      

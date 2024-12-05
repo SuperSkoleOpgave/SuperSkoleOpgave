@@ -33,8 +33,10 @@ public class FishingGameManager : MonoBehaviour
     private List<string> wordsOnFish = new List<string>();
     void Start()
     {
+        //Setting up the textinputfield with different methods. 
         wordInput.onEndEdit.AddListener(OnEndEditing);
         
+        // makes sure that when the text input field is selected the character can't move. 
         wordInput.onSelect.AddListener((string text) => { playerMovement.inputFieldSelected = true; });
 
         wordInput.onDeselect.AddListener((string text) => { playerMovement.inputFieldSelected = false; });
@@ -48,7 +50,12 @@ public class FishingGameManager : MonoBehaviour
     {
         
     }
-
+    
+    /// <summary>
+    /// Method used when the player is done inputting a word
+    /// So when enter is pressed or going out of the text input field. 
+    /// </summary>
+    /// <param name="text"></param>
     void OnEndEditing(string text)
     {
         if (wordsOnFish.Contains(text))
@@ -64,6 +71,9 @@ public class FishingGameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Instatiates a certain amount of new fish on random places in the water. 
+    /// </summary>
    void SetupNewFish()
     {
         wordsOnFish.Clear();
@@ -80,7 +90,6 @@ public class FishingGameManager : MonoBehaviour
             float xPos = Random.Range(-360, 360);
             float yPos= Random.Range(-225, 10);
 
-            //Debug.Log(xPos + "," + yPos);
 
             int rndFishIndex = Random.Range(0, fishImageHolders.Count);
 
@@ -95,14 +104,16 @@ public class FishingGameManager : MonoBehaviour
             rectTransform.SetParent(water.transform, false);
             rectTransform.localPosition = new Vector3(xPos, yPos, 0);
 
-            // instObj.transform.SetParent(water.transform);
-
-           // Debug.Log(fishInSea[i].transform.position);
+           
            
         }
     }
 
-
+    /// <summary>
+    /// Method used when a fish is caught and amount of fish caught gets updated and the weight of the word is adjusted in the dda system. 
+    /// It of cóurse also removes the fish from the game and checks if all fish are gone new ones get spawned. 
+    /// </summary>
+    /// <param name="fishCaught"></param>
     public void FishCaught(GameObject fishCaught)
     {
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToCheck, true);
@@ -126,7 +137,10 @@ public class FishingGameManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Used to show a wrong answer text for a certain amount of time and then hide it after. 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ShowWrongAnswerUIText()
     {
         wrongAnswerUIText.SetActive(true);
