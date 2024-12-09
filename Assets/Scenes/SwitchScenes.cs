@@ -11,7 +11,7 @@ namespace Scenes
         {
             bool inEditor = false;
 #if UNITY_EDITOR
-            inEditor = true;
+            inEditor = false;
 #endif
             if(inEditor) SceneLoader.Instance.LoadScene(SceneNames.MainTwo);
             else SceneLoader.Instance.LoadScene(SceneNames.Main);
@@ -54,6 +54,8 @@ namespace Scenes
         public static void SwitchToProductionLine() => SceneLoader.Instance.LoadScene(SceneNames.WordLine);
         public static void SwitchToProductionLineLoadingScene() => SceneLoader.Instance.LoadScene(SceneNames.WordLineLoad);
         public static void SwitchToPizzaRestaurant() => SceneLoader.Instance.LoadScene(SceneNames.PizzaRestaurant);
+
+        public static void SwitchToFishingGame() => SceneLoader.Instance.LoadScene(SceneNames.FishingGame);
         public static void SwitchToBoxBreak() => SceneLoader.Instance.LoadScene(SceneNames.BoxBreaker);
         public static void SwitchToBoxAssembly() => SceneLoader.Instance.LoadScene(SceneNames.BoxAssembly);
         public static void SwitchToPlaneGame() => SceneLoader.Instance.LoadScene(SceneNames.FlyingGame);

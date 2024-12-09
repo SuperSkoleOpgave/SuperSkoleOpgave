@@ -59,28 +59,17 @@ namespace Scenes._50_Minigames._65_MonsterTower.Scrips.MTGameModes
         public string[] GenerateAnswers(int count)
         {
             string[] returnedString = new string[count];
-            //List<ILanguageUnit> languageUnits = GameManager.Instance.DynamicDifficultyAdjustmentManager.GetNextLanguageUnitsBasedOnLevel(80);
 
-            List<ILanguageUnit> words = new List<ILanguageUnit>();
-            /*
-            foreach (var item in languageUnits)
-            {
-                if (item.LanguageUnitType == LanguageUnit.Word)
-                {
-                    words.Add(item);
-                }
-            }
-            */
-            Debug.LogError("code removed as it was using old DDA");
+            List<LanguageUnit> words = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 20);
 
             for (int i = 0; i < count; i++)
             {
-                returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
                 while (returnedString[i] ==previousRetrievedAnswer)
                 {
 
-                    returnedString[i] = words[Random.Range(0, words.Count)].Identifier;
+                    returnedString[i] = words[Random.Range(0, words.Count)].identifier;
 
                 }
                 previousRetrievedAnswer = returnedString[i];

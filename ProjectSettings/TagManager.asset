@@ -32,6 +32,7 @@ TagManager:
   - WordShelf
   - DDAWordSetter
   - Enviorment
+  - World2CarSetter
   layers:
   - Default
   - TransparentFX
