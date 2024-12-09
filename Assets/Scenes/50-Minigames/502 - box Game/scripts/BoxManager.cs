@@ -28,12 +28,7 @@ public class BoxManager : MonoBehaviour
 
     private bool positionedPlayer = false;
 
-    private List<string> foundLetters = new List<string>();
     private List<string> words;
-
-    private List<GameObject> activeBoxes = new List<GameObject>();
-
-    private string foundWord = "";
 
     /// <summary>
     /// Sets up the bounds of the play area and starts the setup of the boxes
@@ -41,8 +36,9 @@ public class BoxManager : MonoBehaviour
     void Start()
     {
         bounds = spawningBox.bounds;
-        
+        timeRemaining = Mathf.Infinity;
         StartCoroutine(WaitOnDDA());
+        SceneManager.sceneLoaded += LoadLetters;
     }
 
     /// <summary>
@@ -65,6 +61,7 @@ public class BoxManager : MonoBehaviour
             for (int j = 0; j < words[i].Length; j++)
             {
                 SpawnBox(words[i][j].ToString());
+                Debug.Log(words[i][j].ToString());
             }
         }
     }
@@ -89,34 +86,9 @@ public class BoxManager : MonoBehaviour
             timeRemaining -= Time.deltaTime;
             countdownbar.size = timeRemaining / maxTime;
         }
-        //Checks if the game can be ended and ends it if possible
-        if(((foundWord.Length == 0 && timeRemaining <= 0) || (activeBoxes.Count == 0)) && words != null)
+        else
         {
-            //Goes through words and checks if the found letters contains the letters of the word
-            foreach(string word in words)
-            {
-                bool lettersFound = true;
-                foreach(char letter in word)
-                {
-                    if(!foundLetters.Contains(letter.ToString()))
-                    {
-                        lettersFound = false;
-                        break;
-                    }
-                }
-                if(lettersFound)
-                {
-                    foundWord = word;
-                    break;
-                }
-            }
-            //ends the game and prepares for the next phase
-            if(foundWord.Length > 0)
-            {
-                string allLetters = dropOffPointThingy.allLettersCollected;
-                SceneManager.sceneLoaded += LoadLetters;
-                SwitchScenes.SwitchToBoxGamePhase2();
-            }  
+            SwitchScenes.SwitchToBoxGamePhase2();
         }
     }
 
@@ -130,23 +102,11 @@ public class BoxManager : MonoBehaviour
         float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
 
         GameObject temp = Instantiate(boxPrefab);
-        activeBoxes.Add(temp);
         temp.transform.position = bounds.center + new Vector3(offsetX,0,offsetZ);
         //give letter
         DestroyBox destroyBox = temp.GetComponent<DestroyBox>();
         destroyBox.symbol = letter;
         destroyBox.boxManager = this;
-    }
-
-    /// <summary>
-    /// Adds a letter to the found letters and removes the box from the active boxes
-    /// </summary>
-    /// <param name="letter">The letter which has been found</param>
-    /// <param name="box">The box containing the letter</param>
-    public void AddLetter(string letter, GameObject box)
-    {
-        foundLetters.Add(letter);
-        activeBoxes.Remove(box);
     }
 
     /// <summary>
@@ -160,7 +120,12 @@ public class BoxManager : MonoBehaviour
         GameObject conveyerBelt = GameObject.FindGameObjectWithTag("ConveyerBelt");
         if(conveyerBelt != null)
         {
-            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(foundLetters, foundWord);
+            List<string> list = new List<string>();
+            for (global::System.Int32 i = 0; i < dropOffPointThingy.allLettersCollected.Length; i++)
+            {
+                list[i] = dropOffPointThingy.allLettersCollected[i].ToString();
+            }
+            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(list, dropOffPointThingy.allLettersCollected);
         }
     }
 }
