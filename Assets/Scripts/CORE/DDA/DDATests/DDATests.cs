@@ -159,6 +159,7 @@ public class DDATests
             languageUnitUnderTest.properties.Add(property.property);
             totalWeight += property.weight;
         }
+        totalWeight /= languageUnitUnderTest.properties.Count;
         languageUnitUnderTest.CalculateWeight();
         Assert.AreEqual(totalWeight, languageUnitUnderTest.weight);
     }
@@ -436,6 +437,9 @@ public class DDATests
         Assert.AreNotEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[1].properties[1]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[1]));
     }
 
+    /// <summary>
+    /// Attempts to simulate actual gameplay in order to ensure level up happens as intended
+    /// </summary>
     [Test]
     public void PlayerLevelUpByOrganicPlayAllCorrect()
     {
@@ -455,6 +459,9 @@ public class DDATests
         Assert.AreEqual(1, dDAUnderTest.GetPlayerLevel());
     }
 
+    /// <summary>
+    /// Extra test to ensure player dont level up in scenario based on previous testing
+    /// </summary>
     [Test]
     public void PlayerDontLevelUpWithEnoughWrongAnswers()
     {
@@ -1622,17 +1629,6 @@ public class DDATests
         Assert.AreEqual(1, dDAUnderTest.GetWordList().Count);
     }
 
-    /// <summary>
-    /// Ensures the letter property is added for a letter
-    /// </summary>
-    [Test]
-    public void LetterPropertyGetsAddedForLetters()
-    {
-        List<LanguageUnit> languageUnitUnderTest = CreateLanguageUnits(1);
-        languageUnitUnderTest[0].identifier = "a";
-        dDAUnderTest.SetupLanguageUnits(languageUnitUnderTest, new List<LanguageUnit>());
-        Assert.AreEqual(LanguageUnitProperty.letterA, dDAUnderTest.GetLetterList()[0].properties[0]);
-    }
 
     /// <summary>
     /// Ensures the letter properties are added for words
@@ -1725,6 +1721,21 @@ public class DDATests
         Assert.AreEqual(1, dDAUnderTest.GetWordList().Count);
     }
 
+    /// <summary>
+    /// Ensures a letter dont get extra properties added.
+    /// </summary>
+    [Test]
+    public void LettersOnlyGetsThreeProperties()
+    {
+        LanguageUnit languageUnitUnderTest = CreateLanguageUnits(1)[0];
+        languageUnitUnderTest.properties.Add(LanguageUnitProperty.letter);
+        languageUnitUnderTest.properties.Add(LanguageUnitProperty.vowel);
+        languageUnitUnderTest.properties.Add(LanguageUnitProperty.letterA);
+        languageUnitUnderTest.identifier = "a";
+        dDAWordSetterUnderTest.AddLetter(languageUnitUnderTest);
+        dDAWordSetterUnderTest.LoadWords(dDAUnderTest);
+        Assert.AreEqual(3, dDAUnderTest.GetLetterList()[0].properties.Count);
+    }
     /// <summary>
     /// Ensures a vowel confused word has the correct property in the DDA after getting added
     /// </summary>
