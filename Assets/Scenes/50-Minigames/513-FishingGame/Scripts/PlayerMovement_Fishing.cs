@@ -6,7 +6,7 @@ public class PlayerMovement_Fishing : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] Rigidbody2D rigidbody;
+    [SerializeField] public Rigidbody2D rigidbody;
 
     [SerializeField] int playerAccelleration=50;
     public bool inputFieldSelected=false;

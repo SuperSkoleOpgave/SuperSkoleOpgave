@@ -49,6 +49,7 @@ public class PizzaRestaurantManager : MonoBehaviour
     public  float LETTER_SPACING_Y = -15f;
 
     public IPizzaGameMode gameMode;
+
     private int numRows;
     private int numCols;
 

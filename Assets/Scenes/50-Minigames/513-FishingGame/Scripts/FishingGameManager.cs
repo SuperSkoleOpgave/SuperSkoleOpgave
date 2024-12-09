@@ -1,5 +1,6 @@
 using CORE;
 using CORE.Scripts;
+using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,9 +29,13 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI fishCaughtScoreUI;
     [SerializeField] GameObject wrongAnswerUIText;
+
+    [SerializeField] GameObject playerSpawnPoint;
     
 
     private List<string> wordsOnFish = new List<string>();
+    private GameObject spawnedPlayer;
+
     void Start()
     {
         //Setting up the textinputfield with different methods. 
@@ -43,6 +48,29 @@ public class FishingGameManager : MonoBehaviour
 
       
         SetupNewFish();
+
+
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.PositionPlayerAt(playerSpawnPoint);
+            spawnedPlayer = PlayerManager.Instance.SpawnedPlayer;
+            spawnedPlayer.AddComponent<PlayerMovement_Fishing>();
+            spawnedPlayer.GetComponent<Rigidbody>().useGravity = false;
+            spawnedPlayer.GetComponent<PlayerFloating>().enabled = false;
+            spawnedPlayer.GetComponent<SpinePlayerMovement>().enabled = false;
+            spawnedPlayer.GetComponent<CapsuleCollider>().enabled = true;
+            
+            spawnedPlayer.GetComponent<PlayerAnimatior>().SetCharacterState("Idle");
+
+            
+        }
+        else
+        {
+            Debug.Log("WordFactory GM.Start(): Player Manager is null");
+        }
+
+
     }
 
     // Update is called once per frame
