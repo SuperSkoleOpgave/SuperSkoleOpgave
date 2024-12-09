@@ -21,13 +21,21 @@ public class LanguageUnit : ScriptableObject
     public void CalculateWeight()
     {
         weight = 0;
+        int amount = 0;
         foreach(LanguageUnitProperty prop in properties)
         {
             if(dynamicDifficultyAdjustment == null)
             {
                 throw new Exception("DDA has not been assigned");
             }
-            weight += dynamicDifficultyAdjustment.GetPropertyWeight(prop);
+            float deltaWeight = dynamicDifficultyAdjustment.GetPropertyWeight(prop);
+            if(deltaWeight > 0)
+            {
+                weight += deltaWeight;
+                amount++;
+            }
+            
         }
+        weight /= amount;
     }
 }

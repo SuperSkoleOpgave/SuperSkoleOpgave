@@ -435,6 +435,68 @@ public class DDATests
         dDAUnderTest.AdjustWeight(languageUnitsUnderTest[1], true);
         Assert.AreNotEqual(dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[1].properties[1]), dDAUnderTest.GetAveragedPropertyWeight(languageUnitsUnderTest[0].properties[1]));
     }
+
+    [Test]
+    public void PlayerLevelUpByOrganicPlayAllCorrect()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(9);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(9);
+        for(int i = 0; i < 9; i++)
+        {
+            languageUnitsUnderTest[i].properties.Add(propertiesUnderTest[i].property);
+            languageUnitsUnderTest[i].properties.Add(LanguageUnitProperty.vowel);
+            dDAUnderTest.AddLetter(languageUnitsUnderTest[i]);
+        }
+        for(int i = 0; i < 45; i++)
+        {
+            string letter = dDAUnderTest.GetLetter(new List<LanguageUnitProperty>(){LanguageUnitProperty.vowel}).identifier;
+            dDAUnderTest.AdjustWeightLetter(letter, true);
+        }
+        Assert.AreEqual(1, dDAUnderTest.GetPlayerLevel());
+    }
+
+    [Test]
+    public void PlayerDontLevelUpWithEnoughWrongAnswers()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(9);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(9);
+        for(int i = 0; i < 9; i++)
+        {
+            languageUnitsUnderTest[i].properties.Add(propertiesUnderTest[i].property);
+            languageUnitsUnderTest[i].properties.Add(LanguageUnitProperty.vowel);
+            dDAUnderTest.AddLetter(languageUnitsUnderTest[i]);
+        }
+        for(int i = 0; i < 65; i++)
+        {
+            string letter = dDAUnderTest.GetLetter(new List<LanguageUnitProperty>(){LanguageUnitProperty.vowel}).identifier;
+            dDAUnderTest.AdjustWeightLetter(letter, false);
+        }
+        for(int i = 0; i < 108; i++)
+        {
+            string letter = dDAUnderTest.GetLetter(new List<LanguageUnitProperty>(){LanguageUnitProperty.vowel}).identifier;
+            dDAUnderTest.AdjustWeightLetter(letter, true);
+        }
+        Assert.AreEqual(0, dDAUnderTest.GetPlayerLevel());
+    }
+
+    [Test]
+    public void PlayerGetNewPriorityByLevelingUpOrganicPlay()
+    {
+        List<LanguageUnit> languageUnitsUnderTest = CreateLanguageUnits(9);
+        List<LanguageUnitPropertyInfo> propertiesUnderTest = CreateProperties(9);
+        for(int i = 0; i < 9; i++)
+        {
+            languageUnitsUnderTest[i].properties.Add(propertiesUnderTest[i].property);
+            languageUnitsUnderTest[i].properties.Add(LanguageUnitProperty.vowel);
+            dDAUnderTest.AddLetter(languageUnitsUnderTest[i]);
+        }
+        for(int i = 0; i < 45; i++)
+        {
+            string letter = dDAUnderTest.GetLetter(new List<LanguageUnitProperty>(){LanguageUnitProperty.vowel}).identifier;
+            dDAUnderTest.AdjustWeightLetter(letter, true);
+        }
+        Assert.AreEqual(LanguageUnitProperty.consonant, dDAUnderTest.GetPlayerPriority()[0]);
+    }
     #endregion
     #region AdjustWeightLetter
     /// <summary>
