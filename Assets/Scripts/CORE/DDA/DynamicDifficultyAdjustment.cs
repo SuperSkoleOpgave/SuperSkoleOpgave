@@ -422,7 +422,11 @@ public class DynamicDifficultyAdjustment : MonoBehaviour
                 }
             }
             languageUnit.dynamicDifficultyAdjustment = this;
-            languageUnit.properties.Add(letterProperties[languageUnit.identifier.ToLower()[0]]);//i get an error here for the key bieng "("
+            if(languageUnit.properties.Count > 3)
+            {
+                throw new Exception("Too many properties");
+            }
+            
             foreach (LanguageUnitProperty property in languageUnit.properties)
             {
                 FindOrCreateProperty(property);
