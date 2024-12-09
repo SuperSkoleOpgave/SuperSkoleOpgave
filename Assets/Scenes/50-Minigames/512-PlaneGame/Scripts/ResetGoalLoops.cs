@@ -22,6 +22,14 @@ public class ResetGoalLoops : MonoBehaviour
             planeManager.resetLoop = true;
             
         }
+
+        if (other.gameObject.CompareTag("Enviorment"))
+        {
+
+            other.gameObject.SetActive(false);
+            planeManager.resetCloud = true;
+
+        }
     }
 
 

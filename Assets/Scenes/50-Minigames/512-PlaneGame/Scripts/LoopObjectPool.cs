@@ -24,6 +24,7 @@ public class LoopObjecPool : MonoBehaviour
         for (int i = 0; i < amountToPool; i++)
         {
             GameObject obj = Instantiate(loopPrefab, transform);
+            obj.GetComponent<SkyAtmosphere>().objecPool = this;
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
