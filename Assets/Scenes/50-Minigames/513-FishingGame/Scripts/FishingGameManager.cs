@@ -101,7 +101,7 @@ public class FishingGameManager : MonoBehaviour
         FishingPole.inputFieldSelected = false; 
         playerMovement.inputFieldSelected = false;
 
-        Debug.Log("Move:" + playerMovement.inputFieldSelected);
+     
 
         if (wordsOnFish.Contains(text))
         {
