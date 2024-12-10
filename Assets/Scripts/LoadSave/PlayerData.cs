@@ -182,6 +182,7 @@ namespace LoadSave
             bool tutorialFactory,
             bool tutorialMosterTower,
             bool tutorialTransportbond,
+            bool tutorialPlaneGame,
             bool tutorialCar,
             bool tutorialDecorHouse)
         {
@@ -241,6 +242,7 @@ namespace LoadSave
             this.tutorialFactory = tutorialFactory;
             this.tutorialMosterTower = tutorialMosterTower;
             this.tutorialTransportbond = tutorialTransportbond;
+            this.tutorialPlaneGame = tutorialPlaneGame;
             this.tutorialCar = tutorialCar;
             this.tutorialDecorHouse = tutorialDecorHouse;
         }
