@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   letterBox: {fileID: 7411307506945963159, guid: 8a308ba38748cce478338bca0be20c8f, type: 3}
+  SFX: {fileID: 1265720855497889114, guid: dd0470e3bb9abef42a307afb4f8beba3, type: 3}
   symbol: 
   boxManager: {fileID: 0}
 --- !u!65 &4264008554803365213

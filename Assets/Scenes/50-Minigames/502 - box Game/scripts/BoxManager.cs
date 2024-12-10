@@ -29,7 +29,8 @@ public class BoxManager : MonoBehaviour
     private bool positionedPlayer = false;
 
     private List<string> words;
-
+    List<GameObject> activeBoxes = new();
+    List<string> list = new List<string>();
     /// <summary>
     /// Sets up the bounds of the play area and starts the setup of the boxes
     /// </summary>
@@ -38,6 +39,7 @@ public class BoxManager : MonoBehaviour
         bounds = spawningBox.bounds;
         timeRemaining = Mathf.Infinity;
         StartCoroutine(WaitOnDDA());
+        DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += LoadLetters;
     }
 
@@ -61,7 +63,27 @@ public class BoxManager : MonoBehaviour
             for (int j = 0; j < words[i].Length; j++)
             {
                 SpawnBox(words[i][j].ToString());
-                Debug.Log(words[i][j].ToString());
+            }
+        }
+    }
+
+    public void RemoveThis(GameObject theObjectToRemove)
+    {
+        activeBoxes.Remove(theObjectToRemove);
+        if(activeBoxes.Count <= 0 )
+        {
+            List<LanguageUnit> languageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 3);
+            words = new List<string>();
+            foreach (LanguageUnit languageUnit in languageUnits)
+            {
+                words.Add(languageUnit.identifier);
+            }
+            for (int i = 0; i < words.Count; i++)
+            {
+                for (int j = 0; j < words[i].Length; j++)
+                {
+                    SpawnBox(words[i][j].ToString());
+                }
             }
         }
     }
@@ -88,6 +110,11 @@ public class BoxManager : MonoBehaviour
         }
         else
         {
+
+            for (global::System.Int32 i = 0; i < dropOffPointThingy.allLettersCollected.Length; i++)
+            {
+                list.Add(dropOffPointThingy.allLettersCollected[i].ToString());
+            }
             SwitchScenes.SwitchToBoxGamePhase2();
         }
     }
@@ -102,6 +129,7 @@ public class BoxManager : MonoBehaviour
         float offsetZ = Random.Range(-bounds.extents.z, bounds.extents.z);
 
         GameObject temp = Instantiate(boxPrefab);
+        activeBoxes.Add(temp);
         temp.transform.position = bounds.center + new Vector3(offsetX,0,offsetZ);
         //give letter
         DestroyBox destroyBox = temp.GetComponent<DestroyBox>();
@@ -120,12 +148,10 @@ public class BoxManager : MonoBehaviour
         GameObject conveyerBelt = GameObject.FindGameObjectWithTag("ConveyerBelt");
         if(conveyerBelt != null)
         {
-            List<string> list = new List<string>();
-            for (global::System.Int32 i = 0; i < dropOffPointThingy.allLettersCollected.Length; i++)
-            {
-                list[i] = dropOffPointThingy.allLettersCollected[i].ToString();
-            }
-            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(list, dropOffPointThingy.allLettersCollected);
+            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(list, "kat");
+            Destroy(gameObject);
+            return;
         }
+        SceneManager.sceneLoaded += LoadLetters;
     }
 }
