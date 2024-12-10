@@ -9,15 +9,16 @@ public class DDAWordSetter : MonoBehaviour
     List<LanguageUnit> letters;
 
     [SerializeField]
-    List<Texture2D> words;
-    [SerializeField]
-    List<Texture2D> vowelConfusedWords;
-    [SerializeField]
-    List<Texture2D> doubleConsonantWords;
-    [SerializeField]
-    List<Texture2D> softDWords;
-    [SerializeField]
-    List<Texture2D> silentConsonantWords;
+    List<Texture2D> words,
+    vowelConfusedWords,
+    eOrErEndWords,
+    rEndWords,
+    softDWords,
+    consonantConfuseWords,
+    silentConsonantWords,
+    doubleConsonantWords,
+    gEndWords,
+    ngEndWords;
 
     /// <summary>
     /// Loads the letters list and the generated words list into the given DDA
@@ -46,9 +47,15 @@ public class DDAWordSetter : MonoBehaviour
             }
             List<LanguageUnitProperty> props = new List<LanguageUnitProperty>();
             if (vowelConfusedWords.Contains(word)) props.Add(LanguageUnitProperty.vowelConfuse);
-            if (doubleConsonantWords.Contains(word)) props.Add(LanguageUnitProperty.doubleConsonant);
+            if (eOrErEndWords.Contains(word)) props.Add(LanguageUnitProperty.eOrErEnd);
+            if (rEndWords.Contains(word)) props.Add(LanguageUnitProperty.rEnd);
             if (softDWords.Contains(word)) props.Add(LanguageUnitProperty.softD);
+            if (consonantConfuseWords.Contains(word)) props.Add(LanguageUnitProperty.consonantConfuse);
             if (silentConsonantWords.Contains(word)) props.Add(LanguageUnitProperty.silentConsonant);
+            if (doubleConsonantWords.Contains(word)) props.Add(LanguageUnitProperty.doubleConsonant);
+            if (gEndWords.Contains(word)) props.Add(LanguageUnitProperty.gEnd);
+            if (ngEndWords.Contains(word)) props.Add(LanguageUnitProperty.ngEnd);
+            
             wordUnit.properties = props;
             if(!addedWords.Contains(wordUnit.identifier))
             {
