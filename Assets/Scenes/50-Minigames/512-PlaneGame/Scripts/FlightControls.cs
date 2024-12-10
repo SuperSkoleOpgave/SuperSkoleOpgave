@@ -73,7 +73,7 @@ public class FlightControls : MonoBehaviour
         if (Input.GetKey(KeyCode.F))
         {
             string word = controller.CurrentWord();
-            LetterAudioManager.GetAudioClipFromLetter(word);
+            wordClip = LetterAudioManager.GetAudioClipFromLetter(word);
             voiceLine = true;
             if (voiceLine)
             {
