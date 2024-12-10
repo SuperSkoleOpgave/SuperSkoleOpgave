@@ -21,25 +21,26 @@ public class BoxManager : MonoBehaviour
     [SerializeField]
     private Scrollbar countdownbar;
 
+    [SerializeField]
+    private DropOffPointThingy dropOffPointThingy;
+
     private float timeRemaining;
 
     private bool positionedPlayer = false;
 
-    private List<string> foundLetters = new List<string>();
     private List<string> words;
-
-    private List<GameObject> activeBoxes = new List<GameObject>();
-
-    private string foundWord = "";
-
+    List<GameObject> activeBoxes = new();
+    List<string> list = new List<string>();
     /// <summary>
     /// Sets up the bounds of the play area and starts the setup of the boxes
     /// </summary>
     void Start()
     {
         bounds = spawningBox.bounds;
-        
+        timeRemaining = Mathf.Infinity;
         StartCoroutine(WaitOnDDA());
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += LoadLetters;
     }
 
     /// <summary>
@@ -66,6 +67,27 @@ public class BoxManager : MonoBehaviour
         }
     }
 
+    public void RemoveThis(GameObject theObjectToRemove)
+    {
+        activeBoxes.Remove(theObjectToRemove);
+        if(activeBoxes.Count <= 0 )
+        {
+            List<LanguageUnit> languageUnits = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(new List<LanguageUnitProperty>(), 3);
+            words = new List<string>();
+            foreach (LanguageUnit languageUnit in languageUnits)
+            {
+                words.Add(languageUnit.identifier);
+            }
+            for (int i = 0; i < words.Count; i++)
+            {
+                for (int j = 0; j < words[i].Length; j++)
+                {
+                    SpawnBox(words[i][j].ToString());
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Spawns the player if it hasnt been yet and when counts down on the timer and ends the phase if the timer has run out and the letters of a word has been found 
     /// or if all  boxes has been opened
@@ -86,33 +108,14 @@ public class BoxManager : MonoBehaviour
             timeRemaining -= Time.deltaTime;
             countdownbar.size = timeRemaining / maxTime;
         }
-        //Checks if the game can be ended and ends it if possible
-        if(((foundWord.Length == 0 && timeRemaining <= 0) || (activeBoxes.Count == 0)) && words != null)
+        else
         {
-            //Goes through words and checks if the found letters contains the letters of the word
-            foreach(string word in words)
+
+            for (global::System.Int32 i = 0; i < dropOffPointThingy.allLettersCollected.Length; i++)
             {
-                bool lettersFound = true;
-                foreach(char letter in word)
-                {
-                    if(!foundLetters.Contains(letter.ToString()))
-                    {
-                        lettersFound = false;
-                        break;
-                    }
-                }
-                if(lettersFound)
-                {
-                    foundWord = word;
-                    break;
-                }
+                list.Add(dropOffPointThingy.allLettersCollected[i].ToString());
             }
-            //ends the game and prepares for the next phase
-            if(foundWord.Length > 0)
-            {
-                SceneManager.sceneLoaded += LoadLetters;
-                SwitchScenes.SwitchToBoxGamePhase2();
-            }  
+            SwitchScenes.SwitchToBoxGamePhase2();
         }
     }
 
@@ -135,17 +138,6 @@ public class BoxManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a letter to the found letters and removes the box from the active boxes
-    /// </summary>
-    /// <param name="letter">The letter which has been found</param>
-    /// <param name="box">The box containing the letter</param>
-    public void AddLetter(string letter, GameObject box)
-    {
-        foundLetters.Add(letter);
-        activeBoxes.Remove(box);
-    }
-
-    /// <summary>
     /// Loads the found letters and the first found word into phase 2 after the scene has been loaded
     /// </summary>
     /// <param name="scene"></param>
@@ -156,7 +148,10 @@ public class BoxManager : MonoBehaviour
         GameObject conveyerBelt = GameObject.FindGameObjectWithTag("ConveyerBelt");
         if(conveyerBelt != null)
         {
-            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(foundLetters, foundWord);
+            conveyerBelt.GetComponent<ConveyerBeltPool>().AddLetters(list, "kat");
+            Destroy(gameObject);
+            return;
         }
+        SceneManager.sceneLoaded += LoadLetters;
     }
 }

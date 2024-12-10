@@ -11,7 +11,7 @@ public class PlayerAtack : MonoBehaviour
     BoxCollider hitBox;
 
     List<DestroyBox> targets = new List<DestroyBox>();
-    string inventory = "";
+    public string inventory = "";
     private PlayerAnimatior animator;
     [SerializeField] private Vector3 hitboxCenter = new(0.6743157f, -5.974327f, -1.754525f);
     [SerializeField] private Vector3 hitboxSize = new(11.18315f, 12.94866f, 7.647582f);
@@ -75,7 +75,7 @@ public class PlayerAtack : MonoBehaviour
         {
             targets.Add(other.GetComponent<DestroyBox>());
         }
-        if (other.GetComponentInChildren<TextMeshProUGUI>())
+        if (other.GetComponentInChildren<TextMeshProUGUI>() && inventory.Length < 5)
         {
             inventory += other.GetComponentInChildren<TextMeshProUGUI>().text;
             Destroy(other.gameObject);
