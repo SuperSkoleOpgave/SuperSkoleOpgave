@@ -10,7 +10,9 @@ public class DestroyBox : MonoBehaviour
 {
     [SerializeField]
     private GameObject letterBox;
-    
+    [SerializeField]
+    private GameObject SFX;
+
     public string symbol;
     public BoxManager boxManager;
 
@@ -24,24 +26,18 @@ public class DestroyBox : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the text on the letterbox to the given symbol
-    /// </summary>
-    private void Start()
-    {
-        var text = letterBox.GetComponentsInChildren<TextMeshProUGUI>();
-        for (int i = 0; i < text.Length; i++)
-        {
-            text[i].text = symbol;
-        }
-    }
-
-    /// <summary>
     /// Spawns a letter box and destroys itself afterward
     /// </summary>
     public void Destroy()
     {
-        Instantiate(letterBox, transform.position+Vector3.up,Quaternion.identity);
-        boxManager.AddLetter(symbol, gameObject);
+        boxManager.RemoveThis(gameObject);
+        GameObject temp = Instantiate(letterBox, transform.position + Vector3.up *0.5f,Quaternion.identity);
+        var text = temp.GetComponentsInChildren<TextMeshProUGUI>();
+        for (int i = 0; i < text.Length; i++)
+        {
+            text[i].text = symbol;
+        }
+        Instantiate(SFX, transform.position + Vector3.up * 0.5f, Quaternion.identity);
         Destroy(gameObject);
     }
 }

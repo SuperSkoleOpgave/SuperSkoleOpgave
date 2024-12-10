@@ -31,6 +31,8 @@ public class UseFishingRod : MonoBehaviour
     public Vector3 lineEndPos { get; private set; }
 
     [SerializeField] FishingGameManager gameManager;
+
+   
     void Start()
     {
         
@@ -41,13 +43,13 @@ public class UseFishingRod : MonoBehaviour
     {
 
         // Checks if the f is pressed and a valid word has been inputted into the text input field
-        if(Input.GetKeyDown(KeyCode.F) && validWordInputted==true)
+        if (Input.GetKeyDown(KeyCode.F) && validWordInputted == true)
         {
             useFishingRod = true;
         }
 
         // code that makes sure the linerendere goes down to a certain lenght and makes sure the hooke follows along. 
-        if (lineIsRolledOut == false && useFishingRod==true)
+        if (lineIsRolledOut == false && useFishingRod == true && gameManager.fishCaught == false)
         {
             currentLength -= lineSpeed * Time.deltaTime;
 
@@ -55,12 +57,12 @@ public class UseFishingRod : MonoBehaviour
 
             fishingLine.SetPosition(1, lineEndPos);
             hook.transform.localPosition = lineEndPos;
-            if(currentLength<=maxLenght)
+            if (currentLength <= maxLenght)
             {
                 lineIsRolledOut = true;
 
                 useFishingRod = false;
-                
+
             }
         }
 
@@ -68,7 +70,7 @@ public class UseFishingRod : MonoBehaviour
         //Makes sure if the line is rolled out to get the hook and line up to the start point. 
         // Also checks if the hook has a child attached and if thats the case a fish has been caugt and a method fishCaught is used from the gamemanager. 
         // if nothing has been caught the words weight gets adjusted accordingly. 
-        if(lineIsRolledOut==true && useFishingRod==true)
+        if ((lineIsRolledOut == true && useFishingRod==true) ||gameManager.fishCaught==true)
         {
             currentLength += lineSpeed * Time.deltaTime;
 
