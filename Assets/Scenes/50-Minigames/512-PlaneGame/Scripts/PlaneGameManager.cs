@@ -84,6 +84,8 @@ public class PlaneGameManager : MonoBehaviour
 
     private bool isBlinking = false;
 
+    public bool isTutorialOver = false;
+
     [SerializeField] private AudioClip wrongBuzz, correctBuzz, backgroundAmbience;
 
 
@@ -178,6 +180,7 @@ public class PlaneGameManager : MonoBehaviour
 
             if (currentLetter == selectedLetter)
             {
+                isTutorialOver = true;
                 IsCorrect(gameObject);
             }
             else
