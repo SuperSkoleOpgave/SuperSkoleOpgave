@@ -73,7 +73,7 @@ public class FishingGameManager : MonoBehaviour
         wordInput.onEndEdit.AddListener(OnEndEditing);
         
         // makes sure that when the text input field is selected the character can't move. 
-        wordInput.onSelect.AddListener((string text) => { FishingPole.inputFieldSelected = true; playerMovement.inputFieldSelected = true; wordInput.text = ""; Debug.Log("OnSelect Used"); });
+        wordInput.onSelect.AddListener((string text) => { FishingPole.inputFieldSelected = true; playerMovement.inputFieldSelected = true; wordInput.text = ""; });
 
       
         SetupNewFish();
