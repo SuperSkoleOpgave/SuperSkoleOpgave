@@ -202,8 +202,5 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    internal void PlaySound(object backGroundMusic, SoundType music, bool v)
-    {
-        throw new NotImplementedException();
-    }
+
 }
