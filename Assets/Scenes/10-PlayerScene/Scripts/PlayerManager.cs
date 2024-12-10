@@ -283,6 +283,7 @@ namespace Scenes._10_PlayerScene.Scripts
                 false,
                 false,
                 false,
+                false,
                 false
             );
 
@@ -393,7 +394,8 @@ namespace Scenes._10_PlayerScene.Scripts
                 saveData.TutorialMosterTower,
                 saveData.TutorialTransportbond,
                 saveData.TutorialCar,
-                saveData.TutorialDecorHouse
+                saveData.TutorialDecorHouse,
+                saveData.TutorialPlaneGame
             );
 
 

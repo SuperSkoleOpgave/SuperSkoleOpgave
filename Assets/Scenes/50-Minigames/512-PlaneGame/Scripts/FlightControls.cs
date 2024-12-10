@@ -1,3 +1,4 @@
+using CORE.Scripts;
 using System.Collections;
 
 using UnityEngine;
@@ -11,12 +12,19 @@ public class FlightControls : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
-    private float tiltAngle = 15f;  
+    private float tiltAngle = 15f;
     [SerializeField]
     private float rotationDuration = 1f;
-
+    [SerializeField]
+    private PlaneGameController controller;
     private bool isSpinning = false;
-    private float lastHorizontalInput = 0f;  
+    private float lastHorizontalInput = 0f;
+
+    private bool voiceLine = false;
+
+    private AudioClip wordClip;
+
+    
 
     private void Start()
     {
@@ -48,8 +56,8 @@ public class FlightControls : MonoBehaviour
         Vector3 movement = new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;
 
         Vector3 newPosition = transform.position + movement;
-        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f); 
-        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 7f);    
+        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 7f);
         transform.position = newPosition;
 
         float pitch = -vertical * tiltAngle;
@@ -60,6 +68,19 @@ public class FlightControls : MonoBehaviour
         if (horizontal != 0f)
         {
             lastHorizontalInput = -horizontal;
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+            string word = controller.CurrentWord();
+            LetterAudioManager.GetAudioClipFromLetter(word);
+            voiceLine = true;
+            if (voiceLine)
+            {
+
+                AudioManager.Instance.PlaySound(wordClip, SoundType.Voice, false);
+            }
+
         }
 
         if (Input.GetKey(KeyCode.Space) && !isSpinning)
