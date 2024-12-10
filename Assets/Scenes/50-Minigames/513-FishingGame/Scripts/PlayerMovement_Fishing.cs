@@ -6,14 +6,15 @@ public class PlayerMovement_Fishing : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] public Rigidbody2D rigidbody;
+    [SerializeField] public Rigidbody rigidbody;
 
-    [SerializeField] int playerAccelleration=50;
+    [SerializeField] int playerAccelleration=10;
     public bool inputFieldSelected=false;
 
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>();   
+       rigidbody= gameObject.GetComponent<Rigidbody>();
+        rigidbody.drag = 5;
     }
 
     private void FixedUpdate()

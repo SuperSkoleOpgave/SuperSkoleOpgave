@@ -32,11 +32,11 @@ public class PizzaRestaurantManager : MonoBehaviour
     public CheckPizzaIngredient ingredientChecker;
 
     [SerializeField] Texture defaultImage;
-   
 
-    public char[,] lettersForCurrentRound = new char[3,4];
 
-    public string[,] wordsForCurrentRound = new string[3,4];
+    public char[,] lettersForCurrentRound = new char[3, 4];
+
+    public string[,] wordsForCurrentRound = new string[3, 4];
 
     public string wordToGuess;
 
@@ -45,8 +45,8 @@ public class PizzaRestaurantManager : MonoBehaviour
 
     public List<GameObject> spawnedIngredients = new List<GameObject>();
 
-    public  float LETTER_SPACING_X = 15f;
-    public  float LETTER_SPACING_Y = -15f;
+    public float LETTER_SPACING_X = 15f;
+    public float LETTER_SPACING_Y = -15f;
 
     public IPizzaGameMode gameMode;
 
@@ -57,11 +57,14 @@ public class PizzaRestaurantManager : MonoBehaviour
     public RawImage textOnIngredientHolderBackGround { get; set; }
     public RawImage imageOnIngredientHolder { get; set; }
 
-    public Dictionary<string, List<string>> ingredientWords=new Dictionary<string, List<string>>();
-    
+    public Dictionary<string, List<string>> ingredientWords = new Dictionary<string, List<string>>();
+    [SerializeField] AudioClip backGroundMusic;
+
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.Instance.PlaySound(backGroundMusic, SoundType.Music, true);
+
         SetupIngredientWords();
 
         gameMode = new ReadingLevel_Pizza();

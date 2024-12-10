@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -199,5 +200,10 @@ public class AudioManager : MonoBehaviour
             Destroy(voiceSource); 
             voiceSource = null; 
         }
+    }
+
+    internal void PlaySound(object backGroundMusic, SoundType music, bool v)
+    {
+        throw new NotImplementedException();
     }
 }
