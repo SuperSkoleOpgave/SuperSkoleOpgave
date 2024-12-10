@@ -168,21 +168,25 @@ namespace CORE.Scripts.Game_Rules
                     case LanguageUnitProperty.vowel:
                         errorProperty = LanguageUnitProperty.consonant;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
-                        correctAnswer = languageUnitsList[0].identifier;
+                        languageUnits = languageUnitsList;
+                        correctAnswer = languageUnits[Random.Range(0, languageUnits.Count)].identifier;
                         break;
                     case LanguageUnitProperty.consonant:
                         errorProperty = LanguageUnitProperty.vowel;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(properties, 5);
-                        correctAnswer = languageUnitsList[0].identifier;
+                        languageUnits = languageUnitsList;
+                        correctAnswer = languageUnits[Random.Range(0, languageUnits.Count)].identifier;
                         break;
                     case LanguageUnitProperty.letter:
                         errorProperty = LanguageUnitProperty.letter;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetLetters(new List<LanguageUnitProperty>(), 5);
-                        correctAnswer = languageUnitsList[0].identifier;
+                        languageUnits = languageUnitsList;
+                        correctAnswer = languageUnits[Random.Range(0, languageUnits.Count)].identifier;
                         break;
                     case LanguageUnitProperty.word:
                         errorProperty = LanguageUnitProperty.letter;
                         languageUnitsList = GameManager.Instance.dynamicDifficultyAdjustment.GetWords(properties, 5);
+                        languageUnits = languageUnitsList;
                         word = languageUnitsList[0].identifier;
                         break;
                     default:
@@ -195,12 +199,6 @@ namespace CORE.Scripts.Game_Rules
             {
                 languageUnits = new List<LanguageUnit>();
             }
-            else {
-                languageUnits.Clear();
-
-            }
-            languageUnits.Add(languageUnitsList[Random.Range(0, languageUnitsList.Count)]);
-            correctAnswer = languageUnits[0].identifier;
         }
 
         /// <summary>
@@ -213,10 +211,10 @@ namespace CORE.Scripts.Game_Rules
             {
                 //for consonants and vowels if the player is low enough level it also sets up so correct answer looks for a random correct letter
                 case LanguageUnitProperty.consonant:
-                    wrongAnswerList = LetterRepository.GetVowels().ToList();
+                    wrongAnswerList = LetterRepository.GetConsonants().ToList();
                     break;
                 case LanguageUnitProperty.vowel:
-                    wrongAnswerList = LetterRepository.GetConsonants().ToList();
+                    wrongAnswerList = LetterRepository.GetVowels().ToList();
                     break;
                 case LanguageUnitProperty.letter:
                     wrongAnswerList = LetterRepository.GetAllLetters().ToList();
@@ -230,7 +228,6 @@ namespace CORE.Scripts.Game_Rules
 
         public string GetSecondaryAnswer()
         {
-
             if(languageUnits.Count > 1)
             {
                 string res = "";
@@ -265,11 +262,6 @@ namespace CORE.Scripts.Game_Rules
             return false;
         }
 
-        public void AddFilteredList(List<LanguageUnit> languageUnits)
-        {
-            languageUnitsList = languageUnits;
-        }
-
         public void UseFirstLetter()
         {
             correctAnswer = word[0].ToString();
@@ -292,9 +284,5 @@ namespace CORE.Scripts.Game_Rules
             usedProperty = property;
         }
 
-        public List<LanguageUnit> GetLanguageUnits()
-        {
-            return languageUnits;
-        }
     }
 }
