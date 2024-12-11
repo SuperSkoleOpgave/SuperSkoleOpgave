@@ -192,7 +192,9 @@ public class FishingGameManager : MonoBehaviour
 
 
     }
-
+    /// <summary>
+    /// Removes added scripts to the playercharacter. 
+    /// </summary>
     public void SetPlayerCharacterToDefault()
     {
        Destroy(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerMovement_Fishing>());
