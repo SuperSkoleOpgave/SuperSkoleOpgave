@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void OnPause()
     {
-        if(!SceneManager.GetActiveScene().name.StartsWith("0"))
+        if(!SceneManager.GetActiveScene().name.StartsWith("0") &&!SceneManager.GetActiveScene().name.Contains(SceneNames.FishingGame))
             transform.GetChild(0).gameObject.SetActive(true);
     }
 
