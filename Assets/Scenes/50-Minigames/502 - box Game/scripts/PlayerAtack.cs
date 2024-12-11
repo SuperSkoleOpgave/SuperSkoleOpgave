@@ -16,6 +16,8 @@ public class PlayerAtack : MonoBehaviour
     [SerializeField] private Vector3 hitboxCenter = new(0.6743157f, -5.974327f, -1.754525f);
     [SerializeField] private Vector3 hitboxSize = new(11.18315f, 12.94866f, 7.647582f);
 
+    public List<TextMeshProUGUI> inventoryDisplay = new List<TextMeshProUGUI>();
+
     void Start()
     {
         animator = GetComponent<PlayerAnimatior>();
@@ -29,6 +31,13 @@ public class PlayerAtack : MonoBehaviour
         hitBox.isTrigger = true;
         hitBox.center = hitboxCenter;
         hitBox.size = hitboxSize;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("marker");
+        for (int i = 0; i < temp.Length; i++)
+        {
+            inventoryDisplay.Add(temp[i].GetComponent<TextMeshProUGUI>());
+            inventoryDisplay[i].text = "";
+        }
     }
 
     
@@ -79,6 +88,20 @@ public class PlayerAtack : MonoBehaviour
         {
             inventory += other.GetComponentInChildren<TextMeshProUGUI>().text;
             Destroy(other.gameObject);
+            updateInventoryDisplay();
+        }
+    }
+
+    public void updateInventoryDisplay()
+    {
+        for (int i = 0; i < inventoryDisplay.Count; i++)
+        {
+            if (i >= inventory.Length)
+            {
+                inventoryDisplay[i].text = "";
+                continue;
+            }
+            inventoryDisplay[i].text = inventory[i].ToString();
         }
     }
 
@@ -88,13 +111,12 @@ public class PlayerAtack : MonoBehaviour
         {
             targets.Remove(other.GetComponent<DestroyBox>());
         }
-
     }
 
     /// <summary>
     /// use for when exiting this scean
     /// </summary>
-    void Exit()
+    public void Exit()
     {
         Destroy(hitBox);
         Destroy(this);
