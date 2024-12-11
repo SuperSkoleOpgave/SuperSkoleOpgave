@@ -13,6 +13,7 @@ public class DropOffPointThingy : MonoBehaviour
             PlayerAtack temp = other.GetComponent<PlayerAtack>();
             allLettersCollected += temp.inventory;
             temp.inventory = "";
+            temp.updateInventoryDisplay();
         }
     }
 
