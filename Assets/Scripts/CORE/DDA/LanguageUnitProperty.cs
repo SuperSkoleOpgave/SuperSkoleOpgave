@@ -69,10 +69,15 @@ public enum LanguageUnitProperty
     vowel,
     word,
     letter,
-    softD,
     vowelConfuse,
+    eOrErEnd,
+    rEnd,
+    softD,
+    consonantConfuse,
     silentConsonant,
-    doubleConsonant
+    doubleConsonant,
+    gEnd,
+    ngEnd
 
 }
 [Serializable]
