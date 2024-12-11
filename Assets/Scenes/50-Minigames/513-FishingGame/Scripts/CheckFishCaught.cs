@@ -17,10 +17,15 @@ public class CheckFishCaught : MonoBehaviour
     {
         string imageNameOnFish = collision.gameObject.transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture.name;
 
-        if(imageNameOnFish==gameManager.wordToCheck)
+        imageNameOnFish=imageNameOnFish.Replace("(aa)", "\u00e5");
+        imageNameOnFish=imageNameOnFish.Replace("(ae)", "\u00e6");
+        imageNameOnFish=imageNameOnFish.Replace("(oe)", "\u00f8");
+
+
+        if (imageNameOnFish.Split(" ")[0] ==gameManager.wordToCheck)
         {
             collision.gameObject.transform.SetParent(gameObject.transform);
-
+            gameManager.fishCaught = true;
 
         }
     }

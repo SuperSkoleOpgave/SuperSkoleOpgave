@@ -1,9 +1,11 @@
 using CORE;
 using CORE.Scripts;
+using Scenes._10_PlayerScene.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class FishingGameManager : MonoBehaviour
@@ -12,7 +14,7 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] TMP_InputField wordInput;
 
-    [SerializeField] PlayerMovement_Fishing playerMovement;
+    [SerializeField] PlayerMovement_Fishing FishingPole;
 
     [SerializeField] UseFishingRod usefishingRod;
 
@@ -28,27 +30,65 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI fishCaughtScoreUI;
     [SerializeField] GameObject wrongAnswerUIText;
+
+    [SerializeField] GameObject playerSpawnPoint;
     
 
     private List<string> wordsOnFish = new List<string>();
+    private GameObject spawnedPlayer;
+    [SerializeField] AudioClip backGroundMusic;
+
+    [SerializeField] GameObject fishingEquipment;
+    private PlayerMovement_Fishing playerMovement;
+
+    public bool fishCaught=false;
+
     void Start()
     {
+        if (PlayerManager.Instance != null)
+        {
+            spawnedPlayer = PlayerManager.Instance.SpawnedPlayer;
+            spawnedPlayer.GetComponent<Rigidbody>().useGravity = false;
+            spawnedPlayer.GetComponent<PlayerFloating>().enabled = false;
+            PlayerManager.Instance.PositionPlayerAt(playerSpawnPoint);
+
+            playerMovement = spawnedPlayer.AddComponent<PlayerMovement_Fishing>();
+            spawnedPlayer.GetComponent<SpinePlayerMovement>().enabled = false;
+            spawnedPlayer.GetComponent<CapsuleCollider>().enabled = true;
+
+            spawnedPlayer.GetComponent<PlayerAnimatior>().SetCharacterState("Idle");
+
+
+
+        }
+        else
+        {
+            Debug.Log("WordFactory GM.Start(): Player Manager is null");
+        }
+
+
+        AudioManager.Instance.PlaySound(backGroundMusic, SoundType.Music, true);
+
         //Setting up the textinputfield with different methods. 
         wordInput.onEndEdit.AddListener(OnEndEditing);
         
         // makes sure that when the text input field is selected the character can't move. 
-        wordInput.onSelect.AddListener((string text) => { playerMovement.inputFieldSelected = true; });
-
-        wordInput.onDeselect.AddListener((string text) => { playerMovement.inputFieldSelected = false; });
+        wordInput.onSelect.AddListener((string text) => { FishingPole.inputFieldSelected = true; playerMovement.inputFieldSelected = true; wordInput.text = ""; });
 
       
         SetupNewFish();
+
+
+
+     
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
     
     /// <summary>
@@ -58,6 +98,11 @@ public class FishingGameManager : MonoBehaviour
     /// <param name="text"></param>
     void OnEndEditing(string text)
     {
+        FishingPole.inputFieldSelected = false; 
+        playerMovement.inputFieldSelected = false;
+
+     
+
         if (wordsOnFish.Contains(text))
         {
             // Debug.Log("Correct answer");
@@ -67,6 +112,12 @@ public class FishingGameManager : MonoBehaviour
         else
         {
            StartCoroutine(ShowWrongAnswerUIText());
+        }
+
+        EventSystem theSystem = EventSystem.current;
+        if (!theSystem.alreadySelecting)
+        {
+            theSystem.SetSelectedGameObject(null);
         }
 
     }
@@ -119,6 +170,8 @@ public class FishingGameManager : MonoBehaviour
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(wordToCheck, true);
         amountOfFishCaught++;
         fishCaughtScoreUI.text = "Fisk Fanget:" + amountOfFishCaught;
+
+        this.fishCaught = false;
         if (fishInSea.Count > 0)
         {
             Destroy(fishCaught);

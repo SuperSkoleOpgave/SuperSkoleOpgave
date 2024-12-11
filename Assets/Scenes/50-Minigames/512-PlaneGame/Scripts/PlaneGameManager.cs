@@ -25,7 +25,13 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField]
     private CreatePointLoop createPoint;
 
+    [SerializeField]
+    private CreateBackgroundClouds backgroundClouds;
+
     public bool resetLoop = false;
+
+    public bool resetCloud = false;
+
     [SerializeField]
     private string currentWord;
 
@@ -62,20 +68,42 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField]
     private Scrollbar timerBar;
     [SerializeField]
-    private float maxTime = 120;
+    private float maxTime = 480;
 
     private float remainingTime;
 
+    [SerializeField]
+    private int cloudCount = 0;
+
+    [SerializeField]
+    private Image targetCanvas;  
+    private Color green = Color.green; 
+    private Color white = Color.white;  
+    private float blinkDuration = 3f;    
+    private float blinkInterval = 0.3f;
+
+    private bool isBlinking = false;
+
+    public bool isTutorialOver = false;
+
+    [SerializeField] private AudioClip wrongBuzz, correctBuzz, backgroundAmbience;
 
 
     void Start()
     {
         letterText = letterBoxText.GetComponent<TextMeshProUGUI>();
+        CloudHitsWall();
+        AudioManager.Instance.PlaySound(backgroundAmbience, SoundType.Music, true);
     }
 
     
     void Update()
     {
+
+        if (resetCloud)
+        {
+            CloudHitsWall();
+        }
         if (resetLoop)
         {
             LoopHitsWall();
@@ -102,6 +130,7 @@ public class PlaneGameManager : MonoBehaviour
         isGameOn = true;
         createPoint.CreatePointLoops();
         remainingTime = maxTime;
+        
     }
 
     /// <summary>
@@ -112,6 +141,27 @@ public class PlaneGameManager : MonoBehaviour
         
         createPoint.CreatePointLoops();
         resetLoop = false;
+    }
+
+
+    /// <summary>
+    /// If cloud connects with the wall it will create other clouds and if theres less than 8 cloud it will make more.
+    /// </summary>
+    public void CloudHitsWall()
+    {
+        backgroundClouds.CreateCloud();
+        cloudCount += 1;
+
+        StartCoroutine(SpawnCloudWithDelay());
+
+        if (cloudCount <= 8)
+        {
+            backgroundClouds.CreateCloud();
+            cloudCount += 1;
+        }
+
+        cloudCount -= 1;
+        resetCloud = false;
     }
 
     /// <summary>
@@ -130,6 +180,7 @@ public class PlaneGameManager : MonoBehaviour
 
             if (currentLetter == selectedLetter)
             {
+                isTutorialOver = true;
                 IsCorrect(gameObject);
             }
             else
@@ -165,9 +216,14 @@ public class PlaneGameManager : MonoBehaviour
             letterNumber = gameController.currentWordNumber;
             currentLetter = gameController.CurrentLetter();
             currentImage.DisplayImage();
-            preMessage = "";
-            skySpeed.speed += 3;
 
+            if (!isBlinking)
+            {
+                StartCoroutine(Blink());
+            }
+            
+            skySpeed.speed += 3;
+            backgroundClouds.CreateCloud();
 
 
 
@@ -188,6 +244,7 @@ public class PlaneGameManager : MonoBehaviour
     {
         gameObj.transform.GetChild(0).GetComponent<MeshRenderer>().material = wrongMat;
         GameManager.Instance.dynamicDifficultyAdjustment.AdjustWeightWord(currentWord, false);
+        AudioManager.Instance.PlaySound(wrongBuzz, SoundType.SFX);
     }
 
     /// <summary>
@@ -209,7 +266,7 @@ public class PlaneGameManager : MonoBehaviour
     /// <summary>
     /// Sets winscreen active and after a few seconds switches to GameWorld
     /// </summary>
-    /// <returns> 2 second delay</returns>
+    /// <returns> 2 second delay then proceed to return to MainWorld</returns>
     IEnumerator CheckIfYouLose()
     {
         won = true;
@@ -217,6 +274,48 @@ public class PlaneGameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         SwitchScenes.SwitchToMainWorld();
+    }
+
+    /// <summary>
+    /// Coroutine that spawns clouds with a delay
+    /// </summary>
+    private IEnumerator SpawnCloudWithDelay()
+    {
+        yield return new WaitForSeconds(2f); 
+
+        if (cloudCount < 8) 
+        {
+            backgroundClouds.CreateCloud(); 
+            cloudCount += 1;
+        }
+    }
+
+    /// <summary>
+    /// makes the canvas blink when you do a correct word.
+    /// </summary>
+    /// <returns>delay while the win blink</returns>
+    private IEnumerator Blink()
+    {
+        isBlinking = true;
+        float elapsedTime = 0f;
+
+        AudioManager.Instance.PlaySound(correctBuzz, SoundType.SFX);
+
+        while (elapsedTime < blinkDuration)
+        {
+            targetCanvas.color = green; 
+            yield return new WaitForSeconds(blinkInterval);
+
+            targetCanvas.color = white; 
+            yield return new WaitForSeconds(blinkInterval);
+
+            elapsedTime += blinkInterval * 2; // Tæl tiden
+        }
+
+        targetCanvas.color = white;
+        preMessage = "";
+        letterText.text = $"Score: {preMessage}";
+        isBlinking = false;
     }
 
 

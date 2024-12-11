@@ -57,6 +57,7 @@ namespace LoadSave
         [SerializeField] private bool tutorialFactory;
         [SerializeField] private bool tutorialMosterTower;
         [SerializeField] private bool tutorialTransportbond;
+        [SerializeField] private bool tutorialPlaneGame;
         [SerializeField] private bool tutorialCar;
         [SerializeField] private bool tutorialDecorHouse;
 
@@ -116,6 +117,7 @@ namespace LoadSave
         public bool TutorialFactory { get => tutorialFactory; set => tutorialFactory = value; }
         public bool TutorialMosterTower { get => tutorialMosterTower; set => tutorialMosterTower = value; }
         public bool TutorialTransportbond { get => tutorialTransportbond; set => tutorialTransportbond = value; }
+        public bool TutorialPlaneGame { get => tutorialPlaneGame; set => tutorialPlaneGame = value; }
         public bool TutorialCar { get => tutorialCar; set => tutorialCar = value; }
         public bool TutorialDecorHouse { get => tutorialDecorHouse; set => tutorialDecorHouse = value; }
 
@@ -180,6 +182,7 @@ namespace LoadSave
             bool tutorialFactory,
             bool tutorialMosterTower,
             bool tutorialTransportbond,
+            bool tutorialPlaneGame,
             bool tutorialCar,
             bool tutorialDecorHouse)
         {
@@ -239,6 +242,7 @@ namespace LoadSave
             this.tutorialFactory = tutorialFactory;
             this.tutorialMosterTower = tutorialMosterTower;
             this.tutorialTransportbond = tutorialTransportbond;
+            this.tutorialPlaneGame = tutorialPlaneGame;
             this.tutorialCar = tutorialCar;
             this.tutorialDecorHouse = tutorialDecorHouse;
         }

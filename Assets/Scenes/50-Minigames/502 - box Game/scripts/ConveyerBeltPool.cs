@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CORE;
 using CORE.Scripts;
+using Scenes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -243,6 +244,10 @@ public class ConveyerBeltPool : MonoBehaviour
     {
         possibleWords.Remove(word);
         spelledWords.Add(word);
+        if(possibleWords.Count == 0)
+        {
+            SwitchScenes.SwitchToMainWorld2();
+        }
     }
 
     /// <summary>
