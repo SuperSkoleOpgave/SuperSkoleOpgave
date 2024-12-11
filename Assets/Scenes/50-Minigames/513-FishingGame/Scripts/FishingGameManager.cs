@@ -30,6 +30,7 @@ public class FishingGameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI fishCaughtScoreUI;
     [SerializeField] GameObject wrongAnswerUIText;
+    [SerializeField] GameObject correctAnswerUIText;
 
     [SerializeField] GameObject playerSpawnPoint;
     
@@ -106,6 +107,9 @@ public class FishingGameManager : MonoBehaviour
         if (wordsOnFish.Contains(text))
         {
             // Debug.Log("Correct answer");
+
+            StartCoroutine(ShowCorrectAnswerUIText());
+
             wordToCheck = text;
             usefishingRod.validWordInputted = true;
         }
@@ -179,7 +183,6 @@ public class FishingGameManager : MonoBehaviour
 
             if(fishInSea.Count<=0)
             {
-                
                 SetupNewFish();
             }
         }
@@ -200,5 +203,16 @@ public class FishingGameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         wrongAnswerUIText.SetActive(false);
     }
-    
+
+    /// <summary>
+    /// Used to show a correct answer text for a certain amount of time and then hide it after. 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShowCorrectAnswerUIText()
+    {
+        correctAnswerUIText.SetActive(true);
+        yield return new WaitForSeconds(4);
+        correctAnswerUIText.SetActive(false);
+    }
+
 }
