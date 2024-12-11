@@ -1382,6 +1382,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1993069172}
+        m_TargetAssemblyTypeName: FishingGameManager, Assembly-CSharp
+        m_MethodName: SetPlayerCharacterToDefault
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1406701280}
         m_TargetAssemblyTypeName: Scenes.SwitchScenes, Assembly-CSharp
         m_MethodName: SwitchToMainWorld
@@ -1949,7 +1961,7 @@ MonoBehaviour:
   fishInSea: []
   fishCaughtScoreUI: {fileID: 1475286558}
   wrongAnswerUIText: {fileID: 727389480}
-  correctAnswerUIText: {fileID: 0}
+  correctAnswerUIText: {fileID: 1295700663}
   playerSpawnPoint: {fileID: 763569101}
   backGroundMusic: {fileID: 8300000, guid: c324c56cda6dbcf4db002a5bd2733105, type: 3}
   fishingEquipment: {fileID: 7874676912562051985, guid: 8952f3d90c0d1c241bfe2dbd4f5dc7f8, type: 3}

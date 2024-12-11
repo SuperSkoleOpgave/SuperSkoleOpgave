@@ -193,6 +193,11 @@ public class FishingGameManager : MonoBehaviour
 
     }
 
+    public void SetPlayerCharacterToDefault()
+    {
+       Destroy(PlayerManager.Instance.SpawnedPlayer.GetComponent<PlayerMovement_Fishing>());
+    }
+
     /// <summary>
     /// Used to show a wrong answer text for a certain amount of time and then hide it after. 
     /// </summary>
