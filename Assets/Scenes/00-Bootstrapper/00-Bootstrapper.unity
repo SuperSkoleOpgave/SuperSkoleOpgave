@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 144.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2879365751258984837, guid: f454d4cce2c9056478ce6756a7cc3289, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnButtonPause
+      objectReference: {fileID: 0}
     - target: {fileID: 2931651894886836204, guid: f454d4cce2c9056478ce6756a7cc3289, type: 3}
       propertyPath: m_Pivot.x
       value: 0

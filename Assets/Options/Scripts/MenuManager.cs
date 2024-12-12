@@ -35,6 +35,15 @@ public class MenuManager : MonoBehaviour
     }
 
     /// <summary>
+    /// showes the "pause" menu when the button is pressed
+    /// </summary>
+    public void OnButtonPause()
+    {
+        if (!SceneManager.GetActiveScene().name.StartsWith("0"))
+            transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    /// <summary>
     /// called when the player wants to tp to there house
     /// </summary>
     public void PlayerHouse()
