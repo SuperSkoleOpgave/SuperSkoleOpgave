@@ -65,7 +65,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
                 manager.textOnIngredientHolder.text = letterToDisplay;
 
-                Debug.Log(letterToDisplay.ToLower());
+                
                 List<string> ingredientsToDisplay = manager.ingredientWords[letterToDisplay.ToLower()];
               
                 manager.textOnIngredientHolderBackGround.texture = ImageManager.GetImageFromWord(ingredientsToDisplay[UnityEngine.Random.Range(0,ingredientsToDisplay.Count)].ToLower());
