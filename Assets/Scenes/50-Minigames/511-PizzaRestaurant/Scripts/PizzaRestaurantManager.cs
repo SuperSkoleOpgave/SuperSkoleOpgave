@@ -190,32 +190,32 @@ public void CorrectIngredientAdded()
     void SetupIngredientWords()
     {
      
-        ingredientWords.Add("a", new List<string>() { "agurk", "abe", "albue", "and", "ananas", "avokado" });
-        ingredientWords.Add("b", new List<string>() { "baby", "banan", "ben", "bi", "bjørn", "bønner", });
-        ingredientWords.Add("c", new List<string>() { "cola", "chili", "chokolade", "cowboy", });
-        ingredientWords.Add("d", new List<string>() { "delfin", "dino", "donuts", "drage", "drink", });
-        ingredientWords.Add("e", new List<string>() { "egern", "enhjørning", "engel", "elefant", });
-        ingredientWords.Add("f", new List<string>() { "far", "fe", "fisk", "flagermus", "flodhest", "flue", "fod", "frø", "fugl", "får", });
-        ingredientWords.Add("g", new List<string>() { "ged", "giraf", "gris", "gulerod", });
-        ingredientWords.Add("h", new List<string>() {"haj", "hale", "hane", "høne", "havfrue", "heks", "hest", "hindbær", "hotdog", "hund", });
-        ingredientWords.Add("i", new List<string>() {"is","isbjørn","isterninger","istapper",});
-        ingredientWords.Add("j", new List<string>() {"jordbær","jordegern","julemand","jæger", });
-        ingredientWords.Add("k", new List<string>() { "kaffe", "kage", "kaktus", "kalkun", "kamel", "kat", "kanin", "kartoffel", "kirsebær", "kiwi", "ko", "krabbe", "kænguru", "kål", });
-        ingredientWords.Add("l", new List<string>() { "lasagne", "loppe", "løg", "løve", });
-        ingredientWords.Add("m", new List<string>() { "majs", "mariehøne", "marsvin", "mel", "melon", "monster", "muldvarp", "mus", "myg", "myre ", });
-        ingredientWords.Add("n", new List<string>() { "næsehorn", "nødder", "narhval", "næse", });
-        ingredientWords.Add("o", new List<string>() { "olie", "oliven", "orm", });
-        ingredientWords.Add("p", new List<string>() { "papegøje", "pingvin", "pindsvin", "palme", "panda", "peberfrugt", "popcorn", "pære", "påfugl", });
-        ingredientWords.Add("r", new List<string>() { "rotte", "reje", "rensdyr", "ris", "ræv", });
-        ingredientWords.Add("s", new List<string>() { "skildpadde", "slim", "salat", "sandwich", "skelet", "slange", "slikkepind", "smør", "snegl", "sommerfugl", "spøgelse", });
-        ingredientWords.Add("t", new List<string>() { "tomat", "te", "tiger", });
-        ingredientWords.Add("u", new List<string>() { "ugle", "ulv", "ufo", });
-        ingredientWords.Add("v", new List<string>() { "vin", "vindruer", "vafler", "vand", "vandmand", "vandmelon", });
-        ingredientWords.Add("y", new List<string>() { "yver", });
-        ingredientWords.Add("z", new List<string>() { "zebra", });
-        ingredientWords.Add("æ", new List<string>() { "æble", "æbletærte", "æbleskrog", "æg", "æsel", "ælling", });
-        ingredientWords.Add("ø", new List<string>() { "øl", "østers", "øre", "ørn", });
-        ingredientWords.Add("å", new List<string>() { "ål", "åkande" });
+        ingredientWords.Add("a", new List<string>() { "agurk", "abe", "albue", "and", "ananas", "avokado"});
+        ingredientWords.Add("b", new List<string>() { "baby", "banan", "ben", "bi", "bjørn", "bønner"});
+        ingredientWords.Add("c", new List<string>() { "cola", "chili", "chokolade", "cowboy"});
+        ingredientWords.Add("d", new List<string>() { "delfin", "dino", "donuts", "drage", "drink"});
+        ingredientWords.Add("e", new List<string>() { "egern", "enhjørning", "engel", "elefant"});
+        ingredientWords.Add("f", new List<string>() { "far", "fe", "fisk", "flagermus", "flodhest", "flue", "fod", "frø", "fugl", "får"});
+        ingredientWords.Add("g", new List<string>() { "ged", "giraf", "gris", "gulerod"});
+        ingredientWords.Add("h", new List<string>() {"haj", "hale", "hane", "høne", "havfrue", "heks", "hest", "hindbær", "hotdog", "hund"});
+        ingredientWords.Add("i", new List<string>() {"is","isbjørn","isterninger","istapper"});
+        ingredientWords.Add("j", new List<string>() {"jordbær","jordegern","julemand","jæger"});
+        ingredientWords.Add("k", new List<string>() { "kaffe", "kage", "kaktus", "kalkun", "kamel", "kat", "kanin", "kartoffel", "kirsebær", "kiwi", "ko", "krabbe", "kænguru", "kål"});
+        ingredientWords.Add("l", new List<string>() { "lasagne", "loppe", "løg", "løve"});
+        ingredientWords.Add("m", new List<string>() { "majs", "mariehøne", "marsvin", "mel", "melon", "monster", "muldvarp", "mus", "myg", "myre"});
+        ingredientWords.Add("n", new List<string>() { "næsehorn", "nødder", "narhval", "næse"});
+        ingredientWords.Add("o", new List<string>() { "olie", "oliven", "orm"});
+        ingredientWords.Add("p", new List<string>() { "papegøje", "pingvin", "pindsvin", "palme", "panda", "peberfrugt", "popcorn", "pære", "påfugl"});
+        ingredientWords.Add("r", new List<string>() { "rotte", "reje", "rensdyr", "ris", "ræv"});
+        ingredientWords.Add("s", new List<string>() { "skildpadde", "slim", "salat", "sandwich", "skelet", "slange", "slikkepind", "smør", "snegl", "sommerfugl", "spøgelse"});
+        ingredientWords.Add("t", new List<string>() { "tomat", "te", "tiger"});
+        ingredientWords.Add("u", new List<string>() { "ugle", "ulv", "ufo"});
+        ingredientWords.Add("v", new List<string>() { "vin", "vindruer", "vafler", "vand", "vandmand", "vandmelon"});
+        ingredientWords.Add("y", new List<string>() { "yver"});
+        ingredientWords.Add("z", new List<string>() { "zebra"});
+        ingredientWords.Add("æ", new List<string>() { "æble", "æbletærte", "æbleskrog", "æg", "æsel", "ælling"});
+        ingredientWords.Add("ø", new List<string>() { "øl", "østers", "øre", "ørn"});
+        ingredientWords.Add("å", new List<string>() { "ål", "åkande"});
 
        
 

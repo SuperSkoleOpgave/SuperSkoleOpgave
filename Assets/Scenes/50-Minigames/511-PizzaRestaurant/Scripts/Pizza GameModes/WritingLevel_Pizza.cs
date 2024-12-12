@@ -57,7 +57,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
             {
                 letterToDisplay= manager.lettersForCurrentRound[x, y].ToString();
 
-                while(letterToDisplay.ToLower()=="q" ||letterToDisplay.ToLower()=="x" || letterToDisplay=="w")
+                while(letterToDisplay.ToLower()=="q"||letterToDisplay.ToLower()=="x" || letterToDisplay.ToLower()=="w")
                 {
                     letterToDisplay = LetterManager.GetRandomLetter().ToString();
                 }
@@ -65,6 +65,7 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
                 manager.textOnIngredientHolder.text = letterToDisplay;
 
+                
                 List<string> ingredientsToDisplay = manager.ingredientWords[letterToDisplay.ToLower()];
               
                 manager.textOnIngredientHolderBackGround.texture = ImageManager.GetImageFromWord(ingredientsToDisplay[UnityEngine.Random.Range(0,ingredientsToDisplay.Count)].ToLower());
@@ -86,9 +87,16 @@ public class WritingLevel_Pizza : MonoBehaviour, IPizzaGameMode
 
 
 
-        public void SetDisplayAnswer(PizzaRestaurantManager manager)
+    public void SetDisplayAnswer(PizzaRestaurantManager manager)
     {
+        
         manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier;
+
+        while (manager.wordToGuess.Contains("w")|| manager.wordToGuess.Contains("x")|| manager.wordToGuess.Contains("q"))
+        {
+            manager.wordToGuess = GameManager.Instance.dynamicDifficultyAdjustment.GetWord(new List<LanguageUnitProperty>()).identifier;
+        }
+      
         manager.currentLetterToGuessIndex = 0;
         manager.ingredientChecker.currentLetterToGuess = manager.wordToGuess[manager.currentLetterToGuessIndex];
 

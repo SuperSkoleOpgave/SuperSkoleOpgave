@@ -30,7 +30,16 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void OnPause()
     {
-        if(!SceneManager.GetActiveScene().name.StartsWith("0"))
+        if(!SceneManager.GetActiveScene().name.StartsWith("0") &&!SceneManager.GetActiveScene().name.Contains(SceneNames.FishingGame))
+            transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// showes the "pause" menu when the button is pressed
+    /// </summary>
+    public void OnButtonPause()
+    {
+        if (!SceneManager.GetActiveScene().name.StartsWith("0"))
             transform.GetChild(0).gameObject.SetActive(true);
     }
 
