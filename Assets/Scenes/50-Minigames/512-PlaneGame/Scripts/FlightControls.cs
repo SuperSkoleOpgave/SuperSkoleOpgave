@@ -24,7 +24,10 @@ public class FlightControls : MonoBehaviour
 
     private AudioClip wordClip;
 
-    
+    [SerializeField]
+    AudioClip missingSoundClip;
+
+
 
     private void Start()
     {
@@ -70,17 +73,34 @@ public class FlightControls : MonoBehaviour
             lastHorizontalInput = -horizontal;
         }
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            string word = controller.CurrentWord();
-            wordClip = LetterAudioManager.GetAudioClipFromLetter(word);
+
             voiceLine = true;
+
             if (voiceLine)
             {
+                string word = controller.CurrentWord();
 
-                AudioManager.Instance.PlaySound(wordClip, SoundType.Voice, false);
+                if (Resources.Load<AudioClip>($"AudioWords/{word}") != null)
+                {
+                    wordClip = Resources.Load<AudioClip>($"AudioWords/{word}");
+                }
+                else
+                {
+                    wordClip = missingSoundClip;
+                }
+                if (wordClip != null)
+                {
+                    AudioManager.Instance.PlaySound(wordClip, SoundType.Voice, false);
+                }
             }
 
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) && voiceLine == true)
+        {
+            voiceLine = false;
         }
 
         if (Input.GetKey(KeyCode.Space) && !isSpinning)

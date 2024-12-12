@@ -2044,6 +2044,10 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 248381025}
+    - target: {fileID: 3621855067299832712, guid: 409b324a820e6434d8af205c2e776403, type: 3}
+      propertyPath: missingSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f8f81755054f1843bdeb87719d2a5ea, type: 3}
     m_RemovedComponents:
     - {fileID: 7764915096466610801, guid: 409b324a820e6434d8af205c2e776403, type: 3}
     - {fileID: 7490890968671717991, guid: 409b324a820e6434d8af205c2e776403, type: 3}

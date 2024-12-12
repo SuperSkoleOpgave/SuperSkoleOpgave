@@ -208,6 +208,7 @@ public class PlaneGameManager : MonoBehaviour
 
         if (currentWord.Length <= gameController.currentWordNumber)
         {
+            remainingTime += 60;
             point += 1;
             gameController.ResetCurrentLetterNumber();
             gameController.GetWord();
@@ -222,7 +223,7 @@ public class PlaneGameManager : MonoBehaviour
                 StartCoroutine(Blink());
             }
             
-            skySpeed.speed += 3;
+            skySpeed.speed += 2;
             backgroundClouds.CreateCloud();
 
 
