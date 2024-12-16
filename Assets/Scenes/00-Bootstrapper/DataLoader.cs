@@ -46,14 +46,17 @@ namespace Scenes._00_Bootstrapper
             var csvCoroutine = LoadAllCsvFiles();
             var texturesCoroutine = LoadAllTextures();
             var letterSoundsCoroutine = LoadAllletterSounds();
+            var wordSoundsCoroutine = LoadAllWordSounds();
             var congratsSoundCoroutine = LoadAllCongratsSounds();
             var soundFxCourutine = LoadAllSoundFX();
 
             yield return StartCoroutine(csvCoroutine);
             yield return StartCoroutine(texturesCoroutine);
             yield return StartCoroutine(letterSoundsCoroutine);
+            yield return StartCoroutine(wordSoundsCoroutine);
             yield return StartCoroutine(congratsSoundCoroutine);
             yield return StartCoroutine(soundFxCourutine);
+
 
             //Debug.Log("All resources loaded.");
         }
@@ -307,7 +310,7 @@ namespace Scenes._00_Bootstrapper
         {
             string name = clip.name;
             name = GetNameWordSound(name);
-            LetterAudioManager.AddAudioClipToSet(name, clip);
+            WordAudioManager.AddAudioClipToSet(name, clip);
             yield return null;
         }
 
