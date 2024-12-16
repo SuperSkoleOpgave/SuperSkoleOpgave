@@ -24,6 +24,7 @@ namespace Scenes._00_Bootstrapper
         public List<Texture2D> onsetImages = new();
         public List<Texture2D> otherImages = new();
         public List<AudioClip> letterSounds = new();
+        public List<AudioClip> wordAudio = new();
         public List<AudioClip> danskCongrats = new();
         public List<AudioClip> englishCongrats = new();
         public List<AudioClip> explosionSounds = new();
@@ -288,8 +289,40 @@ namespace Scenes._00_Bootstrapper
             return output.ToString();
         }
 
-        #endregion
 
+
+        #endregion
+        #region Load Word Sounds
+
+        private IEnumerator LoadAllWordSounds()
+        {
+            foreach (AudioClip fileName in wordAudio)
+            {
+                StartCoroutine(LoadAndSetDicWordSound(fileName));
+            }
+            yield return null;
+        }
+
+        private IEnumerator LoadAndSetDicWordSound(AudioClip clip)
+        {
+            string name = clip.name;
+            name = GetNameWordSound(name);
+            LetterAudioManager.AddAudioClipToSet(name, clip);
+            yield return null;
+        }
+
+        private string GetNameWordSound(string name)
+        {
+            StringBuilder output = new StringBuilder(name);
+            output.Replace("(aa)", "\u00e5");
+            output.Replace("(ae)", "\u00e6");
+            output.Replace("(oe)", "\u00f8");
+            return output.ToString();
+        }
+
+
+
+        #endregion
         /// <summary>
         /// Loads all the congrats Sounds. 
         /// </summary>
