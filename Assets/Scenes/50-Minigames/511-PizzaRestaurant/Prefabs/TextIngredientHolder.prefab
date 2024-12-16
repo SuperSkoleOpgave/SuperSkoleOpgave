@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5090092023415229041}
   - component: {fileID: 1119869696973608432}
   - component: {fileID: 8928756316797574237}
+  - component: {fileID: 6773712416370895877}
   m_Layer: 5
   m_Name: TextIngredientHolder
   m_TagString: Ingredient
@@ -98,6 +99,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3151795347140597268}
   m_CullTransparentMesh: 1
+--- !u!114 &6773712416370895877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151795347140597268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d23ad4e0e17a94abe9a689dfe71df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4623002130340117414
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7298695974635200962
 RectTransform:
   m_ObjectHideFlags: 0
