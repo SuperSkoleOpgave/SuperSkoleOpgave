@@ -82,9 +82,9 @@ public class FlightControls : MonoBehaviour
             {
                 string word = controller.CurrentWord();
 
-                if (Resources.Load<AudioClip>($"AudioWords/{word}") != null)
+                if (WordAudioManager.GetAudioClipFromWord(word) != null)
                 {
-                    wordClip = Resources.Load<AudioClip>($"AudioWords/{word}");
+                    wordClip = WordAudioManager.GetAudioClipFromWord(word);
                 }
                 else
                 {
