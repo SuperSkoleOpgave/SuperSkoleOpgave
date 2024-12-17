@@ -31,7 +31,14 @@ public class PlayLetterAudioOnClick_Pizza : MonoBehaviour
         if (letterToPlay == null)
         {
             letterToPlay = transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text;
-            letterAudio = LetterAudioManager.GetAudioClipFromLetter(letterToPlay.ToLower());
+            string letterToUse = letterToPlay;
+
+            letterToUse = letterToUse.Replace("(aa)", "\u00e5");
+            letterToUse = letterToUse.Replace("(ae)", "\u00e6");
+            letterToUse = letterToUse.Replace("(oe)", "\u00F8");
+
+            letterAudio = LetterAudioManager.GetAudioClipFromLetter(letterToUse.ToLower()+"1");
+
         }
 
         

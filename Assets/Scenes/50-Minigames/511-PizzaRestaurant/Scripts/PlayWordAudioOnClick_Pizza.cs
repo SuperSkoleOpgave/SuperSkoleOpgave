@@ -27,10 +27,17 @@ public class PlayWordAudioOnClick_Pizza : MonoBehaviour
     /// </summary>
     private void OnMouseUpAsButton()
     {
+       
         if (wordToPlay == null)
         {
             wordToPlay = transform.GetChild(0).GetChild(0).GetComponent<RawImage>().texture.name;
-            wordAudio = WordAudioManager.GetAudioClipFromWord(wordToPlay);
+            string wordToUse = wordToPlay.Split(" ")[0];
+
+            wordToUse = wordToUse.Replace("(aa)", "\u00e5");
+            wordToUse = wordToUse.Replace("(ae)", "\u00e6");
+            wordToUse = wordToUse.Replace("(oe)", "\u00F8");
+
+            wordAudio = WordAudioManager.GetAudioClipFromWord(wordToUse);
         }
 
         

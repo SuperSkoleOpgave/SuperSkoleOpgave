@@ -59,6 +59,7 @@ public class PizzaRestaurantManager : MonoBehaviour
 
     public Dictionary<string, List<string>> ingredientWords = new Dictionary<string, List<string>>();
     [SerializeField] AudioClip backGroundMusic;
+    private AudioClip WordToGuessAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -183,6 +184,27 @@ public void CorrectIngredientAdded()
             
         }
     }
+
+    /// <summary>
+    /// Plays the audio for the current word to guess. 
+    /// </summary>
+    public void PlayWordToGuessAudio()
+    {
+          
+            string wordToUse = wordToGuess.Split(" ")[0];
+
+            wordToUse = wordToUse.Replace("(aa)", "\u00e5");
+            wordToUse = wordToUse.Replace("(ae)", "\u00e6");
+            wordToUse = wordToUse.Replace("(oe)", "\u00F8");
+
+            WordToGuessAudio = WordAudioManager.GetAudioClipFromWord(wordToUse);
+        
+
+        
+        AudioManager.Instance.PlaySound(WordToGuessAudio, SoundType.Voice, false);
+    }
+
+
 
     /// <summary>
     /// Setup of all the words that can be used to get a background image for the ingredients/Letters
