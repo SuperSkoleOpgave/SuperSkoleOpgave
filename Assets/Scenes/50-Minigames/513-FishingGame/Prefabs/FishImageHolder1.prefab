@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2367080019646617990}
   - component: {fileID: 2355792647799750224}
   - component: {fileID: -3183934898420184831}
+  - component: {fileID: 6416230889965935032}
   m_Layer: 0
   m_Name: FishImageHolder1
   m_TagString: Untagged
@@ -273,6 +274,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.78, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &6416230889965935032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649083205905688991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a120e670f76e6429d52707f71a8bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3757487926583548186
 GameObject:
   m_ObjectHideFlags: 0
